@@ -7,6 +7,11 @@
  *   cleanUrls: true       ->  /network            serves /network/index.html
  *   trailingSlash: false  ->  /network/           redirects to /network
  *
+ * It also honours .vercelignore, so anything that is not deployed is not
+ * served here either. That matters: _review/ holds sample data that must never
+ * be reachable, and a local server that happily served it would make a "check
+ * every URL" pass meaningless.
+ *
  * Usage:  node tools/preview.mjs [port]      (default 4173)
  */
 import { createServer } from "node:http";
@@ -16,6 +21,16 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(fileURLToPath(new URL("../", import.meta.url)));
 const PORT = Number(process.argv[2] || 4173);
+
+// Top-level names .vercelignore keeps out of the deployment.
+const NOT_DEPLOYED = new Set(
+  (await readFile(join(ROOT, ".vercelignore"), "utf8").catch(() => ""))
+    .split("\n")
+    .map((line) => line.trim().replace(/^\/+|\/+$/g, ""))
+    .filter((line) => line && !line.startsWith("#") && !line.includes("*"))
+);
+NOT_DEPLOYED.add("_review");
+NOT_DEPLOYED.add(".git");
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -63,6 +78,15 @@ const server = createServer(async (req, res) => {
   const target = join(ROOT, safe);
   if (!target.startsWith(ROOT)) {
     res.writeHead(403).end("Forbidden");
+    return;
+  }
+
+  // Not deployed, so not served. Answer exactly as production would: 404.
+  const top = safe.split(/[/\\]/).filter(Boolean)[0] || "";
+  if (NOT_DEPLOYED.has(top)) {
+    const body = await readFile(join(ROOT, "404.html")).catch(() => Buffer.from("Not found"));
+    res.writeHead(404, { "Content-Type": "text/html; charset=utf-8", "Content-Length": body.length, "Cache-Control": "no-store" });
+    res.end(body);
     return;
   }
 
