@@ -11,6 +11,10 @@ ARROW = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor"
          'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
          '<path d="M3 8h10M9 4l4 4-4 4"/></svg>')
 GH = "https://github.com/brs-holding"
+# Official channels, set by the owner on 2026-09-21. index.html and data/network.json carry the same values.
+X_URL = "https://x.com/swarm_coin"
+X_HANDLE = "@swarm_coin"
+EMAIL = "swarmofficial@atomicmail.io"
 
 
 def head(title, desc, path, og_title, og_desc):
@@ -35,6 +39,7 @@ def head(title, desc, path, og_title, og_desc):
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="SWARM — Together we are strong. Testnet.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="{X_HANDLE}">
 <meta name="twitter:title" content="{og_title}">
 <meta name="twitter:description" content="{og_desc}">
 <meta name="twitter:image" content="https://swarm.green/assets/og.png">
@@ -130,6 +135,14 @@ FOOTER = f"""</main>
           <li><a href="/brand">Brand</a></li>
           <li><a href="/terms">Terms</a></li>
           <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="ft-contact">
+        <h2 id="ft-contact">Contact</h2>
+        <ul>
+          <li><a href="{X_URL}" target="_blank" rel="noopener noreferrer">X (Twitter){EXT}</a></li>
+          <li><a href="mailto:{EMAIL}">Email</a></li>
         </ul>
       </nav>
     </div>
@@ -695,7 +708,7 @@ privacy = head(
     "Privacy",
     "No cookies. No analytics. No data.",
     "This is the shortest page on the site, because there is very little to say.",
-) + """
+) + f"""
   <section class="band band--cream">
     <div class="wrap wrap--narrow prose" data-reveal>
       <h2>What this site collects</h2>
@@ -707,6 +720,10 @@ privacy = head(
 
       <h2>Server logs</h2>
       <p>The site is served by a hosting provider, which may keep standard server logs — typically the requested URL, a timestamp, an IP address, a user agent and a response code — for operational and security purposes. We do not analyse them, join them to anything, or use them to build a profile of you.</p>
+
+      <h2>If you contact us</h2>
+      <p>The footer links to our X account, <a href="{X_URL}" target="_blank" rel="noopener noreferrer">{X_HANDLE}</a>, and to an email address, <a href="mailto:{EMAIL}">{EMAIL}</a>. Both are services run by other companies, outside this site. If you write to us, we receive your email address and whatever you choose to send. If you open X, X&rsquo;s own terms and privacy policy apply. Following either link is your choice, and this site passes nothing about you to them.</p>
+      <p>We will never ask for your recovery words, private keys or a payment — not by email, not on X, not anywhere.</p>
 
       <h2>The network is separate</h2>
       <p>This is a website. It is not the SWARM network, and using it tells the network nothing about you.</p>

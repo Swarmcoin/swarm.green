@@ -162,6 +162,32 @@ first block, and on the testnet the proof of work is CPU-mineable — but the si
 does not promise that home computers stay competitive forever, and it says
 plainly that specialised miners can join as difficulty rises.
 
+## Official channels
+
+Set by the owner on 2026-09-21. The site links out to exactly three places:
+
+| Channel | Address |
+| --- | --- |
+| X (Twitter) | https://x.com/swarm_coin (`@swarm_coin`) |
+| Email | `swarmofficial@atomicmail.io` |
+| Source | https://github.com/brs-holding |
+
+The values live in three places that must stay in step: the constants `X_URL`,
+`X_HANDLE` and `EMAIL` at the top of `tools/build_pages.py` (shared footer,
+`twitter:site` meta tag and the "If you contact us" section of `/privacy`),
+`index.html` by hand (same footer column, the meta tag and the FAQ entry "How
+do I reach the project?"), and `links` in `data/network.json`.
+
+These are plain links, not embeds: no X widget, no follow button script and no
+contact form, all of which the CSP would block anyway. External links carry
+`rel="noopener noreferrer"`, so the site passes nothing to X. The footer label
+for the mailbox is the word "Email" because the full address does not fit the
+footer column; the address is printed in full in the FAQ and on `/privacy`.
+
+Wording that goes with the channels and should stay: *"We will never ask for
+your recovery words, private keys or a payment — not by email, not on X, not
+anywhere."*
+
 ## Constraints the site is built to
 
 These are not stylistic preferences; breaking them breaks the site.
