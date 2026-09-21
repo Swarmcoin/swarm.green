@@ -981,6 +981,33 @@ html:not(.js) .switchrow { display: none; }
 .map__foot > *, .footer__top > * { min-width: 0; }
 
 .tablewrap { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Two-column key/value tables stack on a phone instead of scrolling sideways:
+   the row header is the label, so nothing is lost and nothing has to be dragged
+   into view. Tables with real columns (the era and allocation breakdowns) keep
+   the horizontal scroller — stacking those would lose the comparison. */
+@media (max-width: 620px) {
+  .tablewrap.tablewrap--stack { overflow-x: visible; }
+  .tablewrap.tablewrap--stack table { min-width: 0; }
+  .tablewrap.tablewrap--stack thead {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0; border: 0;
+    clip-path: inset(50%);
+    overflow: hidden; white-space: nowrap;
+  }
+  .tablewrap.tablewrap--stack tr { display: block; padding: 11px 0; border-bottom: 1px solid var(--line-soft); }
+  .tablewrap.tablewrap--stack tr:last-child { border-bottom: 0; }
+  .tablewrap.tablewrap--stack th,
+  .tablewrap.tablewrap--stack td {
+    display: block;
+    padding: 2px 0;
+    border: 0;
+    text-align: left !important;
+  }
+  .tablewrap.tablewrap--stack tbody th { font-size: .78rem; font-weight: 500; color: var(--text-3); }
+  .tablewrap.tablewrap--stack td { color: var(--text-2); }
+}
 .ladder .tablewrap { border: 1px solid var(--line); border-radius: var(--r-sm); }
 .ladder .minitable { min-width: 430px; }
 .ladder .minitable th:first-child, .ladder .minitable td:first-child { padding-left: 14px; }

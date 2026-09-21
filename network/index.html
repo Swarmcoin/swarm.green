@@ -94,7 +94,7 @@
         <p class="eyebrow">Parameters</p>
         <h2>The rules of the hive.</h2>
       </div>
-      <div class="tablewrap" data-reveal>
+      <div class="tablewrap tablewrap--stack" data-reveal>
         <table>
           <caption>Consensus and monetary parameters. Inherited from the upstream Zcash design and left unmodified.</caption>
           <tbody>
@@ -185,7 +185,7 @@
         </table>
       </div>
 
-      <div class="tablewrap mt-m" data-reveal>
+      <div class="tablewrap tablewrap--stack mt-m" data-reveal>
         <table>
           <caption>Lifetime totals (exact), across the whole emission schedule.</caption>
           <thead>
@@ -224,7 +224,7 @@
         </table>
       </div>
 
-      <div class="tablewrap mt-m" data-reveal>
+      <div class="tablewrap tablewrap--stack mt-m" data-reveal>
         <table>
           <caption>The genesis block these rules are fixed in.</caption>
           <tbody>
@@ -240,6 +240,26 @@
       </div>
 
       <p class="note mt-m" data-reveal>Every value in these two tables is read from <span class="mono">data/network.json</span>, which is copied from the published network manifest. Check a payment yourself: any block&rsquo;s coinbase pays exactly 0.50, 0.25 and 0.50 SWM to the three addresses above in era 0, and the rest to the miner.</p>
+
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">Connecting</p>
+        <h2>The testnet is running.</h2>
+        <p>These are the endpoints that are up today. They are testnet endpoints: the chain may be reset without warning while the software is being built, and test coins have no monetary value.</p>
+      </div>
+
+      <div class="tablewrap tablewrap--stack" data-reveal>
+        <table>
+          <caption>SwarmTestnet endpoints, checked on 21 September 2026.</caption>
+          <tbody>
+          <tr><th scope="row">Seed node</th><td class="mono addr">seed.swarm.green:18233</td></tr>
+          <tr><th scope="row">Wallet server</th><td class="mono">https://lwd.swarm.green:443 <span class="meta">(lightwalletd, on a public certificate.)</span></td></tr>
+          <tr><th scope="row">First blocks mined</th><td>21 September 2026, from 17:17 UTC</td></tr>
+          <tr><th scope="row">Block explorer</th><td>Not deployed yet. Planned at <span class="mono">explore.swarm.green</span>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note mt-m" data-reveal><strong>There is nothing to download yet.</strong> The node and wallet apps are still in testing, so joining the testnet today means building them from source. Public downloads open when they are ready, and not before.</p>
 
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
@@ -262,7 +282,7 @@
         <h2>How Zcash did it.</h2>
         <p>SWARM did not invent the idea of funding development out of the block reward. The upstream project has run three different arrangements, in public, over nearly a decade. SWARM&rsquo;s arrangement is simpler than any of them: one fixed split for the whole emission schedule.</p>
       </div>
-      <div class="tablewrap" data-reveal>
+      <div class="tablewrap tablewrap--stack" data-reveal>
         <table>
           <caption>Zcash block reward arrangements over time, for context.</caption>
           <thead>

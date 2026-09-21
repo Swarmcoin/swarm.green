@@ -183,11 +183,26 @@ as the data.
 }
 ```
 
-This file is **not a count of the network**. It lists only nodes that share a
-location, never finer than a city, and sharing will be opt-in in SWARM Node. The
-page says both of those things in plain words, and the map's own caption says
-how young the swarm is. Today there is exactly one entry: the project's own seed
-server. Never put a figure in here that nobody can check.
+This file is **not a census of the network**. It lists only nodes that share a
+location, never finer than a city, and sharing will be opt-in in SWARM Node,
+which is not published yet. The page says all of that in plain words, and the
+map's own caption says so too. Today there is exactly one entry: the project's
+own public seed node. Never put a figure in here that nobody can check.
+
+### `network.live` in `data/network.json` — the running testnet
+
+The endpoints that are actually up: the seed node, the wallet server and the
+date the first blocks were mined. `tools/build_pages.py` renders them into
+"Connecting" on `/network` and into step 2 and 3 of "Test it yourself" on
+`/join`.
+
+Two rules for this block:
+
+- **No block height, ever.** A height on a static page is wrong within seconds.
+  Dates and endpoints stay true; counters do not.
+- **The explorer is not deployed.** `explore.swarm.green` points elsewhere
+  today, so nothing on the site links to it. It is named in plain text as
+  *planned*, never as an anchor, and `/network` says so in the same table.
 
 ### Wording the allocation is committed to
 

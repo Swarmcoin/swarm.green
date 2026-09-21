@@ -9,6 +9,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent  # repository root
 # Figures that must not exist in two places read straight out of the data file.
 DATA = json.loads((ROOT / "data" / "network.json").read_text(encoding="utf-8"))
 GENESIS = DATA["genesis"]
+LIVE = DATA["live"]
 
 
 def esc(value):
@@ -276,6 +277,21 @@ def _cell(value, cls):
     return f'<td class="{cls}">{value}</td>' if cls else f'<td>{value}</td>'
 
 
+# "Connecting to the testnet" — the endpoints that are actually up. The block
+# explorer is deliberately absent from this table: it is not deployed, and
+# nothing on this site links to explore.swarm.green as if it worked.
+live_rows = "\n".join(
+    f'          <tr><th scope="row">{k}</th>{_cell(v, cls)}</tr>'
+    for k, v, cls in [
+        ("Seed node", esc(LIVE["seed"]), "mono addr"),
+        ("Wallet server", esc(LIVE["walletServer"]) +
+            f' <span class="meta">({esc(LIVE["walletServerNote"])})</span>', "mono"),
+        ("First blocks mined", esc(LIVE["firstBlocksMinedLabel"]), ""),
+        ("Block explorer", "Not deployed yet. Planned at "
+            f'<span class="mono">{esc(LIVE["explorer"]["plannedAt"])}</span>.', ""),
+    ])
+
+
 genesis_rows = "\n".join(
     f'          <tr><th scope="row">{k}</th>{_cell(v, cls)}</tr>'
     for k, v, cls in [
@@ -308,7 +324,7 @@ network = head(
         <p class="eyebrow">Parameters</p>
         <h2>The rules of the hive.</h2>
       </div>
-      <div class="tablewrap" data-reveal>
+      <div class="tablewrap tablewrap--stack" data-reveal>
         <table>
           <caption>Consensus and monetary parameters. Inherited from the upstream Zcash design and left unmodified.</caption>
           <tbody>
@@ -378,7 +394,7 @@ network = head(
         </table>
       </div>
 
-      <div class="tablewrap mt-m" data-reveal>
+      <div class="tablewrap tablewrap--stack mt-m" data-reveal>
         <table>
           <caption>Lifetime totals (exact), across the whole emission schedule.</caption>
           <thead>
@@ -412,7 +428,7 @@ network = head(
         </table>
       </div>
 
-      <div class="tablewrap mt-m" data-reveal>
+      <div class="tablewrap tablewrap--stack mt-m" data-reveal>
         <table>
           <caption>The genesis block these rules are fixed in.</caption>
           <tbody>
@@ -422,6 +438,23 @@ network = head(
       </div>
 
       <p class="note mt-m" data-reveal>Every value in these two tables is read from <span class="mono">data/network.json</span>, which is copied from the published network manifest. Check a payment yourself: any block&rsquo;s coinbase pays exactly 0.50, 0.25 and 0.50 SWM to the three addresses above in era 0, and the rest to the miner.</p>
+
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">Connecting</p>
+        <h2>The testnet is running.</h2>
+        <p>These are the endpoints that are up today. They are testnet endpoints: the chain may be reset without warning while the software is being built, and test coins have no monetary value.</p>
+      </div>
+
+      <div class="tablewrap tablewrap--stack" data-reveal>
+        <table>
+          <caption>SwarmTestnet endpoints, checked on 21 September 2026.</caption>
+          <tbody>
+{live_rows}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note mt-m" data-reveal><strong>There is nothing to download yet.</strong> The node and wallet apps are still in testing, so joining the testnet today means building them from source. Public downloads open when they are ready, and not before.</p>
 
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
@@ -444,7 +477,7 @@ network = head(
         <h2>How Zcash did it.</h2>
         <p>SWARM did not invent the idea of funding development out of the block reward. The upstream project has run three different arrangements, in public, over nearly a decade. SWARM&rsquo;s arrangement is simpler than any of them: one fixed split for the whole emission schedule.</p>
       </div>
-      <div class="tablewrap" data-reveal>
+      <div class="tablewrap tablewrap--stack" data-reveal>
         <table>
           <caption>Zcash block reward arrangements over time, for context.</caption>
           <thead>
@@ -552,13 +585,17 @@ join = head(
 
       <ol class="minesteps minesteps--long" data-reveal>
         <li><b>01</b><span>Install <strong>SWARM Wallet</strong> and create a wallet. It shows you a recovery phrase &mdash; write it down on paper, offline, before you go any further. It is the only way to restore the wallet, and anyone who has it has the coins.</span></li>
-        <li><b>02</b><span>Install <strong>SWARM Node</strong>, paste in your wallet address and press <strong>Start</strong>. Your PC joins the testnet through <span class="mono">seed.swarm.green</span> and begins mining.</span></li>
-        <li><b>03</b><span>On a second device, install the wallet and send yourself a payment &mdash; shielded, or transparent if you want to watch it in the open.</span></li>
-        <li><b>04</b><span>Follow the payment in the block explorer, planned at <span class="mono">explore.swarm.green</span>.</span></li>
+        <li><b>02</b><span>Install <strong>SWARM Node</strong>, paste in your wallet address and press <strong>Start</strong>. Your PC joins the testnet through the seed node at <span class="mono">{LIVE["seed"]}</span> and begins mining.</span></li>
+        <li><b>03</b><span>On a second device, install the wallet and send yourself a payment &mdash; shielded, or transparent if you want to watch it in the open. A light wallet reaches the chain through <span class="mono">{LIVE["walletServer"]}</span>.</span></li>
+        <li><b>04</b><span>Watch it arrive. The block explorer is <strong>not deployed yet</strong> &mdash; it is planned at <span class="mono">{LIVE["explorer"]["plannedAt"]}</span> &mdash; so until it is up, the wallet and the node are what show you the chain.</span></li>
       </ol>
 
       <div class="note mt-l" data-reveal>
         <strong>Phones are wallets, not miners.</strong> The Android and iPhone apps hold, send and receive. They do not mine, and there is no mobile mining mode planned.
+      </div>
+
+      <div class="note mt-m" data-reveal>
+        <strong>The testnet is already running.</strong> Blocks have been produced since {LIVE["firstBlocksMinedLabel"]}, and the seed node and wallet server are up. The apps are not published yet, so the sequence above describes what you will do once they are &mdash; today it means building from source. Test coins have no monetary value and the chain may be reset without warning.
       </div>
     </div>
   </section>

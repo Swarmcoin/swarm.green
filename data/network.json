@@ -8,9 +8,9 @@
   },
   "status": {
     "phase": "testnet",
-    "short": "Testnet only",
+    "short": "Testnet running",
     "ribbon": "SWARM is on testnet — test coins have no value.",
-    "detail": "SWARM is a private testnet. Test coins have no monetary value. There is no sale, no token offering and no mainnet date."
+    "detail": "The SWARM testnet is running and producing blocks. Test coins have no monetary value. There is no sale, no token offering and no mainnet date."
   },
   "chain": {
     "blockTimeSeconds": 75,
@@ -59,6 +59,20 @@
         "address": "t2UHhsicXnapNJrfewHqgwXef5HDwCHd7wk"
       }
     ]
+  },
+  "live": {
+    "note": "Verified on 2026-09-21 at 17:23 UTC. These are testnet endpoints. The chain may be reset without warning while the software is being built, and test coins have no value.",
+    "state": "running",
+    "seed": "seed.swarm.green:18233",
+    "walletServer": "https://lwd.swarm.green:443",
+    "walletServerNote": "lightwalletd, on a public certificate.",
+    "firstBlocksMinedUtc": "2026-09-21T17:17:00Z",
+    "firstBlocksMinedLabel": "21 September 2026, from 17:17 UTC",
+    "explorer": {
+      "state": "not-deployed",
+      "plannedAt": "explore.swarm.green",
+      "warning": "Not deployed. explore.swarm.green points elsewhere today, so nothing on the site may link to it as a working explorer."
+    }
   },
   "stats": [
     {
@@ -266,22 +280,22 @@
       "key": "explorer",
       "name": "SWARM Explorer",
       "tagline": "Block explorer",
-      "detail": "Planned at explore.swarm.green.",
+      "detail": "Planned at explore.swarm.green. Not deployed yet.",
       "state": "coming-soon"
     }
   ],
   "roadmap": [
     {
       "stage": 1,
-      "name": "Private testnet",
+      "name": "Testnet running",
       "state": "now",
-      "detail": "Node, indexer and wallet running end to end on a closed testnet."
+      "detail": "Node, indexer and wallet running end to end, with a public seed node and wallet server. The apps themselves are not published yet."
     },
     {
       "stage": 2,
       "name": "Public testnet",
       "state": "next",
-      "detail": "Open testnet with a block explorer and a faucet."
+      "detail": "Published downloads, a block explorer and a faucet, so anyone can join and try it."
     },
     {
       "stage": 3,
@@ -300,6 +314,6 @@
     "github": "https://github.com/brs-holding",
     "x": "https://x.com/swarm_coin",
     "email": "swarmofficial@atomicmail.io",
-    "explorer": "https://explore.swarm.green"
+    "explorer": "planned: explore.swarm.green (not deployed)"
   }
 }

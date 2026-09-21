@@ -155,13 +155,17 @@
 
       <ol class="minesteps minesteps--long" data-reveal>
         <li><b>01</b><span>Install <strong>SWARM Wallet</strong> and create a wallet. It shows you a recovery phrase &mdash; write it down on paper, offline, before you go any further. It is the only way to restore the wallet, and anyone who has it has the coins.</span></li>
-        <li><b>02</b><span>Install <strong>SWARM Node</strong>, paste in your wallet address and press <strong>Start</strong>. Your PC joins the testnet through <span class="mono">seed.swarm.green</span> and begins mining.</span></li>
-        <li><b>03</b><span>On a second device, install the wallet and send yourself a payment &mdash; shielded, or transparent if you want to watch it in the open.</span></li>
-        <li><b>04</b><span>Follow the payment in the block explorer, planned at <span class="mono">explore.swarm.green</span>.</span></li>
+        <li><b>02</b><span>Install <strong>SWARM Node</strong>, paste in your wallet address and press <strong>Start</strong>. Your PC joins the testnet through the seed node at <span class="mono">seed.swarm.green:18233</span> and begins mining.</span></li>
+        <li><b>03</b><span>On a second device, install the wallet and send yourself a payment &mdash; shielded, or transparent if you want to watch it in the open. A light wallet reaches the chain through <span class="mono">https://lwd.swarm.green:443</span>.</span></li>
+        <li><b>04</b><span>Watch it arrive. The block explorer is <strong>not deployed yet</strong> &mdash; it is planned at <span class="mono">explore.swarm.green</span> &mdash; so until it is up, the wallet and the node are what show you the chain.</span></li>
       </ol>
 
       <div class="note mt-l" data-reveal>
         <strong>Phones are wallets, not miners.</strong> The Android and iPhone apps hold, send and receive. They do not mine, and there is no mobile mining mode planned.
+      </div>
+
+      <div class="note mt-m" data-reveal>
+        <strong>The testnet is already running.</strong> Blocks have been produced since 21 September 2026, from 17:17 UTC, and the seed node and wallet server are up. The apps are not published yet, so the sequence above describes what you will do once they are &mdash; today it means building from source. Test coins have no monetary value and the chain may be reset without warning.
       </div>
     </div>
   </section>
