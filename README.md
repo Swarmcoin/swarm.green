@@ -112,6 +112,7 @@ the exact lifetime figures; they must add up to `chain.maxSupply`.
    change the matching static text too:
    - hero stat cells — `index.html`, `<div class="stats" data-stats>`
    - split legend — `index.html`, `<ul class="legend" data-legend-split>`
+   - per-era mini table — `index.html`, `<tbody data-ladder>`
    - era figures — `index.html` (`.chart-fallback`) and the tables in
      `network/index.html`
 
@@ -120,21 +121,38 @@ the exact lifetime figures; they must add up to `chain.maxSupply`.
 
 ### Wording the allocation is committed to
 
-The four-way allocation is **decided**, not a proposal: 80% miner, 8% Core
-Development Fund, 4% Grants & Ecosystem Fund, 8% Community & Development
-Reserve, for roughly the first four years — until the first halving. Wherever
-the split appears, it carries the label **"Fixed in the genesis rules for the
-first four years. Paid block by block as part of each block reward — not a
-premine."** (`.rule-tag`). Keep it.
+The four-way allocation is **decided**, and it runs for the **whole emission
+schedule** — not for the first four years, and it does not end at the first
+halving:
 
-Two things the site must never say:
+> 80% Miner · 8% Core Development · 4% Grants & Ecosystem · 8% Community &
+> Development Reserve
 
+The percentages are hard-coded. Every halving reduces all four amounts
+proportionally and keeps the same 80 / 8 / 4 / 8 structure, until block rewards
+reach zero. Each allocation is paid automatically to its own predefined
+destination address; destinations can only be changed by a formal protocol
+upgrade, and the percentages themselves cannot be changed at all.
+
+Wherever the split appears it carries the label **"Fixed in the genesis rules
+for the whole emission schedule. Paid block by block as part of each block
+reward — not a premine."** (`.rule-tag`). Keep it.
+
+Three things the site must never say:
+
+- Do **not** say the split applies only until the first halving, only for the
+  first four years, that it "ends", or that 100% goes to miners afterwards.
+  Older drafts said this and it is wrong.
 - Do **not** describe the Community & Development Reserve as keyless, held by
   the protocol with no keys, unspendable, or releasable only by a network
   upgrade. How it is governed and spent is not decided yet. The one approved
-  description is: *"Set aside for the community and for future development. How
-  it is governed and spent will be defined separately and published before any
-  mainnet."*
+  description is: *"Paid block by block to its own predefined address, like the
+  other allocations. How it is governed and spent will be defined separately and
+  published before any mainnet."*
+  It **is** accurate and approved to say that all three destinations are
+  multisignature addresses held by the project and that they will be published
+  with the genesis rules; that sentence is on `/network`. Do not go beyond it into
+  custody details, which are not decided.
 - The word *lockbox* appears on this site in exactly one place: the Zcash
   history table on `/network`, where it is Zcash's own term for Zcash's own
   arrangement. Do not use it for SWARM.
@@ -241,3 +259,6 @@ The site is staged on the Vercel project `swarm-green` (`https://swarm-green-thr
 4. Check the live headers (CSP, HSTS without `includeSubDomains`), every route, and the social preview image.
 5. Keep the previous `swarm-landing` project untouched so the old page can be restored by moving the domain back.
 
+## Regenerating the sub-pages
+
+`/network`, `/join`, `/brand`, `/terms`, `/privacy` and `404.html` are produced by `tools/build_pages.py` (plain Python, no dependencies) so that their shared navigation and footer stay identical. `index.html` is maintained by hand. Run `python tools/build_pages.py` from anywhere; it writes into the repository root. Review the diff before committing: a regeneration must never drop reviewed wording. `tools/`, `_review/` and this README are excluded from deployment by `.vercelignore`.
