@@ -27,6 +27,16 @@
   function fmt(n, dp) {
     return new Intl.NumberFormat("en-GB", { minimumFractionDigits: dp || 0, maximumFractionDigits: dp === undefined ? 4 : dp }).format(n);
   }
+  /* Coin amounts: every reward is an exact binary fraction, so print all the
+     significant decimals but never fewer than two. 5 -> "5.00", 0.5 -> "0.50",
+     0.125 -> "0.125", 0.015625 -> "0.015625". */
+  function coin(n) {
+    var s = n.toFixed(8).replace(/0+$/, "").replace(/\.$/, "");
+    var dot = s.indexOf(".");
+    if (dot < 0) return s + ".00";
+    var dec = s.length - dot - 1;
+    return dec < 2 ? s + new Array(3 - dec).join("0") : s;
+  }
 
   /* ------------------------------------------------------------------ */
   /* 1. Mobile navigation                                               */
@@ -496,7 +506,7 @@
     var root = svg("svg", {
       viewBox: "0 0 260 268",
       role: "img",
-      "aria-label": "Block reward split for the first four years, until the first halving: " + shares.map(function (s) { return s.percent + " " + s.name; }).join(", ") + "."
+      "aria-label": "Block reward split, fixed for the whole emission schedule: " + shares.map(function (s) { return s.percent + " " + s.name; }).join(", ") + "."
     });
 
     root.appendChild(svg("path", {
@@ -544,8 +554,26 @@
     host.replaceChildren(frag);
   }
 
+  /* Per-block-by-era mini table, under the emission chart. */
+  function renderLadder(host, data) {
+    var rows = data.rewardSplit.perBlockByEra;
+    if (!rows || !rows.length) return;
+    var frag = document.createDocumentFragment();
+    rows.forEach(function (r) {
+      var tr = el("tr");
+      var th = el("th", null, String(r.era));
+      th.setAttribute("scope", "row");
+      tr.appendChild(th);
+      ["reward", "miner", "core", "grants", "reserve"].forEach(function (k) {
+        tr.appendChild(el("td", "num", coin(r[k])));
+      });
+      frag.appendChild(tr);
+    });
+    host.replaceChildren(frag);
+  }
+
   function initData() {
-    var needs = $$("[data-stats], [data-chart-emission], [data-chart-split], [data-legend-split]");
+    var needs = $$("[data-stats], [data-chart-emission], [data-chart-split], [data-legend-split], [data-ladder]");
     if (!needs.length) return;
     fetch("/data/network.json", { credentials: "omit" })
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
@@ -555,6 +583,7 @@
           var e = $("[data-chart-emission]"); if (e) renderEmission(e, data);
           var p = $("[data-chart-split]"); if (p) renderSplit(p, data);
           var l = $("[data-legend-split]"); if (l) renderLegend(l, data);
+          var k = $("[data-ladder]"); if (k) renderLadder(k, data);
         } catch (err) { /* keep the static markup */ }
       })
       .catch(function () { /* keep the static markup */ });

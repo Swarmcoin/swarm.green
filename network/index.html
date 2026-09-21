@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Network &amp; supply — SWARM</title>
-<meta name="description" content="Every SWARM parameter in one place: 75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins, no premine, and the four-way block reward split fixed for the first four years.">
+<meta name="description" content="Every SWARM parameter in one place: 75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins, no premine, and the four-way block reward split fixed for the whole emission schedule.">
 <link rel="canonical" href="https://swarm.green/network">
 <meta name="theme-color" content="#0E1116">
 <meta property="og:type" content="website">
@@ -137,40 +137,74 @@
   <section class="band band--cream">
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="eyebrow">Reward split</p>
-        <h2>Where each block reward goes.</h2>
-        <p>For roughly the first four years — through block 1,679,998, the last block before the first halving — each 6.25-coin block reward is split four ways. After the first halving, 100% of every block reward goes to miners.</p>
-        <p class="mt-s">The percentages are fixed in the genesis rules. They are paid block by block as part of each block reward, never minted in advance, and there is no mechanism in the protocol that can change them during the first four years.</p>
+        <p class="eyebrow">Reward allocation</p>
+        <h2>Where every block reward goes.</h2>
+        <p>Every block reward is split four ways, in the same proportions, for the whole emission schedule. Each halving reduces all four amounts together — the 80 / 8 / 4 / 8 structure never changes, all the way down to the block where the reward reaches zero.</p>
+        <p class="mt-s">The percentages are hard-coded in the genesis rules. Each allocation is paid automatically to its predefined destination address. Destinations can only be changed through a formal protocol upgrade; the percentages themselves cannot be changed. The three destinations are multisignature addresses held by the project, and they will be published together with the genesis rules.</p>
+        <p class="mt-s">No premine, no hidden treasury — every allocation is visible in every block.</p>
       </div>
 
-      <p class="rule-tag" data-reveal><b>Fixed in the genesis rules</b> for the first four years. Paid block by block as part of each block reward — not a premine.</p>
+      <p class="rule-tag" data-reveal><b>Fixed in the genesis rules</b> for the whole emission schedule. Paid block by block as part of each block reward — not a premine.</p>
 
       <div class="tablewrap mt-m" data-reveal>
         <table>
-          <caption>Era 0 only: block heights 1 – 1,679,998, at 6.25 coins per block.</caption>
+          <caption>Per block in era 0 — block heights 1 – 1,679,998, at 6.25 coins per block.</caption>
           <thead>
-            <tr><th scope="col">Recipient</th><th scope="col">Share</th><th scope="col">Per block</th><th scope="col">Era 0 total</th></tr>
+            <tr><th scope="col">Recipient</th><th scope="col">Share</th><th scope="col">Per block (era 0)</th><th scope="col">Total in era 0</th></tr>
           </thead>
           <tbody>
           <tr><th scope="row">Miner</th><td class="num">80%</td><td class="num">5.00</td><td class="num">8,399,990</td></tr>
-          <tr><th scope="row">Core Development Fund</th><td class="num">8%</td><td class="num">0.50</td><td class="num">839,999</td></tr>
-          <tr><th scope="row">Grants &amp; Ecosystem Fund</th><td class="num">4%</td><td class="num">0.25</td><td class="num">419,999.5</td></tr>
+          <tr><th scope="row">Core Development</th><td class="num">8%</td><td class="num">0.50</td><td class="num">839,999</td></tr>
+          <tr><th scope="row">Grants &amp; Ecosystem</th><td class="num">4%</td><td class="num">0.25</td><td class="num">419,999.5</td></tr>
           <tr><th scope="row">Community &amp; Development Reserve</th><td class="num">8%</td><td class="num">0.50</td><td class="num">839,999</td></tr>
             <tr><th scope="row">Total</th><td class="num">100%</td><td class="num">6.25</td><td class="num">10,499,987.5</td></tr>
           </tbody>
         </table>
       </div>
 
+      <div class="tablewrap mt-m" data-reveal>
+        <table>
+          <caption>Per block, by era. Every halving halves all four amounts together, so the shares stay at 80 / 8 / 4 / 8.</caption>
+          <thead>
+            <tr><th scope="col" class="num">Era</th><th scope="col" class="num">Block reward</th><th scope="col" class="num">Miner</th><th scope="col" class="num">Core Development</th><th scope="col" class="num">Grants &amp; Ecosystem</th><th scope="col" class="num">Reserve</th></tr>
+          </thead>
+          <tbody>
+          <tr><th scope="row" class="num">0</th><td class="num">6.25</td><td class="num">5.00</td><td class="num">0.50</td><td class="num">0.25</td><td class="num">0.50</td></tr>
+          <tr><th scope="row" class="num">1</th><td class="num">3.125</td><td class="num">2.50</td><td class="num">0.25</td><td class="num">0.125</td><td class="num">0.25</td></tr>
+          <tr><th scope="row" class="num">2</th><td class="num">1.5625</td><td class="num">1.25</td><td class="num">0.125</td><td class="num">0.0625</td><td class="num">0.125</td></tr>
+          <tr><th scope="row" class="num">3</th><td class="num">0.78125</td><td class="num">0.625</td><td class="num">0.0625</td><td class="num">0.03125</td><td class="num">0.0625</td></tr>
+          <tr><th scope="row" class="num">4</th><td class="num">0.390625</td><td class="num">0.3125</td><td class="num">0.03125</td><td class="num">0.015625</td><td class="num">0.03125</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap mt-m" data-reveal>
+        <table>
+          <caption>Lifetime totals (exact), across the whole emission schedule.</caption>
+          <thead>
+            <tr><th scope="col">Recipient</th><th scope="col">Coins</th></tr>
+          </thead>
+          <tbody>
+          <tr><th scope="row">Miners</th><td class="num">16,799,990.4872</td></tr>
+          <tr><th scope="row">Core Development</th><td class="num">1,679,998.7648</td></tr>
+          <tr><th scope="row">Grants &amp; Ecosystem</th><td class="num">839,999.2984</td></tr>
+          <tr><th scope="row">Community &amp; Development Reserve</th><td class="num">1,679,998.7648</td></tr>
+            <tr><th scope="row">Total</th><td class="num">20,999,987.3152</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note mt-m" data-reveal>Amounts are exact to the smallest unit for the first seven eras (about 28 years). After that the inherited rounding rule rounds each allocation down to a whole unit and the miner receives the remainder, which is why the lifetime miner share is fractionally above 80%.</p>
+
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
-          <h3>After the first halving</h3>
-          <p>The split ends. From block 1,679,999 onward, 100% of every block reward goes to the miner who found the block.</p>
-          <p class="mt-s">Over the whole life of the chain that works out at roughly <strong>90% to miners</strong>, <strong>6% to the two funds</strong> and <strong>4% to the reserve</strong>.</p>
+          <h3>At every halving</h3>
+          <p>The block reward halves and the 80 / 8 / 4 / 8 split stays exactly the same. The percentages are fixed in the genesis rules and cannot be changed.</p>
+          <p class="mt-s">Over the whole life of the chain that is <strong>80% to miners</strong>, <strong>8% to Core Development</strong>, <strong>4% to Grants &amp; Ecosystem</strong> and <strong>8% to the Community &amp; Development Reserve</strong>.</p>
         </article>
         <article class="card">
           <h3>The reserve</h3>
-          <p>Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet.</p>
-          <p class="mt-s">It is not minted in advance. Like every other share of the block reward, it is paid out block by block as the chain is mined.</p>
+          <p>Paid block by block to its own predefined address, like the other allocations. How it is governed and spent will be defined separately and published before any mainnet.</p>
         </article>
       </div>
     </div>
@@ -181,7 +215,7 @@
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Precedent</p>
         <h2>How Zcash did it.</h2>
-        <p>SWARM did not invent the idea of funding development out of the block reward. The upstream project has run three different arrangements, in public, over nearly a decade. SWARM&rsquo;s arrangement is a fourth, fixed for the first four years.</p>
+        <p>SWARM did not invent the idea of funding development out of the block reward. The upstream project has run three different arrangements, in public, over nearly a decade. SWARM&rsquo;s arrangement is simpler than any of them: one fixed split for the whole emission schedule.</p>
       </div>
       <div class="tablewrap" data-reveal>
         <table>

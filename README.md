@@ -77,6 +77,8 @@ and for the reward split. `js/site.js` fetches it and renders:
 | `stats[]` | the five hexagon cells in the hero |
 | `chain` + `eras[]` | the emission curve on the home page |
 | `rewardSplit.shares[]` | the hexagon split ring **and** its legend |
+| `rewardSplit.perBlockByEra[]` | the "Per block, by era" mini table under the emission chart |
+| `rewardSplit.lifetimeTotals` | the lifetime totals table on `/network` (static there) |
 
 Each entry in `rewardSplit.shares[]` looks like this:
 
@@ -86,7 +88,7 @@ Each entry in `rewardSplit.shares[]` looks like this:
   "name": "Community & Development Reserve",
   "share": 0.08,        // fraction of the block reward; the ring is drawn from this
   "percent": "8%",      // the label shown in the legend
-  "perBlock": 0.5,      // coins per block, shown in the legend
+  "perBlock": 0.5,      // coins per block in era 0, shown in the legend
   "era0Total": 839999,  // coins over the whole of era 0
   "color": "#9AA4B2",   // the colour of this arc of the hexagon ring
   "desc": "..."         // one sentence under the name in the legend
@@ -95,6 +97,11 @@ Each entry in `rewardSplit.shares[]` looks like this:
 
 The `share` values should add up to `1`. The ring is drawn by walking the
 perimeter of a hexagon, so any set of shares works.
+
+`rewardSplit.perBlockByEra[]` holds one row per era with `reward`, `miner`,
+`core`, `grants` and `reserve`. Each row must add up to that era's `reward`, and
+each value must be exactly its `share` of it. `rewardSplit.lifetimeTotals` holds
+the exact lifetime figures; they must add up to `chain.maxSupply`.
 
 ### Two things to keep in step
 

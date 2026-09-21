@@ -672,6 +672,58 @@ button { font: inherit; color: inherit; }
 .chart-fallback dt { font-family: var(--font-mono); color: var(--comb); font-size: .82rem; }
 .chart-fallback dd { margin: 0; }
 
+/* Compact per-era table that balances the emission column inside the panel */
+.ladder { margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+.ladder h4 {
+  font-family: var(--font-display);
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: -.005em;
+  color: var(--ink);
+}
+.minitable {
+  width: 100%;
+  min-width: 0;
+  margin-top: .65rem;
+  font-size: .82rem;
+  border-collapse: collapse;
+}
+.minitable caption {
+  caption-side: bottom;
+  padding: .7rem 0 0;
+  font-size: .78rem;
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+.minitable th,
+.minitable td {
+  padding: .42rem .5rem;
+  border-bottom: 1px solid rgba(245, 166, 35, .12);
+  white-space: nowrap;
+}
+.minitable th:first-child,
+.minitable td:first-child { padding-left: 0; }
+.minitable th:last-child,
+.minitable td:last-child { padding-right: 0; }
+.minitable thead th {
+  font-family: var(--font-body);
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--honey);
+}
+.minitable tbody th {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--ink-dim);
+}
+.minitable tbody td { color: var(--ink); }
+.minitable tbody tr:last-child th,
+.minitable tbody tr:last-child td { border-bottom: 0; }
+.minitable .num { text-align: right; }
+.minitable thead th.num { text-align: right; }
+
 .legend { margin-top: 1.3rem; display: grid; gap: .8rem; }
 .legend li { display: grid; grid-template-columns: 14px 1fr auto; gap: .8rem; align-items: baseline; }
 .legend .sw { width: 12px; height: 13.86px; align-self: center; }

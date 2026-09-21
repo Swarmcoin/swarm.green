@@ -32,9 +32,9 @@
   ],
   "rewardSplit": {
     "status": "fixed",
-    "label": "Fixed in the genesis rules for the first four years. Paid block by block as part of each block reward — not a premine.",
-    "appliesFor": "Roughly the first 4 years (until the first halving)",
-    "afterFirstHalving": "After the first halving, 100% of every block reward goes to miners.",
+    "label": "Fixed in the genesis rules for the whole emission schedule. Paid block by block as part of each block reward — not a premine.",
+    "appliesFor": "The whole emission schedule. Every halving reduces all four amounts proportionally, keeping the same 80 / 8 / 4 / 8 structure, until block rewards reach zero.",
+    "destinations": "Each allocation is paid automatically to its predefined destination address. Destinations can only be changed through a formal protocol upgrade; the percentages themselves cannot be changed.",
     "blockReward": 6.25,
     "shares": [
       {
@@ -49,7 +49,7 @@
       },
       {
         "key": "core",
-        "name": "Core Development Fund",
+        "name": "Core Development",
         "share": 0.08,
         "percent": "8%",
         "perBlock": 0.5,
@@ -59,7 +59,7 @@
       },
       {
         "key": "grants",
-        "name": "Grants & Ecosystem Fund",
+        "name": "Grants & Ecosystem",
         "share": 0.04,
         "percent": "4%",
         "perBlock": 0.25,
@@ -78,11 +78,21 @@
         "desc": "Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet."
       }
     ],
-    "lifetime": [
-      { "name": "Miners", "percent": "≈90%" },
-      { "name": "The two funds", "percent": "≈6%" },
-      { "name": "Community & Development Reserve", "percent": "≈4%" }
-    ]
+    "perBlockByEra": [
+      { "era": 0, "reward": 6.25,     "miner": 5.0,    "core": 0.5,     "grants": 0.25,     "reserve": 0.5 },
+      { "era": 1, "reward": 3.125,    "miner": 2.5,    "core": 0.25,    "grants": 0.125,    "reserve": 0.25 },
+      { "era": 2, "reward": 1.5625,   "miner": 1.25,   "core": 0.125,   "grants": 0.0625,   "reserve": 0.125 },
+      { "era": 3, "reward": 0.78125,  "miner": 0.625,  "core": 0.0625,  "grants": 0.03125,  "reserve": 0.0625 },
+      { "era": 4, "reward": 0.390625, "miner": 0.3125, "core": 0.03125, "grants": 0.015625, "reserve": 0.03125 }
+    ],
+    "lifetimeTotals": {
+      "miner": 16799990.4872,
+      "core": 1679998.7648,
+      "grants": 839999.2984,
+      "reserve": 1679998.7648,
+      "total": 20999987.3152,
+      "note": "Amounts are exact to the smallest unit for the first seven eras (about 28 years). After that the inherited rounding rule rounds each allocation down to a whole unit and the miner receives the remainder, which is why the lifetime miner share is fractionally above 80%."
+    }
   },
   "eras": [
     {

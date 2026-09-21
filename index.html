@@ -226,7 +226,7 @@
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Honey</p>
         <h2>Do the work. Earn the honey.</h2>
-        <p>The monetary base is inherited from the Zcash design and is not up for negotiation: a 75-second target block time, 6.25 coins a block, a halving every 1,680,000 blocks, and a hard ceiling of 20,999,987.3152 coins. No premine — the genesis block contains no spendable coins.</p>
+        <p>The monetary base is inherited from the Zcash design and is not up for negotiation: a 75-second target block time, 6.25 coins a block, a halving every 1,680,000 blocks, and a hard ceiling of 20,999,987.3152 coins. No premine, no hidden treasury — every allocation is visible in every block.</p>
       </div>
 
       <div class="panel" data-reveal>
@@ -249,39 +249,63 @@
               </div>
             </div>
             <p class="sub mt-s">Hexagons mark the halvings. <a class="textlink" href="/network">See the full era table</a></p>
+
+            <div class="ladder">
+              <h4>Per block, by era</h4>
+              <table class="minitable">
+                <caption>Every halving halves all four amounts together. The 80 / 8 / 4 / 8 structure never changes.</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Era</th>
+                    <th scope="col" class="num">Reward</th>
+                    <th scope="col" class="num">Miner</th>
+                    <th scope="col" class="num">Core</th>
+                    <th scope="col" class="num">Grants</th>
+                    <th scope="col" class="num">Reserve</th>
+                  </tr>
+                </thead>
+                <tbody data-ladder>
+                  <tr><th scope="row">0</th><td class="num">6.25</td><td class="num">5.00</td><td class="num">0.50</td><td class="num">0.25</td><td class="num">0.50</td></tr>
+                  <tr><th scope="row">1</th><td class="num">3.125</td><td class="num">2.50</td><td class="num">0.25</td><td class="num">0.125</td><td class="num">0.25</td></tr>
+                  <tr><th scope="row">2</th><td class="num">1.5625</td><td class="num">1.25</td><td class="num">0.125</td><td class="num">0.0625</td><td class="num">0.125</td></tr>
+                  <tr><th scope="row">3</th><td class="num">0.78125</td><td class="num">0.625</td><td class="num">0.0625</td><td class="num">0.03125</td><td class="num">0.0625</td></tr>
+                  <tr><th scope="row">4</th><td class="num">0.390625</td><td class="num">0.3125</td><td class="num">0.03125</td><td class="num">0.015625</td><td class="num">0.03125</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div>
             <h3>Where each block reward goes</h3>
-            <p class="sub">Until the first halving, roughly the first four years.</p>
+            <p class="sub">In every block, for the whole emission schedule. Each halving halves all four amounts together.</p>
             <div class="chart chart--ring" data-chart-split>
               <div class="chart-fallback">
-                <p>Of each 6.25-coin block reward: 5.00 to the miner, 0.50 to the Core Development Fund, 0.25 to the Grants &amp; Ecosystem Fund and 0.50 to the Community &amp; Development Reserve.</p>
+                <p>Of every block reward: 80% to the miner, 8% to Core Development, 4% to Grants &amp; Ecosystem and 8% to the Community &amp; Development Reserve. In era 0 that is 5.00, 0.50, 0.25 and 0.50 coins.</p>
               </div>
             </div>
             <ul class="legend" data-legend-split>
               <li>
                 <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#F5A623"/></svg>
-                <span class="nm">Miner<em>Paid to the forager who found the block. 5.00 coins per block.</em></span>
+                <span class="nm">Miner<em>Paid to the forager who found the block. 5.00 coins per block in era 0.</em></span>
                 <span class="pc">80%</span>
               </li>
               <li>
                 <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#FFC94D"/></svg>
-                <span class="nm">Core Development Fund<em>Funds work on the node, indexer and wallet. 0.50 coins per block.</em></span>
+                <span class="nm">Core Development<em>Funds work on the node, indexer and wallet. 0.50 coins per block in era 0.</em></span>
                 <span class="pc">8%</span>
               </li>
               <li>
                 <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#FFE9A8"/></svg>
-                <span class="nm">Grants &amp; Ecosystem Fund<em>Funds tooling, documentation and community work. 0.25 coins per block.</em></span>
+                <span class="nm">Grants &amp; Ecosystem<em>Funds tooling, documentation and community work. 0.25 coins per block in era 0.</em></span>
                 <span class="pc">4%</span>
               </li>
               <li>
                 <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#9AA4B2"/></svg>
-                <span class="nm">Community &amp; Development Reserve<em>Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet. 0.50 coins per block.</em></span>
+                <span class="nm">Community &amp; Development Reserve<em>Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet. 0.50 coins per block in era 0.</em></span>
                 <span class="pc">8%</span>
               </li>
             </ul>
-            <p class="rule-tag"><b>Fixed in the genesis rules</b> for the first four years. Paid block by block as part of each block reward — not a premine.</p>
+            <p class="rule-tag"><b>Fixed in the genesis rules</b> for the whole emission schedule. Paid block by block as part of each block reward — not a premine.</p>
           </div>
 
         </div>
@@ -289,12 +313,13 @@
 
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
-          <h3>After the first halving</h3>
-          <p>100% of every block reward goes to miners. Over the whole life of the chain that works out at about 90% to miners, 6% to the two funds and 4% to the reserve.</p>
+          <h3>At every halving</h3>
+          <p>The block reward halves and the 80 / 8 / 4 / 8 split stays exactly the same. The percentages are fixed in the genesis rules and cannot be changed.</p>
+          <p class="mt-s">Over the whole life of the chain that is 80% to miners, 8% to Core Development, 4% to Grants &amp; Ecosystem and 8% to the Community &amp; Development Reserve.</p>
         </article>
         <article class="card">
           <h3>The reserve</h3>
-          <p>Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet.</p>
+          <p>Paid block by block to its own predefined address, like the other allocations. How it is governed and spent will be defined separately and published before any mainnet.</p>
           <p class="mt-s"><a class="textlink" href="/network">Read the full breakdown<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></p>
         </article>
       </div>
@@ -412,7 +437,7 @@
         </details>
         <details>
           <summary>Where do block rewards go?<span class="ind" aria-hidden="true"></span></summary>
-          <div class="answer"><p>Each block reward is split 80% to the miner who found the block, 8% to a Core Development Fund, 4% to a Grants &amp; Ecosystem Fund and 8% to a Community &amp; Development Reserve. After the first halving, 100% goes to miners.</p><p>Fixed in the genesis rules for the first four years. Paid block by block as part of each block reward — not a premine. The full numbers are on the <a href="/network">network page</a>.</p></div>
+          <div class="answer"><p>Every block reward is split 80% to the miner who found the block, 8% to Core Development, 4% to Grants &amp; Ecosystem and 8% to the Community &amp; Development Reserve. That split runs for the whole emission schedule: each halving reduces all four amounts together and the structure never changes.</p><p>Each allocation is paid automatically to its predefined destination address. Destinations can only be changed through a formal protocol upgrade; the percentages themselves cannot be changed.</p><p>No premine, no hidden treasury — every allocation is visible in every block. The full numbers are on the <a href="/network">network page</a>.</p></div>
         </details>
         <details>
           <summary>Is this related to Ethereum Swarm or the Foursquare Swarm app?<span class="ind" aria-hidden="true"></span></summary>
