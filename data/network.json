@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "name": "SWARM",
+    "domain": "swarm.green",
+    "updated": "2026-09-21",
+    "note": "Single source of truth for every number shown on the site. Edit here, then mirror the same values in the static HTML fallbacks (see README.md)."
+  },
+  "status": {
+    "phase": "testnet",
+    "short": "Testnet only",
+    "ribbon": "SWARM is on testnet — test coins have no value.",
+    "detail": "SWARM is a private testnet. Test coins have no monetary value. There is no sale, no token offering and no mainnet date."
+  },
+  "chain": {
+    "blockTimeSeconds": 75,
+    "initialBlockReward": 6.25,
+    "halvingIntervalBlocks": 1680000,
+    "halvingApproxYears": 4,
+    "maxSupply": 20999987.3152,
+    "premine": 0,
+    "coinbaseMaturityBlocks": 100,
+    "proofOfWork": "Equihash",
+    "cpuMineableOnTestnet": true,
+    "lineage": "Forked from open-source Zcash software (Zebra full node, Zaino indexer, Zingo desktop wallet) with consensus rules and cryptography left unmodified."
+  },
+  "stats": [
+    { "key": "blockTime", "value": "75", "unit": "s", "label": "Target block time" },
+    { "key": "maxSupply", "value": "≈21", "unit": "M", "label": "Maximum supply", "note": "20,999,987.3152 coins" },
+    { "key": "blockReward", "value": "6.25", "unit": "", "label": "Coins per block" },
+    { "key": "halving", "value": "≈4", "unit": "yr", "label": "Halving interval", "note": "1,680,000 blocks" },
+    { "key": "premine", "value": "0", "unit": "", "label": "Premine" }
+  ],
+  "rewardSplit": {
+    "status": "fixed",
+    "label": "Fixed in the genesis rules for the first four years. Paid block by block as part of each block reward — not a premine.",
+    "appliesFor": "Roughly the first 4 years (until the first halving)",
+    "afterFirstHalving": "After the first halving, 100% of every block reward goes to miners.",
+    "blockReward": 6.25,
+    "shares": [
+      {
+        "key": "miner",
+        "name": "Miner",
+        "share": 0.8,
+        "percent": "80%",
+        "perBlock": 5.0,
+        "era0Total": 8399990,
+        "color": "#F5A623",
+        "desc": "Paid to the forager who found the block."
+      },
+      {
+        "key": "core",
+        "name": "Core Development Fund",
+        "share": 0.08,
+        "percent": "8%",
+        "perBlock": 0.5,
+        "era0Total": 839999,
+        "color": "#FFC94D",
+        "desc": "Funds work on the node, indexer and wallet."
+      },
+      {
+        "key": "grants",
+        "name": "Grants & Ecosystem Fund",
+        "share": 0.04,
+        "percent": "4%",
+        "perBlock": 0.25,
+        "era0Total": 419999.5,
+        "color": "#FFE9A8",
+        "desc": "Funds tooling, documentation and community work."
+      },
+      {
+        "key": "reserve",
+        "name": "Community & Development Reserve",
+        "share": 0.08,
+        "percent": "8%",
+        "perBlock": 0.5,
+        "era0Total": 839999,
+        "color": "#9AA4B2",
+        "desc": "Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet."
+      }
+    ],
+    "lifetime": [
+      { "name": "Miners", "percent": "≈90%" },
+      { "name": "The two funds", "percent": "≈6%" },
+      { "name": "Community & Development Reserve", "percent": "≈4%" }
+    ]
+  },
+  "eras": [
+    {
+      "era": 0,
+      "fromHeight": 1,
+      "toHeight": 1679998,
+      "reward": 6.25,
+      "issuance": 10499987.5,
+      "cumulative": 10499987.5
+    },
+    {
+      "era": 1,
+      "fromHeight": 1679999,
+      "toHeight": 3359998,
+      "reward": 3.125,
+      "issuance": 5250000,
+      "cumulative": 15749987.5
+    },
+    {
+      "era": 2,
+      "fromHeight": 3359999,
+      "toHeight": 5039998,
+      "reward": 1.5625,
+      "issuance": 2625000,
+      "cumulative": 18374987.5
+    },
+    {
+      "era": 3,
+      "fromHeight": 5039999,
+      "toHeight": 6719998,
+      "reward": 0.78125,
+      "issuance": 1312500,
+      "cumulative": 19687487.5
+    },
+    {
+      "era": 4,
+      "fromHeight": 6719999,
+      "toHeight": 8399998,
+      "reward": 0.390625,
+      "issuance": 656250,
+      "cumulative": 20343737.5
+    }
+  ],
+  "emission": {
+    "yearsToPlot": 20,
+    "note": "Cumulative supply over the first 20 years, derived from block time, block reward and halving interval."
+  },
+  "apps": [
+    {
+      "key": "wallet",
+      "name": "SWARM Wallet",
+      "tagline": "Desktop wallet",
+      "detail": "Hold, send and receive — transparent or shielded. Windows first.",
+      "state": "coming-soon"
+    },
+    {
+      "key": "node",
+      "name": "SWARM Node",
+      "tagline": "Full node + one-click mining",
+      "detail": "One app runs a full node and lets you start or stop CPU mining with one click. Consent-first — nothing runs hidden.",
+      "state": "coming-soon"
+    },
+    {
+      "key": "explorer",
+      "name": "SWARM Explorer",
+      "tagline": "Block explorer",
+      "detail": "Planned at explore.swarm.green.",
+      "state": "coming-soon"
+    }
+  ],
+  "roadmap": [
+    { "stage": 1, "name": "Private testnet", "state": "now", "detail": "Node, indexer and wallet running end to end on a closed testnet." },
+    { "stage": 2, "name": "Public testnet", "state": "next", "detail": "Open testnet with a block explorer and a faucet." },
+    { "stage": 3, "name": "Independent security review", "state": "later", "detail": "External review of the changes made on top of the upstream Zcash software." },
+    { "stage": 4, "name": "Mainnet readiness decision", "state": "later", "detail": "A public decision, made only once the work above is done. No date." }
+  ],
+  "links": {
+    "github": "https://github.com/brs-holding",
+    "explorer": "https://explore.swarm.green"
+  }
+}

@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SWARM — Together we are strong. Private, proof-of-work money run by its community.</title>
+<meta name="description" content="SWARM is an independent, community-run proof-of-work network with optional shielded transactions, built by forking open-source Zcash software. Testnet only — test coins have no value.">
+<link rel="canonical" href="https://swarm.green/">
+<meta name="theme-color" content="#0E1116">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SWARM">
+<meta property="og:locale" content="en">
+<meta property="og:title" content="SWARM — Together we are strong.">
+<meta property="og:description" content="Private, proof-of-work money run by its community. Every computer that joins makes the hive stronger. Testnet only — test coins have no value.">
+<meta property="og:url" content="https://swarm.green/">
+<meta property="og:image" content="https://swarm.green/assets/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SWARM — Together we are strong. Testnet.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SWARM — Together we are strong.">
+<meta name="twitter:description" content="Private, proof-of-work money run by its community. Testnet only — test coins have no value.">
+<meta name="twitter:image" content="https://swarm.green/assets/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="mask-icon" href="/assets/logo-mono-dark.svg" color="#F5A623">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="/css/site.css">
+<script src="/js/boot.js"></script>
+<script src="/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<p class="ribbon"><span class="dot"></span>SWARM is on <b>testnet</b> — test coins have no value.</p>
+
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="brand" href="/">
+      <img src="/assets/logo-mark.svg" alt="" width="32" height="32">
+      <span>SWARM</span>
+      <span class="vh">— home</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#hive">The Hive</a>
+      <a href="#honey">Honey</a>
+      <a href="#join">Join</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>
+    </nav>
+    <button class="nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel">
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="vh">Menu</span>
+    </button>
+  </div>
+  <div class="nav__panel" id="navpanel" data-nav-panel>
+    <nav aria-label="Primary, compact">
+      <ul>
+        <li><a href="#hive">The Hive</a></li>
+        <li><a href="#honey">Honey</a></li>
+        <li><a href="#join">Join</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="/network">Network &amp; supply</a></li>
+        <li><a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <canvas class="hero__canvas" data-swarm aria-hidden="true"></canvas>
+    <div class="wrap hero__inner">
+      <p class="hero__badge"><span class="pip" aria-hidden="true"></span>Testnet · Proof of work · Shielded by choice</p>
+      <h1>Together we are <span class="glow">strong.</span></h1>
+      <p class="hero__lead">SWARM is private, proof-of-work money run by its community. Every computer that joins makes the hive stronger — and the bees that do the work earn the honey.</p>
+      <div class="cta-row">
+        <a class="btn btn--primary" href="#join">Join the testnet</a>
+        <a class="btn btn--ghost" href="#hive">How the hive works</a>
+      </div>
+      <p class="hero__sub">One bee is small. A swarm is unstoppable.</p>
+
+      <div class="stats" data-stats>
+        <div class="stat"><div class="stat__in"><div class="stat__v">75<small>s</small></div><div class="stat__l">Target block time</div></div></div>
+        <div class="stat"><div class="stat__in"><div class="stat__v">≈21<small>M</small></div><div class="stat__l">Maximum supply</div></div></div>
+        <div class="stat"><div class="stat__in"><div class="stat__v">6.25</div><div class="stat__l">Coins per block</div></div></div>
+        <div class="stat"><div class="stat__in"><div class="stat__v">≈4<small>yr</small></div><div class="stat__l">Halving interval</div></div></div>
+        <div class="stat"><div class="stat__in"><div class="stat__v">0</div><div class="stat__l">Premine</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THE HIVE ================= -->
+  <section class="band band--cream band--comb" id="hive">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">The Hive</p>
+        <h2>A hive is just a lot of small jobs, done honestly.</h2>
+        <p>SWARM borrows its shape from bees, because a beehive is the clearest picture of what a peer-to-peer network actually is: no boss, no central server, thousands of small contributions adding up to something none of them could manage alone.</p>
+      </div>
+
+      <div class="cards" data-reveal>
+        <article class="card">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="5.6" r="2.4"/><circle cx="5.4" cy="17" r="2.4"/><circle cx="18.6" cy="17" r="2.4"/><path d="M10.4 7.9 7 14.3M13.6 7.9 17 14.3M7.8 17h8.4"/></svg>
+          </div>
+          <h3>Bees</h3>
+          <p>Everyone running a node. Each one keeps its own copy of the rules and checks every block for itself, so nobody has to be trusted.</p>
+        </article>
+
+        <article class="card">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="7" y="7" width="10" height="10" rx="1.6"/><path d="M10 4v3M14 4v3M10 17v3M14 17v3M4 10h3M4 14h3M17 10h3M17 14h3"/></svg>
+          </div>
+          <h3>Foragers</h3>
+          <p>The miners. They spend real electricity on proof of work to secure the chain. The work is Equihash — CPU-mineable on the testnet — so ordinary computers can forage from the first block. Nothing in the rules keeps bigger miners out later.</p>
+        </article>
+
+        <article class="card">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3.2s6.2 6.9 6.2 10.6A6.2 6.2 0 0 1 5.8 13.8C5.8 10.1 12 3.2 12 3.2Z"/></svg>
+          </div>
+          <h3>Honey</h3>
+          <p>The block reward. 6.25 coins for every block found, paid for real work — never minted for anyone in advance.</p>
+        </article>
+
+        <article class="card">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" focusable="false"><path d="M8 2.6 12 5v4.6L8 12 4 9.6V5ZM16 2.6 20 5v4.6L16 12l-4-2.4V5ZM12 11.6 16 14v4.6L12 21l-4-2.4V14Z"/></svg>
+          </div>
+          <h3>Honeycomb</h3>
+          <p>The blockchain. One cell for each block, sealed in order, each one referring back to the last — a shared ledger anyone can re-check.</p>
+        </article>
+
+        <article class="card">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="2.8"/><circle cx="12" cy="4.2" r="1.9"/><circle cx="4.6" cy="17" r="1.9"/><circle cx="19.4" cy="17" r="1.9"/><path d="M12 6.1v3.1M9.7 13.6 6.3 15.7M14.3 13.6l3.4 2.1"/></svg>
+          </div>
+          <h3>The Hive</h3>
+          <p>The peer-to-peer network itself. There is no central server to ask permission from. The more bees run nodes, the harder the hive is to switch off.</p>
+        </article>
+
+        <article class="card">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 2.8 19.6 5.6v6.1c0 4.4-3.2 7.6-7.6 9-4.4-1.4-7.6-4.6-7.6-9V5.6Z"/><path d="M9 12.1l2.2 2.2 4.1-4.4"/></svg>
+          </div>
+          <h3>Shielded</h3>
+          <p>Privacy, by choice. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY SWARM ================= -->
+  <section class="band band--dark2" id="why">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Why SWARM</p>
+        <h2>Old-fashioned ideas about money, built on proven code.</h2>
+      </div>
+
+      <ul class="why" data-reveal>
+        <li>
+          <span class="hexicon hexicon--quiet" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 2.8 19.6 5.6v6.1c0 4.4-3.2 7.6-7.6 9-4.4-1.4-7.6-4.6-7.6-9V5.6Z"/><path d="M9 12.1l2.2 2.2 4.1-4.4"/></svg>
+          </span>
+          <div>
+            <h3>Private by choice</h3>
+            <p>Every payment can be transparent or shielded. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs. You decide, payment by payment.</p>
+          </div>
+        </li>
+        <li>
+          <span class="hexicon hexicon--quiet" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="8.6" cy="8.4" r="3"/><path d="M3 19.4c.7-3.1 2.9-4.8 5.6-4.8s4.9 1.7 5.6 4.8"/><path d="M15.8 6.2a3 3 0 0 1 0 5.9M17.4 14.9c2 .6 3.3 2.1 3.8 4.5"/></svg>
+          </span>
+          <div>
+            <h3>Run by its community</h3>
+            <p>SWARM is developed in the open by its founding team and contributors. The network itself is run by whoever runs nodes and mines blocks — nobody needs permission to join.</p>
+          </div>
+        </li>
+        <li>
+          <span class="hexicon hexicon--quiet" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3.2 19.2h17.6"/><path d="M3.8 16.4c3-.2 4.7-2.2 6.1-5.6C11.6 6.6 13.6 4.6 20.2 4.6"/><path d="M20.2 4.6v4.2M20.2 4.6H16"/></svg>
+          </span>
+          <div>
+            <h3>Sound, predictable supply</h3>
+            <p>6.25 coins a block, halving every 1,680,000 blocks — about four years — up to a maximum of 20,999,987.3152 coins. The schedule is fixed in the code and published in full.</p>
+          </div>
+        </li>
+        <li>
+          <span class="hexicon hexicon--quiet" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3.2 21 7.6 12 12 3 7.6Z"/><path d="M3 12.2 12 16.6l9-4.4M3 16.6 12 21l9-4.4"/></svg>
+          </span>
+          <div>
+            <h3>Proven foundations</h3>
+            <p>SWARM is built by forking open-source Zcash software — the Zebra full node, the Zaino indexer and the Zingo desktop wallet — with consensus rules and cryptography left unmodified.</p>
+          </div>
+        </li>
+        <li>
+          <span class="hexicon hexicon--quiet" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8.6 7 3.4 12l5.2 5M15.4 7l5.2 5-5.2 5M13.6 4.4l-3.2 15.2"/></svg>
+          </span>
+          <div>
+            <h3>Open source</h3>
+            <p>The node, the indexer and the wallet are all open source. Read the code, build it yourself, and check that it does what this page says it does.</p>
+          </div>
+        </li>
+      </ul>
+
+      <div class="note mt-l" data-reveal>
+        <strong>Not affiliated with anyone.</strong> SWARM is not affiliated with or endorsed by the Electric Coin Company, the Zcash Foundation, Zingo Labs, Foursquare&rsquo;s Swarm app, or the Ethereum Swarm (BZZ) project.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HONEY / TOKENOMICS ================= -->
+  <section class="band band--cream" id="honey">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Honey</p>
+        <h2>Do the work. Earn the honey.</h2>
+        <p>The monetary base is inherited from the Zcash design and is not up for negotiation: a 75-second target block time, 6.25 coins a block, a halving every 1,680,000 blocks, and a hard ceiling of 20,999,987.3152 coins. No premine — the genesis block contains no spendable coins.</p>
+      </div>
+
+      <div class="panel" data-reveal>
+        <div class="panel-grid">
+
+          <div>
+            <h3>Emission — the first 20 years</h3>
+            <p class="sub">Cumulative supply. Each halving cuts the block reward in half, so the curve flattens towards the ceiling and never reaches it.</p>
+            <div class="chart" data-chart-emission>
+              <div class="chart-fallback">
+                <p>Cumulative supply at the end of each era:</p>
+                <dl>
+                  <dt>≈4 years</dt><dd>10,499,987.5 coins</dd>
+                  <dt>≈8 years</dt><dd>15,749,987.5 coins</dd>
+                  <dt>≈12 years</dt><dd>18,374,987.5 coins</dd>
+                  <dt>≈16 years</dt><dd>19,687,487.5 coins</dd>
+                  <dt>≈20 years</dt><dd>20,343,737.5 coins</dd>
+                  <dt>ceiling</dt><dd>20,999,987.3152 coins</dd>
+                </dl>
+              </div>
+            </div>
+            <p class="sub mt-s">Hexagons mark the halvings. <a class="textlink" href="/network">See the full era table</a></p>
+          </div>
+
+          <div>
+            <h3>Where each block reward goes</h3>
+            <p class="sub">Until the first halving, roughly the first four years.</p>
+            <div class="chart chart--ring" data-chart-split>
+              <div class="chart-fallback">
+                <p>Of each 6.25-coin block reward: 5.00 to the miner, 0.50 to the Core Development Fund, 0.25 to the Grants &amp; Ecosystem Fund and 0.50 to the Community &amp; Development Reserve.</p>
+              </div>
+            </div>
+            <ul class="legend" data-legend-split>
+              <li>
+                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#F5A623"/></svg>
+                <span class="nm">Miner<em>Paid to the forager who found the block. 5.00 coins per block.</em></span>
+                <span class="pc">80%</span>
+              </li>
+              <li>
+                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#FFC94D"/></svg>
+                <span class="nm">Core Development Fund<em>Funds work on the node, indexer and wallet. 0.50 coins per block.</em></span>
+                <span class="pc">8%</span>
+              </li>
+              <li>
+                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#FFE9A8"/></svg>
+                <span class="nm">Grants &amp; Ecosystem Fund<em>Funds tooling, documentation and community work. 0.25 coins per block.</em></span>
+                <span class="pc">4%</span>
+              </li>
+              <li>
+                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#9AA4B2"/></svg>
+                <span class="nm">Community &amp; Development Reserve<em>Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet. 0.50 coins per block.</em></span>
+                <span class="pc">8%</span>
+              </li>
+            </ul>
+            <p class="rule-tag"><b>Fixed in the genesis rules</b> for the first four years. Paid block by block as part of each block reward — not a premine.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cards cards--2 mt-l" data-reveal>
+        <article class="card">
+          <h3>After the first halving</h3>
+          <p>100% of every block reward goes to miners. Over the whole life of the chain that works out at about 90% to miners, 6% to the two funds and 4% to the reserve.</p>
+        </article>
+        <article class="card">
+          <h3>The reserve</h3>
+          <p>Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet.</p>
+          <p class="mt-s"><a class="textlink" href="/network">Read the full breakdown<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= JOIN ================= -->
+  <section class="band band--dark band--comb" id="join">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Join the swarm</p>
+        <h2>Three steps. Every bee counts.</h2>
+        <p>Public downloads are not open yet. When they are, this is all there is to it — and nothing ever runs without you pressing the button.</p>
+      </div>
+
+      <div class="steps" data-reveal>
+        <article class="card step">
+          <div class="step__n" aria-hidden="true">1</div>
+          <p class="step__app">SWARM Wallet</p>
+          <h3>Get a wallet</h3>
+          <p>The desktop wallet holds your coins and sends payments — transparent or shielded. Windows first, with Linux and macOS to follow.</p>
+          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+        </article>
+
+        <article class="card step">
+          <div class="step__n" aria-hidden="true">2</div>
+          <p class="step__app">SWARM Node</p>
+          <h3>Run a node</h3>
+          <p>One app runs a full node and lets you start or stop CPU mining with a single click. Consent-first: nothing runs hidden, nothing starts by itself.</p>
+          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+        </article>
+
+        <article class="card step">
+          <div class="step__n" aria-hidden="true">3</div>
+          <p class="step__app">SWARM Explorer</p>
+          <h3>Start foraging</h3>
+          <p>Press Start and your CPU begins looking for blocks. Follow what the chain is doing in the block explorer, planned at explore.swarm.green.</p>
+          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+        </article>
+      </div>
+
+      <div class="cta-row mt-l" data-reveal>
+        <a class="btn btn--primary" href="/join">Read the step-by-step guide</a>
+        <a class="btn btn--ghost" href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">Browse the source<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ROADMAP ================= -->
+  <section class="band band--cream" id="roadmap">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Roadmap</p>
+        <h2>No dates. Just the order of things.</h2>
+        <p>Each stage has to be finished before the next one starts. We would rather be late than wrong about money.</p>
+      </div>
+
+      <ol class="road" data-reveal>
+        <li class="is-now">
+          <p class="tag">Now</p>
+          <h3>Private testnet</h3>
+          <p>Node, indexer and wallet running end to end on a closed testnet.</p>
+        </li>
+        <li>
+          <p class="tag">Next</p>
+          <h3>Public testnet</h3>
+          <p>An open testnet with a block explorer and a faucet, so anyone can join and try it.</p>
+        </li>
+        <li>
+          <p class="tag">Then</p>
+          <h3>Independent security review</h3>
+          <p>An external review of the changes made on top of the upstream Zcash software.</p>
+        </li>
+        <li>
+          <p class="tag">Finally</p>
+          <h3>Mainnet readiness decision</h3>
+          <p>A public decision, made only once the work above is done. There is no mainnet date.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="band band--dark2" id="faq">
+    <div class="wrap wrap--narrow">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">FAQ</p>
+        <h2>Straight answers.</h2>
+      </div>
+
+      <div class="faq" data-reveal>
+        <details>
+          <summary>Is SWARM live?<span class="ind" aria-hidden="true"></span></summary>
+          <div class="answer"><p>SWARM is on testnet only. There is no mainnet, no sale, no token offering and no mainnet date.</p></div>
+        </details>
+        <details>
+          <summary>Do test coins have value?<span class="ind" aria-hidden="true"></span></summary>
+          <div class="answer"><p>No. Test coins have no monetary value. They exist so the software can be exercised and broken safely.</p></div>
+        </details>
+        <details>
+          <summary>How does SWARM relate to Zcash?<span class="ind" aria-hidden="true"></span></summary>
+          <div class="answer"><p>SWARM is built by forking open-source Zcash software: the Zebra full node, the Zaino indexer and the Zingo desktop wallet. The consensus rules and the cryptography are left unmodified.</p><p>SWARM is an independent network. It is not affiliated with or endorsed by the Electric Coin Company, the Zcash Foundation or Zingo Labs.</p></div>
+        </details>
+        <details>
+          <summary>Can I mine with a normal PC?<span class="ind" aria-hidden="true"></span></summary>
+          <div class="answer"><p>On the testnet, yes. The proof of work is Equihash and it is CPU-mineable on the testnet, so SWARM is open to ordinary computers from the first block.</p><p>There is no promise that home computers stay competitive forever. As the network grows and difficulty rises, professional and specialised miners can join — and nothing in the rules keeps anyone out, at either end.</p><p>SWARM Node will let you start and stop mining with one click — it only ever runs when you press Start, and it stops when you press Stop.</p></div>
+        </details>
+        <details>
+          <summary>Is there a premine?<span class="ind" aria-hidden="true"></span></summary>
+          <div class="answer"><p>No. The genesis block contains no spendable coins. Every coin has to be mined, and mining rewards mature after 100 blocks before they can be spent.</p></div>
+        </details>
+        <details>
+          <summary>How private is it?<span class="ind" aria-hidden="true"></span></summary>
+          <div class="answer"><p>Privacy is a choice you make per payment. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs. Transparent transactions do not.</p><p>Shielding protects what is written to the chain. It does not protect everything about how you use the network — for example, your own network connection is a separate matter.</p></div>
+        </details>
+        <details>
+          <summary>Where do block rewards go?<span class="ind" aria-hidden="true"></span></summary>
+          <div class="answer"><p>Each block reward is split 80% to the miner who found the block, 8% to a Core Development Fund, 4% to a Grants &amp; Ecosystem Fund and 8% to a Community &amp; Development Reserve. After the first halving, 100% goes to miners.</p><p>Fixed in the genesis rules for the first four years. Paid block by block as part of each block reward — not a premine. The full numbers are on the <a href="/network">network page</a>.</p></div>
+        </details>
+        <details>
+          <summary>Is this related to Ethereum Swarm or the Foursquare Swarm app?<span class="ind" aria-hidden="true"></span></summary>
+          <div class="answer"><p>No. SWARM has no connection to the Ethereum Swarm (BZZ) project or to Foursquare&rsquo;s Swarm app. The logo is an original geometric design.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a class="brand" href="/">
+          <img src="/assets/logo-mark.svg" alt="" width="32" height="32">
+          <span>SWARM</span>
+        </a>
+        <p>Private, proof-of-work money run by its community. Testnet only — test coins have no value.</p>
+      </div>
+
+      <nav aria-labelledby="ft-net">
+        <h2 id="ft-net">Network</h2>
+        <ul>
+          <li><a href="/#hive">The Hive</a></li>
+          <li><a href="/#honey">Honey</a></li>
+          <li><a href="/network">Network &amp; supply</a></li>
+          <li><a href="/#roadmap">Roadmap</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="ft-get">
+        <h2 id="ft-get">Get started</h2>
+        <ul>
+          <li><a href="/join">Join the testnet</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></li>
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="ft-more">
+        <h2 id="ft-more">More</h2>
+        <ul>
+          <li><a href="/brand">Brand</a></li>
+          <li><a href="/terms">Terms</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="footer__bottom">
+      <p><strong>Experimental testnet software.</strong> Nothing on this site is an offer, a solicitation or financial advice. Test coins have no value. SWARM is not affiliated with or endorsed by the Electric Coin Company, the Zcash Foundation, Zingo Labs, Foursquare&rsquo;s Swarm app, or the Ethereum Swarm (BZZ) project.</p>
+      <div class="row">
+        <p>© 2026 SWARM contributors. Open source.</p>
+        <p>swarm.green</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

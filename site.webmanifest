@@ -1,0 +1,29 @@
+{
+  "name": "SWARM — Together we are strong.",
+  "short_name": "SWARM",
+  "description": "Private, proof-of-work money run by its community. Testnet only.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0E1116",
+  "theme_color": "#0E1116",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["utilities"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/logo-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

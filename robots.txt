@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_review/
+
+Sitemap: https://swarm.green/sitemap.xml

@@ -1,0 +1,96 @@
+#!/usr/bin/env node
+/**
+ * Zero-dependency static preview server for swarm.green.
+ *
+ * It mimics the two Vercel settings in vercel.json so that what you see locally
+ * is what you get in production:
+ *   cleanUrls: true       ->  /network            serves /network/index.html
+ *   trailingSlash: false  ->  /network/           redirects to /network
+ *
+ * Usage:  node tools/preview.mjs [port]      (default 4173)
+ */
+import { createServer } from "node:http";
+import { readFile, stat } from "node:fs/promises";
+import { extname, join, normalize, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const ROOT = resolve(fileURLToPath(new URL("../", import.meta.url)));
+const PORT = Number(process.argv[2] || 4173);
+
+const TYPES = {
+  ".html": "text/html; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
+  ".js": "text/javascript; charset=utf-8",
+  ".mjs": "text/javascript; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".svg": "image/svg+xml",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".ico": "image/x-icon",
+  ".txt": "text/plain; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8",
+  ".webmanifest": "application/manifest+json",
+  ".woff2": "font/woff2",
+  ".md": "text/markdown; charset=utf-8"
+};
+
+async function firstExisting(paths) {
+  for (const p of paths) {
+    try {
+      const s = await stat(p);
+      if (s.isFile()) return p;
+    } catch { /* keep looking */ }
+  }
+  return null;
+}
+
+const server = createServer(async (req, res) => {
+  let pathname;
+  try {
+    pathname = decodeURIComponent(new URL(req.url, "http://localhost").pathname);
+  } catch {
+    res.writeHead(400).end("Bad request");
+    return;
+  }
+
+  // trailingSlash: false
+  if (pathname.length > 1 && pathname.endsWith("/")) {
+    res.writeHead(308, { Location: pathname.replace(/\/+$/, "") }).end();
+    return;
+  }
+
+  const safe = normalize(pathname).replace(/^(\.\.[/\\])+/, "");
+  const target = join(ROOT, safe);
+  if (!target.startsWith(ROOT)) {
+    res.writeHead(403).end("Forbidden");
+    return;
+  }
+
+  const candidates =
+    pathname === "/"
+      ? [join(ROOT, "index.html")]
+      : [target, `${target}.html`, join(target, "index.html")];
+
+  let file = await firstExisting(candidates);
+  let status = 200;
+  if (!file) {
+    file = join(ROOT, "404.html");
+    status = 404;
+  }
+
+  try {
+    const body = await readFile(file);
+    res.writeHead(status, {
+      "Content-Type": TYPES[extname(file).toLowerCase()] || "application/octet-stream",
+      "Content-Length": body.length,
+      "Cache-Control": "no-store"
+    });
+    res.end(body);
+  } catch {
+    res.writeHead(500).end("Server error");
+  }
+});
+
+server.listen(PORT, () => {
+  console.log(`swarm.green preview -> http://localhost:${PORT}`);
+});

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="swarm-mono-dark-title">
+  <title id="swarm-mono-dark-title">SWARM hex-bee mark, single colour for light backgrounds</title>
+  <defs>
+    <mask id="md-stripes">
+      <rect width="64" height="64" fill="#fff"/>
+      <rect x="16" y="21.5" width="32" height="4.4" fill="#000"/>
+      <rect x="16" y="34.1" width="32" height="4.4" fill="#000"/>
+    </mask>
+    <mask id="md-cutbody">
+      <rect width="64" height="64" fill="#fff"/>
+      <path d="M32 15.5 L45.856 23.5 L45.856 39.5 L32 47.5 L18.144 39.5 L18.144 23.5 Z" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M28.8 44 L35.2 44 L32 51.3 Z" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <!-- wings, knocked back from the body so the silhouette stays readable -->
+  <g fill="#0E1116" mask="url(#md-cutbody)">
+    <path d="M16.6 12.8 L24.221 17.2 L24.221 26 L16.6 30.4 L8.979 26 L8.979 17.2 Z" transform="rotate(-20 16.6 21.6)"/>
+    <path d="M47.4 12.8 L55.021 17.2 L55.021 26 L47.4 30.4 L39.779 26 L39.779 17.2 Z" transform="rotate(20 47.4 21.6)"/>
+  </g>
+  <!-- body and stinger, with the two stripes as negative space -->
+  <g fill="#0E1116" mask="url(#md-stripes)">
+    <path d="M28.8 44 L35.2 44 L32 51.3 Z"/>
+    <path d="M32 15.5 L45.856 23.5 L45.856 39.5 L32 47.5 L18.144 39.5 L18.144 23.5 Z"/>
+  </g>
+</svg>
