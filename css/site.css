@@ -940,12 +940,12 @@ html:not(.js) .switchrow { display: none; }
   margin-bottom: var(--s-xs);
 }
 
-.minitable, .table {
+.minitable, .table, .tablewrap table {
   width: 100%;
   border-collapse: collapse;
   font-size: .84rem;
 }
-.minitable caption, .table caption {
+.minitable caption, .table caption, .tablewrap table caption {
   caption-side: bottom;
   margin-top: var(--s-sm);
   font-size: .78rem;
@@ -953,12 +953,13 @@ html:not(.js) .switchrow { display: none; }
   color: var(--text-3);
   text-align: left;
 }
-.minitable th, .minitable td, .table th, .table td {
+.minitable th, .minitable td, .table th, .table td,
+.tablewrap table th, .tablewrap table td {
   padding: 8px 10px;
   border-bottom: 1px solid var(--line-soft);
   text-align: left;
 }
-.minitable thead th, .table thead th {
+.minitable thead th, .table thead th, .tablewrap table thead th {
   font-family: var(--font-mono);
   font-size: .66rem;
   font-weight: 500;
@@ -967,8 +968,11 @@ html:not(.js) .switchrow { display: none; }
   color: var(--text-3);
   white-space: nowrap;
 }
-.minitable tbody th, .table tbody th { font-weight: 600; color: var(--text-2); }
+.minitable tbody th, .table tbody th, .tablewrap table tbody th { font-weight: 600; color: var(--text-2); }
 .num { text-align: right !important; font-family: var(--font-mono); font-feature-settings: "tnum" 1; color: var(--text-2); }
+/* Addresses and hashes: never truncated, never hidden, and they must be
+   selectable in one go so a reader can check one against a block. */
+.addr { color: var(--honey-lt); font-size: .82rem; overflow-wrap: anywhere; word-break: break-all; user-select: all; }
 
 /* Grid items default to min-width:auto, which lets a wide table push its whole
    column — and the page — sideways. Every grid here opts out. */
@@ -1323,7 +1327,7 @@ html:not(.js) .switchrow { display: none; }
 .prose strong { color: var(--text-2); }
 
 .table { margin-top: var(--s-md); }
-.tablewrap .table { min-width: 560px; }
+.tablewrap table { min-width: 560px; }
 .meta {
   font-family: var(--font-mono);
   font-size: .74rem;

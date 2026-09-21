@@ -147,7 +147,7 @@
         <p class="eyebrow">Reward allocation</p>
         <h2>Where every block reward goes.</h2>
         <p>Every block reward is split four ways, in the same proportions, for the whole emission schedule. Each halving reduces all four amounts together — the 80 / 8 / 4 / 8 structure never changes, all the way down to the block where the reward reaches zero.</p>
-        <p class="mt-s">The percentages are hard-coded in the genesis rules. Each allocation is paid automatically to its predefined destination address. Destinations can only be changed through a formal protocol upgrade; the percentages themselves cannot be changed. The three destinations are multisignature addresses held by the project, and they will be published together with the genesis rules.</p>
+        <p class="mt-s">The percentages are hard-coded in the genesis rules. Each allocation is paid automatically to its predefined destination address. Destinations can only be changed through a formal protocol upgrade; the percentages themselves cannot be changed. The three destinations are script addresses held by the project, and they are published together with the genesis rules.</p>
         <p class="mt-s">No premine, no hidden treasury — every allocation is visible in every block.</p>
       </div>
 
@@ -202,6 +202,44 @@
       </div>
 
       <p class="note mt-m" data-reveal>Amounts are exact to the smallest unit for the first seven eras (about 28 years). After that the inherited rounding rule rounds each allocation down to a whole unit and the miner receives the remainder, which is why the lifetime miner share is fractionally above 80%.</p>
+
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">The genesis rules</p>
+        <h2>The three destinations, in full.</h2>
+        <p>These are the addresses the three allocations are paid to on the SWARM testnet, and the genesis block they are fixed in. They are part of the network definition every node loads, so a node with different addresses rejects this chain&rsquo;s blocks and forks itself off.</p>
+        <p class="mt-s">Pay-to-script-hash on the testnet (t2…). On this testnet each script is controlled by a single key held by the project. How keys are generated, held and used will be written down and published before any mainnet.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>Allocation destinations on the SWARM testnet. Testnet coins have no monetary value.</caption>
+          <thead>
+            <tr><th scope="col">Allocation</th><th scope="col">Share</th><th scope="col">Destination address</th></tr>
+          </thead>
+          <tbody>
+          <tr><th scope="row">Core Development</th><td class="num">8%</td><td class="mono addr">t2DGVURG5tAyXXSkj85JV5xbvTobYv7H99n</td></tr>
+          <tr><th scope="row">Grants &amp; Ecosystem</th><td class="num">4%</td><td class="mono addr">t2LVPzRYpZ4QtRRmQMS1zWUmG7TZaYcMjBR</td></tr>
+          <tr><th scope="row">Community &amp; Development Reserve</th><td class="num">8%</td><td class="mono addr">t2UHhsicXnapNJrfewHqgwXef5HDwCHd7wk</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap mt-m" data-reveal>
+        <table>
+          <caption>The genesis block these rules are fixed in.</caption>
+          <tbody>
+          <tr><th scope="row">Network</th><td>SwarmTestnet</td></tr>
+          <tr><th scope="row">Network magic</th><td class="mono">SWRM</td></tr>
+          <tr><th scope="row">Proof of work</th><td>Equihash 200,9, inherited and unchanged</td></tr>
+          <tr><th scope="row">Genesis block hash</th><td class="mono addr">045993f5c91ea160c7ebda573dd97b0016816bca68d395bfff202779b88e2a28</td></tr>
+          <tr><th scope="row">Genesis header time</th><td class="mono">2026-09-21T12:00:00Z <span class="meta">(Unix 1789992000)</span></td></tr>
+          <tr><th scope="row">Spendable outputs in the genesis block</th><td>0 — there is no premine</td></tr>
+          <tr><th scope="row">Allocation covers</th><td>block 1 up to 50,399,999 (exclusive) — every block with a reward</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note mt-m" data-reveal>Every value in these two tables is read from <span class="mono">data/network.json</span>, which is copied from the published network manifest. Check a payment yourself: any block&rsquo;s coinbase pays exactly 0.50, 0.25 and 0.50 SWM to the three addresses above in era 0, and the rest to the miner.</p>
 
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">

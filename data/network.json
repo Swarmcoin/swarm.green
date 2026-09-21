@@ -24,12 +24,83 @@
     "cpuMineableOnTestnet": true,
     "lineage": "Forked from open-source Zcash software (Zebra full node, Zaino indexer, Zingo desktop wallet) with consensus rules and cryptography left unmodified."
   },
+  "genesis": {
+    "note": "Copied from network/swarm-testnet/manifest.json, the published network definition. /network renders this block; tools/build_pages.py reads it, so no address or hash is hard-coded only in HTML.",
+    "network": "SwarmTestnet",
+    "networkMagic": "SWRM",
+    "proofOfWork": "Equihash 200,9, inherited and unchanged",
+    "hash": "045993f5c91ea160c7ebda573dd97b0016816bca68d395bfff202779b88e2a28",
+    "headerTimeUtc": "2026-09-21T12:00:00Z",
+    "headerTimeUnix": 1789992000,
+    "spendableOutputs": 0,
+    "fundingRange": {
+      "startHeight": 1,
+      "endHeightExclusive": 50399999
+    },
+    "addressType": "Pay-to-script-hash on the testnet (t2…).",
+    "custody": "On this testnet each script is controlled by a single key held by the project. How keys are generated, held and used will be written down and published before any mainnet.",
+    "destinations": [
+      {
+        "name": "Core Development",
+        "percent": "8%",
+        "perBlockEra0": 0.5,
+        "address": "t2DGVURG5tAyXXSkj85JV5xbvTobYv7H99n"
+      },
+      {
+        "name": "Grants & Ecosystem",
+        "percent": "4%",
+        "perBlockEra0": 0.25,
+        "address": "t2LVPzRYpZ4QtRRmQMS1zWUmG7TZaYcMjBR"
+      },
+      {
+        "name": "Community & Development Reserve",
+        "percent": "8%",
+        "perBlockEra0": 0.5,
+        "address": "t2UHhsicXnapNJrfewHqgwXef5HDwCHd7wk"
+      }
+    ]
+  },
   "stats": [
-    { "key": "blockTime", "value": "75", "unit": "s", "label": "Target block time", "note": "Inherited from the Zcash design.", "accent": "" },
-    { "key": "blockReward", "value": "6.25", "unit": "SWM", "label": "Block reward", "note": "Era 0, before the first halving.", "accent": "honey" },
-    { "key": "maxSupply", "value": "≈21", "unit": "M SWM", "label": "Maximum supply", "note": "20,999,987.3152 coins.", "accent": "" },
-    { "key": "halving", "value": "≈4", "unit": "yr", "label": "Halving interval", "note": "Every 1,680,000 blocks.", "accent": "honey" },
-    { "key": "premine", "value": "0", "unit": "", "label": "Premine", "note": "The genesis block has no spendable coins.", "accent": "green" }
+    {
+      "key": "blockTime",
+      "value": "75",
+      "unit": "s",
+      "label": "Target block time",
+      "note": "Inherited from the Zcash design.",
+      "accent": ""
+    },
+    {
+      "key": "blockReward",
+      "value": "6.25",
+      "unit": "SWM",
+      "label": "Block reward",
+      "note": "Era 0, before the first halving.",
+      "accent": "honey"
+    },
+    {
+      "key": "maxSupply",
+      "value": "≈21",
+      "unit": "M SWM",
+      "label": "Maximum supply",
+      "note": "20,999,987.3152 coins.",
+      "accent": ""
+    },
+    {
+      "key": "halving",
+      "value": "≈4",
+      "unit": "yr",
+      "label": "Halving interval",
+      "note": "Every 1,680,000 blocks.",
+      "accent": "honey"
+    },
+    {
+      "key": "premine",
+      "value": "0",
+      "unit": "",
+      "label": "Premine",
+      "note": "The genesis block has no spendable coins.",
+      "accent": "green"
+    }
   ],
   "rewardSplit": {
     "status": "fixed",
@@ -80,11 +151,46 @@
       }
     ],
     "perBlockByEra": [
-      { "era": 0, "reward": 6.25,     "miner": 5.0,    "core": 0.5,     "grants": 0.25,     "reserve": 0.5 },
-      { "era": 1, "reward": 3.125,    "miner": 2.5,    "core": 0.25,    "grants": 0.125,    "reserve": 0.25 },
-      { "era": 2, "reward": 1.5625,   "miner": 1.25,   "core": 0.125,   "grants": 0.0625,   "reserve": 0.125 },
-      { "era": 3, "reward": 0.78125,  "miner": 0.625,  "core": 0.0625,  "grants": 0.03125,  "reserve": 0.0625 },
-      { "era": 4, "reward": 0.390625, "miner": 0.3125, "core": 0.03125, "grants": 0.015625, "reserve": 0.03125 }
+      {
+        "era": 0,
+        "reward": 6.25,
+        "miner": 5.0,
+        "core": 0.5,
+        "grants": 0.25,
+        "reserve": 0.5
+      },
+      {
+        "era": 1,
+        "reward": 3.125,
+        "miner": 2.5,
+        "core": 0.25,
+        "grants": 0.125,
+        "reserve": 0.25
+      },
+      {
+        "era": 2,
+        "reward": 1.5625,
+        "miner": 1.25,
+        "core": 0.125,
+        "grants": 0.0625,
+        "reserve": 0.125
+      },
+      {
+        "era": 3,
+        "reward": 0.78125,
+        "miner": 0.625,
+        "core": 0.0625,
+        "grants": 0.03125,
+        "reserve": 0.0625
+      },
+      {
+        "era": 4,
+        "reward": 0.390625,
+        "miner": 0.3125,
+        "core": 0.03125,
+        "grants": 0.015625,
+        "reserve": 0.03125
+      }
     ],
     "lifetimeTotals": {
       "miner": 16799990.4872,
@@ -165,10 +271,30 @@
     }
   ],
   "roadmap": [
-    { "stage": 1, "name": "Private testnet", "state": "now", "detail": "Node, indexer and wallet running end to end on a closed testnet." },
-    { "stage": 2, "name": "Public testnet", "state": "next", "detail": "Open testnet with a block explorer and a faucet." },
-    { "stage": 3, "name": "Independent security review", "state": "later", "detail": "External review of the changes made on top of the upstream Zcash software." },
-    { "stage": 4, "name": "Mainnet readiness decision", "state": "later", "detail": "A public decision, made only once the work above is done. No date." }
+    {
+      "stage": 1,
+      "name": "Private testnet",
+      "state": "now",
+      "detail": "Node, indexer and wallet running end to end on a closed testnet."
+    },
+    {
+      "stage": 2,
+      "name": "Public testnet",
+      "state": "next",
+      "detail": "Open testnet with a block explorer and a faucet."
+    },
+    {
+      "stage": 3,
+      "name": "Independent security review",
+      "state": "later",
+      "detail": "External review of the changes made on top of the upstream Zcash software."
+    },
+    {
+      "stage": 4,
+      "name": "Mainnet readiness decision",
+      "state": "later",
+      "detail": "A public decision, made only once the work above is done. No date."
+    }
   ],
   "links": {
     "github": "https://github.com/brs-holding",

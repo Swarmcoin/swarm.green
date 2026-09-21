@@ -1,9 +1,18 @@
 # Emits the plain-HTML sub-pages for swarm.green.
 # The output is ordinary static HTML committed to the repo; this generator only
 # exists so the shared <head>, nav and footer are byte-identical on every page.
+import html
+import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent  # repository root
+# Figures that must not exist in two places read straight out of the data file.
+DATA = json.loads((ROOT / "data" / "network.json").read_text(encoding="utf-8"))
+GENESIS = DATA["genesis"]
+
+
+def esc(value):
+    return html.escape(str(value), quote=False)
 EXT = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" '
        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
        '<path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span>')
@@ -255,6 +264,32 @@ lifetime_rows = "\n".join(
     f'          <tr><th scope="row">{n}</th><td class="num">{v}</td></tr>'
     for n, v in lifetime_totals)
 
+# "The genesis rules" — every value below comes from data/network.json, which
+# was copied from network/swarm-testnet/manifest.json. Nothing here is typed
+# into the HTML by hand.
+destination_rows = "\n".join(
+    f'          <tr><th scope="row">{esc(d["name"])}</th><td class="num">{esc(d["percent"])}</td>'
+    f'<td class="mono addr">{esc(d["address"])}</td></tr>'
+    for d in GENESIS["destinations"])
+
+def _cell(value, cls):
+    return f'<td class="{cls}">{value}</td>' if cls else f'<td>{value}</td>'
+
+
+genesis_rows = "\n".join(
+    f'          <tr><th scope="row">{k}</th>{_cell(v, cls)}</tr>'
+    for k, v, cls in [
+        ("Network", esc(GENESIS["network"]), ""),
+        ("Network magic", esc(GENESIS["networkMagic"]), "mono"),
+        ("Proof of work", esc(GENESIS["proofOfWork"]), ""),
+        ("Genesis block hash", esc(GENESIS["hash"]), "mono addr"),
+        ("Genesis header time", esc(GENESIS["headerTimeUtc"]) +
+            f' <span class="meta">(Unix {esc(GENESIS["headerTimeUnix"])})</span>', "mono"),
+        ("Spendable outputs in the genesis block", esc(GENESIS["spendableOutputs"]) + " — there is no premine", ""),
+        ("Allocation covers", f'block {GENESIS["fundingRange"]["startHeight"]:,} up to '
+            f'{GENESIS["fundingRange"]["endHeightExclusive"]:,} (exclusive) — every block with a reward', ""),
+    ])
+
 network = head(
     "Network &amp; supply — SWARM",
     "Every SWARM parameter in one place: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM, no premine, and the four-way block reward split fixed for the whole emission schedule.",
@@ -312,7 +347,7 @@ network = head(
         <p class="eyebrow">Reward allocation</p>
         <h2>Where every block reward goes.</h2>
         <p>Every block reward is split four ways, in the same proportions, for the whole emission schedule. Each halving reduces all four amounts together — the 80 / 8 / 4 / 8 structure never changes, all the way down to the block where the reward reaches zero.</p>
-        <p class="mt-s">The percentages are hard-coded in the genesis rules. Each allocation is paid automatically to its predefined destination address. Destinations can only be changed through a formal protocol upgrade; the percentages themselves cannot be changed. The three destinations are multisignature addresses held by the project, and they will be published together with the genesis rules.</p>
+        <p class="mt-s">The percentages are hard-coded in the genesis rules. Each allocation is paid automatically to its predefined destination address. Destinations can only be changed through a formal protocol upgrade; the percentages themselves cannot be changed. The three destinations are script addresses held by the project, and they are published together with the genesis rules.</p>
         <p class="mt-s">No premine, no hidden treasury — every allocation is visible in every block.</p>
       </div>
 
@@ -357,6 +392,36 @@ network = head(
       </div>
 
       <p class="note mt-m" data-reveal>Amounts are exact to the smallest unit for the first seven eras (about 28 years). After that the inherited rounding rule rounds each allocation down to a whole unit and the miner receives the remainder, which is why the lifetime miner share is fractionally above 80%.</p>
+
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">The genesis rules</p>
+        <h2>The three destinations, in full.</h2>
+        <p>These are the addresses the three allocations are paid to on the SWARM testnet, and the genesis block they are fixed in. They are part of the network definition every node loads, so a node with different addresses rejects this chain&rsquo;s blocks and forks itself off.</p>
+        <p class="mt-s">{esc(GENESIS["addressType"])} {esc(GENESIS["custody"])}</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>Allocation destinations on the SWARM testnet. Testnet coins have no monetary value.</caption>
+          <thead>
+            <tr><th scope="col">Allocation</th><th scope="col">Share</th><th scope="col">Destination address</th></tr>
+          </thead>
+          <tbody>
+{destination_rows}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap mt-m" data-reveal>
+        <table>
+          <caption>The genesis block these rules are fixed in.</caption>
+          <tbody>
+{genesis_rows}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note mt-m" data-reveal>Every value in these two tables is read from <span class="mono">data/network.json</span>, which is copied from the published network manifest. Check a payment yourself: any block&rsquo;s coinbase pays exactly 0.50, 0.25 and 0.50 SWM to the three addresses above in era 0, and the rest to the miner.</p>
 
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
