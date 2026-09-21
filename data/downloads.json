@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "updated": "2026-09-21",
+    "note": "Source of truth for the download area. Going live is a data change, not an HTML edit: flip an entry's status to \"available\" and fill in version, url, sha256 and size. js/site.js renders this into every [data-downloads] block; the static HTML in index.html and /join must be kept in step (see README.md).",
+    "windowsNotice": "Testnet build, not code-signed: Windows SmartScreen will warn — choose More info → Run anyway.",
+    "mobileNotice": "Mobile apps are wallets only. Phones do not mine."
+  },
+  "products": [
+    {
+      "key": "wallet",
+      "name": "SWARM Wallet",
+      "tagline": "Desktop wallet",
+      "detail": "Holds your coins and sends payments — transparent or shielded, your choice on every payment. On first run it shows a recovery phrase; write it down on paper and keep it offline.",
+      "platformLine": "Windows first, Linux and macOS to follow."
+    },
+    {
+      "key": "node",
+      "name": "SWARM Node",
+      "tagline": "Full node and one-click mining",
+      "detail": "Runs a full node — it downloads the chain, checks every block against the rules itself and relays to its peers — and has a single mining switch. Consent-first: nothing runs hidden, nothing starts by itself.",
+      "platformLine": "Windows first, Linux and macOS to follow."
+    },
+    {
+      "key": "mobile-android",
+      "name": "SWARM Wallet for Android",
+      "tagline": "Mobile wallet",
+      "detail": "The same wallet on your phone: hold, send and receive. A wallet only — phones do not mine.",
+      "platformLine": "In early development."
+    },
+    {
+      "key": "mobile-ios",
+      "name": "SWARM Wallet for iPhone",
+      "tagline": "Mobile wallet",
+      "detail": "The same wallet on your phone: hold, send and receive. A wallet only — phones do not mine.",
+      "platformLine": "In early development."
+    }
+  ],
+  "entries": [
+    { "product": "wallet", "platform": "Windows", "status": "coming-soon", "version": "", "url": "", "sha256": "", "size": "", "notes": "" },
+    { "product": "wallet", "platform": "Linux", "status": "coming-soon", "version": "", "url": "", "sha256": "", "size": "", "notes": "" },
+    { "product": "wallet", "platform": "macOS", "status": "coming-soon", "version": "", "url": "", "sha256": "", "size": "", "notes": "" },
+    { "product": "node", "platform": "Windows", "status": "coming-soon", "version": "", "url": "", "sha256": "", "size": "", "notes": "" },
+    { "product": "node", "platform": "Linux", "status": "coming-soon", "version": "", "url": "", "sha256": "", "size": "", "notes": "" },
+    { "product": "node", "platform": "macOS", "status": "coming-soon", "version": "", "url": "", "sha256": "", "size": "", "notes": "" },
+    { "product": "mobile-android", "platform": "Android", "status": "coming-soon", "version": "", "url": "", "sha256": "", "size": "", "notes": "" },
+    { "product": "mobile-ios", "platform": "iOS", "status": "coming-soon", "version": "", "url": "", "sha256": "", "size": "", "notes": "" }
+  ]
+}

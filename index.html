@@ -6,7 +6,7 @@
 <title>SWARM — Together we are strong. Private, proof-of-work money run by its community.</title>
 <meta name="description" content="SWARM is an independent, community-run proof-of-work network with optional shielded transactions, built by forking open-source Zcash software. Testnet only — test coins have no value.">
 <link rel="canonical" href="https://swarm.green/">
-<meta name="theme-color" content="#0E1116">
+<meta name="theme-color" content="#0A0908">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SWARM">
 <meta property="og:locale" content="en">
@@ -24,14 +24,15 @@
 <meta name="twitter:description" content="Private, proof-of-work money run by its community. Testnet only — test coins have no value.">
 <meta name="twitter:image" content="https://swarm.green/assets/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="mask-icon" href="/assets/logo-mono-dark.svg" color="#F5A623">
+<link rel="mask-icon" href="/assets/logo-mono-dark.svg" color="#FF8A1F">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/css/site.css">
 <script src="/js/boot.js"></script>
 <script src="/js/site.js" defer></script>
+<script src="/js/map.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -41,18 +42,20 @@
 <header class="nav">
   <div class="wrap nav__bar">
     <a class="brand" href="/">
-      <img src="/assets/logo-mark.svg" alt="" width="32" height="32">
+      <img src="/assets/logo-mark.svg" alt="" width="30" height="30">
       <span>SWARM</span>
       <span class="vh">— home</span>
     </a>
     <nav class="nav__links" aria-label="Primary">
-      <a href="#hive">The Hive</a>
-      <a href="#honey">Honey</a>
+      <a href="#how">How it works</a>
+      <a href="#mine">Mining</a>
+      <a href="#swarm">The swarm</a>
+      <a href="#honey">Supply</a>
       <a href="#join">Join</a>
-      <a href="#roadmap">Roadmap</a>
       <a href="#faq">FAQ</a>
       <a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>
     </nav>
+    <a class="btn btn--ghost btn--sm nav__cta" href="#join">Join the testnet</a>
     <button class="nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel">
       <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="vh">Menu</span>
@@ -61,8 +64,11 @@
   <div class="nav__panel" id="navpanel" data-nav-panel>
     <nav aria-label="Primary, compact">
       <ul>
+        <li><a href="#how">How it works</a></li>
         <li><a href="#hive">The Hive</a></li>
-        <li><a href="#honey">Honey</a></li>
+        <li><a href="#mine">Mining</a></li>
+        <li><a href="#swarm">The swarm</a></li>
+        <li><a href="#honey">Supply</a></li>
         <li><a href="#join">Join</a></li>
         <li><a href="#roadmap">Roadmap</a></li>
         <li><a href="#faq">FAQ</a></li>
@@ -77,29 +83,116 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero">
-    <canvas class="hero__canvas" data-swarm aria-hidden="true"></canvas>
-    <div class="wrap hero__inner">
-      <p class="hero__badge"><span class="pip" aria-hidden="true"></span>Testnet · Proof of work · Shielded by choice</p>
-      <h1>Together we are <span class="glow">strong.</span></h1>
-      <p class="hero__lead">SWARM is private, proof-of-work money run by its community. Every computer that joins makes the hive stronger — and the bees that do the work earn the honey.</p>
-      <div class="cta-row">
-        <a class="btn btn--primary" href="#join">Join the testnet</a>
-        <a class="btn btn--ghost" href="#hive">How the hive works</a>
+    <div class="wrap hero__grid">
+      <div>
+        <p class="pill"><span class="pip" aria-hidden="true"></span>Testnet · Proof of work · Shielded by choice</p>
+        <h1>Together we are <span class="glow">strong.</span></h1>
+        <p class="hero__lead">SWARM is private, proof-of-work money run by its community. Every computer that joins makes the hive stronger — and the bees that do the work earn the honey.</p>
+        <div class="cta-row">
+          <a class="btn btn--primary" href="#join">Join the testnet</a>
+          <a class="btn btn--ghost" href="#how">How it works</a>
+        </div>
+        <p class="hero__sub">One bee is small. A swarm is unstoppable.</p>
       </div>
-      <p class="hero__sub">One bee is small. A swarm is unstoppable.</p>
 
-      <div class="stats" data-stats>
-        <div class="stat"><div class="stat__in"><div class="stat__v">75<small>s</small></div><div class="stat__l">Target block time</div></div></div>
-        <div class="stat"><div class="stat__in"><div class="stat__v">≈21<small>M</small></div><div class="stat__l">Maximum supply</div></div></div>
-        <div class="stat"><div class="stat__in"><div class="stat__v">6.25</div><div class="stat__l">Coins per block</div></div></div>
-        <div class="stat"><div class="stat__in"><div class="stat__v">≈4<small>yr</small></div><div class="stat__l">Halving interval</div></div></div>
-        <div class="stat"><div class="stat__in"><div class="stat__v">0</div><div class="stat__l">Premine</div></div></div>
+      <div class="hero__art">
+        <svg viewBox="0 0 480 480" fill="none" aria-hidden="true" focusable="false">
+          <g stroke="#FF8A1F" fill="none" stroke-width="1">
+            <path class="ring-c" d="M240 30 L422 135 L422 345 L240 450 L58 345 L58 135 Z" opacity=".14" stroke-dasharray="6 10"/>
+            <path class="ring-a" d="M240 80 L379 160 L379 320 L240 400 L101 320 L101 160 Z" opacity=".28"/>
+            <path class="ring-b" d="M240 130 L335 185 L335 295 L240 350 L145 295 L145 185 Z" opacity=".45"/>
+          </g>
+          <g class="bee">
+            <ellipse class="wing-l" cx="196" cy="188" rx="50" ry="27" transform="rotate(-28 196 188)" fill="#FFB020"/>
+            <ellipse class="wing-r" cx="284" cy="188" rx="50" ry="27" transform="rotate(28 284 188)" fill="#FFB020"/>
+            <path fill-rule="evenodd" fill="#FF8A1F" d="M240 204 L298 238 L298 312 L240 346 L182 312 L182 238 Z M182 258 H298 V274 H182 Z M182 294 H298 V310 H182 Z"/>
+          </g>
+        </svg>
+        <div class="hero__chip hero__chip--a">
+          <div class="k">SHIELDED PAYMENT</div>
+          <div class="v">⬢⬢⬢.⬢⬢ SWM</div>
+        </div>
+        <div class="hero__chip hero__chip--b">
+          <div class="k">BLOCK REWARD</div>
+          <div class="v">6.25 SWM</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="metrics metrics--5 stats" data-stats>
+        <div class="metric"><div class="metric__k">Target block time</div><div class="metric__v">75<small>s</small></div><div class="metric__d">Inherited from the Zcash design.</div></div>
+        <div class="metric metric--honey"><div class="metric__k">Block reward</div><div class="metric__v">6.25<small>SWM</small></div><div class="metric__d">Era 0, before the first halving.</div></div>
+        <div class="metric"><div class="metric__k">Maximum supply</div><div class="metric__v">≈21<small>M SWM</small></div><div class="metric__d">20,999,987.3152 coins.</div></div>
+        <div class="metric metric--honey"><div class="metric__k">Halving interval</div><div class="metric__v">≈4<small>yr</small></div><div class="metric__d">Every 1,680,000 blocks.</div></div>
+        <div class="metric metric--green"><div class="metric__k">Premine</div><div class="metric__v">0</div><div class="metric__d">The genesis block has no spendable coins.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="band band--line" id="how">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">How it works</p>
+        <h2>Shielded by default in the wallet. Transparent by choice.</h2>
+        <p>Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs. The SWARM Wallet sends shielded by default; you can choose to reveal a payment.</p>
+      </div>
+
+      <div class="cards cards--3" data-reveal>
+        <article class="card card--flow">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3 5 6v5c0 4 3 6 7 8 4-2 7-4 7-8V6z"/></svg>
+          </div>
+          <h3>Shielded by default in the wallet</h3>
+          <p>The SWARM Wallet sends shielded unless you say otherwise. A shielded transaction proves it is valid without publishing who paid whom, or how much.</p>
+        </article>
+
+        <article class="card card--flow is-blue">
+          <div class="hexicon is-blue" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+          </div>
+          <h3>Reveal when you choose</h3>
+          <p>Send a transparent payment when you want one — for an audit, an exchange, a receipt. Transparent transactions are published like any public chain, and everything that shows that state is Clear Blue, never orange.</p>
+        </article>
+
+        <article class="card card--flow is-honey">
+          <div class="hexicon is-honey" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M14 6 6 14l4 4"/><path d="M12 4c3 0 6 1 8 4-2-1-5-1-7 0z"/></svg>
+          </div>
+          <h3>Mined, never minted</h3>
+          <p>Every coin has to be found by doing proof of work. The genesis block contains no spendable coins, and a mining reward matures for 100 blocks before it can be spent.</p>
+        </article>
+      </div>
+
+      <div class="switchbox mt-l" data-switchbox data-state="shielded" data-reveal>
+        <div>
+          <p class="eyebrow">One switch</p>
+          <h3 data-switch-title>What the world sees: nothing.</h3>
+          <p data-switch-body>A shielded transaction proves it is valid without revealing who paid whom, or how much. An explorer can see that a block was mined — and that is all.</p>
+          <div class="switchrow">
+            <button class="switch" type="button" data-switch role="switch" aria-checked="true">
+              <span class="vh">Shield this payment</span>
+            </button>
+            <span class="switch__tag mono" data-switch-tag>PRIVACY · ON</span>
+          </div>
+        </div>
+        <div class="ledger">
+          <p class="label">What an explorer would show</p>
+          <dl>
+            <div><dt>From</dt><dd data-switch-from>⬢⬢⬢⬢⬢⬢⬢⬢</dd></div>
+            <div><dt>To</dt><dd data-switch-to>⬢⬢⬢⬢⬢⬢⬢⬢</dd></div>
+            <div><dt>Amount</dt><dd data-switch-amount>⬢⬢⬢.⬢⬢ SWM</dd></div>
+            <div><dt>Block</dt><dd>confirmed</dd></div>
+          </dl>
+          <p class="ledger__foot">An illustration of the two states, not live data.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ================= THE HIVE ================= -->
-  <section class="band band--cream band--comb" id="hive">
+  <section class="band band--tint band--line" id="hive">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">The Hive</p>
@@ -108,48 +201,48 @@
       </div>
 
       <div class="cards" data-reveal>
-        <article class="card">
-          <div class="hexicon" aria-hidden="true">
+        <article class="card card--quiet">
+          <div class="hexicon hexicon--quiet" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="5.6" r="2.4"/><circle cx="5.4" cy="17" r="2.4"/><circle cx="18.6" cy="17" r="2.4"/><path d="M10.4 7.9 7 14.3M13.6 7.9 17 14.3M7.8 17h8.4"/></svg>
           </div>
           <h3>Bees</h3>
           <p>Everyone running a node. Each one keeps its own copy of the rules and checks every block for itself, so nobody has to be trusted.</p>
         </article>
 
-        <article class="card">
-          <div class="hexicon" aria-hidden="true">
+        <article class="card card--quiet">
+          <div class="hexicon hexicon--quiet" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="7" y="7" width="10" height="10" rx="1.6"/><path d="M10 4v3M14 4v3M10 17v3M14 17v3M4 10h3M4 14h3M17 10h3M17 14h3"/></svg>
           </div>
           <h3>Foragers</h3>
           <p>The miners. They spend real electricity on proof of work to secure the chain. The work is Equihash — CPU-mineable on the testnet — so ordinary computers can forage from the first block. Nothing in the rules keeps bigger miners out later.</p>
         </article>
 
-        <article class="card">
-          <div class="hexicon" aria-hidden="true">
+        <article class="card card--quiet">
+          <div class="hexicon hexicon--quiet" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3.2s6.2 6.9 6.2 10.6A6.2 6.2 0 0 1 5.8 13.8C5.8 10.1 12 3.2 12 3.2Z"/></svg>
           </div>
           <h3>Honey</h3>
-          <p>The block reward. 6.25 coins for every block found, paid for real work — never minted for anyone in advance.</p>
+          <p>The block reward. 6.25 SWM for every block found, paid for real work — never minted for anyone in advance.</p>
         </article>
 
-        <article class="card">
-          <div class="hexicon" aria-hidden="true">
+        <article class="card card--quiet">
+          <div class="hexicon hexicon--quiet" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" focusable="false"><path d="M8 2.6 12 5v4.6L8 12 4 9.6V5ZM16 2.6 20 5v4.6L16 12l-4-2.4V5ZM12 11.6 16 14v4.6L12 21l-4-2.4V14Z"/></svg>
           </div>
           <h3>Honeycomb</h3>
           <p>The blockchain. One cell for each block, sealed in order, each one referring back to the last — a shared ledger anyone can re-check.</p>
         </article>
 
-        <article class="card">
-          <div class="hexicon" aria-hidden="true">
+        <article class="card card--quiet">
+          <div class="hexicon hexicon--quiet" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="2.8"/><circle cx="12" cy="4.2" r="1.9"/><circle cx="4.6" cy="17" r="1.9"/><circle cx="19.4" cy="17" r="1.9"/><path d="M12 6.1v3.1M9.7 13.6 6.3 15.7M14.3 13.6l3.4 2.1"/></svg>
           </div>
           <h3>The Hive</h3>
           <p>The peer-to-peer network itself. There is no central server to ask permission from. The more bees run nodes, the harder the hive is to switch off.</p>
         </article>
 
-        <article class="card">
-          <div class="hexicon" aria-hidden="true">
+        <article class="card card--quiet">
+          <div class="hexicon hexicon--quiet" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 2.8 19.6 5.6v6.1c0 4.4-3.2 7.6-7.6 9-4.4-1.4-7.6-4.6-7.6-9V5.6Z"/><path d="M9 12.1l2.2 2.2 4.1-4.4"/></svg>
           </div>
           <h3>Shielded</h3>
@@ -160,7 +253,7 @@
   </section>
 
   <!-- ================= WHY SWARM ================= -->
-  <section class="band band--dark2" id="why">
+  <section class="band band--line" id="why">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Why SWARM</p>
@@ -192,7 +285,7 @@
           </span>
           <div>
             <h3>Sound, predictable supply</h3>
-            <p>6.25 coins a block, halving every 1,680,000 blocks — about four years — up to a maximum of 20,999,987.3152 coins. The schedule is fixed in the code and published in full.</p>
+            <p>6.25 SWM a block, halving every 1,680,000 blocks — about four years — up to a maximum of 20,999,987.3152 coins. The schedule is fixed in the code and published in full.</p>
           </div>
         </li>
         <li>
@@ -221,13 +314,94 @@
     </div>
   </section>
 
-  <!-- ================= HONEY / TOKENOMICS ================= -->
-  <section class="band band--cream" id="honey">
+  <!-- ================= MINING ================= -->
+  <section class="band band--tint band--line" id="mine">
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="eyebrow">Honey</p>
+        <p class="eyebrow eyebrow--honey">Mining</p>
+        <h2>Every worker feeds the hive.</h2>
+        <p>The proof of work is Equihash, inherited from the Zcash software SWARM forks and left unmodified. On the testnet it is CPU-mineable, so SWARM is open to ordinary computers from the first block. There is no hardware gate — and no promise that home computers stay competitive forever. As difficulty rises, professional and specialised miners can join, and nothing in the rules keeps anyone out at either end.</p>
+      </div>
+
+      <div class="panel-grid" data-reveal>
+        <div>
+          <div class="metrics metrics--2">
+            <div class="metric metric--honey"><div class="metric__k">Proof of work</div><div class="metric__v">Equihash</div><div class="metric__d">Inherited, unmodified.</div></div>
+            <div class="metric"><div class="metric__k">Target block time</div><div class="metric__v">75<small>s</small></div><div class="metric__d">1,152 blocks a day.</div></div>
+            <div class="metric metric--honey"><div class="metric__k">Block reward</div><div class="metric__v">6.25<small>SWM</small></div><div class="metric__d">80% of it goes to the miner.</div></div>
+            <div class="metric"><div class="metric__k">Reward maturity</div><div class="metric__v">100<small>blocks</small></div><div class="metric__d">About two hours before it can be spent.</div></div>
+          </div>
+          <p class="sub mt-m">Difficulty retargets every block, exactly as it does upstream. <a class="textlink" href="/network">See the full network parameters</a></p>
+        </div>
+
+        <div>
+          <h3>Three things happen when you mine</h3>
+          <ol class="minesteps">
+            <li><b>01</b><span>Install SWARM Node on a computer you already own.</span></li>
+            <li><b>02</b><span>Choose the address your rewards are paid to. A mining reward arrives transparent and matures for 100 blocks.</span></li>
+            <li><b>03</b><span>Press Start. Mining only ever runs while you leave it running, and stops the moment you press Stop.</span></li>
+          </ol>
+          <p class="sub mt-m">Consent-first: nothing runs hidden, and nothing starts by itself.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THE SWARM (map) ================= -->
+  <section class="band band--line" id="swarm">
+    <div class="wrap">
+      <div class="sec-head sec-head--split" data-reveal>
+        <div>
+          <p class="eyebrow">The swarm</p>
+          <h2>One node today. Room for the whole world.</h2>
+        </div>
+        <p>Locations on this map are coarse — city level, never an address — and opt-in. That is a design commitment for SWARM Node: sharing a location will be off unless you switch it on, and the map only ever says that somebody is somewhere.</p>
+      </div>
+
+      <figure class="map" data-map-root data-reveal>
+        <div class="map__frame">
+          <div class="map__plot">
+            <span class="state state--shielded map__badge" data-map-badge>1 node on the map</span>
+            <svg class="map__svg" data-map viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet" role="group" aria-label="World map of the nodes that share a city-level location"></svg>
+            <div class="map__scale" aria-hidden="true"><span>FEW</span><i></i><span>MANY</span></div>
+          </div>
+          <dl class="map__foot">
+            <div><dt>Nodes on the map</dt><dd data-map-total>1</dd><p>the project&rsquo;s seed server</p></div>
+            <div><dt>Cities</dt><dd class="is-plain" data-map-cities>1</dd><p data-map-top>Dallas, US</p></div>
+            <div><dt>Precision</dt><dd class="is-plain">City</dd><p>never finer than a city</p></div>
+            <div><dt>Sharing</dt><dd class="is-plain">Opt-in</dd><p>off unless you switch it on</p></div>
+          </dl>
+        </div>
+
+        <figcaption>
+          The swarm is just hatching. 1 node online — the project&rsquo;s seed in Dallas. Hotspots appear as people run SWARM Node and choose to share a city-level location.
+          <span class="map__src">Source: <span data-map-source>Operated by the SWARM project</span> · updated <time data-map-updated datetime="2026-09-21">21 September 2026</time></span>
+        </figcaption>
+
+        <p class="map__nojs">The map needs JavaScript. The same figures are in the table below.</p>
+
+        <div class="map__table">
+          <table class="minitable" data-map-table>
+            <caption>Nodes that share a city-level location. Source: operated by the SWARM project.</caption>
+            <thead>
+              <tr><th scope="col">City</th><th scope="col">Country</th><th scope="col" class="num">Nodes</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Dallas</th><td>US</td><td class="num">1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= SUPPLY / HONEY ================= -->
+  <section class="band band--tint band--line" id="honey">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Supply</p>
         <h2>Do the work. Earn the honey.</h2>
-        <p>The monetary base is inherited from the Zcash design and is not up for negotiation: a 75-second target block time, 6.25 coins a block, a halving every 1,680,000 blocks, and a hard ceiling of 20,999,987.3152 coins. No premine, no hidden treasury — every allocation is visible in every block.</p>
+        <p>The monetary base is inherited from the Zcash design and is not up for negotiation: a 75-second target block time, 6.25 SWM a block, a halving every 1,680,000 blocks, and a hard ceiling of 20,999,987.3152 SWM. No premine, no hidden treasury — every allocation is visible in every block.</p>
       </div>
 
       <div class="panel" data-reveal>
@@ -240,12 +414,12 @@
               <div class="chart-fallback">
                 <p>Cumulative supply at the end of each era:</p>
                 <dl>
-                  <dt>≈4 years</dt><dd>10,499,987.5 coins</dd>
-                  <dt>≈8 years</dt><dd>15,749,987.5 coins</dd>
-                  <dt>≈12 years</dt><dd>18,374,987.5 coins</dd>
-                  <dt>≈16 years</dt><dd>19,687,487.5 coins</dd>
-                  <dt>≈20 years</dt><dd>20,343,737.5 coins</dd>
-                  <dt>ceiling</dt><dd>20,999,987.3152 coins</dd>
+                  <dt>≈4 years</dt><dd>10,499,987.5 SWM</dd>
+                  <dt>≈8 years</dt><dd>15,749,987.5 SWM</dd>
+                  <dt>≈12 years</dt><dd>18,374,987.5 SWM</dd>
+                  <dt>≈16 years</dt><dd>19,687,487.5 SWM</dd>
+                  <dt>≈20 years</dt><dd>20,343,737.5 SWM</dd>
+                  <dt>ceiling</dt><dd>20,999,987.3152 SWM</dd>
                 </dl>
               </div>
             </div>
@@ -253,26 +427,28 @@
 
             <div class="ladder">
               <h4>Per block, by era</h4>
-              <table class="minitable">
-                <caption>Every halving halves all four amounts together. The 80 / 8 / 4 / 8 structure never changes.</caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Era</th>
-                    <th scope="col" class="num">Reward</th>
-                    <th scope="col" class="num">Miner</th>
-                    <th scope="col" class="num">Core</th>
-                    <th scope="col" class="num">Grants</th>
-                    <th scope="col" class="num">Reserve</th>
-                  </tr>
-                </thead>
-                <tbody data-ladder>
-                  <tr><th scope="row">0</th><td class="num">6.25</td><td class="num">5.00</td><td class="num">0.50</td><td class="num">0.25</td><td class="num">0.50</td></tr>
-                  <tr><th scope="row">1</th><td class="num">3.125</td><td class="num">2.50</td><td class="num">0.25</td><td class="num">0.125</td><td class="num">0.25</td></tr>
-                  <tr><th scope="row">2</th><td class="num">1.5625</td><td class="num">1.25</td><td class="num">0.125</td><td class="num">0.0625</td><td class="num">0.125</td></tr>
-                  <tr><th scope="row">3</th><td class="num">0.78125</td><td class="num">0.625</td><td class="num">0.0625</td><td class="num">0.03125</td><td class="num">0.0625</td></tr>
-                  <tr><th scope="row">4</th><td class="num">0.390625</td><td class="num">0.3125</td><td class="num">0.03125</td><td class="num">0.015625</td><td class="num">0.03125</td></tr>
-                </tbody>
-              </table>
+              <div class="tablewrap">
+                <table class="minitable">
+                  <caption>Every halving halves all four amounts together. The 80 / 8 / 4 / 8 structure never changes. Amounts in SWM.</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Era</th>
+                      <th scope="col" class="num">Reward</th>
+                      <th scope="col" class="num">Miner</th>
+                      <th scope="col" class="num">Core</th>
+                      <th scope="col" class="num">Grants</th>
+                      <th scope="col" class="num">Reserve</th>
+                    </tr>
+                  </thead>
+                  <tbody data-ladder>
+                    <tr><th scope="row">0</th><td class="num">6.25</td><td class="num">5.00</td><td class="num">0.50</td><td class="num">0.25</td><td class="num">0.50</td></tr>
+                    <tr><th scope="row">1</th><td class="num">3.125</td><td class="num">2.50</td><td class="num">0.25</td><td class="num">0.125</td><td class="num">0.25</td></tr>
+                    <tr><th scope="row">2</th><td class="num">1.5625</td><td class="num">1.25</td><td class="num">0.125</td><td class="num">0.0625</td><td class="num">0.125</td></tr>
+                    <tr><th scope="row">3</th><td class="num">0.78125</td><td class="num">0.625</td><td class="num">0.0625</td><td class="num">0.03125</td><td class="num">0.0625</td></tr>
+                    <tr><th scope="row">4</th><td class="num">0.390625</td><td class="num">0.3125</td><td class="num">0.03125</td><td class="num">0.015625</td><td class="num">0.03125</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
@@ -281,28 +457,28 @@
             <p class="sub">In every block, for the whole emission schedule. Each halving halves all four amounts together.</p>
             <div class="chart chart--ring" data-chart-split>
               <div class="chart-fallback">
-                <p>Of every block reward: 80% to the miner, 8% to Core Development, 4% to Grants &amp; Ecosystem and 8% to the Community &amp; Development Reserve. In era 0 that is 5.00, 0.50, 0.25 and 0.50 coins.</p>
+                <p>Of every block reward: 80% to the miner, 8% to Core Development, 4% to Grants &amp; Ecosystem and 8% to the Community &amp; Development Reserve. In era 0 that is 5.00, 0.50, 0.25 and 0.50 SWM.</p>
               </div>
             </div>
             <ul class="legend" data-legend-split>
               <li>
-                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#F5A623"/></svg>
-                <span class="nm">Miner<em>Paid to the forager who found the block. 5.00 coins per block in era 0.</em></span>
+                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#FF8A1F"/></svg>
+                <span class="nm">Miner<em>Paid to the forager who found the block. 5.00 SWM per block in era 0.</em></span>
                 <span class="pc">80%</span>
               </li>
               <li>
-                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#FFC94D"/></svg>
-                <span class="nm">Core Development<em>Funds work on the node, indexer and wallet. 0.50 coins per block in era 0.</em></span>
+                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#FFB020"/></svg>
+                <span class="nm">Core Development<em>Funds work on the node, indexer and wallet. 0.50 SWM per block in era 0.</em></span>
                 <span class="pc">8%</span>
               </li>
               <li>
-                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#FFE9A8"/></svg>
-                <span class="nm">Grants &amp; Ecosystem<em>Funds tooling, documentation and community work. 0.25 coins per block in era 0.</em></span>
+                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#FFD08A"/></svg>
+                <span class="nm">Grants &amp; Ecosystem<em>Funds tooling, documentation and community work. 0.25 SWM per block in era 0.</em></span>
                 <span class="pc">4%</span>
               </li>
               <li>
-                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#9AA4B2"/></svg>
-                <span class="nm">Community &amp; Development Reserve<em>Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet. 0.50 coins per block in era 0.</em></span>
+                <svg class="sw" viewBox="0 0 12 13.86" aria-hidden="true" focusable="false"><path d="M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z" fill="#A89F92"/></svg>
+                <span class="nm">Community &amp; Development Reserve<em>Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet. 0.50 SWM per block in era 0.</em></span>
                 <span class="pc">8%</span>
               </li>
             </ul>
@@ -313,64 +489,74 @@
       </div>
 
       <div class="cards cards--2 mt-l" data-reveal>
-        <article class="card">
+        <article class="card card--quiet">
           <h3>At every halving</h3>
           <p>The block reward halves and the 80 / 8 / 4 / 8 split stays exactly the same. The percentages are fixed in the genesis rules and cannot be changed.</p>
           <p class="mt-s">Over the whole life of the chain that is 80% to miners, 8% to Core Development, 4% to Grants &amp; Ecosystem and 8% to the Community &amp; Development Reserve.</p>
         </article>
-        <article class="card">
+        <article class="card card--quiet">
           <h3>The reserve</h3>
           <p>Paid block by block to its own predefined address, like the other allocations. How it is governed and spent will be defined separately and published before any mainnet.</p>
-          <p class="mt-s"><a class="textlink" href="/network">Read the full breakdown<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></p>
+          <p class="mt-s"><a class="textlink" href="/network">Read the full breakdown</a></p>
         </article>
       </div>
     </div>
   </section>
 
   <!-- ================= JOIN ================= -->
-  <section class="band band--dark band--comb" id="join">
+  <section class="band band--line" id="join">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Join the swarm</p>
-        <h2>Three steps. Every bee counts.</h2>
-        <p>Public downloads are not open yet. When they are, this is all there is to it — and nothing ever runs without you pressing the button.</p>
+        <h2>Get the apps. Every bee counts.</h2>
+        <p>Two small desktop apps do everything, and a wallet is coming to your phone. Nothing ever runs without you pressing the button, and mobile apps are wallets only — phones do not mine.</p>
       </div>
 
-      <div class="steps" data-reveal>
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">1</div>
+      <!-- Rendered from data/downloads.json. The markup below is the
+           no-JavaScript fallback and must say the same thing as the data. -->
+      <div class="dlgrid" data-downloads data-reveal>
+        <article class="card dl">
           <p class="step__app">SWARM Wallet</p>
-          <h3>Get a wallet</h3>
-          <p>The desktop wallet holds your coins and sends payments — transparent or shielded. Windows first, with Linux and macOS to follow.</p>
+          <h3>Desktop wallet</h3>
+          <p>Holds your coins and sends payments — transparent or shielded, your choice on every payment. On first run it shows a recovery phrase; write it down on paper and keep it offline.</p>
+          <p class="dl__plats">Windows first, Linux and macOS to follow.</p>
           <button class="btn btn--soon" type="button" disabled>Coming soon</button>
         </article>
 
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">2</div>
+        <article class="card dl">
           <p class="step__app">SWARM Node</p>
-          <h3>Run a node</h3>
-          <p>One app runs a full node and lets you start or stop CPU mining with a single click. Consent-first: nothing runs hidden, nothing starts by itself.</p>
+          <h3>Full node and one-click mining</h3>
+          <p>Runs a full node — it downloads the chain, checks every block against the rules itself and relays to its peers — and has a single mining switch. Consent-first: nothing runs hidden, nothing starts by itself.</p>
+          <p class="dl__plats">Windows first, Linux and macOS to follow.</p>
           <button class="btn btn--soon" type="button" disabled>Coming soon</button>
         </article>
 
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">3</div>
-          <p class="step__app">SWARM Explorer</p>
-          <h3>Start foraging</h3>
-          <p>Press Start and your CPU begins looking for blocks. Follow what the chain is doing in the block explorer, planned at explore.swarm.green.</p>
+        <article class="card dl">
+          <p class="step__app">SWARM Wallet for Android</p>
+          <h3>Mobile wallet</h3>
+          <p>The same wallet on your phone: hold, send and receive. A wallet only — phones do not mine.</p>
+          <p class="dl__plats">In early development.</p>
+          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+        </article>
+
+        <article class="card dl">
+          <p class="step__app">SWARM Wallet for iPhone</p>
+          <h3>Mobile wallet</h3>
+          <p>The same wallet on your phone: hold, send and receive. A wallet only — phones do not mine.</p>
+          <p class="dl__plats">In early development.</p>
           <button class="btn btn--soon" type="button" disabled>Coming soon</button>
         </article>
       </div>
 
       <div class="cta-row mt-l" data-reveal>
-        <a class="btn btn--primary" href="/join">Read the step-by-step guide</a>
-        <a class="btn btn--ghost" href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">Browse the source<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>
+        <a class="btn btn--ghost" href="/join">Read the step-by-step guide</a>
+        <a class="btn btn--ghost" href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">Build it yourself<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>
       </div>
     </div>
   </section>
 
   <!-- ================= ROADMAP ================= -->
-  <section class="band band--cream" id="roadmap">
+  <section class="band band--tint band--line" id="roadmap">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Roadmap</p>
@@ -404,7 +590,7 @@
   </section>
 
   <!-- ================= FAQ ================= -->
-  <section class="band band--dark2" id="faq">
+  <section class="band band--line" id="faq">
     <div class="wrap wrap--narrow">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">FAQ</p>
@@ -415,6 +601,10 @@
         <details>
           <summary>Is SWARM live?<span class="ind" aria-hidden="true"></span></summary>
           <div class="answer"><p>SWARM is on testnet only. There is no mainnet, no sale, no token offering and no mainnet date.</p></div>
+        </details>
+        <details>
+          <summary>What is the coin called?<span class="ind" aria-hidden="true"></span></summary>
+          <div class="answer"><p>The coin is SWARM and its ticker is <b>SWM</b>. Every amount on this site is written in SWM.</p><p>On the testnet these are test coins. They have no monetary value.</p></div>
         </details>
         <details>
           <summary>Do test coins have value?<span class="ind" aria-hidden="true"></span></summary>
@@ -434,7 +624,11 @@
         </details>
         <details>
           <summary>How private is it?<span class="ind" aria-hidden="true"></span></summary>
-          <div class="answer"><p>Privacy is a choice you make per payment. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs. Transparent transactions do not.</p><p>Shielding protects what is written to the chain. It does not protect everything about how you use the network — for example, your own network connection is a separate matter.</p></div>
+          <div class="answer"><p>Privacy is a choice you make per payment. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs. Transparent transactions do not.</p><p>The SWARM Wallet sends shielded by default; you can choose to reveal a payment.</p><p>Shielding protects what is written to the chain. It does not protect everything about how you use the network — for example, your own network connection is a separate matter.</p></div>
+        </details>
+        <details>
+          <summary>What does the map on this page show?<span class="ind" aria-hidden="true"></span></summary>
+          <div class="answer"><p>Only the nodes we know about that share a location, at city level. Today that is one: the project&rsquo;s own seed server in Dallas, United States.</p><p>Sharing a location will be opt-in in SWARM Node, and it will never be finer than a city. The map is not a count of the network — it is a count of the nodes that chose to appear on it.</p></div>
         </details>
         <details>
           <summary>Where do block rewards go?<span class="ind" aria-hidden="true"></span></summary>
@@ -452,6 +646,25 @@
     </div>
   </section>
 
+  <!-- ================= CLOSING CTA ================= -->
+  <section class="band">
+    <div class="wrap">
+      <div class="cta" data-reveal>
+        <svg class="cta__bee" viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false">
+          <ellipse class="cta-wing-l" cx="21" cy="17" rx="12" ry="6.5" transform="rotate(-28 21 17)" fill="#FFB020"/>
+          <ellipse class="cta-wing-r" cx="43" cy="17" rx="12" ry="6.5" transform="rotate(28 43 17)" fill="#FFB020"/>
+          <path fill-rule="evenodd" fill="#FF8A1F" d="M32 22 L46 30 L46 48 L32 56 L18 48 L18 30 Z M18 35 H46 V39 H18 Z M18 44 H46 V48 H18 Z"/>
+        </svg>
+        <h2>Join the swarm.</h2>
+        <p>SWARM Wallet and SWARM Node run on a computer you already own — Windows first, Linux and macOS to follow. A mobile wallet is in early development.</p>
+        <div class="cta-row">
+          <a class="btn btn--primary" href="/join">Read the step-by-step guide</a>
+          <a class="btn btn--ghost" href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">Browse the source<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="footer">
@@ -459,7 +672,7 @@
     <div class="footer__top">
       <div class="footer__brand">
         <a class="brand" href="/">
-          <img src="/assets/logo-mark.svg" alt="" width="32" height="32">
+          <img src="/assets/logo-mark.svg" alt="" width="30" height="30">
           <span>SWARM</span>
         </a>
         <p>Private, proof-of-work money run by its community. Testnet only — test coins have no value.</p>
@@ -468,10 +681,10 @@
       <nav aria-labelledby="ft-net">
         <h2 id="ft-net">Network</h2>
         <ul>
-          <li><a href="/#hive">The Hive</a></li>
-          <li><a href="/#honey">Honey</a></li>
+          <li><a href="/#how">How it works</a></li>
+          <li><a href="/#mine">Mining</a></li>
+          <li><a href="/#swarm">The swarm</a></li>
           <li><a href="/network">Network &amp; supply</a></li>
-          <li><a href="/#roadmap">Roadmap</a></li>
         </ul>
       </nav>
 
@@ -479,6 +692,7 @@
         <h2 id="ft-get">Get started</h2>
         <ul>
           <li><a href="/join">Join the testnet</a></li>
+          <li><a href="/#roadmap">Roadmap</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></li>
         </ul>

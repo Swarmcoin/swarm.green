@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Network &amp; supply — SWARM</title>
-<meta name="description" content="Every SWARM parameter in one place: 75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins, no premine, and the four-way block reward split fixed for the whole emission schedule.">
+<meta name="description" content="Every SWARM parameter in one place: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM, no premine, and the four-way block reward split fixed for the whole emission schedule.">
 <link rel="canonical" href="https://swarm.green/network">
-<meta name="theme-color" content="#0E1116">
+<meta name="theme-color" content="#0A0908">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SWARM">
 <meta property="og:locale" content="en">
 <meta property="og:title" content="SWARM — Network &amp; supply">
-<meta property="og:description" content="75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and no premine.">
+<meta property="og:description" content="75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM and no premine.">
 <meta property="og:url" content="https://swarm.green/network">
 <meta property="og:image" content="https://swarm.green/assets/og.png">
 <meta property="og:image:type" content="image/png">
@@ -21,14 +21,14 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@swarm_coin">
 <meta name="twitter:title" content="SWARM — Network &amp; supply">
-<meta name="twitter:description" content="75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and no premine.">
+<meta name="twitter:description" content="75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM and no premine.">
 <meta name="twitter:image" content="https://swarm.green/assets/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="mask-icon" href="/assets/logo-mono-dark.svg" color="#F5A623">
+<link rel="mask-icon" href="/assets/logo-mono-dark.svg" color="#FF8A1F">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/css/site.css">
 <script src="/js/boot.js"></script>
 <script src="/js/site.js" defer></script>
@@ -41,18 +41,20 @@
 <header class="nav">
   <div class="wrap nav__bar">
     <a class="brand" href="/">
-      <img src="/assets/logo-mark.svg" alt="" width="34" height="34">
+      <img src="/assets/logo-mark.svg" alt="" width="30" height="30">
       <span>SWARM</span>
       <span class="vh">— home</span>
     </a>
     <nav class="nav__links" aria-label="Primary">
-      <a href="/#hive">The Hive</a>
-      <a href="/#honey">Honey</a>
+      <a href="/#how">How it works</a>
+      <a href="/#mine">Mining</a>
+      <a href="/#swarm">The swarm</a>
+      <a href="/#honey">Supply</a>
       <a href="/#join">Join</a>
-      <a href="/#roadmap">Roadmap</a>
       <a href="/#faq">FAQ</a>
       <a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>
     </nav>
+    <a class="btn btn--ghost btn--sm nav__cta" href="/join">Join the testnet</a>
     <button class="nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel">
       <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="vh">Menu</span>
@@ -61,9 +63,12 @@
   <div class="nav__panel" id="navpanel" data-nav-panel>
     <nav aria-label="Primary, compact">
       <ul>
+        <li><a href="/#how">How it works</a></li>
         <li><a href="/#hive">The Hive</a></li>
-        <li><a href="/#honey">Honey</a></li>
-        <li><a href="/#join">Join</a></li>
+        <li><a href="/#mine">Mining</a></li>
+        <li><a href="/#swarm">The swarm</a></li>
+        <li><a href="/#honey">Supply</a></li>
+        <li><a href="/join">Join the testnet</a></li>
         <li><a href="/#roadmap">Roadmap</a></li>
         <li><a href="/#faq">FAQ</a></li>
         <li><a href="/network">Network &amp; supply</a></li>
@@ -74,7 +79,7 @@
 </header>
 
 <main id="main">
-  <section class="band band--dark band--comb page-head">
+  <section class="band page-head">
     <div class="wrap">
       <p class="crumbs"><a href="/">Home</a><span aria-hidden="true">/</span>Network &amp; supply</p>
       <p class="pill">Testnet only</p>
@@ -83,7 +88,7 @@
     </div>
   </section>
 
-  <section class="band band--cream">
+  <section class="band band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Parameters</p>
@@ -94,14 +99,15 @@
           <caption>Consensus and monetary parameters. Inherited from the upstream Zcash design and left unmodified.</caption>
           <tbody>
           <tr><th scope="row">Target block time</th><td>75 seconds</td></tr>
-          <tr><th scope="row">Block reward (era 0)</th><td>6.25 coins</td></tr>
+          <tr><th scope="row">Block reward (era 0)</th><td>6.25 SWM</td></tr>
           <tr><th scope="row">Halving interval</th><td>1,680,000 blocks — about 4 years</td></tr>
-          <tr><th scope="row">Maximum supply</th><td>20,999,987.3152 coins</td></tr>
+          <tr><th scope="row">Maximum supply</th><td>20,999,987.3152 SWM</td></tr>
           <tr><th scope="row">Premine</th><td>None. The genesis block contains no spendable coins.</td></tr>
           <tr><th scope="row">Coinbase maturity</th><td>100 blocks</td></tr>
           <tr><th scope="row">Proof of work</th><td>Equihash. CPU-mineable on the testnet.</td></tr>
           <tr><th scope="row">Privacy</th><td>Optional. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs.</td></tr>
           <tr><th scope="row">Lineage</th><td>Forked from open-source Zcash software — the Zebra full node, the Zaino indexer and the Zingo desktop wallet — with consensus rules and cryptography left unmodified.</td></tr>
+          <tr><th scope="row">Ticker</th><td>SWM</td></tr>
           <tr><th scope="row">Status</th><td>Testnet only. Test coins have no monetary value.</td></tr>
           </tbody>
         </table>
@@ -109,16 +115,16 @@
     </div>
   </section>
 
-  <section class="band band--dark2">
+  <section class="band band--tint band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Emission</p>
         <h2>The first five eras.</h2>
-        <p>An era is the stretch between two halvings: 1,680,000 blocks, or roughly four years at a 75-second target block time. In each era the block reward is half of what it was in the era before, which is why the total supply approaches 20,999,987.3152 coins without ever reaching it.</p>
+        <p>An era is the stretch between two halvings: 1,680,000 blocks, or roughly four years at a 75-second target block time. In each era the block reward is half of what it was in the era before, which is why the total supply approaches 20,999,987.3152 SWM without ever reaching it.</p>
       </div>
       <div class="tablewrap" data-reveal>
         <table>
-          <caption>Coins issued per era and the running total.</caption>
+          <caption>SWM issued per era and the running total.</caption>
           <thead>
             <tr><th scope="col" class="num">Era</th><th scope="col">Block heights</th><th scope="col">Block reward</th><th scope="col">Issued in era</th><th scope="col">Cumulative supply</th></tr>
           </thead>
@@ -131,11 +137,11 @@
           </tbody>
         </table>
       </div>
-      <p class="note mt-m" data-reveal>Mining rewards mature after <strong>100 blocks</strong> before they can be spent. There is no premine: the genesis block contains no spendable coins, so every coin in the table above has to be mined.</p>
+      <p class="note mt-m" data-reveal>Mining rewards mature after <strong>100 blocks</strong> before they can be spent. There is no premine: the genesis block contains no spendable coins, so every SWM in the table above has to be mined.</p>
     </div>
   </section>
 
-  <section class="band band--cream">
+  <section class="band band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Reward allocation</p>
@@ -149,7 +155,7 @@
 
       <div class="tablewrap mt-m" data-reveal>
         <table>
-          <caption>Per block in era 0 — block heights 1 – 1,679,998, at 6.25 coins per block.</caption>
+          <caption>Per block in era 0 — block heights 1 – 1,679,998, at 6.25 SWM per block.</caption>
           <thead>
             <tr><th scope="col">Recipient</th><th scope="col">Share</th><th scope="col">Per block (era 0)</th><th scope="col">Total in era 0</th></tr>
           </thead>
@@ -183,7 +189,7 @@
         <table>
           <caption>Lifetime totals (exact), across the whole emission schedule.</caption>
           <thead>
-            <tr><th scope="col">Recipient</th><th scope="col">Coins</th></tr>
+            <tr><th scope="col">Recipient</th><th scope="col">SWM</th></tr>
           </thead>
           <tbody>
           <tr><th scope="row">Miners</th><td class="num">16,799,990.4872</td></tr>
@@ -211,7 +217,7 @@
     </div>
   </section>
 
-  <section class="band band--dark2">
+  <section class="band band--tint band--line">
     <div class="wrap wrap--narrow">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Precedent</p>
@@ -244,7 +250,7 @@
     <div class="footer__top">
       <div class="footer__brand">
         <a class="brand" href="/">
-          <img src="/assets/logo-mark.svg" alt="" width="34" height="34">
+          <img src="/assets/logo-mark.svg" alt="" width="30" height="30">
           <span>SWARM</span>
         </a>
         <p>Private, proof-of-work money run by its community. Testnet only — test coins have no value.</p>
@@ -253,10 +259,10 @@
       <nav aria-labelledby="ft-net">
         <h2 id="ft-net">Network</h2>
         <ul>
-          <li><a href="/#hive">The Hive</a></li>
-          <li><a href="/#honey">Honey</a></li>
+          <li><a href="/#how">How it works</a></li>
+          <li><a href="/#mine">Mining</a></li>
+          <li><a href="/#swarm">The swarm</a></li>
           <li><a href="/network">Network &amp; supply</a></li>
-          <li><a href="/#roadmap">Roadmap</a></li>
         </ul>
       </nav>
 
@@ -264,6 +270,7 @@
         <h2 id="ft-get">Get started</h2>
         <ul>
           <li><a href="/join">Join the testnet</a></li>
+          <li><a href="/#roadmap">Roadmap</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></li>
         </ul>

@@ -1,76 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="og-title">
   <title id="og-title">SWARM — Together we are strong. Testnet.</title>
   <defs>
-    <clipPath id="og-body-clip">
-      <path d="M32 15.5 L45.856 23.5 L45.856 39.5 L32 47.5 L18.144 39.5 L18.144 23.5 Z"/>
-    </clipPath>
-    <radialGradient id="og-glow" cx="0.26" cy="0.3" r="0.72">
-      <stop offset="0" stop-color="#F5A623" stop-opacity="0.3"/>
-      <stop offset="0.55" stop-color="#E8890C" stop-opacity="0.08"/>
-      <stop offset="1" stop-color="#0E1116" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="og-word" x1="0" y1="0" x2="1" y2="0.6">
-      <stop offset="0" stop-color="#FFF8E7"/>
-      <stop offset="1" stop-color="#FFE9A8"/>
-    </linearGradient>
-    <pattern id="og-comb" width="45.0333" height="78" patternUnits="userSpaceOnUse">
-      <g transform="scale(1.3)" fill="none" stroke="#F5A623" stroke-width="0.85" stroke-linejoin="round">
-        <path d="M0 -20 L17.3205 -10 L17.3205 10 L0 20 L-17.3205 10 L-17.3205 -10 Z"/>
-        <path d="M34.641 -20 L51.9615 -10 L51.9615 10 L34.641 20 L17.3205 10 L17.3205 -10 Z"/>
-        <path d="M0 40 L17.3205 50 L17.3205 70 L0 80 L-17.3205 70 L-17.3205 50 Z"/>
-        <path d="M34.641 40 L51.9615 50 L51.9615 70 L34.641 80 L17.3205 70 L17.3205 50 Z"/>
-        <path d="M17.3205 10 L34.641 20 L34.641 40 L17.3205 50 L0 40 L0 20 Z"/>
-        <path d="M-17.3205 10 L0 20 L0 40 L-17.3205 50 L-34.641 40 L-34.641 20 Z"/>
-        <path d="M51.9615 10 L69.282 20 L69.282 40 L51.9615 50 L34.641 40 L34.641 20 Z"/>
-      </g>
+    <pattern id="og-comb" width="56" height="64" patternUnits="userSpaceOnUse">
+      <path d="M28 2 L54 17 L54 47 L28 62 L2 47 L2 17 Z" fill="none" stroke="#FFFFFF" stroke-opacity="0.045" stroke-width="1"/>
     </pattern>
+    <radialGradient id="og-mask-grad" cx="0.62" cy="0.1" r="0.8">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#000000"/>
+    </radialGradient>
+    <mask id="og-mask"><rect width="1200" height="630" fill="url(#og-mask-grad)"/></mask>
+    <radialGradient id="og-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FF8A1F" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#FF8A1F" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 
-  <rect width="1200" height="630" fill="#0E1116"/>
-  <rect width="1200" height="630" fill="url(#og-comb)" opacity="0.11"/>
-  <rect width="1200" height="630" fill="url(#og-glow)"/>
+  <rect width="1200" height="630" fill="#0A0908"/>
+  <rect width="1200" height="630" fill="url(#og-comb)" mask="url(#og-mask)"/>
+  <circle cx="930" cy="150" r="440" fill="url(#og-glow)"/>
 
-  <!-- quiet hexagon motif, right side -->
-  <g fill="none" stroke="#F5A623" stroke-linejoin="round">
-    <path d="M950 118 L1108 209 L1108 391 L950 482 L792 391 L792 209 Z" stroke-opacity="0.24" stroke-width="2"/>
-    <path d="M950 190 L1046 245.4 L1046 356.1 L950 411.5 L854 356.1 L854 245.4 Z" stroke-opacity="0.16" stroke-width="2"/>
-    <path d="M950 253 L1000 282 L1000 340 L950 369 L900 340 L900 282 Z" stroke-opacity="0.5" stroke-width="2"/>
+  <!-- state pill -->
+  <rect x="80" y="92" width="402" height="44" rx="22" fill="#FF8A1F" fill-opacity="0.07" stroke="#FF8A1F" stroke-opacity="0.35"/>
+  <circle cx="106" cy="114" r="5" fill="#FF8A1F"/>
+  <text x="124" y="120" fill="#FFB020" font-family="'JetBrains Mono', ui-monospace, Consolas, monospace" font-size="16" letter-spacing="3.5">TESTNET · SWM · NO VALUE</text>
+
+  <text x="80" y="268" fill="#F5EFE4" font-family="Sora, 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif" font-size="92" font-weight="700" letter-spacing="-3">Together we are</text>
+  <text x="80" y="368" fill="#FF8A1F" font-family="Sora, 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif" font-size="92" font-weight="700" letter-spacing="-3">strong.</text>
+
+  <text x="80" y="446" fill="#A89F92" font-family="Manrope, 'Segoe UI', system-ui, sans-serif" font-size="27">Private, proof-of-work money run by its community.</text>
+  <text x="80" y="486" fill="#7D746A" font-family="Manrope, 'Segoe UI', system-ui, sans-serif" font-size="27">Testnet only — test coins have no value.</text>
+
+  <!-- hive bee -->
+  <g transform="translate(852 240) scale(4.4)">
+    <ellipse cx="21" cy="17" rx="12" ry="6.5" transform="rotate(-28 21 17)" fill="#FFB020"/>
+    <ellipse cx="43" cy="17" rx="12" ry="6.5" transform="rotate(28 43 17)" fill="#FFB020"/>
+    <path fill-rule="evenodd" fill="#FF8A1F" d="M32 22 L46 30 L46 48 L32 56 L18 48 L18 30 Z M18 35 H46 V39 H18 Z M18 44 H46 V48 H18 Z"/>
   </g>
 
-  <!-- hex-bee mark -->
-  <g transform="translate(57.96 52.15) scale(4.3636)">
-    <path d="M28.8 44 L35.2 44 L32 51.3 Z" fill="#E8890C"/>
-    <g fill="#FFC94D" opacity="0.92">
-      <path d="M16.6 12.8 L24.221 17.2 L24.221 26 L16.6 30.4 L8.979 26 L8.979 17.2 Z" transform="rotate(-20 16.6 21.6)"/>
-      <path d="M47.4 12.8 L55.021 17.2 L55.021 26 L47.4 30.4 L39.779 26 L39.779 17.2 Z" transform="rotate(20 47.4 21.6)"/>
-    </g>
-    <path d="M32 15.5 L45.856 23.5 L45.856 39.5 L32 47.5 L18.144 39.5 L18.144 23.5 Z" fill="#F5A623"/>
-    <g clip-path="url(#og-body-clip)" fill="#0E1116">
-      <rect x="16" y="21.5" width="32" height="4.4"/>
-      <rect x="16" y="34.1" width="32" height="4.4"/>
-    </g>
-  </g>
-
-  <text x="92" y="404" textLength="536" lengthAdjust="spacing" fill="url(#og-word)"
-        font-family="Sora, 'Segoe UI Variable Display', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
-        font-size="126" font-weight="800">SWARM</text>
-
-  <text x="94" y="482" fill="#FFC94D"
-        font-family="Inter, 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
-        font-size="46" font-weight="500">Together we are strong.</text>
-
-  <g>
-    <rect x="92" y="524" width="212" height="56" rx="28" fill="#F5A623" fill-opacity="0.12" stroke="#F5A623" stroke-opacity="0.42" stroke-width="1.6"/>
-    <path d="M124 543.2 L131.5 547.5 L131.5 556.1 L124 560.4 L116.5 556.1 L116.5 547.5 Z" fill="#3FB950"/>
-    <text x="146" y="561" textLength="134" lengthAdjust="spacing" fill="#FFE9A8"
-          font-family="Inter, 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
-          font-size="27" font-weight="600">TESTNET</text>
-    <text x="330" y="561" fill="#9AA4B2"
-          font-family="Inter, 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
-          font-size="24" font-weight="400">Test coins have no value.</text>
-  </g>
-
-  <text x="1108" y="562" text-anchor="end" fill="#7E8796"
-        font-family="Inter, 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
-        font-size="26" font-weight="500">swarm.green</text>
+  <line x1="80" y1="546" x2="1120" y2="546" stroke="#FFFFFF" stroke-opacity="0.08"/>
+  <text x="80" y="586" fill="#F5EFE4" font-family="Sora, 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif" font-size="26" font-weight="700" letter-spacing="2.2">SWARM</text>
+  <text x="1120" y="586" text-anchor="end" fill="#6B645A" font-family="'JetBrains Mono', ui-monospace, Consolas, monospace" font-size="20" letter-spacing="2">swarm.green</text>
 </svg>

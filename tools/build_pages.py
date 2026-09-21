@@ -26,7 +26,7 @@ def head(title, desc, path, og_title, og_desc):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="https://swarm.green{path}">
-<meta name="theme-color" content="#0E1116">
+<meta name="theme-color" content="#0A0908">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SWARM">
 <meta property="og:locale" content="en">
@@ -44,11 +44,11 @@ def head(title, desc, path, og_title, og_desc):
 <meta name="twitter:description" content="{og_desc}">
 <meta name="twitter:image" content="https://swarm.green/assets/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="mask-icon" href="/assets/logo-mono-dark.svg" color="#F5A623">
+<link rel="mask-icon" href="/assets/logo-mono-dark.svg" color="#FF8A1F">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/css/site.css">
 <script src="/js/boot.js"></script>
 <script src="/js/site.js" defer></script>
@@ -61,18 +61,20 @@ def head(title, desc, path, og_title, og_desc):
 <header class="nav">
   <div class="wrap nav__bar">
     <a class="brand" href="/">
-      <img src="/assets/logo-mark.svg" alt="" width="34" height="34">
+      <img src="/assets/logo-mark.svg" alt="" width="30" height="30">
       <span>SWARM</span>
       <span class="vh">— home</span>
     </a>
     <nav class="nav__links" aria-label="Primary">
-      <a href="/#hive">The Hive</a>
-      <a href="/#honey">Honey</a>
+      <a href="/#how">How it works</a>
+      <a href="/#mine">Mining</a>
+      <a href="/#swarm">The swarm</a>
+      <a href="/#honey">Supply</a>
       <a href="/#join">Join</a>
-      <a href="/#roadmap">Roadmap</a>
       <a href="/#faq">FAQ</a>
       <a href="{GH}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a>
     </nav>
+    <a class="btn btn--ghost btn--sm nav__cta" href="/join">Join the testnet</a>
     <button class="nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel">
       <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="vh">Menu</span>
@@ -81,9 +83,12 @@ def head(title, desc, path, og_title, og_desc):
   <div class="nav__panel" id="navpanel" data-nav-panel>
     <nav aria-label="Primary, compact">
       <ul>
+        <li><a href="/#how">How it works</a></li>
         <li><a href="/#hive">The Hive</a></li>
-        <li><a href="/#honey">Honey</a></li>
-        <li><a href="/#join">Join</a></li>
+        <li><a href="/#mine">Mining</a></li>
+        <li><a href="/#swarm">The swarm</a></li>
+        <li><a href="/#honey">Supply</a></li>
+        <li><a href="/join">Join the testnet</a></li>
         <li><a href="/#roadmap">Roadmap</a></li>
         <li><a href="/#faq">FAQ</a></li>
         <li><a href="/network">Network &amp; supply</a></li>
@@ -104,7 +109,7 @@ FOOTER = f"""</main>
     <div class="footer__top">
       <div class="footer__brand">
         <a class="brand" href="/">
-          <img src="/assets/logo-mark.svg" alt="" width="34" height="34">
+          <img src="/assets/logo-mark.svg" alt="" width="30" height="30">
           <span>SWARM</span>
         </a>
         <p>Private, proof-of-work money run by its community. Testnet only — test coins have no value.</p>
@@ -113,10 +118,10 @@ FOOTER = f"""</main>
       <nav aria-labelledby="ft-net">
         <h2 id="ft-net">Network</h2>
         <ul>
-          <li><a href="/#hive">The Hive</a></li>
-          <li><a href="/#honey">Honey</a></li>
+          <li><a href="/#how">How it works</a></li>
+          <li><a href="/#mine">Mining</a></li>
+          <li><a href="/#swarm">The swarm</a></li>
           <li><a href="/network">Network &amp; supply</a></li>
-          <li><a href="/#roadmap">Roadmap</a></li>
         </ul>
       </nav>
 
@@ -124,6 +129,7 @@ FOOTER = f"""</main>
         <h2 id="ft-get">Get started</h2>
         <ul>
           <li><a href="/join">Join the testnet</a></li>
+          <li><a href="/#roadmap">Roadmap</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="{GH}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a></li>
         </ul>
@@ -168,7 +174,7 @@ def crumbs(here):
 
 def page_head(here, h1, lead, pill=None):
     tag = f'<p class="pill">{pill}</p>' if pill else ""
-    return f"""  <section class="band band--dark band--comb page-head">
+    return f"""  <section class="band page-head">
     <div class="wrap">
       {crumbs(here)}
       {tag}
@@ -201,14 +207,15 @@ era_rows = "\n".join(
 
 params = [
     ("Target block time", "75 seconds"),
-    ("Block reward (era 0)", "6.25 coins"),
+    ("Block reward (era 0)", "6.25 SWM"),
     ("Halving interval", "1,680,000 blocks — about 4 years"),
-    ("Maximum supply", "20,999,987.3152 coins"),
+    ("Maximum supply", "20,999,987.3152 SWM"),
     ("Premine", "None. The genesis block contains no spendable coins."),
     ("Coinbase maturity", "100 blocks"),
     ("Proof of work", "Equihash. CPU-mineable on the testnet."),
     ("Privacy", "Optional. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs."),
     ("Lineage", "Forked from open-source Zcash software — the Zebra full node, the Zaino indexer and the Zingo desktop wallet — with consensus rules and cryptography left unmodified."),
+    ("Ticker", "SWM"),
     ("Status", "Testnet only. Test coins have no monetary value."),
 ]
 param_rows = "\n".join(
@@ -250,17 +257,17 @@ lifetime_rows = "\n".join(
 
 network = head(
     "Network &amp; supply — SWARM",
-    "Every SWARM parameter in one place: 75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins, no premine, and the four-way block reward split fixed for the whole emission schedule.",
+    "Every SWARM parameter in one place: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM, no premine, and the four-way block reward split fixed for the whole emission schedule.",
     "/network",
     "SWARM — Network &amp; supply",
-    "75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and no premine.",
+    "75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM and no premine.",
 ) + page_head(
     "Network &amp; supply",
     "Every number, in one place.",
     "The monetary base is inherited from the Zcash design and is fixed in the code. Nothing on this page is a projection — it is arithmetic you can check yourself against the source.",
     pill="Testnet only",
 ) + f"""
-  <section class="band band--cream">
+  <section class="band band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Parameters</p>
@@ -277,16 +284,16 @@ network = head(
     </div>
   </section>
 
-  <section class="band band--dark2">
+  <section class="band band--tint band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Emission</p>
         <h2>The first five eras.</h2>
-        <p>An era is the stretch between two halvings: 1,680,000 blocks, or roughly four years at a 75-second target block time. In each era the block reward is half of what it was in the era before, which is why the total supply approaches 20,999,987.3152 coins without ever reaching it.</p>
+        <p>An era is the stretch between two halvings: 1,680,000 blocks, or roughly four years at a 75-second target block time. In each era the block reward is half of what it was in the era before, which is why the total supply approaches 20,999,987.3152 SWM without ever reaching it.</p>
       </div>
       <div class="tablewrap" data-reveal>
         <table>
-          <caption>Coins issued per era and the running total.</caption>
+          <caption>SWM issued per era and the running total.</caption>
           <thead>
             <tr><th scope="col" class="num">Era</th><th scope="col">Block heights</th><th scope="col">Block reward</th><th scope="col">Issued in era</th><th scope="col">Cumulative supply</th></tr>
           </thead>
@@ -295,11 +302,11 @@ network = head(
           </tbody>
         </table>
       </div>
-      <p class="note mt-m" data-reveal>Mining rewards mature after <strong>100 blocks</strong> before they can be spent. There is no premine: the genesis block contains no spendable coins, so every coin in the table above has to be mined.</p>
+      <p class="note mt-m" data-reveal>Mining rewards mature after <strong>100 blocks</strong> before they can be spent. There is no premine: the genesis block contains no spendable coins, so every SWM in the table above has to be mined.</p>
     </div>
   </section>
 
-  <section class="band band--cream">
+  <section class="band band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Reward allocation</p>
@@ -313,7 +320,7 @@ network = head(
 
       <div class="tablewrap mt-m" data-reveal>
         <table>
-          <caption>Per block in era 0 — block heights 1 – 1,679,998, at 6.25 coins per block.</caption>
+          <caption>Per block in era 0 — block heights 1 – 1,679,998, at 6.25 SWM per block.</caption>
           <thead>
             <tr><th scope="col">Recipient</th><th scope="col">Share</th><th scope="col">Per block (era 0)</th><th scope="col">Total in era 0</th></tr>
           </thead>
@@ -340,7 +347,7 @@ network = head(
         <table>
           <caption>Lifetime totals (exact), across the whole emission schedule.</caption>
           <thead>
-            <tr><th scope="col">Recipient</th><th scope="col">Coins</th></tr>
+            <tr><th scope="col">Recipient</th><th scope="col">SWM</th></tr>
           </thead>
           <tbody>
 {lifetime_rows}
@@ -365,7 +372,7 @@ network = head(
     </div>
   </section>
 
-  <section class="band band--dark2">
+  <section class="band band--tint band--line">
     <div class="wrap wrap--narrow">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Precedent</p>
@@ -396,70 +403,102 @@ write("network/index.html", network)
 
 
 # ------------------------------------------------------------------- /join
+# The download cards below are the no-JavaScript fallback for
+# data/downloads.json. js/site.js replaces them with the same shape rendered
+# from the data, so the two must always say the same thing (see README.md).
+DL_CARDS = """        <article class="card dl">
+          <p class="step__app">SWARM Wallet</p>
+          <h3>Desktop wallet</h3>
+          <p>Holds your coins and sends payments &mdash; transparent or shielded, your choice on every payment. On first run it shows a recovery phrase; write it down on paper and keep it offline.</p>
+          <p class="dl__plats">Windows first, Linux and macOS to follow.</p>
+          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+        </article>
+
+        <article class="card dl">
+          <p class="step__app">SWARM Node</p>
+          <h3>Full node and one-click mining</h3>
+          <p>Runs a full node &mdash; it downloads the chain, checks every block against the rules itself and relays to its peers &mdash; and has a single mining switch. Consent-first: nothing runs hidden, nothing starts by itself.</p>
+          <p class="dl__plats">Windows first, Linux and macOS to follow.</p>
+          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+        </article>
+
+        <article class="card dl">
+          <p class="step__app">SWARM Wallet for Android</p>
+          <h3>Mobile wallet</h3>
+          <p>The same wallet on your phone: hold, send and receive. A wallet only &mdash; phones do not mine.</p>
+          <p class="dl__plats">In early development.</p>
+          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+        </article>
+
+        <article class="card dl">
+          <p class="step__app">SWARM Wallet for iPhone</p>
+          <h3>Mobile wallet</h3>
+          <p>The same wallet on your phone: hold, send and receive. A wallet only &mdash; phones do not mine.</p>
+          <p class="dl__plats">In early development.</p>
+          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+        </article>"""
+
 join = head(
     "Join the testnet — SWARM",
-    "How to run SWARM: get the desktop wallet, run a full node, and start CPU mining with one click. All three apps are coming soon; nothing ever runs without your consent.",
+    "How to run SWARM: get the desktop wallet, run a full node, and start CPU mining with one click. Windows first, Linux and macOS to follow; mobile apps are wallets only. Nothing ever runs without your consent.",
     "/join",
     "Join the SWARM testnet",
-    "Get the wallet, run a node, start foraging. Three apps, coming soon. Test coins have no value.",
+    "Get the wallet, run a node, start foraging. Windows first, Linux and macOS to follow. Test coins have no value.",
 ) + page_head(
     "Join the testnet",
     "Join the swarm.",
-    "Public downloads are not open yet. This is the shape of it: three small apps, three steps, and nothing that runs behind your back.",
-    pill="Downloads coming soon",
+    "Two small desktop apps do everything, and a wallet is coming to your phone. This is the shape of it: three steps, and nothing that runs behind your back.",
+    pill="Testnet only",
 ) + f"""
-  <section class="band band--cream">
+  <section class="band band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="eyebrow">Step by step</p>
-        <h2>Three steps. Every bee counts.</h2>
+        <p class="eyebrow">The apps</p>
+        <h2>Everything you need, on hardware you own.</h2>
+        <p>Mining happens on SWARM Node, on a desktop or a laptop. Mobile apps are wallets only &mdash; phones do not mine.</p>
       </div>
 
-      <div class="steps" data-reveal>
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">1</div>
-          <p class="step__app">SWARM Wallet</p>
-          <h3>Get a wallet</h3>
-          <p>A desktop wallet that holds your coins and sends payments — transparent or shielded, your choice on every payment.</p>
-          <p class="mt-s">On first run it will show you a recovery phrase. Write it down on paper and keep it offline. It is the only way to restore your wallet.</p>
-          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
-        </article>
-
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">2</div>
-          <p class="step__app">SWARM Node</p>
-          <h3>Run a node</h3>
-          <p>One app that runs a full node: it downloads the chain, checks every block against the rules itself, and relays to its peers.</p>
-          <p class="mt-s">Running a node is what makes you part of the hive. You are not trusting anyone&rsquo;s word about what the chain says — you are checking it.</p>
-          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
-        </article>
-
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">3</div>
-          <p class="step__app">SWARM Node</p>
-          <h3>Start foraging</h3>
-          <p>The same app has a mining switch. Press <strong>Start</strong> and your CPU begins looking for blocks; press <strong>Stop</strong> and it stops. That is the whole interface.</p>
-          <p class="mt-s">The proof of work is Equihash and it is CPU-mineable on the testnet, so an ordinary computer can take part from the first block. As the network grows and difficulty rises, specialised miners can join too — nothing in the rules keeps anyone out.</p>
-          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
-        </article>
+      <div class="dlgrid" data-downloads data-reveal>
+{DL_CARDS}
       </div>
 
       <div class="cards cards--2 mt-l" data-reveal>
-        <article class="card">
+        <article class="card card--quiet">
           <h3>SWARM Explorer</h3>
-          <p>A block explorer, so you can watch what the chain is actually doing: blocks as they are found, and the supply as it is issued. Planned at explore.swarm.green.</p>
+          <p>A block explorer, so you can watch what the chain is actually doing: blocks as they are found, and the supply as it is issued. Planned at <span class="mono">explore.swarm.green</span>.</p>
           <p class="mt-m"><button class="btn btn--soon btn--sm" type="button" disabled>Coming soon</button></p>
         </article>
-        <article class="card">
+        <article class="card card--quiet">
           <h3>Build it yourself</h3>
-          <p>You do not have to wait for a download. The node, the indexer and the wallet are open source — read the code, build it, and check that it does what this site says it does.</p>
+          <p>You do not have to wait for a download. The node, the indexer and the wallet are open source &mdash; read the code, build it, and check that it does what this site says it does.</p>
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="{GH}" target="_blank" rel="noopener noreferrer">Browse the source{EXT}</a></p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="band band--dark2">
+  <section class="band band--tint band--line">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Test it yourself</p>
+        <h2>Four steps, on your own machines.</h2>
+        <p>This is the sequence we run ourselves. Every part of it happens on computers you control; nothing is hosted for you, and nothing starts without you.</p>
+      </div>
+
+      <ol class="minesteps minesteps--long" data-reveal>
+        <li><b>01</b><span>Install <strong>SWARM Wallet</strong> and create a wallet. It shows you a recovery phrase &mdash; write it down on paper, offline, before you go any further. It is the only way to restore the wallet, and anyone who has it has the coins.</span></li>
+        <li><b>02</b><span>Install <strong>SWARM Node</strong>, paste in your wallet address and press <strong>Start</strong>. Your PC joins the testnet through <span class="mono">seed.swarm.green</span> and begins mining.</span></li>
+        <li><b>03</b><span>On a second device, install the wallet and send yourself a payment &mdash; shielded, or transparent if you want to watch it in the open.</span></li>
+        <li><b>04</b><span>Follow the payment in the block explorer, planned at <span class="mono">explore.swarm.green</span>.</span></li>
+      </ol>
+
+      <div class="note mt-l" data-reveal>
+        <strong>Phones are wallets, not miners.</strong> The Android and iPhone apps hold, send and receive. They do not mine, and there is no mobile mining mode planned.
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Before you start</p>
@@ -467,15 +506,15 @@ join = head(
       </div>
 
       <div class="cards cards--2" data-reveal>
-        <article class="card">
+        <article class="card card--quiet">
           <div class="hexicon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4.4" y="10.4" width="15.2" height="10.2" rx="2"/><path d="M8.2 10.4V7.6a3.8 3.8 0 0 1 7.6 0v2.8"/></svg>
           </div>
           <h3>Back up your recovery phrase offline</h3>
           <p>Write the phrase down on paper and store it somewhere safe. Do not photograph it, do not put it in a password manager you do not control, and do not type it into anything that asks you to &ldquo;verify&rdquo; it on a website.</p>
-          <p class="mt-s">Anyone who has the phrase has the coins. If you lose it, nobody — including us — can recover your wallet for you.</p>
+          <p class="mt-s">Anyone who has the phrase has the coins. If you lose it, nobody &mdash; including us &mdash; can recover your wallet for you.</p>
         </article>
-        <article class="card">
+        <article class="card card--quiet">
           <div class="hexicon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4v5.2l3.2 2"/></svg>
           </div>
@@ -491,7 +530,7 @@ join = head(
     </div>
   </section>
 
-  <section class="band band--cream">
+  <section class="band band--tint band--line">
     <div class="wrap wrap--narrow">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Reminder</p>
@@ -510,37 +549,37 @@ write("join/index.html", join)
 
 # ------------------------------------------------------------------ /brand
 swatches = [
-    ("Honey", "#F5A623", "chip-honey", "Primary. Buttons, marks, accents on dark."),
-    ("Amber deep", "#E8890C", "chip-amber", "Gradient end, stinger."),
-    ("Comb", "#FFC94D", "chip-comb", "Highlights, wings, numbers on dark."),
-    ("Pollen", "#FFE9A8", "chip-pollen", "Soft fills and notices."),
-    ("Cream", "#FFF8E7", "chip-cream", "Light band background."),
-    ("Hive black", "#0E1116", "chip-hive", "Dark band background."),
-    ("Bark", "#161A21", "chip-bark", "Second dark band."),
-    ("Wax", "#252A33", "chip-wax", "Dark surfaces and cards."),
-    ("Ink", "#E6EDF3", "chip-ink", "Body text on dark."),
-    ("Ink dim", "#9AA4B2", "chip-inkdim", "Secondary text on dark."),
-    ("Leaf", "#3FB950", "chip-leaf", "Live and OK states, used sparingly."),
-    ("Honey ink", "#8A4B03", "chip-honeyink", "The only amber that is AA-legible as text on cream."),
+    ("Hive Orange", "#FF8A1F", "chip-orange", "Brand, primary action, the shielded state, value."),
+    ("Honey", "#FFB020", "chip-honey", "Highlights, mining rewards, numbers."),
+    ("Honey light", "#FFD08A", "chip-honeylt", "Text and values on shielded surfaces."),
+    ("Clear Blue", "#6FB6FF", "chip-blue", "Transparent and revealed transactions. Nothing else."),
+    ("Green", "#3DD68C", "chip-green", "Success and confirmed, used sparingly."),
+    ("Red", "#FF5C5C", "chip-red", "Danger and stop."),
+    ("Void", "#0A0908", "chip-void", "The page. Warm black, like the inside of a hive."),
+    ("Base", "#100E0C", "chip-base", "Panels, cards and the footer."),
+    ("Surface", "#171411", "chip-surface", "Raised surfaces inside a panel."),
+    ("Wax", "#F5EFE4", "chip-text", "Primary text and light-mode surfaces."),
+    ("Text 2", "#D9D1C4", "chip-text2", "Secondary text and table values."),
+    ("Text 3", "#A89F92", "chip-text3", "The dimmest tone used for text — 7.6:1 on Void."),
 ]
 swatch_html = "\n".join(
     f"""        <div class="swatch">
           <div class="chip {cls}"></div>
-          <div class="meta"><div class="nm">{name}</div><div class="hx">{hexv}</div></div>
-        </div>""" for name, hexv, cls, _ in swatches)
+          <div class="swatch__m"><span class="nm">{name}</span><span class="hx">{hexv}</span><span class="hx">{use}</span></div>
+        </div>""" for name, hexv, cls, use in swatches)
 
 assets = [
-    ("Mark", "/assets/logo-mark.svg", "stage--light", "The hex-bee on its own. Use at 24px and up."),
-    ("Mark on dark", "/assets/logo-mark.svg", "stage--dark", "The same file. It works on cream and on hive black."),
-    ("Full lockup", "/assets/logo-full.svg", "stage--light", "Mark plus wordmark, for headers and documents."),
+    ("Mark", "/assets/logo-mark.svg", "stage--dark", "The hive bee on its own. Use at 24px and up."),
+    ("Mark on wax", "/assets/logo-mark.svg", "stage--light", "The same file. The stripes are cut out, so they take whatever is behind them."),
+    ("Full lockup", "/assets/logo-full.svg", "stage--dark", "Mark plus wordmark, for headers and documents."),
     ("Mono — dark ink", "/assets/logo-mono-dark.svg", "stage--light", "One colour, for light backgrounds, print and engraving."),
     ("Mono — light ink", "/assets/logo-mono-light.svg", "stage--dark", "One colour, for dark backgrounds."),
-    ("Favicon", "/favicon.svg", "stage--light", "The mark on a hive-black plate, tuned for 16px."),
+    ("Favicon", "/favicon.svg", "stage--dark", "The mark on a warm-black plate, tuned for 16px."),
 ]
-SIZES = {"/assets/logo-full.svg": (288, 70)}
+SIZES = {"/assets/logo-full.svg": (238, 84)}
 _rows = []
 for name, src, stage, desc in assets:
-    w, h = SIZES.get(src, (80, 80))
+    w, h = SIZES.get(src, (78, 78))
     _rows.append(f"""        <div class="asset">
           <div class="stage {stage}"><img src="{src}" alt="{name} logo" width="{w}" height="{h}"></div>
           <div class="nm">{name}</div>
@@ -551,44 +590,44 @@ asset_html = "\n".join(_rows)
 
 brand = head(
     "Brand — SWARM",
-    "SWARM logo files, colour tokens with hex values, typography and usage rules. The hex-bee is an original geometric mark.",
+    "SWARM logo files, colour tokens with hex values, typography and usage rules. The hive bee is an original geometric mark.",
     "/brand",
     "SWARM brand",
-    "Logo files, colour tokens, typography and usage rules for the SWARM hex-bee.",
+    "Logo files, colour tokens, typography and usage rules for the SWARM hive bee.",
 ) + page_head(
     "Brand",
-    "The hex-bee.",
-    "Every part of the mark is a hexagon or a straight edge: one hexagon for the body, two smaller ones for the wings, two bands clipped out of the body, and a triangle for the stinger. It is an original design, drawn for this project.",
+    "The hive bee.",
+    "A hexagonal body — one cell of the hive — with two stripes and two honey wings. Symmetric, frontal, geometric. The stripes are cut out of the body, so they always take the colour of whatever is behind the mark. It is an original design, drawn for this project.",
 ) + f"""
-  <section class="band band--cream">
+  <section class="band band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Logo files</p>
         <h2>Downloads.</h2>
-        <p>All SVG, all under 2 KB. The mono names describe the ink colour, not the background: <strong>mono&nbsp;dark</strong> is dark ink for light backgrounds, <strong>mono&nbsp;light</strong> is light ink for dark ones.</p>
+        <p>All SVG, all under 2&nbsp;KB. The mono names describe the ink colour, not the background: <strong>mono&nbsp;dark</strong> is dark ink for light backgrounds, <strong>mono&nbsp;light</strong> is light ink for dark ones.</p>
       </div>
       <div class="assetgrid" data-reveal>
 {asset_html}
       </div>
-      <p class="note mt-l" data-reveal>The wordmark in <strong>logo-full.svg</strong> is live text set in Sora 700, uppercase, with 0.08em letter-spacing, and a system sans fallback stack so the file still renders correctly where Sora is not installed. Shipping the letterforms as outlines would mean redistributing a licensed font, so the text stays text.</p>
+      <p class="note mt-l" data-reveal>The wordmark in <strong>logo-full.svg</strong> is live text set in Sora 700, uppercase, with a system sans fallback stack and a pinned <span class="mono">textLength</span> so the lockup is the same width either way. Shipping the letterforms as outlines would mean redistributing a licensed font, so the text stays text.</p>
     </div>
   </section>
 
-  <section class="band band--dark2">
+  <section class="band band--tint band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Colour</p>
-        <h2>Twelve tokens.</h2>
-        <p>Ten brand colours plus two derived ones. Every value is declared as a CSS custom property on <span class="mono">:root</span> in <span class="mono">css/site.css</span>.</p>
+        <h2>Warm black, Hive Orange, one cool exception.</h2>
+        <p>Hive Orange is the brand and the shielded state. Clear Blue appears only where privacy is switched off — a deliberate, cool break from the palette, so a visible transaction never looks normal. Every value is a CSS custom property on <span class="mono">:root</span> in <span class="mono">css/site.css</span>.</p>
       </div>
       <div class="swatches" data-reveal>
 {swatch_html}
       </div>
-      <p class="note mt-l" data-reveal><strong>Contrast.</strong> Amber is not legible as text on cream: <span class="mono">--honey</span> reaches only 2.5:1 and <span class="mono">--amber-deep</span> 2.5:1, both below the 4.5:1 that WCAG AA asks for. Use <span class="mono">--honey-ink</span> (6.4:1) for any amber text on a light background, and keep <span class="mono">--honey</span> for fills, marks and text on dark.</p>
+      <p class="note mt-l" data-reveal><strong>Contrast.</strong> On Void, Wax reaches 17.4:1, Text&nbsp;2 13.1:1 and Text&nbsp;3 7.6:1; Hive Orange reaches 8.4:1 and Honey 10.9:1, so both are legible as text on dark. The two dimmest tones in the guide — <span class="mono">#7D746A</span> (4.3:1) and <span class="mono">#6B645A</span> (3.2:1) — are below the 4.5:1 that WCAG AA asks for at body sizes, so this site keeps them for hairlines, dividers, icon ghosts and disabled controls, and never sets prose, labels or numbers in them.</p>
     </div>
   </section>
 
-  <section class="band band--cream">
+  <section class="band band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Typography</p>
@@ -597,51 +636,51 @@ brand = head(
       <div class="typespec" data-reveal>
         <div>
           <p class="sample sample--display">Together we are strong.</p>
-          <p class="meta">Sora — 600 / 700 / 800 — headlines, the wordmark, card titles</p>
+          <p class="meta">Sora — 600 / 700 — headlines, the wordmark, card titles</p>
         </div>
         <div>
           <p class="sample sample--body">One bee is small. A swarm is unstoppable. Every computer that joins makes the hive stronger.</p>
-          <p class="meta">Inter — 400 / 500 / 600 — body copy, navigation, buttons</p>
+          <p class="meta">Manrope — 400 / 500 / 600 — body copy, navigation, buttons</p>
         </div>
         <div>
-          <p class="sample sample--mono">6.25 · 1,680,000 · 20,999,987.3152</p>
-          <p class="meta">JetBrains Mono — 500 — every figure, so digits line up</p>
+          <p class="sample sample--mono">6.25 SWM · 1,680,000 · 20,999,987.3152</p>
+          <p class="meta">JetBrains Mono — 400 / 500 — every figure, address and hash, so digits line up</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="band band--dark2">
+  <section class="band band--tint band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Usage</p>
         <h2>Do and don&rsquo;t.</h2>
       </div>
       <div class="dodont" data-reveal>
-        <article class="card">
-          <h3><span class="mk mk--do" aria-hidden="true">✓</span>Do</h3>
-          <ul class="prose">
+        <div class="mk mk--do">
+          <h3>Do</h3>
+          <ul>
             <li>Keep clear space around the mark of at least half its width.</li>
             <li>Use the mark at 24px or larger; use the favicon below that.</li>
-            <li>Put the colour mark on cream or on hive black, nothing in between.</li>
+            <li>Let the stripes take the background colour — that is how the mark is built.</li>
             <li>Use the mono files for print, engraving and single-colour work.</li>
-            <li>Say &ldquo;SWARM&rdquo; in capitals when you mean the network.</li>
+            <li>Say &ldquo;SWARM&rdquo; in capitals when you mean the network, and write amounts in SWM.</li>
           </ul>
-        </article>
-        <article class="card">
-          <h3><span class="mk mk--dont" aria-hidden="true">✕</span>Don&rsquo;t</h3>
-          <ul class="prose">
-            <li>Don&rsquo;t rotate, skew, outline or add effects to the mark.</li>
-            <li>Don&rsquo;t recolour it — the honey, comb and amber are the mark.</li>
-            <li>Don&rsquo;t place it on a mid-tone or a busy photograph.</li>
-            <li>Don&rsquo;t redraw the bee, and don&rsquo;t set the wordmark in a script face.</li>
+        </div>
+        <div class="mk mk--dont">
+          <h3>Don&rsquo;t</h3>
+          <ul>
+            <li>Don&rsquo;t tilt, rotate, skew or redraw the bee, and never give it a face.</li>
+            <li>Don&rsquo;t put a gradient inside the mark, or add shadows and outlines.</li>
+            <li>Don&rsquo;t set SWARM in any face but Sora.</li>
+            <li>Don&rsquo;t place the mark on a mid-tone or a busy photograph.</li>
             <li>Don&rsquo;t imply endorsement by Zcash, the Zcash Foundation, Zingo Labs, Foursquare or Ethereum Swarm.</li>
           </ul>
-        </article>
+        </div>
       </div>
 
       <div class="note mt-l" data-reveal>
-        <strong>On the name.</strong> SWARM has no connection to the Ethereum Swarm (BZZ) project or to Foursquare&rsquo;s Swarm app. The hex-bee is an original geometric mark and is deliberately unlike any other bee logo: it is built only from hexagons and straight edges, seen from above, with no script wordmark.
+        <strong>On the name.</strong> SWARM has no connection to the Ethereum Swarm (BZZ) project or to Foursquare&rsquo;s Swarm app. The hive bee is an original geometric mark and is deliberately unlike any other bee logo: a hexagon seen head-on, symmetric, with two elliptical wings and no script wordmark.
       </div>
     </div>
   </section>
@@ -661,7 +700,7 @@ terms = head(
     "Terms.",
     "Short, and meant literally.",
 ) + """
-  <section class="band band--cream">
+  <section class="band band--line">
     <div class="wrap wrap--narrow prose" data-reveal>
       <h2>What this site is</h2>
       <p>swarm.green is an information site about SWARM, an independent, community-run proof-of-work network. It describes software. It does not host the network, run a service on your behalf, or hold anything belonging to you.</p>
@@ -709,7 +748,7 @@ privacy = head(
     "No cookies. No analytics. No data.",
     "This is the shortest page on the site, because there is very little to say.",
 ) + f"""
-  <section class="band band--cream">
+  <section class="band band--line">
     <div class="wrap wrap--narrow prose" data-reveal>
       <h2>What this site collects</h2>
       <p>Nothing. This site sets no cookies, runs no analytics, uses no tracking pixels and collects no personal data. There is no contact form, no newsletter sign-up and no account to create — there is nowhere on this site to type your email address, because we did not build one.</p>
@@ -745,7 +784,7 @@ notfound = head(
     "SWARM — Page not found",
     "That cell is empty.",
 ).replace('<link rel="canonical" href="https://swarm.green/404">', '<meta name="robots" content="noindex, follow">') + """
-  <section class="band band--dark band--comb page-head">
+  <section class="band page-head">
     <div class="wrap wrap--narrow center">
       <p class="pill">Error 404</p>
       <h1>This cell is empty.</h1>

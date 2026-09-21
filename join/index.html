@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Join the testnet — SWARM</title>
-<meta name="description" content="How to run SWARM: get the desktop wallet, run a full node, and start CPU mining with one click. All three apps are coming soon; nothing ever runs without your consent.">
+<meta name="description" content="How to run SWARM: get the desktop wallet, run a full node, and start CPU mining with one click. Windows first, Linux and macOS to follow; mobile apps are wallets only. Nothing ever runs without your consent.">
 <link rel="canonical" href="https://swarm.green/join">
-<meta name="theme-color" content="#0E1116">
+<meta name="theme-color" content="#0A0908">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SWARM">
 <meta property="og:locale" content="en">
 <meta property="og:title" content="Join the SWARM testnet">
-<meta property="og:description" content="Get the wallet, run a node, start foraging. Three apps, coming soon. Test coins have no value.">
+<meta property="og:description" content="Get the wallet, run a node, start foraging. Windows first, Linux and macOS to follow. Test coins have no value.">
 <meta property="og:url" content="https://swarm.green/join">
 <meta property="og:image" content="https://swarm.green/assets/og.png">
 <meta property="og:image:type" content="image/png">
@@ -21,14 +21,14 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@swarm_coin">
 <meta name="twitter:title" content="Join the SWARM testnet">
-<meta name="twitter:description" content="Get the wallet, run a node, start foraging. Three apps, coming soon. Test coins have no value.">
+<meta name="twitter:description" content="Get the wallet, run a node, start foraging. Windows first, Linux and macOS to follow. Test coins have no value.">
 <meta name="twitter:image" content="https://swarm.green/assets/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="mask-icon" href="/assets/logo-mono-dark.svg" color="#F5A623">
+<link rel="mask-icon" href="/assets/logo-mono-dark.svg" color="#FF8A1F">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/css/site.css">
 <script src="/js/boot.js"></script>
 <script src="/js/site.js" defer></script>
@@ -41,18 +41,20 @@
 <header class="nav">
   <div class="wrap nav__bar">
     <a class="brand" href="/">
-      <img src="/assets/logo-mark.svg" alt="" width="34" height="34">
+      <img src="/assets/logo-mark.svg" alt="" width="30" height="30">
       <span>SWARM</span>
       <span class="vh">— home</span>
     </a>
     <nav class="nav__links" aria-label="Primary">
-      <a href="/#hive">The Hive</a>
-      <a href="/#honey">Honey</a>
+      <a href="/#how">How it works</a>
+      <a href="/#mine">Mining</a>
+      <a href="/#swarm">The swarm</a>
+      <a href="/#honey">Supply</a>
       <a href="/#join">Join</a>
-      <a href="/#roadmap">Roadmap</a>
       <a href="/#faq">FAQ</a>
       <a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>
     </nav>
+    <a class="btn btn--ghost btn--sm nav__cta" href="/join">Join the testnet</a>
     <button class="nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel">
       <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="vh">Menu</span>
@@ -61,9 +63,12 @@
   <div class="nav__panel" id="navpanel" data-nav-panel>
     <nav aria-label="Primary, compact">
       <ul>
+        <li><a href="/#how">How it works</a></li>
         <li><a href="/#hive">The Hive</a></li>
-        <li><a href="/#honey">Honey</a></li>
-        <li><a href="/#join">Join</a></li>
+        <li><a href="/#mine">Mining</a></li>
+        <li><a href="/#swarm">The swarm</a></li>
+        <li><a href="/#honey">Supply</a></li>
+        <li><a href="/join">Join the testnet</a></li>
         <li><a href="/#roadmap">Roadmap</a></li>
         <li><a href="/#faq">FAQ</a></li>
         <li><a href="/network">Network &amp; supply</a></li>
@@ -74,67 +79,94 @@
 </header>
 
 <main id="main">
-  <section class="band band--dark band--comb page-head">
+  <section class="band page-head">
     <div class="wrap">
       <p class="crumbs"><a href="/">Home</a><span aria-hidden="true">/</span>Join the testnet</p>
-      <p class="pill">Downloads coming soon</p>
+      <p class="pill">Testnet only</p>
       <h1>Join the swarm.</h1>
-      <p class="page-head__lead">Public downloads are not open yet. This is the shape of it: three small apps, three steps, and nothing that runs behind your back.</p>
+      <p class="page-head__lead">Two small desktop apps do everything, and a wallet is coming to your phone. This is the shape of it: three steps, and nothing that runs behind your back.</p>
     </div>
   </section>
 
-  <section class="band band--cream">
+  <section class="band band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="eyebrow">Step by step</p>
-        <h2>Three steps. Every bee counts.</h2>
+        <p class="eyebrow">The apps</p>
+        <h2>Everything you need, on hardware you own.</h2>
+        <p>Mining happens on SWARM Node, on a desktop or a laptop. Mobile apps are wallets only &mdash; phones do not mine.</p>
       </div>
 
-      <div class="steps" data-reveal>
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">1</div>
+      <div class="dlgrid" data-downloads data-reveal>
+        <article class="card dl">
           <p class="step__app">SWARM Wallet</p>
-          <h3>Get a wallet</h3>
-          <p>A desktop wallet that holds your coins and sends payments — transparent or shielded, your choice on every payment.</p>
-          <p class="mt-s">On first run it will show you a recovery phrase. Write it down on paper and keep it offline. It is the only way to restore your wallet.</p>
+          <h3>Desktop wallet</h3>
+          <p>Holds your coins and sends payments &mdash; transparent or shielded, your choice on every payment. On first run it shows a recovery phrase; write it down on paper and keep it offline.</p>
+          <p class="dl__plats">Windows first, Linux and macOS to follow.</p>
           <button class="btn btn--soon" type="button" disabled>Coming soon</button>
         </article>
 
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">2</div>
+        <article class="card dl">
           <p class="step__app">SWARM Node</p>
-          <h3>Run a node</h3>
-          <p>One app that runs a full node: it downloads the chain, checks every block against the rules itself, and relays to its peers.</p>
-          <p class="mt-s">Running a node is what makes you part of the hive. You are not trusting anyone&rsquo;s word about what the chain says — you are checking it.</p>
+          <h3>Full node and one-click mining</h3>
+          <p>Runs a full node &mdash; it downloads the chain, checks every block against the rules itself and relays to its peers &mdash; and has a single mining switch. Consent-first: nothing runs hidden, nothing starts by itself.</p>
+          <p class="dl__plats">Windows first, Linux and macOS to follow.</p>
           <button class="btn btn--soon" type="button" disabled>Coming soon</button>
         </article>
 
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">3</div>
-          <p class="step__app">SWARM Node</p>
-          <h3>Start foraging</h3>
-          <p>The same app has a mining switch. Press <strong>Start</strong> and your CPU begins looking for blocks; press <strong>Stop</strong> and it stops. That is the whole interface.</p>
-          <p class="mt-s">The proof of work is Equihash and it is CPU-mineable on the testnet, so an ordinary computer can take part from the first block. As the network grows and difficulty rises, specialised miners can join too — nothing in the rules keeps anyone out.</p>
+        <article class="card dl">
+          <p class="step__app">SWARM Wallet for Android</p>
+          <h3>Mobile wallet</h3>
+          <p>The same wallet on your phone: hold, send and receive. A wallet only &mdash; phones do not mine.</p>
+          <p class="dl__plats">In early development.</p>
+          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+        </article>
+
+        <article class="card dl">
+          <p class="step__app">SWARM Wallet for iPhone</p>
+          <h3>Mobile wallet</h3>
+          <p>The same wallet on your phone: hold, send and receive. A wallet only &mdash; phones do not mine.</p>
+          <p class="dl__plats">In early development.</p>
           <button class="btn btn--soon" type="button" disabled>Coming soon</button>
         </article>
       </div>
 
       <div class="cards cards--2 mt-l" data-reveal>
-        <article class="card">
+        <article class="card card--quiet">
           <h3>SWARM Explorer</h3>
-          <p>A block explorer, so you can watch what the chain is actually doing: blocks as they are found, and the supply as it is issued. Planned at explore.swarm.green.</p>
+          <p>A block explorer, so you can watch what the chain is actually doing: blocks as they are found, and the supply as it is issued. Planned at <span class="mono">explore.swarm.green</span>.</p>
           <p class="mt-m"><button class="btn btn--soon btn--sm" type="button" disabled>Coming soon</button></p>
         </article>
-        <article class="card">
+        <article class="card card--quiet">
           <h3>Build it yourself</h3>
-          <p>You do not have to wait for a download. The node, the indexer and the wallet are open source — read the code, build it, and check that it does what this site says it does.</p>
+          <p>You do not have to wait for a download. The node, the indexer and the wallet are open source &mdash; read the code, build it, and check that it does what this site says it does.</p>
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">Browse the source<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="band band--dark2">
+  <section class="band band--tint band--line">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Test it yourself</p>
+        <h2>Four steps, on your own machines.</h2>
+        <p>This is the sequence we run ourselves. Every part of it happens on computers you control; nothing is hosted for you, and nothing starts without you.</p>
+      </div>
+
+      <ol class="minesteps minesteps--long" data-reveal>
+        <li><b>01</b><span>Install <strong>SWARM Wallet</strong> and create a wallet. It shows you a recovery phrase &mdash; write it down on paper, offline, before you go any further. It is the only way to restore the wallet, and anyone who has it has the coins.</span></li>
+        <li><b>02</b><span>Install <strong>SWARM Node</strong>, paste in your wallet address and press <strong>Start</strong>. Your PC joins the testnet through <span class="mono">seed.swarm.green</span> and begins mining.</span></li>
+        <li><b>03</b><span>On a second device, install the wallet and send yourself a payment &mdash; shielded, or transparent if you want to watch it in the open.</span></li>
+        <li><b>04</b><span>Follow the payment in the block explorer, planned at <span class="mono">explore.swarm.green</span>.</span></li>
+      </ol>
+
+      <div class="note mt-l" data-reveal>
+        <strong>Phones are wallets, not miners.</strong> The Android and iPhone apps hold, send and receive. They do not mine, and there is no mobile mining mode planned.
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--line">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Before you start</p>
@@ -142,15 +174,15 @@
       </div>
 
       <div class="cards cards--2" data-reveal>
-        <article class="card">
+        <article class="card card--quiet">
           <div class="hexicon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4.4" y="10.4" width="15.2" height="10.2" rx="2"/><path d="M8.2 10.4V7.6a3.8 3.8 0 0 1 7.6 0v2.8"/></svg>
           </div>
           <h3>Back up your recovery phrase offline</h3>
           <p>Write the phrase down on paper and store it somewhere safe. Do not photograph it, do not put it in a password manager you do not control, and do not type it into anything that asks you to &ldquo;verify&rdquo; it on a website.</p>
-          <p class="mt-s">Anyone who has the phrase has the coins. If you lose it, nobody — including us — can recover your wallet for you.</p>
+          <p class="mt-s">Anyone who has the phrase has the coins. If you lose it, nobody &mdash; including us &mdash; can recover your wallet for you.</p>
         </article>
-        <article class="card">
+        <article class="card card--quiet">
           <div class="hexicon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4v5.2l3.2 2"/></svg>
           </div>
@@ -166,7 +198,7 @@
     </div>
   </section>
 
-  <section class="band band--cream">
+  <section class="band band--tint band--line">
     <div class="wrap wrap--narrow">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Reminder</p>
@@ -186,7 +218,7 @@
     <div class="footer__top">
       <div class="footer__brand">
         <a class="brand" href="/">
-          <img src="/assets/logo-mark.svg" alt="" width="34" height="34">
+          <img src="/assets/logo-mark.svg" alt="" width="30" height="30">
           <span>SWARM</span>
         </a>
         <p>Private, proof-of-work money run by its community. Testnet only — test coins have no value.</p>
@@ -195,10 +227,10 @@
       <nav aria-labelledby="ft-net">
         <h2 id="ft-net">Network</h2>
         <ul>
-          <li><a href="/#hive">The Hive</a></li>
-          <li><a href="/#honey">Honey</a></li>
+          <li><a href="/#how">How it works</a></li>
+          <li><a href="/#mine">Mining</a></li>
+          <li><a href="/#swarm">The swarm</a></li>
           <li><a href="/network">Network &amp; supply</a></li>
-          <li><a href="/#roadmap">Roadmap</a></li>
         </ul>
       </nav>
 
@@ -206,6 +238,7 @@
         <h2 id="ft-get">Get started</h2>
         <ul>
           <li><a href="/join">Join the testnet</a></li>
+          <li><a href="/#roadmap">Roadmap</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></li>
         </ul>

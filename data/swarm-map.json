@@ -1,0 +1,8 @@
+{
+  "updated": "2026-09-21T00:00:00Z",
+  "source": "Operated by the SWARM project",
+  "note": "Only nodes that share a location appear here, and never finer than a city. Sharing is opt-in. Today this is one entry: the project's own seed server. This file is not a count of the network.",
+  "nodes": [
+    { "city": "Dallas", "country": "US", "lon": -96.80, "lat": 32.78, "count": 1 }
+  ]
+}

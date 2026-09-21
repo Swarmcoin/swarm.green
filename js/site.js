@@ -1,7 +1,9 @@
 /* ==========================================================================
    SWARM — swarm.green
    Vanilla JS, no dependencies, no inline handlers (strict CSP friendly).
-   Sections: 1 nav · 2 reveal · 3 hero swarm canvas · 4 data-driven charts
+   Colour that has to come from data rides on SVG presentation attributes, so
+   nothing here ever writes a style attribute.
+   Sections: 1 nav · 2 reveal · 3 privacy switch · 4 data-driven rendering
    ========================================================================== */
 (function () {
   "use strict";
@@ -65,7 +67,7 @@
       }
     });
     window.addEventListener("resize", function () {
-      if (window.innerWidth > 860) setOpen(false);
+      if (window.innerWidth > 940) setOpen(false);
     });
   }
 
@@ -82,19 +84,13 @@
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        var node = entry.target;
-        var delay = parseInt(node.getAttribute("data-reveal-delay") || "0", 10);
-        if (delay) {
-          window.setTimeout(function () { node.classList.add("is-in"); }, delay);
-        } else {
-          node.classList.add("is-in");
-        }
-        io.unobserve(node);
+        entry.target.classList.add("is-in");
+        io.unobserve(entry.target);
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
     items.forEach(function (n) { io.observe(n); });
 
-    // Safety net: if the observer has not reported anything that is plainly on
+    // Safety net: if the observer has not reported something that is plainly on
     // screen (some headless and embedded renderers never deliver the first
     // callback), show it anyway. Content must never stay invisible.
     window.setTimeout(function () {
@@ -110,235 +106,53 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /* 3. Hero swarm canvas                                               */
+  /* 3. Privacy switch                                                   */
+  /* An illustration of the two states a payment can be in. Nothing here  */
+  /* is live data, and the panel says so.                                 */
   /* ------------------------------------------------------------------ */
-  function initSwarm() {
-    var canvas = $("[data-swarm]");
-    if (!canvas) return;
-    var ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  var SWITCH_STATES = {
+    shielded: {
+      title: "What the world sees: nothing.",
+      body: "A shielded transaction proves it is valid without revealing who paid whom, or how much. An explorer can see that a block was mined — and that is all.",
+      tag: "PRIVACY · ON",
+      from: "⬢⬢⬢⬢⬢⬢⬢⬢",
+      to: "⬢⬢⬢⬢⬢⬢⬢⬢",
+      amount: "⬢⬢⬢.⬢⬢ SWM"
+    },
+    revealed: {
+      title: "Or show exactly what you want.",
+      body: "Send a transparent payment and its details are published like any public chain — for an audit, an exchange or a receipt. Always your call, always explicit, and never what the wallet does unless you ask.",
+      tag: "PRIVACY · OFF",
+      from: "visible t-address",
+      to: "visible t-address",
+      amount: "1,240.50 SWM"
+    }
+  };
 
-    var host = canvas.parentElement;
-    var w = 0, h = 0, dpr = 1;
-    var bees = [], targets = [];
-    var raf = 0, visible = true, onScreen = true, last = 0, clock = 0;
+  function initSwitch() {
+    var box = $("[data-switchbox]");
+    var btn = $("[data-switch]", box || document);
+    if (!box || !btn) return;
 
-    // phase machine: drift -> gather -> hold -> scatter -> drift
-    var PHASES = [
-      { name: "drift", ms: 6400 },
-      { name: "gather", ms: 2600 },
-      { name: "hold", ms: 2600 },
-      { name: "scatter", ms: 1800 }
-    ];
-    var phase = 0, phaseT = 0;
+    var parts = {
+      title: $("[data-switch-title]", box),
+      body: $("[data-switch-body]", box),
+      tag: $("[data-switch-tag]", box),
+      from: $("[data-switch-from]", box),
+      to: $("[data-switch-to]", box),
+      amount: $("[data-switch-amount]", box)
+    };
 
-    function count() {
-      var n = Math.round(w / 15);
-      if (w < 520) n = Math.round(w / 11);
-      return Math.max(28, Math.min(118, n));
+    function apply(name) {
+      var s = SWITCH_STATES[name];
+      box.setAttribute("data-state", name);
+      btn.setAttribute("aria-checked", name === "shielded" ? "true" : "false");
+      for (var k in parts) { if (parts[k]) parts[k].textContent = s[k]; }
     }
 
-    function hexPoints(n) {
-      // n points spread evenly along the outline of a pointy-top hexagon
-      var R = Math.min(w, h) * (w < 620 ? 0.3 : 0.26);
-      var cx = w / 2, cy = h * 0.47;
-      var k = 0.8660254 * R;
-      var v = [
-        [cx, cy - R], [cx + k, cy - R / 2], [cx + k, cy + R / 2],
-        [cx, cy + R], [cx - k, cy + R / 2], [cx - k, cy - R / 2]
-      ];
-      var out = [];
-      for (var i = 0; i < n; i++) {
-        var s = (i / n) * 6;
-        var e = Math.floor(s) % 6;
-        var t = s - Math.floor(s);
-        out.push([
-          v[e][0] + (v[(e + 1) % 6][0] - v[e][0]) * t,
-          v[e][1] + (v[(e + 1) % 6][1] - v[e][1]) * t
-        ]);
-      }
-      out.outline = v;
-      return out;
-    }
-
-    function seed() {
-      var n = count();
-      bees = [];
-      for (var i = 0; i < n; i++) {
-        bees.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          a: Math.random() * Math.PI * 2,
-          da: (Math.random() - 0.5) * 0.018,
-          r: 1.1 + Math.random() * 1.7,
-          o: 0.35 + Math.random() * 0.5
-        });
-      }
-      targets = hexPoints(n);
-    }
-
-    function resize() {
-      var rect = host.getBoundingClientRect();
-      dpr = Math.min(2, window.devicePixelRatio || 1);
-      w = Math.max(1, Math.round(rect.width));
-      h = Math.max(1, Math.round(rect.height));
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (!bees.length || bees.length !== count()) seed();
-      else targets = hexPoints(bees.length);
-      if (reduceMotion.matches) drawStatic();
-    }
-
-    function cohesion() {
-      var p = PHASES[phase], t = phaseT / p.ms;
-      if (p.name === "gather") return easeInOut(t);
-      if (p.name === "hold") return 1;
-      if (p.name === "scatter") return 1 - easeInOut(t);
-      return 0;
-    }
-    function easeInOut(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
-
-    function step(dt) {
-      phaseT += dt;
-      if (phaseT >= PHASES[phase].ms) { phaseT = 0; phase = (phase + 1) % PHASES.length; }
-      var c = cohesion();
-      var cx = w / 2, cy = h * 0.47;
-
-      for (var i = 0; i < bees.length; i++) {
-        var b = bees[i], tg = targets[i];
-        b.a += b.da;
-        // wander
-        b.vx += Math.cos(b.a) * 0.018 * (1 - c);
-        b.vy += Math.sin(b.a) * 0.018 * (1 - c);
-        // loose cohesion toward the middle so the swarm stays on screen
-        b.vx += (cx - b.x) * 0.00016 * (1 - c);
-        b.vy += (cy - b.y) * 0.00016 * (1 - c);
-        // pull to the hexagon
-        if (c > 0.001) {
-          b.vx += (tg[0] - b.x) * 0.0062 * c;
-          b.vy += (tg[1] - b.y) * 0.0062 * c;
-        }
-        var damp = 0.965 - 0.045 * c;
-        b.vx *= damp; b.vy *= damp;
-        b.x += b.vx * dt * 0.06;
-        b.y += b.vy * dt * 0.06;
-        // soft bounds
-        if (b.x < -20) b.x = w + 20; else if (b.x > w + 20) b.x = -20;
-        if (b.y < -20) b.y = h + 20; else if (b.y > h + 20) b.y = -20;
-      }
-      return c;
-    }
-
-    function paint(c) {
-      ctx.clearRect(0, 0, w, h);
-
-      // hexagon outline fades in with cohesion
-      if (c > 0.02 && targets.outline) {
-        var v = targets.outline;
-        ctx.beginPath();
-        ctx.moveTo(v[0][0], v[0][1]);
-        for (var k = 1; k < 6; k++) ctx.lineTo(v[k][0], v[k][1]);
-        ctx.closePath();
-        ctx.strokeStyle = "rgba(245,166,35," + (c * 0.3).toFixed(3) + ")";
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-      }
-
-      // links
-      ctx.lineWidth = 1;
-      var lim = w < 620 ? 68 : 86;
-      for (var i = 0; i < bees.length; i++) {
-        for (var j = i + 1; j < bees.length; j++) {
-          var dx = bees[i].x - bees[j].x, dy = bees[i].y - bees[j].y;
-          var d2 = dx * dx + dy * dy;
-          if (d2 > lim * lim) continue;
-          var a = (1 - Math.sqrt(d2) / lim) * 0.16;
-          ctx.strokeStyle = "rgba(255,201,77," + a.toFixed(3) + ")";
-          ctx.beginPath();
-          ctx.moveTo(bees[i].x, bees[i].y);
-          ctx.lineTo(bees[j].x, bees[j].y);
-          ctx.stroke();
-        }
-      }
-
-      // bees
-      ctx.globalCompositeOperation = "lighter";
-      for (var m = 0; m < bees.length; m++) {
-        var b = bees[m];
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(245,166,35," + (b.o * (0.55 + 0.45 * c)).toFixed(3) + ")";
-        ctx.fill();
-      }
-      ctx.globalCompositeOperation = "source-over";
-    }
-
-    function drawStatic() {
-      // prefers-reduced-motion: one still hexagon of bees, drawn once
-      ctx.clearRect(0, 0, w, h);
-      var pts = targets.length ? targets : hexPoints(count());
-      var v = pts.outline;
-      if (v) {
-        ctx.beginPath();
-        ctx.moveTo(v[0][0], v[0][1]);
-        for (var k = 1; k < 6; k++) ctx.lineTo(v[k][0], v[k][1]);
-        ctx.closePath();
-        ctx.strokeStyle = "rgba(245,166,35,0.28)";
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-      }
-      for (var i = 0; i < pts.length; i++) {
-        ctx.beginPath();
-        ctx.arc(pts[i][0], pts[i][1], 2, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(245,166,35,0.75)";
-        ctx.fill();
-      }
-    }
-
-    function frame(ts) {
-      raf = 0;
-      var dt = Math.min(48, ts - (last || ts));
-      last = ts;
-      clock += dt;
-      paint(step(dt));
-      schedule();
-    }
-    function schedule() {
-      if (raf || reduceMotion.matches || !visible || !onScreen) return;
-      raf = window.requestAnimationFrame(frame);
-    }
-    function stop() {
-      if (raf) { window.cancelAnimationFrame(raf); raf = 0; }
-      last = 0;
-    }
-
-    resize();
-    if (reduceMotion.matches) { drawStatic(); } else { schedule(); }
-
-    if ("ResizeObserver" in window) {
-      new ResizeObserver(function () { resize(); }).observe(host);
-    } else {
-      window.addEventListener("resize", resize);
-    }
-    document.addEventListener("visibilitychange", function () {
-      visible = !document.hidden;
-      if (visible) schedule(); else stop();
+    btn.addEventListener("click", function () {
+      apply(box.getAttribute("data-state") === "shielded" ? "revealed" : "shielded");
     });
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
-        onScreen = entries[0].isIntersecting;
-        if (onScreen) schedule(); else stop();
-      }, { threshold: 0 }).observe(host);
-    }
-    if (reduceMotion.addEventListener) {
-      reduceMotion.addEventListener("change", function () {
-        stop();
-        if (reduceMotion.matches) drawStatic(); else schedule();
-      });
-    }
   }
 
   /* ------------------------------------------------------------------ */
@@ -347,14 +161,13 @@
   function renderStats(host, data) {
     var frag = document.createDocumentFragment();
     data.stats.forEach(function (s) {
-      var cell = el("div", "stat");
-      var inner = el("div", "stat__in");
-      var v = el("div", "stat__v", s.value);
-      if (s.unit) { var u = el("small", null, s.unit); v.appendChild(u); }
-      inner.appendChild(v);
-      inner.appendChild(el("div", "stat__l", s.label));
-      cell.appendChild(inner);
-      frag.appendChild(cell);
+      var card = el("div", "metric" + (s.accent ? " metric--" + s.accent : ""));
+      card.appendChild(el("div", "metric__k", s.label));
+      var v = el("div", "metric__v", s.value);
+      if (s.unit) v.appendChild(el("small", null, s.unit));
+      card.appendChild(v);
+      if (s.note) card.appendChild(el("div", "metric__d", s.note));
+      frag.appendChild(card);
     });
     host.replaceChildren(frag);
   }
@@ -411,13 +224,13 @@
     var root = svg("svg", {
       viewBox: "0 0 " + W + " " + H,
       role: "img",
-      "aria-label": "Cumulative SWARM supply over the first " + years + " years. It rises steeply to about 10.5 million coins by the first halving, then flattens as each halving cuts the block reward, approaching the maximum of 20,999,987.3152 coins."
+      "aria-label": "Cumulative SWARM supply over the first " + years + " years. It rises steeply to about 10.5 million SWM by the first halving, then flattens as each halving cuts the block reward, approaching the maximum of 20,999,987.3152 SWM."
     });
 
     var defs = svg("defs");
     var grad = svg("linearGradient", { id: "emitFill", x1: "0", y1: "0", x2: "0", y2: "1" });
-    grad.appendChild(svg("stop", { offset: "0", "stop-color": "#F5A623", "stop-opacity": "0.34" }));
-    grad.appendChild(svg("stop", { offset: "1", "stop-color": "#F5A623", "stop-opacity": "0" }));
+    grad.appendChild(svg("stop", { offset: "0", "stop-color": "#FF8A1F", "stop-opacity": "0.42" }));
+    grad.appendChild(svg("stop", { offset: "1", "stop-color": "#FF8A1F", "stop-opacity": "0" }));
     defs.appendChild(grad);
     root.appendChild(defs);
 
@@ -428,16 +241,16 @@
       var yy = Y(val);
       root.appendChild(svg("line", {
         x1: ML, y1: yy, x2: W - MR, y2: yy,
-        stroke: "#E6EDF3", "stroke-opacity": i === 0 ? "0.22" : "0.08", "stroke-width": "1"
+        stroke: "#F5EFE4", "stroke-opacity": i === 0 ? "0.2" : "0.07", "stroke-width": "1"
       }));
-      var lbl = svg("text", { x: ML - 10, y: yy + 4, "text-anchor": "end", fill: "#9AA4B2", "font-size": "11", "font-family": "JetBrains Mono, monospace" });
+      var lbl = svg("text", { x: ML - 10, y: yy + 4, "text-anchor": "end", fill: "#A89F92", "font-size": "11", "font-family": "JetBrains Mono, monospace" });
       lbl.textContent = val === 0 ? "0" : (val / 1e6).toFixed(0) + "M";
       root.appendChild(lbl);
     }
 
     // x labels
     for (var x = 0; x <= years; x += 4) {
-      var tx = svg("text", { x: X(x), y: H - 14, "text-anchor": "middle", fill: "#9AA4B2", "font-size": "11", "font-family": "JetBrains Mono, monospace" });
+      var tx = svg("text", { x: X(x), y: H - 14, "text-anchor": "middle", fill: "#A89F92", "font-size": "11", "font-family": "JetBrains Mono, monospace" });
       tx.textContent = x === 0 ? "0" : x + "y";
       root.appendChild(tx);
     }
@@ -445,10 +258,10 @@
     // max supply asymptote
     root.appendChild(svg("line", {
       x1: ML, y1: Y(maxS), x2: W - MR, y2: Y(maxS),
-      stroke: "#FFC94D", "stroke-opacity": "0.55", "stroke-width": "1", "stroke-dasharray": "5 5"
+      stroke: "#FFB020", "stroke-opacity": "0.55", "stroke-width": "1", "stroke-dasharray": "5 5"
     }));
-    var cap = svg("text", { x: W - MR, y: Y(maxS) - 8, "text-anchor": "end", fill: "#FFC94D", "font-size": "11", "font-family": "JetBrains Mono, monospace" });
-    cap.textContent = "max " + nf.format(Math.round(maxS));
+    var cap = svg("text", { x: W - MR, y: Y(maxS) - 8, "text-anchor": "end", fill: "#FFB020", "font-size": "11", "font-family": "JetBrains Mono, monospace" });
+    cap.textContent = "max " + nf.format(Math.round(maxS)) + " SWM";
     root.appendChild(cap);
 
     // area + line
@@ -459,7 +272,7 @@
     });
     area += "L" + X(pts[pts.length - 1].y).toFixed(2) + " " + Y(0) + " Z";
     root.appendChild(svg("path", { d: area, fill: "url(#emitFill)" }));
-    root.appendChild(svg("path", { d: d.trim(), fill: "none", stroke: "#F5A623", "stroke-width": "2.5", "stroke-linejoin": "round", "stroke-linecap": "round" }));
+    root.appendChild(svg("path", { d: d.trim(), fill: "none", stroke: "#FF8A1F", "stroke-width": "2.4", "stroke-linejoin": "round", "stroke-linecap": "round" }));
 
     // halving markers
     pts.forEach(function (p, i) {
@@ -468,10 +281,10 @@
       root.appendChild(svg("path", {
         d: "M" + cx + " " + (cy - r) + " L" + (cx + k) + " " + (cy - r / 2) + " L" + (cx + k) + " " + (cy + r / 2) +
            " L" + cx + " " + (cy + r) + " L" + (cx - k) + " " + (cy + r / 2) + " L" + (cx - k) + " " + (cy - r / 2) + "Z",
-        fill: "#0E1116", stroke: "#FFC94D", "stroke-width": "1.6"
+        fill: "#0A0908", stroke: "#FFB020", "stroke-width": "1.6"
       }));
       if (i <= 3) {
-        var t = svg("text", { x: cx, y: cy - 12, "text-anchor": "middle", fill: "#9AA4B2", "font-size": "10.5", "font-family": "Inter, sans-serif" });
+        var t = svg("text", { x: cx, y: cy - 12, "text-anchor": "middle", fill: "#A89F92", "font-size": "10.5", "font-family": "Manrope, sans-serif" });
         t.textContent = "halving " + i;
         root.appendChild(t);
       }
@@ -511,7 +324,7 @@
 
     root.appendChild(svg("path", {
       d: seg(0, per),
-      fill: "none", stroke: "#E6EDF3", "stroke-opacity": "0.07", "stroke-width": "21"
+      fill: "none", stroke: "#F5EFE4", "stroke-opacity": "0.07", "stroke-width": "21"
     }));
 
     var cursor = 0;
@@ -525,11 +338,11 @@
       cursor += len;
     });
 
-    var n1 = svg("text", { x: cx, y: cy - 2, "text-anchor": "middle", fill: "#FFC94D", "font-size": "34", "font-family": "JetBrains Mono, monospace", "font-weight": "500" });
+    var n1 = svg("text", { x: cx, y: cy - 2, "text-anchor": "middle", fill: "#FFB020", "font-size": "34", "font-family": "JetBrains Mono, monospace", "font-weight": "500" });
     n1.textContent = String(data.rewardSplit.blockReward);
     root.appendChild(n1);
-    var n2 = svg("text", { x: cx, y: cy + 20, "text-anchor": "middle", fill: "#9AA4B2", "font-size": "12", "font-family": "Inter, sans-serif" });
-    n2.textContent = "coins per block";
+    var n2 = svg("text", { x: cx, y: cy + 20, "text-anchor": "middle", fill: "#A89F92", "font-size": "12", "font-family": "Manrope, sans-serif" });
+    n2.textContent = "SWM per block";
     root.appendChild(n2);
 
     host.replaceChildren(root);
@@ -545,7 +358,7 @@
       sw.appendChild(svg("path", { d: "M6 0 L12 3.465 L12 10.395 L6 13.86 L0 10.395 L0 3.465 Z", fill: s.color }));
       li.appendChild(sw);
       var nm = el("span", "nm", s.name);
-      var em = el("em", null, s.desc + " " + fmt(s.perBlock, 2) + " coins per block.");
+      var em = el("em", null, s.desc + " " + fmt(s.perBlock, 2) + " SWM per block in era 0.");
       nm.appendChild(em);
       li.appendChild(nm);
       li.appendChild(el("span", "pc", s.percent));
@@ -572,6 +385,116 @@
     host.replaceChildren(frag);
   }
 
+  /* ------------------------------------------------------------------ */
+  /* 5. Downloads                                                        */
+  /* data/downloads.json is the source of truth. Today every entry is     */
+  /* "coming-soon"; flipping one to "available" turns its card into a     */
+  /* real link with a version, a size and a checksum, with no HTML edit.  */
+  /* The static markup in the page says the same thing and stays as the   */
+  /* no-JavaScript fallback.                                              */
+  /* ------------------------------------------------------------------ */
+  function buildCard(product, entries, meta) {
+    var card = el("article", "card dl");
+    card.appendChild(el("p", "step__app", product.name));
+    card.appendChild(el("h3", null, product.tagline));
+    card.appendChild(el("p", null, product.detail));
+
+    var ready = entries.filter(function (e) { return e.status === "available" && e.url; });
+    var waiting = entries.filter(function (e) { return ready.indexOf(e) < 0; });
+
+    if (ready.length) {
+      var list = el("ul", "dl__builds");
+      ready.forEach(function (e) {
+        var li = el("li");
+
+        var head = el("div", "dl__head");
+        head.appendChild(el("span", "dl__plat", e.platform));
+        var bits = [];
+        if (e.version) bits.push(e.version);
+        if (e.size) bits.push(e.size);
+        if (bits.length) head.appendChild(el("span", "dl__meta mono", bits.join(" · ")));
+        li.appendChild(head);
+
+        var a = el("a", "btn btn--honey btn--sm", "Download for " + e.platform);
+        a.setAttribute("href", e.url);
+        a.setAttribute("rel", "noopener noreferrer");
+        li.appendChild(a);
+
+        if (e.sha256) {
+          var hash = el("div", "dl__hash");
+          hash.appendChild(el("span", "label", "SHA-256"));
+          hash.appendChild(el("code", "mono", e.sha256));
+          var copy = el("button", "btn btn--ghost btn--sm", "Copy");
+          copy.setAttribute("type", "button");
+          copy.setAttribute("data-copy", e.sha256);
+          copy.appendChild(el("span", "vh", " the SHA-256 checksum for " + product.name + " on " + e.platform));
+          hash.appendChild(copy);
+          li.appendChild(hash);
+        }
+
+        if (e.notes) li.appendChild(el("p", "dl__notice", e.notes));
+        if (e.platform === "Windows" && meta.windowsNotice) li.appendChild(el("p", "dl__notice", meta.windowsNotice));
+
+        list.appendChild(li);
+      });
+      card.appendChild(list);
+      if (waiting.length) {
+        card.appendChild(el("p", "dl__plats", waiting.map(function (e) { return e.platform; }).join(", ") + ": coming soon."));
+      }
+    } else {
+      if (product.platformLine) card.appendChild(el("p", "dl__plats", product.platformLine));
+      var soon = el("button", "btn btn--soon", "Coming soon");
+      soon.setAttribute("type", "button");
+      soon.disabled = true;
+      card.appendChild(soon);
+    }
+    return card;
+  }
+
+  function renderDownloads(hosts, data) {
+    var meta = data.meta || {};
+    hosts.forEach(function (host) {
+      var frag = document.createDocumentFragment();
+      (data.products || []).forEach(function (p) {
+        var entries = (data.entries || []).filter(function (e) { return e.product === p.key; });
+        if (!entries.length) return;
+        frag.appendChild(buildCard(p, entries, meta));
+      });
+      if (frag.childNodes.length) host.replaceChildren(frag);
+    });
+  }
+
+  function initCopy() {
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest ? e.target.closest("[data-copy]") : null;
+      if (!btn) return;
+      var value = btn.getAttribute("data-copy");
+      var label = btn.firstChild;
+      function done(ok) {
+        if (label && label.nodeType === 3) {
+          label.nodeValue = ok ? "Copied" : "Copy";
+          if (ok) window.setTimeout(function () { label.nodeValue = "Copy"; }, 1600);
+        }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(function () { done(true); }, function () { done(false); });
+      } else {
+        done(false);
+      }
+    });
+  }
+
+  function initDownloads() {
+    var hosts = $$("[data-downloads]");
+    if (!hosts.length) return;
+    fetch("/data/downloads.json", { credentials: "omit" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (data) {
+        try { renderDownloads(hosts, data); } catch (err) { /* keep the static markup */ }
+      })
+      .catch(function () { /* keep the static markup */ });
+  }
+
   function initData() {
     var needs = $$("[data-stats], [data-chart-emission], [data-chart-split], [data-legend-split], [data-ladder]");
     if (!needs.length) return;
@@ -593,7 +516,9 @@
   function start() {
     initNav();
     initReveal();
-    initSwarm();
+    initSwitch();
+    initCopy();
+    initDownloads();
     initData();
   }
 
