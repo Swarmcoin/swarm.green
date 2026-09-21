@@ -9,3 +9,6 @@ Thumbs.db
 .vercel/
 .env
 .env.*
+
+.vercel
+.env*

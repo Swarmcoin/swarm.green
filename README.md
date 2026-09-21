@@ -223,3 +223,14 @@ off camera, microphone and geolocation).
 SWARM is not affiliated with or endorsed by the Electric Coin Company, the Zcash
 Foundation, Zingo Labs, Foursquare's Swarm app, or the Ethereum Swarm (BZZ)
 project.
+
+## Go-live checklist (swarm.green production)
+
+The site is staged on the Vercel project `swarm-green` (`https://swarm-green-three.vercel.app`). The `swarm.green` domain is still attached to the older `swarm-landing` project and is switched only on the owner's explicit go-ahead.
+
+1. Owner approves the content, the hex-bee logo and the wording of the reward allocation.
+2. In `vercel.json` change `X-Robots-Tag` from `noindex, nofollow` back to `index, follow`.
+3. Move the `swarm.green` and `www.swarm.green` domains from the `swarm-landing` project to `swarm-green`, then deploy with `vercel deploy --prod`.
+4. Check the live headers (CSP, HSTS without `includeSubDomains`), every route, and the social preview image.
+5. Keep the previous `swarm-landing` project untouched so the old page can be restored by moving the domain back.
+
