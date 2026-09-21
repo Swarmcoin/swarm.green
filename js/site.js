@@ -590,11 +590,205 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------ */
+  /* 5. Downloads                                                        */
+  /* data/downloads.json is the source of truth. Today every app entry is */
+  /* "coming-soon" and renders the same disabled button as the static     */
+  /* markup. Setting one to "available" turns its row into a real link    */
+  /* with a version, a size and a checksum — a data change, not an HTML   */
+  /* edit. The static markup stays as the no-JavaScript fallback.         */
+  /* ------------------------------------------------------------------ */
+  /* Generic glyphs, drawn here. Deliberately not Apple's or Google's store
+     badges: their guidelines do not allow badge artwork for an app that is not
+     published yet, so the store names are plain text instead. */
+  var DL_GLYPHS = {
+    desktop: ["M3 5.5h18v11H3z", "M9 20h6", "M12 16.5V20"],
+    phone: ["M7.6 2.6h8.8v18.8H7.6z", "M10.6 5.4h2.8"],
+    explorer: ["M11 4.2a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6z", "M16 16l4.4 4.4"],
+    code: ["M8.6 7 3.4 12l5.2 5", "M15.4 7l5.2 5-5.2 5", "M13.6 4.4l-3.2 15.2"]
+  };
+
+  function dlGlyph(name) {
+    var paths = DL_GLYPHS[name];
+    if (!paths) return null;
+    var box = el("div", "hexicon");
+    box.setAttribute("aria-hidden", "true");
+    var s = svg("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor",
+      "stroke-width": "1.8", "stroke-linecap": "round", "stroke-linejoin": "round", focusable: "false" });
+    paths.forEach(function (d) { s.appendChild(svg("path", { d: d })); });
+    box.appendChild(s);
+    return box;
+  }
+
+  function dlSoonButton() {
+    var b = el("button", "btn btn--soon btn--sm", "Coming soon");
+    b.setAttribute("type", "button");
+    b.disabled = true;
+    return b;
+  }
+
+  function dlLinkCard(product, entry, meta) {
+    var card = el("article", "card dl");
+    var glyph = dlGlyph(product.glyph);
+    if (glyph) card.appendChild(glyph);
+    card.appendChild(el("p", "step__app", product.tagline));
+    card.appendChild(el("h3", null, product.name));
+    card.appendChild(el("p", null, product.detail));
+    var foot = el("p", "mt-m");
+    if (entry && entry.status === "available" && entry.url) {
+      var a = el("a", "btn btn--ghost btn--sm", "Open");
+      a.setAttribute("href", entry.url);
+      a.setAttribute("target", "_blank");
+      a.setAttribute("rel", "noopener noreferrer");
+      a.appendChild(el("span", "vh", " " + product.name + " (opens in a new tab)"));
+      foot.appendChild(a);
+    } else {
+      foot.appendChild(dlSoonButton());
+    }
+    card.appendChild(foot);
+    return card;
+  }
+
+  function dlAppCard(product, entries, meta) {
+    var card = el("article", "card dl");
+    var glyph = dlGlyph(product.glyph);
+    if (glyph) card.appendChild(glyph);
+    card.appendChild(el("p", "step__app", product.tagline));
+    card.appendChild(el("h3", null, product.name));
+    card.appendChild(el("p", null, product.detail));
+
+    var ready = entries.filter(function (e) { return e.status === "available" && e.url; });
+    var waiting = entries.filter(function (e) { return ready.indexOf(e) < 0; });
+
+    if (ready.length) {
+      var list = el("ul", "dl__builds");
+      ready.forEach(function (e) {
+        var li = el("li");
+        var head = el("div", "dl__head");
+        head.appendChild(el("span", "dl__plat", e.platform));
+        var bits = [];
+        if (e.version) bits.push(e.version);
+        if (e.size) bits.push(e.size);
+        if (bits.length) head.appendChild(el("span", "dl__meta", bits.join(" · ")));
+        li.appendChild(head);
+
+        var a = el("a", "btn btn--primary btn--sm", "Download for " + e.platform);
+        a.setAttribute("href", e.url);
+        a.setAttribute("rel", "noopener noreferrer");
+        li.appendChild(a);
+
+        if (e.sha256) {
+          var hash = el("div", "dl__hash");
+          hash.appendChild(el("span", "dl__k", "SHA-256"));
+          hash.appendChild(el("code", null, e.sha256));
+          var copy = el("button", "btn btn--ghost btn--sm", "Copy");
+          copy.setAttribute("type", "button");
+          copy.setAttribute("data-copy", e.sha256);
+          copy.appendChild(el("span", "vh", " the SHA-256 checksum for " + product.name + " on " + e.platform));
+          hash.appendChild(copy);
+          li.appendChild(hash);
+        }
+        if (e.notes) li.appendChild(el("p", "dl__notice", e.notes));
+        if (e.platform === "Windows" && meta.windowsNotice) li.appendChild(el("p", "dl__notice", meta.windowsNotice));
+        list.appendChild(li);
+      });
+      card.appendChild(list);
+      if (waiting.length) {
+        card.appendChild(el("p", "dl__plats", waiting.map(function (e) { return e.platform; }).join(", ") + ": coming soon."));
+      }
+    } else {
+      if (product.platformLine) card.appendChild(el("p", "dl__plats", product.platformLine));
+      var foot = el("p", "mt-m");
+      foot.appendChild(dlSoonButton());
+      card.appendChild(foot);
+    }
+    return card;
+  }
+
+  /* When the explorer goes live, the same flag puts it in the nav and the
+     footer — so one data edit lights it up everywhere. */
+  function addExplorerLinks(product, entry) {
+    if (!entry || entry.status !== "available" || !entry.url) return;
+    var label = product.navLabel || product.name;
+    var nav = $(".nav__links");
+    if (nav && !$('[data-explorer-link]', nav)) {
+      var a = el("a", null, label);
+      a.setAttribute("href", entry.url);
+      a.setAttribute("target", "_blank");
+      a.setAttribute("rel", "noopener noreferrer");
+      a.setAttribute("data-explorer-link", "");
+      var gh = nav.querySelector('a[href*="github.com"]');
+      nav.insertBefore(a, gh || null);
+    }
+    var ftList = $('[aria-labelledby="ft-net"] ul');
+    if (ftList && !$("[data-explorer-link]", ftList)) {
+      var li = el("li");
+      var fa = el("a", null, label);
+      fa.setAttribute("href", entry.url);
+      fa.setAttribute("target", "_blank");
+      fa.setAttribute("rel", "noopener noreferrer");
+      fa.setAttribute("data-explorer-link", "");
+      li.appendChild(fa);
+      ftList.appendChild(li);
+    }
+  }
+
+  function renderDownloads(hosts, data) {
+    var meta = data.meta || {};
+    var products = data.products || [];
+    var entries = data.entries || [];
+    hosts.forEach(function (host) {
+      var frag = document.createDocumentFragment();
+      products.forEach(function (p) {
+        var mine = entries.filter(function (e) { return e.product === p.key; });
+        if (!mine.length) return;
+        frag.appendChild(p.kind === "link" ? dlLinkCard(p, mine[0], meta) : dlAppCard(p, mine, meta));
+      });
+      if (frag.childNodes.length) host.replaceChildren(frag);
+    });
+    products.forEach(function (p) {
+      if (p.key !== "explorer") return;
+      addExplorerLinks(p, entries.filter(function (e) { return e.product === p.key; })[0]);
+    });
+  }
+
+  function initCopy() {
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest ? e.target.closest("[data-copy]") : null;
+      if (!btn) return;
+      var label = btn.firstChild;
+      function done(ok) {
+        if (label && label.nodeType === 3) {
+          label.nodeValue = ok ? "Copied" : "Copy";
+          if (ok) window.setTimeout(function () { label.nodeValue = "Copy"; }, 1600);
+        }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(btn.getAttribute("data-copy")).then(function () { done(true); }, function () { done(false); });
+      } else {
+        done(false);
+      }
+    });
+  }
+
+  function initDownloads() {
+    var hosts = $$("[data-downloads]");
+    if (!hosts.length) return;
+    fetch("/data/downloads.json", { credentials: "omit" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (data) {
+        try { renderDownloads(hosts, data); } catch (err) { /* keep the static markup */ }
+      })
+      .catch(function () { /* keep the static markup */ });
+  }
+
   function start() {
     initNav();
     initReveal();
     initSwarm();
     initData();
+    initCopy();
+    initDownloads();
   }
 
   if (document.readyState === "loading") {

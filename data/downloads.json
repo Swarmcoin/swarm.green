@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "updated": "2026-09-21",
+    "note": "Source of truth for the Downloads section. Going live is a data change, not an HTML edit: set an entry's status to \"available\" and fill in version, url, sha256 and size. js/site.js renders this into every [data-downloads] block; the static HTML in index.html is the no-JavaScript fallback and must say the same thing.",
+    "windowsNotice": "Unsigned test build — Windows will show a warning.",
+    "mobileNotice": "Mobile apps are wallets only — phones do not mine."
+  },
+  "products": [
+    {
+      "key": "wallet",
+      "kind": "app",
+      "name": "SWARM Wallet",
+      "tagline": "Desktop wallet",
+      "detail": "Holds your coins and sends payments — transparent or shielded, your choice on every payment.",
+      "platformLine": "Windows first, Linux and macOS to follow.",
+      "glyph": "desktop"
+    },
+    {
+      "key": "node",
+      "kind": "app",
+      "name": "SWARM Node",
+      "tagline": "Full node and mining",
+      "detail": "Runs a full node and lets you start or stop mining with one click. Nothing runs hidden, nothing starts by itself.",
+      "platformLine": "Windows first, Linux and macOS to follow.",
+      "glyph": "desktop"
+    },
+    {
+      "key": "mobile-ios",
+      "kind": "app",
+      "name": "SWARM Wallet for iPhone",
+      "tagline": "App Store",
+      "detail": "The same wallet on your phone: hold, send and receive.",
+      "platformLine": "Mobile apps are wallets only — phones do not mine.",
+      "glyph": "phone"
+    },
+    {
+      "key": "mobile-android",
+      "kind": "app",
+      "name": "SWARM Wallet for Android",
+      "tagline": "Google Play",
+      "detail": "The same wallet on your phone: hold, send and receive.",
+      "platformLine": "Mobile apps are wallets only — phones do not mine.",
+      "glyph": "phone"
+    },
+    {
+      "key": "explorer",
+      "kind": "link",
+      "name": "Block explorer",
+      "tagline": "explore.swarm.green",
+      "detail": "Watch what the chain is doing: blocks as they are found, and the supply as it is issued.",
+      "platformLine": "",
+      "navLabel": "Explorer",
+      "glyph": "explorer"
+    },
+    {
+      "key": "source",
+      "kind": "link",
+      "name": "Source code",
+      "tagline": "github.com/brs-holding",
+      "detail": "The node, the indexer and the wallet are open source. Read the code, build it yourself, and check that it does what this site says it does.",
+      "platformLine": "",
+      "glyph": "code"
+    }
+  ],
+  "entries": [
+    {
+      "product": "wallet",
+      "platform": "Windows",
+      "status": "coming-soon",
+      "version": "",
+      "url": "",
+      "sha256": "",
+      "size": "",
+      "notes": ""
+    },
+    {
+      "product": "wallet",
+      "platform": "Linux",
+      "status": "coming-soon",
+      "version": "",
+      "url": "",
+      "sha256": "",
+      "size": "",
+      "notes": ""
+    },
+    {
+      "product": "wallet",
+      "platform": "macOS",
+      "status": "coming-soon",
+      "version": "",
+      "url": "",
+      "sha256": "",
+      "size": "",
+      "notes": ""
+    },
+    {
+      "product": "node",
+      "platform": "Windows",
+      "status": "coming-soon",
+      "version": "",
+      "url": "",
+      "sha256": "",
+      "size": "",
+      "notes": ""
+    },
+    {
+      "product": "node",
+      "platform": "Linux",
+      "status": "coming-soon",
+      "version": "",
+      "url": "",
+      "sha256": "",
+      "size": "",
+      "notes": ""
+    },
+    {
+      "product": "node",
+      "platform": "macOS",
+      "status": "coming-soon",
+      "version": "",
+      "url": "",
+      "sha256": "",
+      "size": "",
+      "notes": ""
+    },
+    {
+      "product": "mobile-ios",
+      "platform": "App Store",
+      "status": "coming-soon",
+      "version": "",
+      "url": "",
+      "sha256": "",
+      "size": "",
+      "notes": ""
+    },
+    {
+      "product": "mobile-android",
+      "platform": "Google Play",
+      "status": "coming-soon",
+      "version": "",
+      "url": "",
+      "sha256": "",
+      "size": "",
+      "notes": ""
+    },
+    {
+      "product": "explorer",
+      "platform": "Web",
+      "status": "coming-soon",
+      "version": "",
+      "url": "https://explore.swarm.green",
+      "sha256": "",
+      "size": "",
+      "notes": ""
+    },
+    {
+      "product": "source",
+      "platform": "GitHub",
+      "status": "available",
+      "version": "",
+      "url": "https://github.com/brs-holding",
+      "sha256": "",
+      "size": "",
+      "notes": ""
+    }
+  ]
+}

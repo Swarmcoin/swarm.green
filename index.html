@@ -32,6 +32,7 @@
 <link rel="stylesheet" href="/css/site.css">
 <script src="/js/boot.js"></script>
 <script src="/js/site.js" defer></script>
+<script src="/js/map.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -48,6 +49,8 @@
     <nav class="nav__links" aria-label="Primary">
       <a href="#hive">The Hive</a>
       <a href="#honey">Honey</a>
+      <a href="#swarm">The Swarm</a>
+      <a href="#downloads">Downloads</a>
       <a href="#join">Join</a>
       <a href="#roadmap">Roadmap</a>
       <a href="#faq">FAQ</a>
@@ -63,6 +66,8 @@
       <ul>
         <li><a href="#hive">The Hive</a></li>
         <li><a href="#honey">Honey</a></li>
+        <li><a href="#swarm">The Swarm</a></li>
+        <li><a href="#downloads">Downloads</a></li>
         <li><a href="#join">Join</a></li>
         <li><a href="#roadmap">Roadmap</a></li>
         <li><a href="#faq">FAQ</a></li>
@@ -327,6 +332,135 @@
     </div>
   </section>
 
+  <!-- ================= THE SWARM ================= -->
+  <section class="band band--dark2" id="swarm">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">The Swarm</p>
+        <h2>Every glow is a real node.</h2>
+        <p>The map shows nodes whose operators chose to share a city-level location. Today that is one: the project&rsquo;s seed node in Dallas. Start a node, opt in, and your city lights up.</p>
+      </div>
+
+      <figure class="swarmmap" data-map-root data-reveal>
+        <div class="swarmmap__frame">
+          <div class="swarmmap__plot">
+            <p class="swarmmap__pill" data-map-badge>1 NODE · UPDATED 21 SEP 2026</p>
+            <svg data-map viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet" role="group" aria-label="World map of the nodes that share a city-level location"></svg>
+            <p class="swarmmap__key" aria-hidden="true"><span>FEW</span><i></i><span>MANY</span></p>
+          </div>
+          <dl class="swarmmap__stats">
+            <div><dt>Nodes on the map</dt><dd data-map-total>1</dd><p>the project&rsquo;s seed node</p></div>
+            <div><dt>Cities</dt><dd class="is-plain" data-map-cities>1</dd><p data-map-top>Dallas, US</p></div>
+            <div><dt>Location detail</dt><dd class="is-plain">City level</dd><p>never finer than a city</p></div>
+            <div><dt>Listing</dt><dd class="is-plain">Opt-in</dd><p>off unless you switch it on</p></div>
+          </dl>
+        </div>
+
+        <figcaption>
+          Not a census of the network — a list of the nodes that chose to appear on it.
+          <span class="swarmmap__src">Source: <span data-map-source>Operated by the SWARM project</span> · updated <time data-map-updated datetime="2026-09-21">21 September 2026</time></span>
+        </figcaption>
+
+        <p class="swarmmap__nojs">The map needs JavaScript. The same figures are in the table below.</p>
+
+        <div class="swarmmap__table">
+          <table class="minitable" data-map-table>
+            <caption>Nodes that share a city-level location.</caption>
+            <thead>
+              <tr><th scope="col">City</th><th scope="col">Country</th><th scope="col" class="num">Nodes</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Dallas</th><td>US</td><td class="num">1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= DOWNLOADS ================= -->
+  <section class="band band--cream" id="downloads">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Downloads</p>
+        <h2>Get the apps.</h2>
+        <p>Two small desktop apps do everything, and a wallet is on the way to your phone. Mobile apps are wallets only &mdash; phones do not mine.</p>
+      </div>
+
+      <!-- Rendered from data/downloads.json. The markup below is the
+           no-JavaScript fallback and must say the same thing as the data. -->
+      <div class="dlgrid" data-downloads data-reveal>
+        <article class="card dl">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 5.5h18v11H3z"/><path d="M9 20h6"/><path d="M12 16.5V20"/></svg>
+          </div>
+          <p class="step__app">Desktop wallet</p>
+          <h3>SWARM Wallet</h3>
+          <p>Holds your coins and sends payments &mdash; transparent or shielded, your choice on every payment.</p>
+          <p class="dl__plats">Windows first, Linux and macOS to follow.</p>
+          <p class="mt-m"><button class="btn btn--soon btn--sm" type="button" disabled>Coming soon</button></p>
+        </article>
+
+        <article class="card dl">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 5.5h18v11H3z"/><path d="M9 20h6"/><path d="M12 16.5V20"/></svg>
+          </div>
+          <p class="step__app">Full node and mining</p>
+          <h3>SWARM Node</h3>
+          <p>Runs a full node and lets you start or stop mining with one click. Nothing runs hidden, nothing starts by itself.</p>
+          <p class="dl__plats">Windows first, Linux and macOS to follow.</p>
+          <p class="mt-m"><button class="btn btn--soon btn--sm" type="button" disabled>Coming soon</button></p>
+        </article>
+
+        <article class="card dl">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7.6 2.6h8.8v18.8H7.6z"/><path d="M10.6 5.4h2.8"/></svg>
+          </div>
+          <p class="step__app">App Store</p>
+          <h3>SWARM Wallet for iPhone</h3>
+          <p>The same wallet on your phone: hold, send and receive.</p>
+          <p class="dl__plats">Mobile apps are wallets only &mdash; phones do not mine.</p>
+          <p class="mt-m"><button class="btn btn--soon btn--sm" type="button" disabled>Coming soon</button></p>
+        </article>
+
+        <article class="card dl">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7.6 2.6h8.8v18.8H7.6z"/><path d="M10.6 5.4h2.8"/></svg>
+          </div>
+          <p class="step__app">Google Play</p>
+          <h3>SWARM Wallet for Android</h3>
+          <p>The same wallet on your phone: hold, send and receive.</p>
+          <p class="dl__plats">Mobile apps are wallets only &mdash; phones do not mine.</p>
+          <p class="mt-m"><button class="btn btn--soon btn--sm" type="button" disabled>Coming soon</button></p>
+        </article>
+
+        <article class="card dl">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 4.2a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6z"/><path d="M16 16l4.4 4.4"/></svg>
+          </div>
+          <p class="step__app">explore.swarm.green</p>
+          <h3>Block explorer</h3>
+          <p>Watch what the chain is doing: blocks as they are found, and the supply as it is issued.</p>
+          <p class="mt-m"><button class="btn btn--soon btn--sm" type="button" disabled>Coming soon</button></p>
+        </article>
+
+        <article class="card dl">
+          <div class="hexicon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8.6 7 3.4 12l5.2 5"/><path d="M15.4 7l5.2 5-5.2 5"/><path d="M13.6 4.4l-3.2 15.2"/></svg>
+          </div>
+          <p class="step__app">github.com/brs-holding</p>
+          <h3>Source code</h3>
+          <p>The node, the indexer and the wallet are open source. Read the code, build it yourself, and check that it does what this site says it does.</p>
+          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">Open<span class="vh"> Source code (opens in a new tab)</span></a></p>
+        </article>
+      </div>
+
+      <div class="note mt-l" data-reveal>
+        <strong>Nothing installs itself.</strong> Every build is published with its SHA-256 checksum, and the testnet builds are not code-signed, so Windows will warn you the first time. Test coins have no value.
+      </div>
+    </div>
+  </section>
+
   <!-- ================= JOIN ================= -->
   <section class="band band--dark band--comb" id="join">
     <div class="wrap">
@@ -470,6 +604,7 @@
         <ul>
           <li><a href="/#hive">The Hive</a></li>
           <li><a href="/#honey">Honey</a></li>
+          <li><a href="/#swarm">The Swarm</a></li>
           <li><a href="/network">Network &amp; supply</a></li>
           <li><a href="/#roadmap">Roadmap</a></li>
         </ul>
@@ -479,6 +614,7 @@
         <h2 id="ft-get">Get started</h2>
         <ul>
           <li><a href="/join">Join the testnet</a></li>
+          <li><a href="/#downloads">Downloads</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></li>
         </ul>

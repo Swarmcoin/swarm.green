@@ -1093,3 +1093,264 @@ tbody th { font-weight: 500; white-space: nowrap; }
   .js [data-reveal] { opacity: 1; transform: none; }
   .card:hover, .btn:hover { transform: none; }
 }
+
+/* --------------------------------------------------------------------------
+   16. "The Swarm" map  (added, nothing above is changed)
+   The framed card keeps the deep warm black of the owner's prototype so the
+   heat reads; everything around it uses the site's existing band, section and
+   card rules.
+   -------------------------------------------------------------------------- */
+.swarmmap { margin-top: clamp(1.75rem, 4vw, 2.5rem); }
+
+.swarmmap__frame {
+  position: relative;
+  border: 1px solid rgba(245, 166, 35, .25);
+  border-radius: var(--radius);
+  background: #0A0908;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+}
+.swarmmap__frame::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent, var(--honey), transparent);
+  background-size: 200% 100%;
+  animation: swarmFlow 3s linear infinite;
+}
+@keyframes swarmFlow {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.swarmmap__plot { position: relative; }
+.swarmmap__plot svg { display: block; width: 100%; height: auto; }
+
+.swarmmap__pill {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 201, 77, .4);
+  background: rgba(14, 17, 22, .85);
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .16em;
+  color: var(--comb);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.swarmmap__pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--comb);
+  box-shadow: 0 0 8px var(--comb);
+  animation: swarmPip 1.8s ease-in-out infinite;
+}
+@keyframes swarmPip { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
+
+.swarmmap__key {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(230, 237, 243, .1);
+  background: rgba(14, 17, 22, .85);
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .14em;
+  color: var(--ink-dim);
+  pointer-events: none;
+}
+.swarmmap__key i {
+  display: block;
+  width: 110px;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(245, 166, 35, .12), #FF8A1F, var(--comb));
+}
+
+.swarmmap__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  border-top: 1px solid rgba(230, 237, 243, .07);
+  background: #100E0C;
+  margin: 0;
+}
+.swarmmap__stats > div {
+  min-width: 0;
+  padding: 1.1rem 1.4rem;
+  border-right: 1px solid rgba(230, 237, 243, .06);
+}
+.swarmmap__stats > div:last-child { border-right: 0; }
+.swarmmap__stats dt {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.swarmmap__stats dd {
+  margin: .35rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--comb);
+}
+.swarmmap__stats dd.is-plain { color: var(--ink); }
+.swarmmap__stats p {
+  margin-top: .2rem;
+  font-size: .78rem;
+  line-height: 1.45;
+  color: var(--ink-dim);
+}
+
+.swarmmap figcaption {
+  margin-top: 1rem;
+  max-width: 68ch;
+  font-size: .9rem;
+  line-height: 1.6;
+  color: var(--fg-dim);
+}
+.swarmmap__src {
+  display: block;
+  margin-top: .4rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  color: var(--fg-dim);
+}
+
+/* Screen-blended heat, and the hotspots, inside the SVG */
+.swarmmap__heat { mix-blend-mode: screen; }
+.hot { cursor: pointer; }
+.hot:focus { outline: none; }
+.hot__halo {
+  fill: none;
+  stroke: var(--comb);
+  stroke-width: 1.4;
+  opacity: 0;
+  transition: opacity .18s var(--ease);
+}
+.hot:hover .hot__halo,
+.hot:focus-visible .hot__halo { opacity: 1; }
+.hot:focus-visible .hot__halo { stroke: #FFFFFF; stroke-width: 2; }
+.ring-pulse {
+  animation: swarmRing 2.6s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes swarmRing {
+  0% { transform: scale(.35); opacity: .9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* The map is the picture; the table is the text alternative. With JavaScript
+   off the map never draws, so the table becomes the content. */
+.js .swarmmap__table {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip-path: inset(50%);
+  overflow: hidden; white-space: nowrap;
+}
+.swarmmap__table { margin-top: 1rem; }
+.swarmmap__nojs { margin-top: .75rem; font-size: .88rem; color: var(--fg-dim); }
+.js .swarmmap__nojs { display: none; }
+
+@media (max-width: 620px) {
+  .swarmmap__key { display: none; }
+  .swarmmap__pill { top: 12px; left: 12px; padding: 5px 10px; font-size: .6rem; }
+  .swarmmap__stats > div { border-right: 0; border-bottom: 1px solid rgba(230, 237, 243, .06); }
+  .swarmmap__stats > div:last-child { border-bottom: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   17. Downloads  (added)
+   -------------------------------------------------------------------------- */
+.dlgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1rem;
+}
+.dlgrid > * { min-width: 0; }
+.dl { display: flex; flex-direction: column; }
+.dl h3 { margin-top: .2rem; }
+.dl > p { margin-top: .6rem; }
+.dl__plats {
+  margin-top: auto !important;
+  padding-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  letter-spacing: .04em;
+  color: var(--fg-dim);
+}
+.dl .mt-m { margin-top: 1rem; }
+.dl__builds {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.dl__builds > li {
+  padding: .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.dl__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .6rem;
+  flex-wrap: wrap;
+}
+.dl__plat { font-family: var(--font-display); font-weight: 700; font-size: .95rem; color: var(--fg); }
+.dl__meta { font-family: var(--font-mono); font-size: .76rem; color: var(--fg-dim); }
+.dl__builds .btn { margin-top: .7rem; }
+.dl__hash {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-top: .7rem;
+  padding-top: .7rem;
+  border-top: 1px solid var(--rule);
+}
+.dl__k {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.dl__hash code {
+  flex: 1 1 12ch;
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  color: var(--fg);
+  overflow-wrap: anywhere;
+}
+.dl__hash .btn { margin-top: 0; flex: none; }
+.dl__notice {
+  margin-top: .6rem !important;
+  font-size: .8rem !important;
+  line-height: 1.5;
+  color: var(--accent);
+}

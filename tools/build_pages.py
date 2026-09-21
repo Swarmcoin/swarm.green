@@ -68,6 +68,8 @@ def head(title, desc, path, og_title, og_desc):
     <nav class="nav__links" aria-label="Primary">
       <a href="/#hive">The Hive</a>
       <a href="/#honey">Honey</a>
+      <a href="/#swarm">The Swarm</a>
+      <a href="/#downloads">Downloads</a>
       <a href="/#join">Join</a>
       <a href="/#roadmap">Roadmap</a>
       <a href="/#faq">FAQ</a>
@@ -83,6 +85,8 @@ def head(title, desc, path, og_title, og_desc):
       <ul>
         <li><a href="/#hive">The Hive</a></li>
         <li><a href="/#honey">Honey</a></li>
+        <li><a href="/#swarm">The Swarm</a></li>
+        <li><a href="/#downloads">Downloads</a></li>
         <li><a href="/#join">Join</a></li>
         <li><a href="/#roadmap">Roadmap</a></li>
         <li><a href="/#faq">FAQ</a></li>
@@ -115,6 +119,7 @@ FOOTER = f"""</main>
         <ul>
           <li><a href="/#hive">The Hive</a></li>
           <li><a href="/#honey">Honey</a></li>
+          <li><a href="/#swarm">The Swarm</a></li>
           <li><a href="/network">Network &amp; supply</a></li>
           <li><a href="/#roadmap">Roadmap</a></li>
         </ul>
@@ -124,6 +129,7 @@ FOOTER = f"""</main>
         <h2 id="ft-get">Get started</h2>
         <ul>
           <li><a href="/join">Join the testnet</a></li>
+          <li><a href="/#downloads">Downloads</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="{GH}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a></li>
         </ul>
@@ -443,6 +449,8 @@ join = head(
           <button class="btn btn--soon" type="button" disabled>Coming soon</button>
         </article>
       </div>
+
+      <p class="note mt-l" data-reveal>Every app, the block explorer and the source code are listed together in <a href="/#downloads">Downloads</a> on the home page.</p>
 
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
