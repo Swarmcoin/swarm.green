@@ -364,7 +364,6 @@
       frag.appendChild(cell);
     });
     host.replaceChildren(frag);
-    bindTilt(host);
   }
 
   /* Cumulative emission curve. Uses the published era table where it exists so
@@ -747,7 +746,7 @@
         if (!mine.length) return;
         frag.appendChild(dlCard(p, mine, meta));
       });
-      if (frag.childNodes.length) { host.replaceChildren(frag); bindTilt(host); }
+      if (frag.childNodes.length) host.replaceChildren(frag);
     });
     if (meta.releasesUrl && meta.releasesLabel) {
       $$("[data-downloads-releases]").forEach(function (node) {
@@ -800,43 +799,61 @@
   /* The cells are drawn entirely in CSS (css/site.css, sections 7, 8,   */
   /* 10). This feeds them two custom properties, --rx and --ry, through   */
   /* the CSSOM, which the strict CSP permits (it forbids style="" markup, */
-  /* not element.style.setProperty). Mouse only: touch has no hover, and  */
+  /* not element.style.setProperty). One delegated listener on the        */
+  /* document covers cells rendered later (stats, downloads) without any  */
+  /* hook in their renderers. Mouse only: touch has no hover, and         */
   /* prefers-reduced-motion leaves the cells at rest.                    */
   /* ------------------------------------------------------------------ */
   var TILT_MAX = 14;
-  var tiltOn = !reduceMotion.matches && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-  function bindTilt(root) {
-    if (!tiltOn) return;
-    $$(".hexicon, .step__n, .stat", root).forEach(function (cell) {
-      if (cell.hasAttribute("data-tilt")) return;
-      cell.setAttribute("data-tilt", "");
-      var area = cell.classList.contains("stat") ? cell : (cell.closest(".card, .why > li") || cell);
-      var rest = parseFloat(window.getComputedStyle(cell).getPropertyValue("--rx")) || 0;
-      var raf = 0, rx = rest, ry = 0;
-      function apply() {
-        raf = 0;
-        cell.style.setProperty("--rx", rx.toFixed(2) + "deg");
-        cell.style.setProperty("--ry", ry.toFixed(2) + "deg");
+  function initTilt() {
+    if (reduceMotion.matches) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+    var active = null; // { cell, rest } for the cell under the pointer
+    var raf = 0, rx = 0, ry = 0;
+
+    function clamp(v) { return Math.max(-1, Math.min(1, v)); }
+    function apply() {
+      raf = 0;
+      if (!active) return;
+      active.cell.style.setProperty("--rx", rx.toFixed(2) + "deg");
+      active.cell.style.setProperty("--ry", ry.toFixed(2) + "deg");
+    }
+    function release() {
+      if (raf) { window.cancelAnimationFrame(raf); raf = 0; }
+      if (active) {
+        active.cell.style.removeProperty("--rx");
+        active.cell.style.removeProperty("--ry");
+        active = null;
       }
-      area.addEventListener("pointermove", function (e) {
-        if (e.pointerType && e.pointerType !== "mouse") return;
-        var r = cell.getBoundingClientRect();
-        if (!r.width || !r.height) return;
-        // Offset of the pointer from the cell's centre, in cell sizes, clamped
-        // so a pointer at the far end of a wide card still gives a gentle tilt.
-        var dx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width * 1.6)));
-        var dy = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height * 1.6)));
-        ry = dx * TILT_MAX;
-        rx = rest - dy * TILT_MAX;
-        if (!raf) raf = window.requestAnimationFrame(apply);
-      });
-      area.addEventListener("pointerleave", function () {
-        if (raf) { window.cancelAnimationFrame(raf); raf = 0; }
-        cell.style.removeProperty("--rx");
-        cell.style.removeProperty("--ry");
-      });
-    });
+    }
+
+    document.addEventListener("pointermove", function (e) {
+      if (e.pointerType && e.pointerType !== "mouse") return;
+      var t = e.target;
+      var area = t && t.closest ? t.closest(".stat, .card, .why > li") : null;
+      var cell = null;
+      if (area) cell = area.classList.contains("stat") ? area : area.querySelector(".hexicon, .step__n");
+      if (!cell) { if (active) release(); return; }
+      if (!active || active.cell !== cell) {
+        release();
+        // the resting pose comes from the stylesheet (6deg for icons, 5deg for stat cells)
+        active = { cell: cell, rest: parseFloat(window.getComputedStyle(cell).getPropertyValue("--rx")) || 0 };
+      }
+      var r = cell.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      // Offset of the pointer from the cell's centre, in cell sizes, clamped
+      // so a pointer at the far end of a wide card still gives a gentle tilt.
+      var dx = clamp((e.clientX - (r.left + r.width / 2)) / (r.width * 1.6));
+      var dy = clamp((e.clientY - (r.top + r.height / 2)) / (r.height * 1.6));
+      ry = dx * TILT_MAX;
+      rx = active.rest - dy * TILT_MAX;
+      if (!raf) raf = window.requestAnimationFrame(apply);
+    }, { passive: true });
+    // Leaving the window, or the tab going to the background, lets go.
+    document.addEventListener("pointerleave", release);
+    document.addEventListener("visibilitychange", function () { if (document.hidden) release(); });
   }
 
   function start() {
@@ -846,7 +863,7 @@
     initData();
     initCopy();
     initDownloads();
-    bindTilt(document);
+    initTilt();
   }
 
   if (document.readyState === "loading") {
