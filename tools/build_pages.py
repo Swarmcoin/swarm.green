@@ -74,7 +74,7 @@ def head(title, desc, path, og_title, og_desc):
 <header class="nav">
   <div class="wrap nav__bar">
     <a class="brand" href="/">
-      <img src="/assets/logo-mark.svg" alt="" width="34" height="34">
+      <img src="/assets/logo-mark.svg" alt="" width="56" height="27">
       <span>SWARM</span>
       <span class="vh">— home</span>
     </a>
@@ -121,7 +121,7 @@ FOOTER = f"""</main>
     <div class="footer__top">
       <div class="footer__brand">
         <a class="brand" href="/">
-          <img src="/assets/logo-mark.svg" alt="" width="34" height="34">
+          <img src="/assets/logo-mark.svg" alt="" width="56" height="27">
           <span>SWARM</span>
         </a>
         <p>Private, proof-of-work money run by its community. Testnet only — test coins have no value.</p>
@@ -583,8 +583,8 @@ write("join/index.html", join)
 # ------------------------------------------------------------------ /brand
 swatches = [
     ("Honey", "#F5A623", "chip-honey", "Primary. Buttons, marks, accents on dark."),
-    ("Amber deep", "#E8890C", "chip-amber", "Gradient end, stinger."),
-    ("Comb", "#FFC94D", "chip-comb", "Highlights, wings, numbers on dark."),
+    ("Amber deep", "#E8890C", "chip-amber", "Gradient end, deep tones."),
+    ("Comb", "#FFC94D", "chip-comb", "Highlights, numbers on dark."),
     ("Pollen", "#FFE9A8", "chip-pollen", "Soft fills and notices."),
     ("Cream", "#FFF8E7", "chip-cream", "Light band background."),
     ("Hive black", "#0E1116", "chip-hive", "Dark band background."),
@@ -602,14 +602,14 @@ swatch_html = "\n".join(
         </div>""" for name, hexv, cls, _ in swatches)
 
 assets = [
-    ("Mark", "/assets/logo-mark.svg", "stage--light", "The hex-bee on its own. Use at 24px and up."),
+    ("Mark", "/assets/logo-mark.svg", "stage--light", "The mark on its own. Use at 24px wide and up."),
     ("Mark on dark", "/assets/logo-mark.svg", "stage--dark", "The same file. It works on cream and on hive black."),
     ("Full lockup", "/assets/logo-full.svg", "stage--light", "Mark plus wordmark, for headers and documents."),
     ("Mono — dark ink", "/assets/logo-mono-dark.svg", "stage--light", "One colour, for light backgrounds, print and engraving."),
     ("Mono — light ink", "/assets/logo-mono-light.svg", "stage--dark", "One colour, for dark backgrounds."),
     ("Favicon", "/favicon.svg", "stage--light", "The mark on a hive-black plate, tuned for 16px."),
 ]
-SIZES = {"/assets/logo-full.svg": (288, 70)}
+SIZES = {"/assets/logo-full.svg": (327, 70)}
 _rows = []
 for name, src, stage, desc in assets:
     w, h = SIZES.get(src, (80, 80))
@@ -623,14 +623,14 @@ asset_html = "\n".join(_rows)
 
 brand = head(
     "Brand — SWARM",
-    "SWARM logo files, colour tokens with hex values, typography and usage rules. The hex-bee is an original geometric mark.",
+    "SWARM logo files, colour tokens with hex values, typography and usage rules. The SWARM mark is original artwork.",
     "/brand",
     "SWARM brand",
-    "Logo files, colour tokens, typography and usage rules for the SWARM hex-bee.",
+    "Logo files, colour tokens, typography and usage rules for the SWARM mark.",
 ) + page_head(
     "Brand",
-    "The hex-bee.",
-    "Every part of the mark is a hexagon or a straight edge: one hexagon for the body, two smaller ones for the wings, two bands clipped out of the body, and a triangle for the stinger. It is an original design, drawn for this project.",
+    "The mark.",
+    "A chevron over two eyes, in two tones of honey: the light chevron (#FBC241) and the deep amber eyes (#DB7C04). It is original artwork, drawn for this project; the vector files are traced from the original and will be refined.",
 ) + f"""
   <section class="band band--cream">
     <div class="wrap">
@@ -706,14 +706,14 @@ brand = head(
             <li>Don&rsquo;t rotate, skew, outline or add effects to the mark.</li>
             <li>Don&rsquo;t recolour it — the honey, comb and amber are the mark.</li>
             <li>Don&rsquo;t place it on a mid-tone or a busy photograph.</li>
-            <li>Don&rsquo;t redraw the bee, and don&rsquo;t set the wordmark in a script face.</li>
+            <li>Don&rsquo;t redraw the mark, and don&rsquo;t set the wordmark in a script face.</li>
             <li>Don&rsquo;t imply endorsement by Zcash, the Zcash Foundation, Zingo Labs, Foursquare or Ethereum Swarm.</li>
           </ul>
         </article>
       </div>
 
       <div class="note mt-l" data-reveal>
-        <strong>On the name.</strong> SWARM has no connection to the Ethereum Swarm (BZZ) project or to Foursquare&rsquo;s Swarm app. The hex-bee is an original geometric mark and is deliberately unlike any other bee logo: it is built only from hexagons and straight edges, seen from above, with no script wordmark.
+        <strong>On the name.</strong> SWARM has no connection to the Ethereum Swarm (BZZ) project or to Foursquare&rsquo;s Swarm app. The SWARM mark is original artwork: a chevron over two eyes in two tones of honey, with the wordmark set in Sora.
       </div>
     </div>
   </section>
