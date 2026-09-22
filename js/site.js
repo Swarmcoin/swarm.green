@@ -664,15 +664,17 @@
       var list = el("ul", "dl__builds");
       ready.forEach(function (e) {
         var li = el("li");
+        var what = e.variant ? e.platform + " \u00b7 " + e.variant : e.platform;
         var head = el("div", "dl__head");
-        head.appendChild(el("span", "dl__plat", e.platform));
+        head.appendChild(el("span", "dl__plat", what));
         var bits = [];
         if (e.version) bits.push(e.version);
         if (e.size) bits.push(e.size);
         if (bits.length) head.appendChild(el("span", "dl__meta", bits.join(" · ")));
         li.appendChild(head);
 
-        var a = el("a", "btn btn--primary btn--sm", "Download for " + e.platform);
+        var a = el("a", "btn btn--primary btn--sm",
+          e.variant ? "Download " + e.variant : "Download for " + e.platform);
         a.setAttribute("href", e.url);
         a.setAttribute("rel", "noopener noreferrer");
         li.appendChild(a);
@@ -684,12 +686,27 @@
           var copy = el("button", "btn btn--ghost btn--sm", "Copy");
           copy.setAttribute("type", "button");
           copy.setAttribute("data-copy", e.sha256);
-          copy.appendChild(el("span", "vh", " the SHA-256 checksum for " + product.name + " on " + e.platform));
+          copy.appendChild(el("span", "vh", " the SHA-256 checksum for " + product.name + " on " + what));
           hash.appendChild(copy);
           li.appendChild(hash);
         }
+        // The signed list for the whole release, so a reader can check this
+        // file against something we did not hand them on this page.
+        if (e.checksums) {
+          var sums = el("p", "dl__sums");
+          var sa = el("a", "textlink", "SHA256SUMS for this release");
+          sa.setAttribute("href", e.checksums);
+          sa.setAttribute("target", "_blank");
+          sa.setAttribute("rel", "noopener noreferrer");
+          sa.appendChild(el("span", "vh", " (opens in a new tab)"));
+          sums.appendChild(sa);
+          li.appendChild(sums);
+        }
+        // One warning per row. An entry that carries its own note has already
+        // said what needs saying; adding the generic line too just repeats it.
         if (e.notes) li.appendChild(el("p", "dl__notice", e.notes));
-        if (e.platform === "Windows" && meta.windowsNotice) li.appendChild(el("p", "dl__notice", meta.windowsNotice));
+        else if (e.platform === "Windows" && meta.windowsNotice) li.appendChild(el("p", "dl__notice", meta.windowsNotice));
+        else if (meta.unsignedNotice) li.appendChild(el("p", "dl__notice", meta.unsignedNotice));
         list.appendChild(li);
       });
       card.appendChild(list);
@@ -746,6 +763,16 @@
       });
       if (frag.childNodes.length) host.replaceChildren(frag);
     });
+    if (meta.releasesUrl && meta.releasesLabel) {
+      $$("[data-downloads-releases]").forEach(function (node) {
+        var a = el("a", "textlink", meta.releasesLabel);
+        a.setAttribute("href", meta.releasesUrl);
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener noreferrer");
+        a.appendChild(el("span", "vh", " (opens in a new tab)"));
+        node.replaceChildren(a);
+      });
+    }
     products.forEach(function (p) {
       if (p.key !== "explorer") return;
       addExplorerLinks(p, entries.filter(function (e) { return e.product === p.key; })[0]);

@@ -1376,3 +1376,7 @@ tbody th { font-weight: 500; white-space: nowrap; }
   word-break: break-all;
   user-select: all;
 }
+
+/* Release checksum link under a build row. */
+.dl__sums { margin-top: .5rem; font-size: .82rem; }
+.dl__releases { font-size: .9rem; }
