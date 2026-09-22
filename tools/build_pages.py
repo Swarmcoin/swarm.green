@@ -46,7 +46,7 @@ def head(title, desc, path, og_title, og_desc):
 <meta property="og:title" content="{og_title}">
 <meta property="og:description" content="{og_desc}">
 <meta property="og:url" content="https://swarm.green{path}">
-<meta property="og:image" content="https://swarm.green/assets/og.png">
+<meta property="og:image" content="https://swarm.green/assets/og.png?v=2">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -55,9 +55,9 @@ def head(title, desc, path, og_title, og_desc):
 <meta name="twitter:site" content="{X_HANDLE}">
 <meta name="twitter:title" content="{og_title}">
 <meta name="twitter:description" content="{og_desc}">
-<meta name="twitter:image" content="https://swarm.green/assets/og.png">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="mask-icon" href="/assets/logo-mono-dark.svg" color="#F5A623">
+<meta name="twitter:image" content="https://swarm.green/assets/og.png?v=2">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="mask-icon" href="/assets/logo-mono-dark.svg?v=2" color="#F5A623">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,7 +74,7 @@ def head(title, desc, path, og_title, og_desc):
 <header class="nav">
   <div class="wrap nav__bar">
     <a class="brand" href="/">
-      <img src="/assets/logo-mark.svg" alt="" width="56" height="27">
+      <img src="/assets/logo-mark.svg?v=2" alt="" width="56" height="27">
       <span>SWARM</span>
       <span class="vh">— home</span>
     </a>
@@ -121,7 +121,7 @@ FOOTER = f"""</main>
     <div class="footer__top">
       <div class="footer__brand">
         <a class="brand" href="/">
-          <img src="/assets/logo-mark.svg" alt="" width="56" height="27">
+          <img src="/assets/logo-mark.svg?v=2" alt="" width="56" height="27">
           <span>SWARM</span>
         </a>
         <p>Private, proof-of-work money run by its community. Testnet only — test coins have no value.</p>
@@ -602,14 +602,14 @@ swatch_html = "\n".join(
         </div>""" for name, hexv, cls, _ in swatches)
 
 assets = [
-    ("Mark", "/assets/logo-mark.svg", "stage--light", "The mark on its own. Use at 24px wide and up."),
-    ("Mark on dark", "/assets/logo-mark.svg", "stage--dark", "The same file. It works on cream and on hive black."),
-    ("Full lockup", "/assets/logo-full.svg", "stage--light", "Mark plus wordmark, for headers and documents."),
-    ("Mono — dark ink", "/assets/logo-mono-dark.svg", "stage--light", "One colour, for light backgrounds, print and engraving."),
-    ("Mono — light ink", "/assets/logo-mono-light.svg", "stage--dark", "One colour, for dark backgrounds."),
-    ("Favicon", "/favicon.svg", "stage--light", "The mark on a hive-black plate, tuned for 16px."),
+    ("Mark", "/assets/logo-mark.svg?v=2", "stage--light", "The mark on its own. Use at 24px wide and up."),
+    ("Mark on dark", "/assets/logo-mark.svg?v=2", "stage--dark", "The same file. It works on cream and on hive black."),
+    ("Full lockup", "/assets/logo-full.svg?v=2", "stage--light", "Mark plus wordmark, for headers and documents."),
+    ("Mono — dark ink", "/assets/logo-mono-dark.svg?v=2", "stage--light", "One colour, for light backgrounds, print and engraving."),
+    ("Mono — light ink", "/assets/logo-mono-light.svg?v=2", "stage--dark", "One colour, for dark backgrounds."),
+    ("Favicon", "/favicon.svg?v=2", "stage--light", "The mark on a hive-black plate, tuned for 16px."),
 ]
-SIZES = {"/assets/logo-full.svg": (327, 70)}
+SIZES = {"/assets/logo-full.svg?v=2": (327, 70)}
 _rows = []
 for name, src, stage, desc in assets:
     w, h = SIZES.get(src, (80, 80))
