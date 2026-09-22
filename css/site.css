@@ -1334,6 +1334,16 @@ tbody th { font-weight: 500; white-space: nowrap; }
   color: var(--fg-dim);
 }
 .dl__cta { margin-top: .7rem; width: 100%; }
+/* A second architecture button sits directly under the first. */
+.dl__cta + .dl__cta { margin-top: .45rem; }
+.dl__sumlabel {
+  margin-top: .55rem;
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .06em;
+  color: var(--fg-dim);
+}
+.dl__sumbody > .dl__sumlabel:first-child { margin-top: 0; }
 .dl__alt { margin-top: .55rem; font-size: .82rem; }
 .dl__notice {
   margin-top: .55rem;

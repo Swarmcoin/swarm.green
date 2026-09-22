@@ -662,7 +662,11 @@
   function dlPane(product, group, meta) {
     var pane = el("div", "dl__pane");
     var available = group.entries.filter(function (e) { return e.state === "available" && e.url; });
-    var primary = available.filter(function (e) { return e.role !== "alt"; })[0];
+    /* Several primaries in one platform means several architectures — two
+       equal choices, so each gets its own button. A "alt" is a second artifact
+       of the same build (portable zip, .deb) and stays a small link. */
+    var primaries = available.filter(function (e) { return e.role !== "alt"; });
+    var primary = primaries[0];
     var alts = available.filter(function (e) { return e.role === "alt"; });
     var label = OS_LABEL[group.os] || group.os;
 
@@ -671,7 +675,9 @@
        shifted the button with it. */
     var line1 = label, line2 = "";
     if (primary) {
-      line1 = [primary.platform, primary.sizeShort].filter(Boolean).join(" · ");
+      line1 = primaries.length > 1
+        ? primary.platform
+        : [primary.platform, primary.sizeShort].filter(Boolean).join(" · ");
       line2 = primary.version || "";
     } else {
       var pending = group.entries[0] || {};
@@ -682,18 +688,22 @@
     spec.appendChild(el("span", "dl__specmeta", line2));
     pane.appendChild(spec);
 
-    if (primary) {
-      var text = product.kind === "link" ? "Open"
-        : primary.os === "android" ? "Download APK"
-        : "Download for " + label;
-      var a = el("a", "btn btn--primary btn--sm dl__cta", text);
-      a.setAttribute("href", primary.url);
-      a.setAttribute("rel", "noopener noreferrer");
-      if (product.kind === "link") {
-        a.setAttribute("target", "_blank");
-        a.appendChild(el("span", "vh", " " + product.name + " (opens in a new tab)"));
-      }
-      pane.appendChild(a);
+    if (primaries.length) {
+      primaries.forEach(function (e, i) {
+        var text = product.kind === "link" ? "Open"
+          : e.os === "android" ? "Download APK"
+          : e.arch ? "Download for " + e.arch
+          : "Download for " + label;
+        var a = el("a", "btn btn--sm dl__cta " + (i === 0 ? "btn--primary" : "btn--ghost"), text);
+        a.setAttribute("href", e.url);
+        a.setAttribute("rel", "noopener noreferrer");
+        if (e.arch) a.appendChild(el("span", "vh", " of " + product.name + " for " + label));
+        if (product.kind === "link") {
+          a.setAttribute("target", "_blank");
+          a.appendChild(el("span", "vh", " " + product.name + " (opens in a new tab)"));
+        }
+        pane.appendChild(a);
+      });
     } else {
       pane.appendChild(dlSoonPill());
     }
@@ -725,7 +735,38 @@
     }
     if (notice) pane.appendChild(el("p", "dl__notice", notice));
 
-    if (primary && primary.sha256) {
+    if (primaries.length > 1) {
+      var d2 = document.createElement("details");
+      d2.className = "dl__sum";
+      var s2 = document.createElement("summary");
+      s2.textContent = "Checksums";
+      d2.appendChild(s2);
+      var b2 = el("div", "dl__sumbody");
+      primaries.forEach(function (e) {
+        if (!e.sha256) return;
+        b2.appendChild(el("p", "dl__sumlabel", (e.arch || e.platform) + (e.sizeShort ? " · " + e.sizeShort : "")));
+        b2.appendChild(el("code", "dl__hashline", e.sha256));
+        var r2 = el("p", "dl__sumrow");
+        var c2 = el("button", "btn btn--ghost btn--sm", "Copy");
+        c2.setAttribute("type", "button");
+        c2.setAttribute("data-copy", e.sha256);
+        c2.appendChild(el("span", "vh", " the SHA-256 checksum for " + product.name + " " + (e.arch || label)));
+        r2.appendChild(c2);
+        b2.appendChild(r2);
+      });
+      if (primary.checksums) {
+        var r3 = el("p", "dl__sumrow");
+        var a3 = el("a", "textlink", "SHA256SUMS");
+        a3.setAttribute("href", primary.checksums);
+        a3.setAttribute("target", "_blank");
+        a3.setAttribute("rel", "noopener noreferrer");
+        a3.appendChild(el("span", "vh", " for this release (opens in a new tab)"));
+        r3.appendChild(a3);
+        b2.appendChild(r3);
+      }
+      d2.appendChild(b2);
+      pane.appendChild(d2);
+    } else if (primary && primary.sha256) {
       var d = document.createElement("details");
       d.className = "dl__sum";
       var sum = document.createElement("summary");

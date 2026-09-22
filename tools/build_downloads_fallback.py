@@ -60,7 +60,8 @@ def notice_for(os_key, primary):
 def pane(product, os_key, entries, tabbed):
     label = OS_LABEL.get(os_key, os_key)
     ready = [e for e in entries if e["state"] == "available" and e.get("url")]
-    primary = next((e for e in ready if e.get("role") != "alt"), None)
+    primaries = [e for e in ready if e.get("role") != "alt"]
+    primary = primaries[0] if primaries else None
     alts = [e for e in ready if e.get("role") == "alt"]
     out = []
 
@@ -69,7 +70,8 @@ def pane(product, os_key, entries, tabbed):
 
     # two explicit lines: platform, then version and size
     if primary:
-        line1 = " · ".join([x for x in (primary["platform"], primary.get("sizeShort")) if x])
+        line1 = primary["platform"] if len(primaries) > 1 else " · ".join(
+            [x for x in (primary["platform"], primary.get("sizeShort")) if x])
         line2 = primary.get("version", "")
     else:
         pending = entries[0] if entries else {}
@@ -78,15 +80,21 @@ def pane(product, os_key, entries, tabbed):
     out.append('            <p class="dl__spec"><span class="dl__specos">%s</span>'
                '<span class="dl__specmeta">%s</span></p>' % (esc(line1), esc(line2)))
 
-    if primary:
-        if product.get("kind") == "link":
-            text, extra = "Open", (' target="_blank"')
-            vh = '<span class="vh"> %s (opens in a new tab)</span>' % esc(product["name"])
-        else:
-            text = "Download APK" if primary["os"] == "android" else "Download for %s" % label
-            extra, vh = "", ""
-        out.append('            <a class="btn btn--primary btn--sm dl__cta" href="%s"%s rel="noopener noreferrer">%s%s</a>'
-                   % (esc(primary["url"]), extra, esc(text), vh))
+    if primaries:
+        for i, e in enumerate(primaries):
+            if product.get("kind") == "link":
+                text, extra = "Open", ' target="_blank"'
+                vh = '<span class="vh"> %s (opens in a new tab)</span>' % esc(product["name"])
+            elif e["os"] == "android":
+                text, extra, vh = "Download APK", "", ""
+            elif e.get("arch"):
+                text, extra = "Download for %s" % e["arch"], ""
+                vh = '<span class="vh"> of %s for %s</span>' % (esc(product["name"]), esc(label))
+            else:
+                text, extra, vh = "Download for %s" % label, "", ""
+            kind = "btn--primary" if i == 0 else "btn--ghost"
+            out.append('            <a class="btn %s btn--sm dl__cta" href="%s"%s rel="noopener noreferrer">%s%s</a>'
+                       % (kind, esc(e["url"]), extra, esc(text), vh))
     else:
         out.append('            <button class="btn btn--soon btn--sm dl__cta" type="button" disabled>Coming soon</button>')
 
@@ -103,7 +111,24 @@ def pane(product, os_key, entries, tabbed):
     if note:
         out.append('            <p class="dl__notice">%s</p>' % esc(note))
 
-    if primary and primary.get("sha256"):
+    if len(primaries) > 1:
+        out.append('            <details class="dl__sum">')
+        out.append('              <summary>Checksums</summary>')
+        out.append('              <div class="dl__sumbody">')
+        for e in primaries:
+            if not e.get("sha256"):
+                continue
+            tag = (e.get("arch") or e["platform"]) + (" · " + e["sizeShort"] if e.get("sizeShort") else "")
+            out.append('                <p class="dl__sumlabel">%s</p>' % esc(tag))
+            out.append('                <code class="dl__hashline">%s</code>' % esc(e["sha256"]))
+            out.append('                <p class="dl__sumrow"><button class="btn btn--ghost btn--sm" type="button" data-copy="%s">Copy<span class="vh"> the SHA-256 checksum for %s %s</span></button></p>'
+                       % (esc(e["sha256"]), esc(product["name"]), esc(e.get("arch") or label)))
+        if primary.get("checksums"):
+            out.append('                <p class="dl__sumrow"><a class="textlink" href="%s" target="_blank" rel="noopener noreferrer">SHA256SUMS<span class="vh"> for this release (opens in a new tab)</span></a></p>'
+                       % esc(primary["checksums"]))
+        out.append('              </div>')
+        out.append('            </details>')
+    elif primary and primary.get("sha256"):
         sha = esc(primary["sha256"])
         out.append('            <details class="dl__sum">')
         out.append('              <summary>Checksum</summary>')

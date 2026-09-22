@@ -7,9 +7,8 @@
     "releasesUrl": "https://github.com/Swarm-Official/swarm-releases",
     "releasesLabel": "All downloads and checksums: github.com/Swarm-Official/swarm-releases",
     "unsignedNotice": "Unsigned test build — your system will warn.",
-    "macosNotice": "Unsigned test build — macOS will block the first start; right-click → Open.",
-    "linuxNotice": "",
-    "noticePending": "linuxNotice is empty on purpose — the AppImage/.deb sentence has not been supplied yet.",
+    "macosNotice": "Unsigned test build — macOS blocks the first start: right-click → Open.",
+    "linuxNotice": "Unsigned test build — AppImage: make it executable first (chmod +x); .deb: install with your package manager.",
     "osOrder": [
       "windows",
       "macos",
