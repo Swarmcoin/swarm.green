@@ -1732,3 +1732,40 @@ tbody th { font-weight: 500; white-space: nowrap; }
   0%, 100% { scale: 1; }
   50% { scale: 1.28; }
 }
+
+/* --------------------------------------------------------------------------
+   Footer on phones
+   The desktop grid is "brand + as many link columns as fit", which on a phone
+   wraps into uneven rows: the brand squeezed beside NETWORK, GET STARTED and
+   MORE sharing a row, CONTACT stranded on its own. Below 700px the footer
+   restacks: brand full width, then the four groups as an even two-by-two.
+   Nothing above this block changes, so the desktop footer is untouched.
+   -------------------------------------------------------------------------- */
+@media (max-width: 700px) {
+  .footer { padding-block: clamp(34px, 7vw, 46px) 1.5rem; }
+  .footer::before { opacity: .045; }
+
+  .footer__top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 1.6rem 1.1rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .footer__brand { grid-column: 1 / -1; }
+  .footer__brand p {
+    margin-top: .55rem;
+    max-width: none;
+    font-size: .875rem;
+    line-height: 1.55;
+  }
+
+  .footer h2 { margin-bottom: .15rem; font-size: .72rem; }
+  /* 44px targets stay, but the rows sit closer together */
+  .footer nav ul { gap: 0; }
+  .footer nav a { font-size: .9rem; }
+
+  .footer__bottom { padding-top: 1.4rem; gap: .7rem; }
+  .footer__bottom p { font-size: .78rem; line-height: 1.6; }
+  .footer__bottom .row { justify-content: flex-start; gap: .2rem 1rem; }
+}
