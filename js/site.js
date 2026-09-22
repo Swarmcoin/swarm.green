@@ -620,134 +620,112 @@
     return box;
   }
 
-  function dlSoonButton() {
-    var b = el("button", "btn btn--soon btn--sm", "Coming soon");
+  function dlSoonPill() {
+    var b = el("button", "btn btn--soon btn--sm dl__cta", "Coming soon");
     b.setAttribute("type", "button");
     b.disabled = true;
     return b;
   }
 
-  function dlLinkCard(product, entry, meta) {
+  /* One card shape for everything in the grid, so the icon, the title, the
+     spec line, the button and the footer all sit at the same height whether or
+     not the card has anything to download yet. */
+  function dlCard(product, entries, meta) {
     var card = el("article", "card dl");
     var glyph = dlGlyph(product.glyph);
     if (glyph) card.appendChild(glyph);
     card.appendChild(el("p", "step__app", product.tagline));
     card.appendChild(el("h3", null, product.name));
-    card.appendChild(el("p", null, product.detail));
-    var foot = el("p", "mt-m");
-    if (entry && entry.status === "available" && entry.url) {
-      var a = el("a", "btn btn--ghost btn--sm", "Open");
-      a.setAttribute("href", entry.url);
-      a.setAttribute("target", "_blank");
-      a.setAttribute("rel", "noopener noreferrer");
-      a.appendChild(el("span", "vh", " " + product.name + " (opens in a new tab)"));
-      foot.appendChild(a);
-    } else {
-      foot.appendChild(dlSoonButton());
+    card.appendChild(el("p", "dl__desc", product.detail));
+
+    var available = entries.filter(function (e) { return e.status === "available" && e.url; });
+    var primary = available.filter(function (e) { return e.role !== "alt"; })[0];
+    var alts = available.filter(function (e) { return e.role === "alt"; });
+    var waiting = entries.filter(function (e) { return e.status !== "available" || !e.url; });
+
+    var build = el("div", "dl__build");
+
+    // spec: platform, version and size on one line
+    var spec = [];
+    if (primary) {
+      spec.push(primary.platform);
+      if (primary.version) spec.push(primary.version);
+      if (primary.sizeShort) spec.push(primary.sizeShort);
     }
-    card.appendChild(foot);
-    return card;
-  }
+    build.appendChild(el("p", "dl__spec", spec.length ? spec.join(" · ") : (product.soonSpec || "")));
 
-  function dlAppCard(product, entries, meta) {
-    var card = el("article", "card dl");
-    var glyph = dlGlyph(product.glyph);
-    if (glyph) card.appendChild(glyph);
-    card.appendChild(el("p", "step__app", product.tagline));
-    card.appendChild(el("h3", null, product.name));
-    card.appendChild(el("p", null, product.detail));
-
-    var ready = entries.filter(function (e) { return e.status === "available" && e.url; });
-    var waiting = entries.filter(function (e) { return ready.indexOf(e) < 0; });
-
-    if (ready.length) {
-      var list = el("ul", "dl__builds");
-      ready.forEach(function (e) {
-        var li = el("li");
-        var what = e.variant ? e.platform + " \u00b7 " + e.variant : e.platform;
-        var head = el("div", "dl__head");
-        head.appendChild(el("span", "dl__plat", what));
-        var bits = [];
-        if (e.version) bits.push(e.version);
-        if (e.size) bits.push(e.size);
-        if (bits.length) head.appendChild(el("span", "dl__meta", bits.join(" · ")));
-        li.appendChild(head);
-
-        var a = el("a", "btn btn--primary btn--sm",
-          e.variant ? "Download " + e.variant : "Download for " + e.platform);
-        a.setAttribute("href", e.url);
-        a.setAttribute("rel", "noopener noreferrer");
-        li.appendChild(a);
-
-        if (e.sha256) {
-          var hash = el("div", "dl__hash");
-          hash.appendChild(el("span", "dl__k", "SHA-256"));
-          hash.appendChild(el("code", null, e.sha256));
-          var copy = el("button", "btn btn--ghost btn--sm", "Copy");
-          copy.setAttribute("type", "button");
-          copy.setAttribute("data-copy", e.sha256);
-          copy.appendChild(el("span", "vh", " the SHA-256 checksum for " + product.name + " on " + what));
-          hash.appendChild(copy);
-          li.appendChild(hash);
-        }
-        // The signed list for the whole release, so a reader can check this
-        // file against something we did not hand them on this page.
-        if (e.checksums) {
-          var sums = el("p", "dl__sums");
-          var sa = el("a", "textlink", "SHA256SUMS for this release");
-          sa.setAttribute("href", e.checksums);
-          sa.setAttribute("target", "_blank");
-          sa.setAttribute("rel", "noopener noreferrer");
-          sa.appendChild(el("span", "vh", " (opens in a new tab)"));
-          sums.appendChild(sa);
-          li.appendChild(sums);
-        }
-        // One warning per row. An entry that carries its own note has already
-        // said what needs saying; adding the generic line too just repeats it.
-        if (e.notes) li.appendChild(el("p", "dl__notice", e.notes));
-        else if (e.platform === "Windows" && meta.windowsNotice) li.appendChild(el("p", "dl__notice", meta.windowsNotice));
-        else if (meta.unsignedNotice) li.appendChild(el("p", "dl__notice", meta.unsignedNotice));
-        list.appendChild(li);
-      });
-      card.appendChild(list);
-      if (waiting.length) {
-        card.appendChild(el("p", "dl__plats", waiting.map(function (e) { return e.platform; }).join(", ") + ": coming soon."));
+    if (primary) {
+      var label = product.kind === "link" ? "Open"
+        : primary.platform === "Android" ? "Download APK"
+        : "Download for " + primary.platform;
+      var a = el("a", "btn btn--primary btn--sm dl__cta", label);
+      a.setAttribute("href", primary.url);
+      a.setAttribute("rel", "noopener noreferrer");
+      if (product.kind === "link") {
+        a.setAttribute("target", "_blank");
+        a.appendChild(el("span", "vh", " " + product.name + " (opens in a new tab)"));
       }
+      build.appendChild(a);
     } else {
-      if (product.platformLine) card.appendChild(el("p", "dl__plats", product.platformLine));
-      var foot = el("p", "mt-m");
-      foot.appendChild(dlSoonButton());
-      card.appendChild(foot);
+      build.appendChild(dlSoonPill());
     }
-    return card;
-  }
 
-  /* When the explorer goes live, the same flag puts it in the nav and the
-     footer — so one data edit lights it up everywhere. */
-  function addExplorerLinks(product, entry) {
-    if (!entry || entry.status !== "available" || !entry.url) return;
-    var label = product.navLabel || product.name;
-    var nav = $(".nav__links");
-    if (nav && !$('[data-explorer-link]', nav)) {
-      var a = el("a", null, label);
-      a.setAttribute("href", entry.url);
-      a.setAttribute("target", "_blank");
-      a.setAttribute("rel", "noopener noreferrer");
-      a.setAttribute("data-explorer-link", "");
-      var gh = nav.querySelector('a[href*="github.com"]');
-      nav.insertBefore(a, gh || null);
+    // an alternate build is a small link, not a second box
+    alts.forEach(function (e) {
+      var p = el("p", "dl__alt");
+      var link = el("a", "textlink", e.label || (e.variant + " (" + e.sizeShort + ")"));
+      link.setAttribute("href", e.url);
+      link.setAttribute("rel", "noopener noreferrer");
+      p.appendChild(link);
+      build.appendChild(p);
+    });
+
+    // exactly one small line, never two
+    var notice = "";
+    if (primary) {
+      notice = primary.notes
+        || (primary.platform === "Windows" ? meta.windowsNotice : meta.unsignedNotice)
+        || "";
+    } else if (product.key === "mobile-ios" || product.key === "mobile-android") {
+      notice = meta.mobileNotice || "";
     }
-    var ftList = $('[aria-labelledby="ft-net"] ul');
-    if (ftList && !$("[data-explorer-link]", ftList)) {
-      var li = el("li");
-      var fa = el("a", null, label);
-      fa.setAttribute("href", entry.url);
-      fa.setAttribute("target", "_blank");
-      fa.setAttribute("rel", "noopener noreferrer");
-      fa.setAttribute("data-explorer-link", "");
-      li.appendChild(fa);
-      ftList.appendChild(li);
+    if (notice) build.appendChild(el("p", "dl__notice", notice));
+
+    // the 64-character hash lives behind a disclosure so it stops dominating
+    if (primary && primary.sha256) {
+      var d = document.createElement("details");
+      d.className = "dl__sum";
+      var sum = document.createElement("summary");
+      sum.textContent = "Checksum";
+      d.appendChild(sum);
+      var body = el("div", "dl__sumbody");
+      body.appendChild(el("code", "dl__hashline", primary.sha256));
+      var row = el("p", "dl__sumrow");
+      var copy = el("button", "btn btn--ghost btn--sm", "Copy");
+      copy.setAttribute("type", "button");
+      copy.setAttribute("data-copy", primary.sha256);
+      copy.appendChild(el("span", "vh", " the SHA-256 checksum for " + product.name));
+      row.appendChild(copy);
+      if (primary.checksums) {
+        var sa = el("a", "textlink", "SHA256SUMS");
+        sa.setAttribute("href", primary.checksums);
+        sa.setAttribute("target", "_blank");
+        sa.setAttribute("rel", "noopener noreferrer");
+        sa.appendChild(el("span", "vh", " for this release (opens in a new tab)"));
+        row.appendChild(sa);
+      }
+      body.appendChild(row);
+      if (primary.sizeBytes) body.appendChild(el("p", "dl__bytes", nf.format(primary.sizeBytes) + " bytes"));
+      d.appendChild(body);
+      build.appendChild(d);
     }
+
+    card.appendChild(build);
+
+    // footer, pushed to the bottom of every card by CSS
+    var foot = waiting.map(function (e) { return e.platform; }).join(", ");
+    card.appendChild(el("p", "dl__foot", foot ? foot + ": coming soon." : ""));
+    return card;
   }
 
   function renderDownloads(hosts, data) {
@@ -759,7 +737,7 @@
       products.forEach(function (p) {
         var mine = entries.filter(function (e) { return e.product === p.key; });
         if (!mine.length) return;
-        frag.appendChild(p.kind === "link" ? dlLinkCard(p, mine[0], meta) : dlAppCard(p, mine, meta));
+        frag.appendChild(dlCard(p, mine, meta));
       });
       if (frag.childNodes.length) host.replaceChildren(frag);
     });

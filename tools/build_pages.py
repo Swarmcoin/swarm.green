@@ -20,7 +20,10 @@ EXT = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" s
 ARROW = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" '
          'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
          '<path d="M3 8h10M9 4l4 4-4 4"/></svg>')
-GH = "https://github.com/brs-holding"
+GH = "https://github.com/Swarm-Official"
+# Nav and footer point at the release repository: its README lists every
+# component and what it is based on. Prose references keep GH.
+GH_SOURCE = "https://github.com/Swarm-Official/swarm-releases"
 # Official channels, set by the owner on 2026-09-21. index.html and data/network.json carry the same values.
 X_URL = "https://x.com/swarm_coin"
 X_HANDLE = "@swarm_coin"
@@ -83,7 +86,7 @@ def head(title, desc, path, og_title, og_desc):
       <a href="/#join">Join</a>
       <a href="/#roadmap">Roadmap</a>
       <a href="/#faq">FAQ</a>
-      <a href="{GH}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a>
+      <a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a>
     </nav>
     <button class="nav__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel">
       <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -101,7 +104,7 @@ def head(title, desc, path, og_title, og_desc):
         <li><a href="/#roadmap">Roadmap</a></li>
         <li><a href="/#faq">FAQ</a></li>
         <li><a href="/network">Network &amp; supply</a></li>
-        <li><a href="{GH}" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">GitHub</a></li>
       </ul>
     </nav>
   </div>
@@ -141,7 +144,7 @@ FOOTER = f"""</main>
           <li><a href="/join">Join the testnet</a></li>
           <li><a href="/#downloads">Downloads</a></li>
           <li><a href="/#faq">FAQ</a></li>
-          <li><a href="{GH}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a></li>
+          <li><a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a></li>
         </ul>
       </nav>
 
@@ -756,7 +759,7 @@ terms = head(
       <p>SWARM is not affiliated with or endorsed by the Electric Coin Company, the Zcash Foundation, Zingo Labs, Foursquare&rsquo;s Swarm app, or the Ethereum Swarm (BZZ) project. Names and marks mentioned on this site belong to their respective owners and are used only to describe what SWARM is built from.</p>
 
       <h2>Licences</h2>
-      <p>The software is open source; each repository carries its own licence. See <a href="https://github.com/brs-holding" target="_blank" rel="noopener noreferrer">github.com/brs-holding</a>.</p>
+      <p>The software is open source; each repository carries its own licence. See <a href="https://github.com/Swarm-Official" target="_blank" rel="noopener noreferrer">github.com/Swarm-Official</a>.</p>
 
       <h2>Changes</h2>
       <p>These terms may change as the project changes. The version on this page is the current one.</p>

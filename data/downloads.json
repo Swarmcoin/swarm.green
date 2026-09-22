@@ -2,11 +2,11 @@
   "meta": {
     "updated": "2026-09-22",
     "note": "Source of truth for the Downloads section. Going live is a data change, not an HTML edit: set an entry's status to \"available\" and fill in version, url, sha256 and size. js/site.js renders this into every [data-downloads] block; the static HTML in index.html is the no-JavaScript fallback and must say the same thing.",
-    "windowsNotice": "Unsigned test build — Windows will show a warning.",
+    "windowsNotice": "Unsigned test build — Windows will warn.",
     "mobileNotice": "Mobile apps are wallets only — phones do not mine.",
-    "releasesUrl": "https://github.com/brs-holding/swarm-releases",
-    "releasesLabel": "All downloads and checksums: github.com/brs-holding/swarm-releases",
-    "unsignedNotice": "Unsigned test build — your system will show a warning."
+    "releasesUrl": "https://github.com/Swarm-Official/swarm-releases",
+    "releasesLabel": "All downloads and checksums: github.com/Swarm-Official/swarm-releases",
+    "unsignedNotice": "Unsigned test build — your system will warn."
   },
   "products": [
     {
@@ -14,7 +14,7 @@
       "kind": "app",
       "name": "SWARM Wallet",
       "tagline": "Desktop wallet",
-      "detail": "Holds your coins and sends payments — transparent or shielded, your choice on every payment.",
+      "detail": "Hold, send and receive — shielded or transparent.",
       "platformLine": "Windows first, Linux and macOS to follow.",
       "glyph": "desktop"
     },
@@ -23,7 +23,7 @@
       "kind": "app",
       "name": "SWARM Node",
       "tagline": "Full node and mining",
-      "detail": "Runs a full node and lets you start or stop mining with one click. Nothing runs hidden, nothing starts by itself.",
+      "detail": "Run a full node and mine with one click.",
       "platformLine": "Windows first, Linux and macOS to follow.",
       "glyph": "desktop"
     },
@@ -32,16 +32,17 @@
       "kind": "app",
       "name": "SWARM Wallet for iPhone",
       "tagline": "App Store",
-      "detail": "The same wallet on your phone: hold, send and receive.",
+      "detail": "The same wallet on your phone.",
       "platformLine": "Mobile apps are wallets only — phones do not mine.",
-      "glyph": "phone"
+      "glyph": "phone",
+      "soonSpec": "iPhone · App Store"
     },
     {
       "key": "mobile-android",
       "kind": "app",
       "name": "SWARM Wallet for Android",
       "tagline": "Google Play",
-      "detail": "The same wallet on your phone: hold, send and receive.",
+      "detail": "The same wallet on your phone.",
       "platformLine": "Mobile apps are wallets only — phones do not mine.",
       "glyph": "phone"
     },
@@ -50,19 +51,21 @@
       "kind": "link",
       "name": "Block explorer",
       "tagline": "explore.swarm.green",
-      "detail": "Watch what the chain is doing: blocks as they are found, and the supply as it is issued.",
+      "detail": "Watch blocks as they are found.",
       "platformLine": "",
       "navLabel": "Explorer",
-      "glyph": "explorer"
+      "glyph": "explorer",
+      "soonSpec": "Web · explore.swarm.green"
     },
     {
       "key": "source",
       "kind": "link",
       "name": "Source code",
-      "tagline": "github.com/brs-holding",
-      "detail": "The node, the indexer and the wallet are open source. Read the code, build it yourself, and check that it does what this site says it does.",
+      "tagline": "Swarm-Official/swarm-releases",
+      "detail": "Every component and what it is based on.",
       "platformLine": "",
-      "glyph": "code"
+      "glyph": "code",
+      "soonSpec": "GitHub · swarm-releases"
     }
   ],
   "entries": [
@@ -72,11 +75,13 @@
       "status": "available",
       "variant": "",
       "version": "0.1.0-testnet.4",
-      "url": "https://github.com/brs-holding/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.4/SWARM-Wallet-0.1.0-testnet.4-win-x64.zip",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.4/SWARM-Wallet-0.1.0-testnet.4-win-x64.zip",
       "sha256": "29ec421a48c8a1171bc464e47a5075ec479a8e82e9c39333e1044b61451265dc",
-      "checksums": "https://github.com/brs-holding/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.4/SHA256SUMS",
-      "size": "215 MB (225,246,182 bytes)",
-      "notes": "Unzip anywhere and run SWARM Wallet Testnet.exe — unsigned test build, Windows will warn."
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.4/SHA256SUMS",
+      "role": "primary",
+      "sizeShort": "215 MB",
+      "sizeBytes": 225246182,
+      "notes": ""
     },
     {
       "product": "wallet",
@@ -87,7 +92,9 @@
       "url": "",
       "sha256": "",
       "checksums": "",
-      "size": "",
+      "role": "primary",
+      "sizeShort": "",
+      "sizeBytes": 0,
       "notes": ""
     },
     {
@@ -99,7 +106,9 @@
       "url": "",
       "sha256": "",
       "checksums": "",
-      "size": "",
+      "role": "primary",
+      "sizeShort": "",
+      "sizeBytes": 0,
       "notes": ""
     },
     {
@@ -108,10 +117,12 @@
       "status": "available",
       "variant": "Installer",
       "version": "0.2.0-testnet.2",
-      "url": "https://github.com/brs-holding/swarm-releases/releases/download/swarm-node-0.2.0-testnet.2/SWARM-Node-0.2.0-testnet.2-win-x64.exe",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.2/SWARM-Node-0.2.0-testnet.2-win-x64.exe",
       "sha256": "980216af84f0fddfe3d83c78e3f8c568b6b8fb0bfe7f5644e6bca363f95fbc2a",
-      "checksums": "https://github.com/brs-holding/swarm-releases/releases/download/swarm-node-0.2.0-testnet.2/SHA256SUMS",
-      "size": "141 MB (147,983,615 bytes)",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.2/SHA256SUMS",
+      "role": "primary",
+      "sizeShort": "141 MB",
+      "sizeBytes": 147983615,
       "notes": ""
     },
     {
@@ -120,11 +131,14 @@
       "status": "available",
       "variant": "Portable zip",
       "version": "0.2.0-testnet.2",
-      "url": "https://github.com/brs-holding/swarm-releases/releases/download/swarm-node-0.2.0-testnet.2/SWARM-Node-0.2.0-testnet.2-win-x64.zip",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.2/SWARM-Node-0.2.0-testnet.2-win-x64.zip",
       "sha256": "159516c765a0c0c3023a7e555ce0aa418e10a1b35367c066e95537d79a266ab1",
-      "checksums": "https://github.com/brs-holding/swarm-releases/releases/download/swarm-node-0.2.0-testnet.2/SHA256SUMS",
-      "size": "174 MB (182,815,239 bytes)",
-      "notes": ""
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.2/SHA256SUMS",
+      "role": "alt",
+      "sizeShort": "174 MB",
+      "sizeBytes": 182815239,
+      "notes": "",
+      "label": "Portable zip (174 MB)"
     },
     {
       "product": "node",
@@ -135,7 +149,9 @@
       "url": "",
       "sha256": "",
       "checksums": "",
-      "size": "",
+      "role": "primary",
+      "sizeShort": "",
+      "sizeBytes": 0,
       "notes": ""
     },
     {
@@ -147,7 +163,9 @@
       "url": "",
       "sha256": "",
       "checksums": "",
-      "size": "",
+      "role": "primary",
+      "sizeShort": "",
+      "sizeBytes": 0,
       "notes": ""
     },
     {
@@ -159,7 +177,9 @@
       "url": "",
       "sha256": "",
       "checksums": "",
-      "size": "",
+      "role": "primary",
+      "sizeShort": "",
+      "sizeBytes": 0,
       "notes": ""
     },
     {
@@ -168,11 +188,13 @@
       "status": "available",
       "variant": "Direct APK",
       "version": "0.1.0-testnet.1",
-      "url": "https://github.com/brs-holding/swarm-releases/releases/download/swarm-wallet-android-0.1.0-testnet.1/swarm-wallet-0.1.0-testnet.1-android.apk",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-android-0.1.0-testnet.1/swarm-wallet-0.1.0-testnet.1-android.apk",
       "sha256": "d0525571bdae014e59f794fd3304be828cfa0cfec36cfb7b8ae59632fbb32cf6",
-      "checksums": "https://github.com/brs-holding/swarm-releases/releases/download/swarm-wallet-android-0.1.0-testnet.1/SHA256SUMS",
-      "size": "227 MB (237,629,428 bytes)",
-      "notes": "Direct APK, debug-signed test build — Android will warn; wallets only, phones do not mine."
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-android-0.1.0-testnet.1/SHA256SUMS",
+      "role": "primary",
+      "sizeShort": "227 MB",
+      "sizeBytes": 237629428,
+      "notes": "Debug-signed test build — Android will warn."
     },
     {
       "product": "mobile-android",
@@ -183,7 +205,9 @@
       "url": "",
       "sha256": "",
       "checksums": "",
-      "size": "",
+      "role": "primary",
+      "sizeShort": "",
+      "sizeBytes": 0,
       "notes": ""
     },
     {
@@ -195,7 +219,9 @@
       "url": "https://explore.swarm.green",
       "sha256": "",
       "checksums": "",
-      "size": "",
+      "role": "primary",
+      "sizeShort": "",
+      "sizeBytes": 0,
       "notes": ""
     },
     {
@@ -204,10 +230,12 @@
       "status": "available",
       "variant": "",
       "version": "",
-      "url": "https://github.com/brs-holding",
+      "url": "https://github.com/Swarm-Official/swarm-releases",
       "sha256": "",
       "checksums": "",
-      "size": "",
+      "role": "primary",
+      "sizeShort": "",
+      "sizeBytes": 0,
       "notes": ""
     }
   ]

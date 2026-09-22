@@ -184,7 +184,7 @@
     { "stage": 4, "name": "Mainnet readiness decision", "state": "later", "detail": "A public decision, made only once the work above is done. No date." }
   ],
   "links": {
-    "github": "https://github.com/brs-holding",
+    "github": "https://github.com/Swarm-Official",
     "x": "https://x.com/swarm_coin",
     "email": "swarmofficial@atomicmail.io",
     "explorer": "https://explore.swarm.green"

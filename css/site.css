@@ -1294,89 +1294,116 @@ tbody th { font-weight: 500; white-space: nowrap; }
 
 /* --------------------------------------------------------------------------
    17. Downloads  (added)
+   Every card is the same shape, so the spec line, the button and the footer
+   sit at the same height across the row whether or not there is a build yet.
    -------------------------------------------------------------------------- */
 .dlgrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
+  align-items: stretch;
 }
 .dlgrid > * { min-width: 0; }
-.dl { display: flex; flex-direction: column; }
-.dl h3 { margin-top: .2rem; }
-.dl > p { margin-top: .6rem; }
-.dl__plats {
-  margin-top: auto !important;
-  padding-top: 1rem;
-  font-family: var(--font-mono);
-  font-size: .74rem;
-  letter-spacing: .04em;
+
+.dl { display: flex; flex-direction: column; height: 100%; }
+/* Kicker, title, description and spec each get a two-line slot, so the button
+   lands at the same height in every card however the words wrap. */
+.dl .step__app { min-height: 2.4em; line-height: 1.2; }
+.dl h3 { margin-top: .2rem; font-size: 1.12rem; line-height: 1.2; min-height: 2.4em; }
+.dl__desc {
+  margin-top: .45rem;
+  min-height: 2.9em;
+  font-size: .92rem;
+  line-height: 1.45;
   color: var(--fg-dim);
 }
-.dl .mt-m { margin-top: 1rem; }
-.dl__builds {
+
+.dl__build {
   margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: .75rem;
-}
-.dl__builds > li {
-  padding: .9rem;
-  border: 1px solid var(--rule);
+  padding: .85rem .9rem 
+           .9rem;
   border-radius: 12px;
   background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--rule);
 }
-.dl__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: .6rem;
-  flex-wrap: wrap;
-}
-.dl__plat { font-family: var(--font-display); font-weight: 700; font-size: .95rem; color: var(--fg); }
-.dl__meta { font-family: var(--font-mono); font-size: .76rem; color: var(--fg-dim); }
-.dl__builds .btn { margin-top: .7rem; }
-.dl__hash {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  flex-wrap: wrap;
-  margin-top: .7rem;
-  padding-top: .7rem;
-  border-top: 1px solid var(--rule);
-}
-.dl__k {
+.dl__spec {
+  min-height: 4.3em;          /* three wrapped mono lines: the longest spec */
   font-family: var(--font-mono);
-  font-size: .62rem;
-  letter-spacing: .18em;
-  text-transform: uppercase;
+  font-size: .76rem;
+  line-height: 1.35;
   color: var(--fg-dim);
-}
-.dl__hash code {
-  flex: 1 1 12ch;
-  min-width: 0;
-  font-family: var(--font-mono);
-  font-size: .72rem;
-  color: var(--fg);
   overflow-wrap: anywhere;
 }
-.dl__hash .btn { margin-top: 0; flex: none; }
+.dl__cta { margin-top: .7rem; width: 100%; }
+.dl__alt { margin-top: .55rem; font-size: .82rem; }
 .dl__notice {
-  margin-top: .6rem !important;
-  font-size: .8rem !important;
-  line-height: 1.5;
+  margin-top: .55rem;
+  font-size: .78rem;
+  line-height: 1.45;
   color: var(--accent);
 }
 
-/* Addresses and hashes on /network: never truncated, and selectable in one go
-   so a reader can check one against a block. */
-.addr {
+.dl__sum { margin-top: .6rem; }
+.dl__sum summary {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  cursor: pointer;
+  list-style: none;
   font-family: var(--font-mono);
-  font-size: .82rem;
-  overflow-wrap: anywhere;
-  word-break: break-all;
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.dl__sum summary::-webkit-details-marker { display: none; }
+.dl__sum summary::before {
+  content: "";
+  width: 0; height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 3.5px solid transparent;
+  border-bottom: 3.5px solid transparent;
+  transition: transform .18s var(--ease);
+}
+.dl__sum[open] summary::before { transform: rotate(90deg); }
+.dl__sum summary:hover { color: var(--fg); }
+.dl__sumbody { margin-top: .5rem; }
+.dl__hashline {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: .4rem .5rem;
+  border-radius: 8px;
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  color: var(--fg);
   user-select: all;
 }
+.dl__sumrow {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+  margin-top: .5rem;
+  font-size: .8rem;
+}
+.dl__bytes {
+  margin-top: .4rem;
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  color: var(--fg-dim);
+}
 
-/* Release checksum link under a build row. */
-.dl__sums { margin-top: .5rem; font-size: .82rem; }
+.dl__foot {
+  margin-top: auto;           /* pins the footer to the bottom of every card */
+  padding-top: .9rem;
+  font-family: var(--font-mono);
+  font-size: .73rem;
+  letter-spacing: .04em;
+  color: var(--fg-dim);
+  min-height: 1.2em;
+}
+
 .dl__releases { font-size: .9rem; }
