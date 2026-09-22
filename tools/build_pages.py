@@ -1,9 +1,19 @@
 # Emits the plain-HTML sub-pages for swarm.green.
 # The output is ordinary static HTML committed to the repo; this generator only
 # exists so the shared <head>, nav and footer are byte-identical on every page.
+import html
+import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent  # repository root
+# Addresses and hashes must not exist in two places, so they are read from the
+# data file, which is copied from the published network manifest. The
+# baseline-miner payout address is operational, not consensus, and is not here.
+GENESIS = json.loads((ROOT / "data" / "network.json").read_text(encoding="utf-8"))["genesis"]
+
+
+def esc(value):
+    return html.escape(str(value), quote=False)
 EXT = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" '
        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
        '<path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span>')
@@ -254,6 +264,21 @@ lifetime_rows = "\n".join(
     f'          <tr><th scope="row">{n}</th><td class="num">{v}</td></tr>'
     for n, v in lifetime_totals)
 
+destination_rows = "\n".join(
+    f'          <tr><th scope="row">{esc(d["name"])}</th><td class="num">{esc(d["percent"])}</td>'
+    f'<td class="addr">{esc(d["address"])}</td></tr>'
+    for d in GENESIS["destinations"])
+
+genesis_rows = "\n".join(
+    f'          <tr><th scope="row">{k}</th><td class="{cls}">{v}</td></tr>'
+    for k, v, cls in [
+        ("Network", esc(GENESIS["network"]), ""),
+        ("Genesis block hash", esc(GENESIS["hash"]), "addr"),
+        ("Genesis header time", esc(GENESIS["headerTimeUtc"]), "mono"),
+        ("Spendable outputs in the genesis block",
+            esc(GENESIS["spendableOutputs"]) + " \u2014 there is no premine", ""),
+    ])
+
 network = head(
     "Network &amp; supply — SWARM",
     "Every SWARM parameter in one place: 75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins, no premine, and the four-way block reward split fixed for the whole emission schedule.",
@@ -310,7 +335,7 @@ network = head(
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Reward allocation</p>
         <h2>Where every block reward goes.</h2>
-        <p>Every block reward is split four ways, in the same proportions, for the whole emission schedule. Each halving reduces all four amounts together — the 80 / 8 / 4 / 8 structure never changes, all the way down to the block where the reward reaches zero.</p>
+        <p>Every block reward is split four ways, in the same proportions, for the whole emission schedule. Each halving reduces all four amounts together — the 80 / 8 / 4 / 8 structure never changes, all the way down to the block where the reward reaches zero. In the last eras integer rounding retires the small streams first: Grants &amp; Ecosystem rounds to zero from era 25, Core Development and the Reserve from era 26, and the miner keeps the remainder.</p>
         <p class="mt-s">The percentages are hard-coded in the genesis rules. Each allocation is paid automatically to its predefined destination address. Destinations can only be changed through a formal protocol upgrade; the percentages themselves cannot be changed. The three destinations are script addresses held by the project, and they are published together with the genesis rules.</p>
         <p class="mt-s">No premine, no hidden treasury — every allocation is visible in every block.</p>
       </div>
@@ -356,6 +381,34 @@ network = head(
       </div>
 
       <p class="note mt-m" data-reveal>Amounts are exact to the smallest unit for the first seven eras (about 28 years). After that the inherited rounding rule rounds each allocation down to a whole unit and the miner receives the remainder, which is why the lifetime miner share is fractionally above 80%.</p>
+
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">Genesis rules</p>
+        <h2>The three destinations, in full.</h2>
+        <p>These are the addresses the allocations are paid to on the SWARM testnet, and the genesis block they are fixed in. They are part of the network definition every node loads, so a node with different addresses rejects this chain&rsquo;s blocks and forks itself off.</p>
+        <p class="mt-s">{esc(GENESIS["addressType"])} {esc(GENESIS["custody"])}</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>Allocation destinations on the SWARM testnet. Test coins have no monetary value.</caption>
+          <thead>
+            <tr><th scope="col">Allocation</th><th scope="col">Share</th><th scope="col">Destination address</th></tr>
+          </thead>
+          <tbody>
+{destination_rows}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap mt-m" data-reveal>
+        <table>
+          <caption>The genesis block these rules are fixed in.</caption>
+          <tbody>
+{genesis_rows}
+          </tbody>
+        </table>
+      </div>
 
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
@@ -494,7 +547,15 @@ join = head(
       </div>
 
       <div class="note mt-l" data-reveal>
-        <strong>Minimum requirements — placeholder.</strong> Windows 10 or 11, 64-bit, first. Linux and macOS to follow. Exact disk, memory and bandwidth figures will be published here with the first public build.
+        <strong>What you need.</strong> These are the figures the mining app&rsquo;s own machine check looks for.
+        <ul class="note__list">
+          <li><strong>Windows 10 or 11, 64-bit.</strong> Linux and macOS to follow.</li>
+          <li><strong>2 CPU cores or more.</strong></li>
+          <li><strong>4 GB of memory or more.</strong></li>
+          <li><strong>10 GB of free disk</strong> for the chain. The seed node was using about 6.4 GB after its first day.</li>
+          <li><strong>An internet connection.</strong></li>
+          <li><strong>Port 18233 open &mdash; only if you want other nodes to be able to connect to you.</strong> Mining and syncing work without it.</li>
+        </ul>
       </div>
     </div>
   </section>

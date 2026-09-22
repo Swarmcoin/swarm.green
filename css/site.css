@@ -940,6 +940,18 @@ tbody th { font-weight: 500; white-space: nowrap; }
   color: var(--fg-dim);
 }
 .note strong { color: var(--fg); }
+.note__list { margin-top: .6rem; }
+.note__list li { position: relative; padding-left: 1.1rem; margin-top: .3rem; }
+.note__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .62em;
+  width: 7px;
+  height: 8.1px;
+  background: var(--accent);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
 
 /* Brand page bits */
 .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(158px, 1fr)); gap: 14px; }
@@ -1353,4 +1365,14 @@ tbody th { font-weight: 500; white-space: nowrap; }
   font-size: .8rem !important;
   line-height: 1.5;
   color: var(--accent);
+}
+
+/* Addresses and hashes on /network: never truncated, and selectable in one go
+   so a reader can check one against a block. */
+.addr {
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+  user-select: all;
 }

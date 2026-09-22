@@ -23,6 +23,20 @@
     "cpuMineableOnTestnet": true,
     "lineage": "Forked from open-source Zcash software (Zebra full node, Zaino indexer, Zingo desktop wallet) with consensus rules and cryptography left unmodified."
   },
+  "genesis": {
+    "note": "Copied from network/swarm-testnet/manifest.json, the published network definition. tools/build_pages.py renders the Genesis rules block on /network from here, so no address or hash is typed into HTML by hand. The baseline-miner payout address is operational, not consensus, and is deliberately not listed.",
+    "network": "SwarmTestnet",
+    "hash": "045993f5c91ea160c7ebda573dd97b0016816bca68d395bfff202779b88e2a28",
+    "headerTimeUtc": "2026-09-21T12:00:00Z",
+    "spendableOutputs": 0,
+    "addressType": "Pay-to-script-hash on the testnet (t2…).",
+    "custody": "On this testnet each script is controlled by a single key held by the project. How keys are generated, held and used will be written down and published before any mainnet.",
+    "destinations": [
+      { "name": "Core Development", "percent": "8%", "address": "t2DGVURG5tAyXXSkj85JV5xbvTobYv7H99n" },
+      { "name": "Grants & Ecosystem", "percent": "4%", "address": "t2LVPzRYpZ4QtRRmQMS1zWUmG7TZaYcMjBR" },
+      { "name": "Community & Development Reserve", "percent": "8%", "address": "t2UHhsicXnapNJrfewHqgwXef5HDwCHd7wk" }
+    ]
+  },
   "stats": [
     { "key": "blockTime", "value": "75", "unit": "s", "label": "Target block time" },
     { "key": "maxSupply", "value": "≈21", "unit": "M", "label": "Maximum supply", "note": "20,999,987.3152 coins" },

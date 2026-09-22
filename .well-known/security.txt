@@ -1,0 +1,10 @@
+Contact: mailto:swarmofficial@atomicmail.io
+Expires: 2027-09-22T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://swarm.green/.well-known/security.txt
+Policy: https://swarm.green/terms
+
+# SWARM is experimental testnet software. If you find a security problem in
+# this site, in the node, the indexer or the wallet, please write to the
+# address above before publishing it, and give us a reasonable chance to fix
+# it. We will never ask you for recovery words, private keys or a payment.
