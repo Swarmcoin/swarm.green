@@ -2,10 +2,14 @@
 /**
  * Zero-dependency static preview server for swarm.green.
  *
- * It mimics the two Vercel settings in vercel.json so that what you see locally
+ * It mimics the Vercel settings in vercel.json so that what you see locally
  * is what you get in production:
  *   cleanUrls: true       ->  /network            serves /network/index.html
  *   trailingSlash: false  ->  /network/           redirects to /network
+ *   headers for /(.*)     ->  sent on every response, so the strict
+ *                             Content-Security-Policy is enforced locally too
+ *                             (an inline style or script that the CSP would
+ *                             drop in production is dropped here as well)
  *
  * Usage:  node tools/preview.mjs [port]      (default 4173)
  */
@@ -16,6 +20,22 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(fileURLToPath(new URL("../", import.meta.url)));
 const PORT = Number(process.argv[2] || 4173);
+
+// The site-wide headers from vercel.json (the "/(.*)" rule). Over plain http
+// the browser ignores Strict-Transport-Security, and upgrade-insecure-requests
+// is dropped so that http://localhost is not upgraded to https.
+const SITE_HEADERS = {};
+try {
+  const vercel = JSON.parse(await readFile(join(ROOT, "vercel.json"), "utf8"));
+  for (const rule of vercel.headers || []) {
+    if (rule.source !== "/(.*)") continue;
+    for (const { key, value } of rule.headers) {
+      SITE_HEADERS[key] = key.toLowerCase() === "content-security-policy"
+        ? value.replace(/;\s*upgrade-insecure-requests/, "")
+        : value;
+    }
+  }
+} catch { /* no vercel.json: serve without the extra headers */ }
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -81,6 +101,7 @@ const server = createServer(async (req, res) => {
   try {
     const body = await readFile(file);
     res.writeHead(status, {
+      ...SITE_HEADERS,
       "Content-Type": TYPES[extname(file).toLowerCase()] || "application/octet-stream",
       "Content-Length": body.length,
       "Cache-Control": "no-store"
