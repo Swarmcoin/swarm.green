@@ -224,16 +224,50 @@ Each colour band (`.band--dark`, `.band--dark2`, `.band--cream`) re-declares
 `--fg`, `--fg-dim`, `--accent`, `--surface`, `--rule` and `--focus`, so
 components inside them theme themselves without extra classes.
 
+## Depth: the 3D hex cells
+
+Every hexagon that used to be a flat clip-path is now a small 3D object drawn
+entirely in CSS, with no extra markup and no images (`css/site.css`, sections 7,
+8, 10 and 18):
+
+- **`.hexicon` and `.step__n`** (card icons, the numbered join steps) are
+  "honey cells": `::before` is the extruded body, the same hexagon shifted down
+  by `--depth`, with a warm drop-shadow; `::after` is the glossy top face, a
+  base gradient with six soft facets, a specular hotspot and a light that
+  sweeps across it every seven seconds; the SVG glyph sits engraved on top.
+  `.hexicon--quiet` is the dark, polished variant with an amber glyph.
+- **`.stat`** (the five hero cells) is a raised honey rim around a recessed
+  dark face, standing on an extruded body, popping in one after another.
+- The cells rest tilted back a little, bob a few pixels, and **turn towards the
+  pointer**. `js/site.js` (section 6) does the last part by writing two custom
+  properties, `--rx` and `--ry`, through the CSSOM (`element.style.setProperty`).
+  That is allowed by the strict CSP, which forbids `style=""` in markup and
+  `setAttribute("style", …)`, not CSSOM property writes. Mouse only; touch has
+  no hover.
+- Every size, depth and tilt is a custom property with a resting default, so
+  the cells are complete without JavaScript.
+
+Cards and the tokenomics panel draw their chamfered surface on `::before` and a
+soft blurred shadow on `::after`, because a `clip-path` on the element itself
+would cut off anything it casts. Primary buttons stand on a dark bottom edge and
+get a light sweep on hover. Grids reveal their items one after another.
+
+All of it is switched off under `prefers-reduced-motion: reduce`: the cells keep
+their depth but stand still, nothing sweeps, pops or tilts, and `js/site.js`
+does not bind the pointer.
+
 ## Motion
 
 The hero `<canvas>` drifts a swarm of amber particles that periodically gather
 into a hexagon outline and disperse again. It caps `devicePixelRatio` at 2,
 scales the particle count down on narrow screens, and stops the animation frame
-loop entirely when the tab is hidden or the hero scrolls out of view.
+loop entirely when the tab is hidden or the hero scrolls out of view. Behind it
+the amber light drifts slowly, and the amber word in the headline shifts like
+light on honey.
 
 Under `prefers-reduced-motion: reduce` the animation never starts: a single
-static hexagon of dots is drawn once, and all scroll reveals and transitions are
-disabled in CSS.
+static hexagon of dots is drawn once, and all scroll reveals, transitions and
+the depth-system animations above are disabled in CSS.
 
 ## The logo
 

@@ -54,6 +54,18 @@
   --chamfer: 26px;
 
   --ease: cubic-bezier(.22, .72, .2, 1);
+
+  /* Depth system: the 3D hex cells and the card shadows (sections 7, 8, 18).
+     --rx / --ry are the pointer tilt that js/site.js writes as CSS custom
+     properties; --s is the hover scale. Every one has a resting default, so
+     the cells are complete without JavaScript. */
+  --hex: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  --honey-dark: #B86A06;
+  --honey-deep: #6E3C03;
+  --hex-shadow: 0 10px 8px rgba(0, 0, 0, .5);
+  --hex-glow: 0 0 14px rgba(245, 166, 35, .28);
+  --card-shadow: radial-gradient(closest-side, rgba(245, 166, 35, .34), rgba(0, 0, 0, .72));
+  --card-shadow-alpha: .55;
 }
 
 /* --------------------------------------------------------------------------
@@ -155,6 +167,14 @@ button { font: inherit; color: inherit; }
 .band--dark2 { --bg: var(--bark);       --fg: var(--ink); --fg-dim: var(--ink-dim); --accent: var(--honey);     --surface: #1F242D; --rule: var(--rule-dark);  --focus: var(--comb); --ok: var(--leaf); }
 .band--cream { --bg: var(--cream);      --fg: var(--bark); --fg-dim: var(--bark-dim); --accent: var(--honey-ink); --surface: var(--card-light); --rule: var(--rule-light); --focus: var(--honey-ink); --ok: var(--leaf-ink); }
 
+/* On cream the depth is warm and soft: brown shadows, no amber glow. */
+.band--cream {
+  --hex-shadow: 0 10px 8px rgba(122, 67, 4, .3);
+  --hex-glow: 0 0 0 transparent;
+  --card-shadow: radial-gradient(closest-side, rgba(138, 75, 3, .34), rgba(138, 75, 3, .14));
+  --card-shadow-alpha: .7;
+}
+
 /* Subtle honeycomb texture */
 .band--comb::before {
   content: "";
@@ -186,8 +206,8 @@ button { font: inherit; color: inherit; }
 .eyebrow::before {
   content: "";
   width: 11px; height: 12.7px;
-  background: currentColor;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background: linear-gradient(160deg, color-mix(in srgb, currentColor 55%, #FFFFFF), currentColor 65%);
+  clip-path: var(--hex);
   flex: none;
 }
 
@@ -228,12 +248,45 @@ button { font: inherit; color: inherit; }
 }
 .btn svg { flex: none; }
 
+/* A honey pill with a lit top edge, a dark bottom edge it stands on, and a
+   light sweep across it on hover. */
 .btn--primary {
-  background: linear-gradient(135deg, var(--comb), var(--honey) 46%, var(--amber-deep));
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #FFD978 0%, var(--honey) 52%, var(--amber-deep) 100%);
   color: var(--hive-black);
-  box-shadow: 0 10px 30px -12px rgba(245, 166, 35, .75), inset 0 1px 0 rgba(255, 255, 255, .35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .55),
+    inset 0 -2px 0 rgba(110, 60, 3, .22),
+    0 2px 0 var(--honey-dark),
+    0 12px 30px -12px rgba(245, 166, 35, .75);
 }
-.btn--primary:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -14px rgba(245, 166, 35, .85), inset 0 1px 0 rgba(255, 255, 255, .45); }
+.btn--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, .55) 50%, transparent 68%);
+  translate: -130% 0;
+  transition: translate .75s var(--ease);
+  pointer-events: none;
+}
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .6),
+    inset 0 -2px 0 rgba(110, 60, 3, .22),
+    0 4px 0 var(--honey-dark),
+    0 20px 44px -14px rgba(245, 166, 35, .85);
+}
+.btn--primary:hover::after { translate: 130% 0; }
+.btn--primary:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .4),
+    inset 0 -1px 0 rgba(110, 60, 3, .22),
+    0 0 0 var(--honey-dark),
+    0 8px 20px -10px rgba(245, 166, 35, .6);
+}
 
 .btn--ghost {
   background: transparent;
@@ -443,6 +496,7 @@ button { font: inherit; color: inherit; }
     radial-gradient(36% 32% at 88% 60%, rgba(255, 201, 77, .16), transparent 72%);
   pointer-events: none;
   z-index: -2;
+  animation: heroAurora 18s ease-in-out infinite alternate;
 }
 .hero::after {
   content: "";
@@ -490,10 +544,12 @@ button { font: inherit; color: inherit; }
   letter-spacing: -.04em;
 }
 .hero h1 .glow {
-  background: linear-gradient(105deg, var(--comb), var(--honey) 42%, var(--amber-deep));
+  background: linear-gradient(105deg, var(--comb), var(--honey) 38%, var(--amber-deep) 62%, var(--comb) 100%);
+  background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: glowShift 8s ease-in-out infinite alternate;
 }
 .hero__lead {
   margin: 1.5rem auto 0;
@@ -511,29 +567,70 @@ button { font: inherit; color: inherit; }
 }
 
 /* --------------------------------------------------------------------------
-   7. Hex stat cells (honeycomb strip)
+   7. Hex stat cells (3D honeycomb strip)
    -------------------------------------------------------------------------- */
-/* A row of pointy-top hexagons whose vertical edges meet, so five cells read
-   as one strip of honeycomb rather than five separate badges. */
+/* Five pointy-top cells, each a raised honey rim around a recessed dark face,
+   standing on a darker extruded body. Layers, bottom to top: ::before is the
+   body (the same hexagon shifted down by --depth), ::after is the rim, and
+   .stat__in is the recessed face. The whole cell tilts towards the pointer
+   (js/site.js writes --rx and --ry) and pops in once on load. */
 .stats {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0;
+  gap: 8px 4px;
   margin-top: clamp(2.8rem, 5.5vw, 4.6rem);
+  perspective: 900px;
 }
 .stat {
+  --w: 152px;
+  --depth: 8px;
+  --rim: 4px;
+  --rx: 5deg;
+  --ry: 0deg;
   position: relative;
-  width: 152px;
-  aspect-ratio: .866;
-  background: linear-gradient(165deg, rgba(245, 166, 35, .55), rgba(245, 166, 35, .12));
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  width: var(--w);
+  height: calc(var(--w) / .866 + var(--depth));
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transform-origin: 50% 45%;
+  transition: transform .35s var(--ease);
+  animation: statPop .9s var(--ease) both;
+}
+.stat:nth-child(2) { animation-delay: .08s; }
+.stat:nth-child(3) { animation-delay: .16s; }
+.stat:nth-child(4) { animation-delay: .24s; }
+.stat:nth-child(5) { animation-delay: .32s; }
+.stat::before,
+.stat::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  clip-path: var(--hex);
+  pointer-events: none;
+}
+.stat::before {
+  top: var(--depth);
+  bottom: 0;
+  background: linear-gradient(180deg, #B4680A 0%, #8A4E05 55%, #5A3203 100%);
+  filter: drop-shadow(0 16px 14px rgba(0, 0, 0, .55)) drop-shadow(0 0 22px rgba(245, 166, 35, .18));
+}
+.stat::after {
+  top: 0;
+  bottom: var(--depth);
+  background:
+    conic-gradient(from 0deg, rgba(255, 255, 255, .18) 0 60deg, rgba(0, 0, 0, .05) 60deg 120deg, rgba(0, 0, 0, .22) 120deg 180deg, rgba(0, 0, 0, .12) 180deg 240deg, rgba(255, 255, 255, .02) 240deg 300deg, rgba(255, 255, 255, .24) 300deg 360deg),
+    linear-gradient(160deg, #FFD978, var(--honey) 50%, #D2810A);
 }
 .stat__in {
   position: absolute;
-  inset: 1.5px;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-  background: linear-gradient(165deg, #1B212A, #11151B);
+  inset: var(--rim) var(--rim) calc(var(--depth) + var(--rim)) var(--rim);
+  z-index: 1;
+  clip-path: var(--hex);
+  background:
+    radial-gradient(70% 55% at 50% 108%, rgba(245, 166, 35, .3), transparent 70%),
+    radial-gradient(90% 60% at 50% -12%, rgba(0, 0, 0, .55), transparent 70%),
+    linear-gradient(165deg, #1B212A, #0F1319);
   display: grid;
   align-content: center;
   justify-items: center;
@@ -548,6 +645,7 @@ button { font: inherit; color: inherit; }
   line-height: 1;
   letter-spacing: -.02em;
   color: var(--comb);
+  text-shadow: 0 0 18px rgba(255, 201, 77, .35);
 }
 .stat__v small { font-size: .62em; margin-left: .06em; color: var(--honey); }
 .stat__l {
@@ -558,12 +656,12 @@ button { font: inherit; color: inherit; }
 }
 
 @media (max-width: 800px) {
-  .stat { width: 132px; }
+  .stat { --w: 132px; }
   .stat__v { font-size: 1.55rem; }
   .stat__l { font-size: .72rem; }
 }
 @media (max-width: 460px) {
-  .stat { width: 112px; }
+  .stat { --w: 112px; --depth: 6px; --rim: 3px; }
   .stat__in { padding: 0 .7rem; }
   .stat__v { font-size: 1.3rem; }
   .stat__l { font-size: .66rem; }
@@ -579,19 +677,46 @@ button { font: inherit; color: inherit; }
 }
 .cards--2 { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
 
+/* The chamfered surface is drawn by ::before and the soft shadow by ::after,
+   because a clip-path on the card itself would cut off anything it casts.
+   The card element only lays out the content and lifts on hover. */
 .card {
   position: relative;
+  isolation: isolate;
+  padding: clamp(1.5rem, 2.4vw, 2.1rem);
+  transition: transform .35s var(--ease);
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: var(--surface);
   clip-path: polygon(0 0, calc(100% - var(--chamfer)) 0, 100% var(--chamfer), 100% 100%, var(--chamfer) 100%, 0 calc(100% - var(--chamfer)));
-  padding: clamp(1.5rem, 2.4vw, 2.1rem);
-  transition: transform .3s var(--ease), background-color .3s var(--ease);
+  transition: background-color .3s var(--ease);
 }
-.card:hover { transform: translateY(-4px); }
-.band--cream .card { box-shadow: inset 0 0 0 1px var(--rule-light); }
-.band--dark .card,
-.band--dark2 .card { box-shadow: inset 0 0 0 1px rgba(245, 166, 35, .12); }
-.band--dark .card:hover,
-.band--dark2 .card:hover { background: #1F252F; }
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 16px 12px -6px;
+  z-index: -2;
+  border-radius: 24px;
+  background: var(--card-shadow);
+  filter: blur(22px);
+  opacity: var(--card-shadow-alpha);
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+  pointer-events: none;
+}
+.card:hover { transform: translateY(-6px); }
+.card:hover::after { opacity: 1; transform: translateY(8px); }
+.band--cream .card::before { box-shadow: inset 0 0 0 1px var(--rule-light), inset 0 1px 0 #FFFFFF; }
+.band--dark .card::before,
+.band--dark2 .card::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .035), transparent 38%), var(--surface);
+  box-shadow: inset 0 0 0 1px rgba(245, 166, 35, .12), inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+.band--dark .card:hover::before,
+.band--dark2 .card:hover::before { background-color: #1F252F; }
 
 .card h3 {
   font-size: 1.24rem;
@@ -601,24 +726,124 @@ button { font: inherit; color: inherit; }
 }
 .card p { color: var(--fg-dim); font-size: .985rem; line-height: 1.64; }
 
-.hexicon {
-  width: 46px; height: 53px;
+/* 3D honey cell. ::before is the extruded body (the same hexagon shifted down
+   by --depth), ::after the glossy top face (base gradient, six soft facets, a
+   specular hotspot and a light that sweeps across every few seconds), and the
+   glyph sits engraved on top. The cell rests tilted back a little, floats
+   gently, and turns towards the pointer (js/site.js writes --rx and --ry).
+   .step__n, the numbered badge on the join steps, is the same cell. */
+.hexicon,
+.step__n {
+  --w: 46px;
+  --h: 53px;
+  --depth: 6px;
+  --rx: 6deg;
+  --ry: 0deg;
+  --s: 1;
+  position: relative;
+  width: var(--w);
+  height: calc(var(--h) + var(--depth));
+  padding-bottom: var(--depth);
   display: grid;
   place-items: center;
   margin-bottom: 1.15rem;
-  background: linear-gradient(160deg, var(--comb), var(--amber-deep));
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-  color: var(--hive-black);
+  color: #3A2203;
   flex: none;
+  transform: perspective(380px) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s));
+  transform-origin: 50% 46%;
+  transition: transform .3s var(--ease);
+  animation: hexFloat 6s ease-in-out infinite;
 }
-.hexicon svg { width: 22px; height: 22px; }
+.hexicon::before,
+.hexicon::after,
+.step__n::before,
+.step__n::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  clip-path: var(--hex);
+  pointer-events: none;
+}
+.hexicon::before,
+.step__n::before {
+  top: var(--depth);
+  bottom: 0;
+  background: linear-gradient(180deg, #C9770A, #9A5606 55%, var(--honey-deep));
+  filter: drop-shadow(var(--hex-shadow)) drop-shadow(var(--hex-glow));
+}
+.hexicon::after,
+.step__n::after {
+  top: 0;
+  bottom: var(--depth);
+  background:
+    linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .7) 50%, transparent 62%) no-repeat,
+    radial-gradient(60% 48% at 32% 22%, rgba(255, 255, 255, .5), rgba(255, 255, 255, 0) 72%),
+    conic-gradient(from 0deg, rgba(255, 255, 255, .14) 0 60deg, rgba(0, 0, 0, .05) 60deg 120deg, rgba(0, 0, 0, .16) 120deg 180deg, rgba(0, 0, 0, .1) 180deg 240deg, rgba(255, 255, 255, .02) 240deg 300deg, rgba(255, 255, 255, .2) 300deg 360deg),
+    linear-gradient(160deg, #FFD978 0%, var(--comb) 30%, var(--honey) 62%, var(--amber-deep) 100%);
+  background-size: 260% 100%, auto, auto, auto;
+  background-position: 200% 0, 0 0, 0 0, 0 0;
+  animation: hexShine 7s linear infinite;
+  transition: filter .3s var(--ease);
+}
+.hexicon > svg {
+  width: 22px;
+  height: 22px;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, .45));
+}
+/* Desynchronise the float and the light sweep from cell to cell. */
+.card:nth-child(2n) .hexicon,
+.why > li:nth-child(2n) .hexicon,
+.card:nth-child(2n) .step__n { animation-delay: -1.7s; }
+.card:nth-child(3n) .hexicon,
+.why > li:nth-child(3n) .hexicon,
+.card:nth-child(3n) .step__n { animation-delay: -3.4s; }
+.card:nth-child(2n) .hexicon::after,
+.why > li:nth-child(2n) .hexicon::after,
+.card:nth-child(2n) .step__n::after { animation-delay: -2.3s; }
+.card:nth-child(3n) .hexicon::after,
+.why > li:nth-child(3n) .hexicon::after,
+.card:nth-child(3n) .step__n::after { animation-delay: -4.6s; }
+/* Hovering the card the cell belongs to lifts and brightens it. */
+.card:hover .hexicon,
+.why > li:hover .hexicon,
+.card:hover .step__n { --s: 1.08; }
+.card:hover .hexicon::after,
+.why > li:hover .hexicon::after,
+.card:hover .step__n::after { filter: brightness(1.08); }
 
+/* The quiet cell: dark polished wax with an amber glyph, for the feature list. */
 .hexicon--quiet {
-  background: linear-gradient(160deg, rgba(245, 166, 35, .22), rgba(245, 166, 35, .07));
+  --w: 38px;
+  --h: 44px;
+  --depth: 5px;
   color: var(--honey);
-  box-shadow: none;
 }
-.band--cream .hexicon--quiet { background: var(--pollen); color: var(--honey-ink); }
+.hexicon--quiet::before {
+  background: linear-gradient(180deg, #0C0F14, #05070A);
+  filter: drop-shadow(0 8px 8px rgba(0, 0, 0, .6));
+}
+.hexicon--quiet::after {
+  background:
+    linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .26) 50%, transparent 62%) no-repeat,
+    radial-gradient(60% 48% at 32% 22%, rgba(255, 255, 255, .14), rgba(255, 255, 255, 0) 72%),
+    conic-gradient(from 0deg, rgba(255, 255, 255, .08) 0 60deg, rgba(0, 0, 0, .06) 60deg 120deg, rgba(0, 0, 0, .18) 120deg 180deg, rgba(0, 0, 0, .12) 180deg 240deg, rgba(255, 255, 255, .02) 240deg 300deg, rgba(255, 255, 255, .12) 300deg 360deg),
+    linear-gradient(160deg, #363D49, #1D222A 60%, #141820);
+  background-size: 260% 100%, auto, auto, auto;
+}
+.hexicon--quiet > svg { filter: drop-shadow(0 0 6px rgba(245, 166, 35, .55)); }
+.band--cream .hexicon--quiet { color: var(--honey-ink); }
+.band--cream .hexicon--quiet::before { background: linear-gradient(180deg, #D9B15A, #B98F3C); }
+.band--cream .hexicon--quiet::after {
+  background:
+    linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .7) 50%, transparent 62%) no-repeat,
+    radial-gradient(60% 48% at 32% 22%, rgba(255, 255, 255, .6), rgba(255, 255, 255, 0) 72%),
+    conic-gradient(from 0deg, rgba(255, 255, 255, .14) 0 60deg, rgba(0, 0, 0, .03) 60deg 120deg, rgba(0, 0, 0, .09) 120deg 180deg, rgba(0, 0, 0, .06) 180deg 240deg, rgba(255, 255, 255, .02) 240deg 300deg, rgba(255, 255, 255, .2) 300deg 360deg),
+    linear-gradient(160deg, #FFF3CC, var(--pollen) 60%, #F3D786);
+  background-size: 260% 100%, auto, auto, auto;
+}
+.band--cream .hexicon--quiet > svg { filter: none; }
 
 /* Feature list ("Why SWARM") */
 .why {
@@ -627,16 +852,18 @@ button { font: inherit; color: inherit; }
   gap: clamp(1.6rem, 3vw, 2.6rem) clamp(1.8rem, 3.4vw, 3.4rem);
 }
 .why li { display: flex; gap: 1.05rem; align-items: flex-start; }
-.why .hexicon { width: 38px; height: 44px; margin: .2rem 0 0; }
-.why .hexicon svg { width: 18px; height: 18px; }
+.why .hexicon { margin: .2rem 0 0; }
+.why .hexicon > svg { width: 18px; height: 18px; }
 .why h3 { font-size: 1.11rem; font-weight: 600; margin-bottom: .35rem; }
 .why p { color: var(--fg-dim); font-size: .975rem; line-height: 1.62; }
 
 /* --------------------------------------------------------------------------
    9. Tokenomics panel + charts
    -------------------------------------------------------------------------- */
+/* Like .card: the chamfered surface on ::before, a soft warm shadow on ::after. */
 .panel {
-  background: linear-gradient(158deg, #171C25, #0E1116 70%);
+  position: relative;
+  isolation: isolate;
   color: var(--ink);
   --fg: var(--ink);
   --fg-dim: var(--ink-dim);
@@ -645,8 +872,26 @@ button { font: inherit; color: inherit; }
   --rule: var(--rule-dark);
   --focus: var(--comb);
   --ok: var(--leaf);
-  clip-path: polygon(0 0, calc(100% - 38px) 0, 100% 38px, 100% 100%, 38px 100%, 0 calc(100% - 38px));
   padding: clamp(1.5rem, 3.4vw, 3rem);
+}
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .04), transparent 30%), linear-gradient(158deg, #171C25, #0E1116 70%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+  clip-path: polygon(0 0, calc(100% - 38px) 0, 100% 38px, 100% 100%, 38px 100%, 0 calc(100% - 38px));
+}
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 28px 18px -12px;
+  z-index: -2;
+  border-radius: 32px;
+  background: radial-gradient(closest-side, rgba(245, 166, 35, .28), rgba(60, 35, 5, .5));
+  filter: blur(30px);
+  pointer-events: none;
 }
 .panel-grid {
   display: grid;
@@ -779,15 +1024,15 @@ button { font: inherit; color: inherit; }
    10. Steps / roadmap / FAQ
    -------------------------------------------------------------------------- */
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(276px, 1fr)); gap: clamp(14px, 1.8vw, 22px); }
+/* The numbered badge is a 3D honey cell (shared rules in section 8). */
 .step__n {
-  width: 44px; height: 50.8px;
-  display: grid; place-items: center;
+  --w: 44px;
+  --h: 50.8px;
   margin-bottom: 1.1rem;
-  background: linear-gradient(160deg, var(--comb), var(--amber-deep));
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
   font-family: var(--font-mono);
   font-size: 1.02rem;
-  color: var(--hive-black);
+  font-weight: 500;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .45);
 }
 .step .btn { margin-top: 1.35rem; width: 100%; }
 .step__app { font-size: .79rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: .45rem; }
@@ -806,10 +1051,13 @@ button { font: inherit; color: inherit; }
   position: absolute;
   top: 6px; left: 0;
   width: 15px; height: 17.3px;
-  background: color-mix(in srgb, var(--accent) 38%, transparent);
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  background: linear-gradient(160deg, #FFD978, var(--honey) 55%, var(--amber-deep));
+  clip-path: var(--hex);
 }
-.road li.is-now::after { background: var(--ok); }
+.road li.is-now::after {
+  background: linear-gradient(160deg, #8FE69A, var(--leaf) 55%, #1A7530);
+  animation: roadPulse 2.6s ease-in-out infinite;
+}
 .road h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: .45rem; }
 .road p { color: var(--fg-dim); font-size: .95rem; line-height: 1.6; }
 .road .tag {
@@ -1090,6 +1338,33 @@ tbody th { font-weight: 500; white-space: nowrap; }
   transform: none;
   transition: opacity .8s var(--ease), transform .8s var(--ease);
 }
+/* Inside a revealed grid the items follow one another (individual transform
+   properties, so the hover transform on .card is untouched). */
+.js [data-reveal] > .card,
+.js .why[data-reveal] > li,
+.js .road[data-reveal] > li,
+.js .faq[data-reveal] > details {
+  opacity: 0;
+  translate: 0 18px;
+  scale: .985;
+}
+.js [data-reveal].is-in > .card,
+.js .why[data-reveal].is-in > li,
+.js .road[data-reveal].is-in > li,
+.js .faq[data-reveal].is-in > details {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+  transition: opacity .7s var(--ease), translate .7s var(--ease), scale .7s var(--ease);
+}
+.js [data-reveal].is-in > :nth-child(2) { transition-delay: .08s; }
+.js [data-reveal].is-in > :nth-child(3) { transition-delay: .16s; }
+.js [data-reveal].is-in > :nth-child(4) { transition-delay: .24s; }
+.js [data-reveal].is-in > :nth-child(5) { transition-delay: .32s; }
+.js [data-reveal].is-in > :nth-child(6) { transition-delay: .4s; }
+.js [data-reveal].is-in > :nth-child(7) { transition-delay: .48s; }
+.js [data-reveal].is-in > :nth-child(8) { transition-delay: .56s; }
+.js [data-reveal].is-in > :nth-child(n + 9) { transition-delay: .64s; }
 
 /* --------------------------------------------------------------------------
    15. Reduced motion
@@ -1103,7 +1378,17 @@ tbody th { font-weight: 500; white-space: nowrap; }
     scroll-behavior: auto !important;
   }
   .js [data-reveal] { opacity: 1; transform: none; }
+  .js [data-reveal] > .card,
+  .js .why[data-reveal] > li,
+  .js .road[data-reveal] > li,
+  .js .faq[data-reveal] > details { opacity: 1; translate: none; scale: none; }
   .card:hover, .btn:hover { transform: none; }
+  /* The 3D cells keep their depth but stand still: no float, no sweep, no
+     pop-in, no tilt (js/site.js does not bind the pointer either). */
+  .hexicon, .step__n, .stat, .hexicon::after, .step__n::after,
+  .hero::before, .hero h1 .glow, .road li.is-now::after { animation: none !important; }
+  .hexicon, .step__n, .stat { transition: none; }
+  .btn--primary::after { display: none; }
 }
 
 /* --------------------------------------------------------------------------
@@ -1407,3 +1692,43 @@ tbody th { font-weight: 500; white-space: nowrap; }
 }
 
 .dl__releases { font-size: .9rem; }
+
+/* --------------------------------------------------------------------------
+   18. Motion for the depth system (sections 6, 7, 8, 10)
+   Everything here is either a composited property (transform, translate,
+   scale, opacity) or a background-position sweep on a 46px cell, so it costs
+   next to nothing; all of it is switched off under prefers-reduced-motion.
+   -------------------------------------------------------------------------- */
+/* The honey cells bob a few pixels; the tilt lives on `transform`, the bob on
+   the separate `translate` property, so the two never fight. */
+@keyframes hexFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -4px; }
+}
+/* A light sweeps across the top face in the first second, then rests. */
+@keyframes hexShine {
+  0% { background-position: 200% 0, 0 0, 0 0, 0 0; }
+  14% { background-position: -100% 0, 0 0, 0 0, 0 0; }
+  100% { background-position: -100% 0, 0 0, 0 0, 0 0; }
+}
+/* The stat cells pop into place once, one after another. */
+@keyframes statPop {
+  from { opacity: 0; translate: 0 28px; scale: .84; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+/* The hero light drifts slowly. */
+@keyframes heroAurora {
+  0% { transform: translate3d(-2%, 0, 0) scale(1); }
+  50% { transform: translate3d(2%, 1.5%, 0) scale(1.06); }
+  100% { transform: translate3d(-1%, -1%, 0) scale(1.02); }
+}
+/* The amber in the headline shifts like light on honey. */
+@keyframes glowShift {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+/* The "now" marker on the roadmap breathes. */
+@keyframes roadPulse {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.28; }
+}

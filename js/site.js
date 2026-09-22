@@ -2,6 +2,7 @@
    SWARM — swarm.green
    Vanilla JS, no dependencies, no inline handlers (strict CSP friendly).
    Sections: 1 nav · 2 reveal · 3 hero swarm canvas · 4 data-driven charts
+             5 downloads · 6 pointer tilt for the 3D hex cells
    ========================================================================== */
 (function () {
   "use strict";
@@ -345,6 +346,12 @@
   /* 4. Data-driven rendering                                            */
   /* ------------------------------------------------------------------ */
   function renderStats(host, data) {
+    var current = $$(".stat", host);
+    var same = current.length === data.stats.length && data.stats.every(function (s, i) {
+      return current[i].textContent.replace(/\s+/g, " ").trim() ===
+        (String(s.value) + (s.unit || "") + s.label).replace(/\s+/g, " ").trim();
+    });
+    if (same) return; // the static markup already matches the data
     var frag = document.createDocumentFragment();
     data.stats.forEach(function (s) {
       var cell = el("div", "stat");
@@ -357,6 +364,7 @@
       frag.appendChild(cell);
     });
     host.replaceChildren(frag);
+    bindTilt(host);
   }
 
   /* Cumulative emission curve. Uses the published era table where it exists so
@@ -739,7 +747,7 @@
         if (!mine.length) return;
         frag.appendChild(dlCard(p, mine, meta));
       });
-      if (frag.childNodes.length) host.replaceChildren(frag);
+      if (frag.childNodes.length) { host.replaceChildren(frag); bindTilt(host); }
     });
     if (meta.releasesUrl && meta.releasesLabel) {
       $$("[data-downloads-releases]").forEach(function (node) {
@@ -787,6 +795,50 @@
       .catch(function () { /* keep the static markup */ });
   }
 
+  /* ------------------------------------------------------------------ */
+  /* 6. Pointer tilt for the 3D hex cells                                */
+  /* The cells are drawn entirely in CSS (css/site.css, sections 7, 8,   */
+  /* 10). This feeds them two custom properties, --rx and --ry, through   */
+  /* the CSSOM, which the strict CSP permits (it forbids style="" markup, */
+  /* not element.style.setProperty). Mouse only: touch has no hover, and  */
+  /* prefers-reduced-motion leaves the cells at rest.                    */
+  /* ------------------------------------------------------------------ */
+  var TILT_MAX = 14;
+  var tiltOn = !reduceMotion.matches && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  function bindTilt(root) {
+    if (!tiltOn) return;
+    $$(".hexicon, .step__n, .stat", root).forEach(function (cell) {
+      if (cell.hasAttribute("data-tilt")) return;
+      cell.setAttribute("data-tilt", "");
+      var area = cell.classList.contains("stat") ? cell : (cell.closest(".card, .why > li") || cell);
+      var rest = parseFloat(window.getComputedStyle(cell).getPropertyValue("--rx")) || 0;
+      var raf = 0, rx = rest, ry = 0;
+      function apply() {
+        raf = 0;
+        cell.style.setProperty("--rx", rx.toFixed(2) + "deg");
+        cell.style.setProperty("--ry", ry.toFixed(2) + "deg");
+      }
+      area.addEventListener("pointermove", function (e) {
+        if (e.pointerType && e.pointerType !== "mouse") return;
+        var r = cell.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        // Offset of the pointer from the cell's centre, in cell sizes, clamped
+        // so a pointer at the far end of a wide card still gives a gentle tilt.
+        var dx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width * 1.6)));
+        var dy = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height * 1.6)));
+        ry = dx * TILT_MAX;
+        rx = rest - dy * TILT_MAX;
+        if (!raf) raf = window.requestAnimationFrame(apply);
+      });
+      area.addEventListener("pointerleave", function () {
+        if (raf) { window.cancelAnimationFrame(raf); raf = 0; }
+        cell.style.removeProperty("--rx");
+        cell.style.removeProperty("--ry");
+      });
+    });
+  }
+
   function start() {
     initNav();
     initReveal();
@@ -794,6 +846,7 @@
     initData();
     initCopy();
     initDownloads();
+    bindTilt(document);
   }
 
   if (document.readyState === "loading") {
