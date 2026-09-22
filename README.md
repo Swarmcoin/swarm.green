@@ -297,6 +297,12 @@ regenerate it after editing the SVG:
 
 ## Deploying
 
+`/css/*` and `/js/*` are cached for an hour with a day of stale-while-revalidate
+(`vercel.json`), so a returning visitor keeps the old stylesheet and script until
+their copy expires. Every change to those files therefore bumps the `?v=` on the
+four `<link>`/`<script>` tags, in `index.html` by hand and in `tools/build_pages.py`
+(then regenerate the sub-pages). Same reason the logo files carry `?v=2`.
+
 Vercel, as a static site. No framework preset, no build command, no output
 directory — the repository root is the site. `vercel.json` supplies
 `cleanUrls`, `trailingSlash: false` and the security headers (CSP, nosniff,

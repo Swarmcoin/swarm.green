@@ -62,9 +62,9 @@ def head(title, desc, path, og_title, og_desc):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/css/site.css">
-<script src="/js/boot.js"></script>
-<script src="/js/site.js" defer></script>
+<link rel="stylesheet" href="/css/site.css?v=3">
+<script src="/js/boot.js?v=3"></script>
+<script src="/js/site.js?v=3" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
