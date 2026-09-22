@@ -1327,12 +1327,11 @@ tbody th { font-weight: 500; white-space: nowrap; }
   box-shadow: inset 0 0 0 1px var(--rule);
 }
 .dl__spec {
-  min-height: 4.3em;          /* three wrapped mono lines: the longest spec */
+  min-height: 2.8em;          /* exactly two lines, whatever the values are */
   font-family: var(--font-mono);
-  font-size: .76rem;
+  font-size: .74rem;
   line-height: 1.35;
   color: var(--fg-dim);
-  overflow-wrap: anywhere;
 }
 .dl__cta { margin-top: .7rem; width: 100%; }
 .dl__alt { margin-top: .55rem; font-size: .82rem; }
@@ -1403,7 +1402,73 @@ tbody th { font-weight: 500; white-space: nowrap; }
   font-size: .73rem;
   letter-spacing: .04em;
   color: var(--fg-dim);
-  min-height: 1.2em;
+  min-height: 0;
 }
 
 .dl__releases { font-size: .9rem; }
+
+/* Platform tabs inside a build block (downloads only). */
+.dl__os {
+  display: flex;
+  gap: .25rem;
+  margin-bottom: .7rem;
+  padding: .2rem;
+  border-radius: 10px;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+.dl__ostab {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: .38rem .2rem;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .04em;
+  color: var(--fg-dim);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background .18s var(--ease), color .18s var(--ease);
+}
+.dl__ostab:hover { color: var(--fg); }
+.dl__ostab.is-on {
+  background: var(--surface);
+  color: var(--fg);
+  box-shadow: 0 0 0 1px var(--rule);
+}
+/* A platform with nothing published yet is dimmer, and says so to a reader
+   who cannot see the difference. */
+.dl__ostab.is-soon { opacity: .62; }
+.dl__ostab.is-soon::after {
+  content: "";
+  display: inline-block;
+  width: 4px; height: 4px;
+  margin-left: .3rem;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: currentColor;
+}
+.dl__pane[hidden] { display: none; }
+/* Holds the height steady as the visitor switches platform, and matches the
+   tallest pane so no card resizes when a tab is clicked. */
+.dl__pane { min-height: 19.3em; }
+/* A card with no tab row still reserves its height — the block's own padding
+   plus the row plus the row's margin — so every primary button across the row
+   sits on the same line. */
+.dl__build--plain { padding-top: calc(.85rem + 37px + .7rem); }
+.dl__alt--soon { color: var(--fg-dim); font-family: var(--font-mono); font-size: .72rem; }
+.dl__specos,
+.dl__specmeta {
+  display: block;
+  min-height: 1.35em;
+  /* One line each, so the slot is a fixed two lines and the button below it
+     never moves. tools/ checks assert these never actually truncate. */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dl__specos { color: var(--fg); }

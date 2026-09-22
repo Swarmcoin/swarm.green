@@ -6,7 +6,15 @@
     "mobileNotice": "Mobile apps are wallets only — phones do not mine.",
     "releasesUrl": "https://github.com/Swarm-Official/swarm-releases",
     "releasesLabel": "All downloads and checksums: github.com/Swarm-Official/swarm-releases",
-    "unsignedNotice": "Unsigned test build — your system will warn."
+    "unsignedNotice": "Unsigned test build — your system will warn.",
+    "macosNotice": "Unsigned test build — macOS will block the first start; right-click → Open.",
+    "linuxNotice": "",
+    "noticePending": "linuxNotice is empty on purpose — the AppImage/.deb sentence has not been supplied yet.",
+    "osOrder": [
+      "windows",
+      "macos",
+      "linux"
+    ]
   },
   "products": [
     {
@@ -35,7 +43,7 @@
       "detail": "The same wallet on your phone.",
       "platformLine": "Mobile apps are wallets only — phones do not mine.",
       "glyph": "phone",
-      "soonSpec": "iPhone · App Store"
+      "soonMeta": "App Store"
     },
     {
       "key": "mobile-android",
@@ -55,188 +63,160 @@
       "platformLine": "",
       "navLabel": "Explorer",
       "glyph": "explorer",
-      "soonSpec": "Web · explore.swarm.green"
+      "soonMeta": "explore.swarm.green"
     },
     {
       "key": "source",
       "kind": "link",
       "name": "Source code",
-      "tagline": "Swarm-Official/swarm-releases",
+      "tagline": "swarm-releases",
       "detail": "Every component and what it is based on.",
       "platformLine": "",
       "glyph": "code",
-      "soonSpec": "GitHub · swarm-releases"
+      "soonMeta": "swarm-releases"
     }
   ],
   "entries": [
     {
       "product": "wallet",
       "platform": "Windows",
-      "status": "available",
-      "variant": "",
+      "os": "windows",
+      "state": "available",
+      "role": "primary",
       "version": "0.1.0-testnet.4",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.4/SWARM-Wallet-0.1.0-testnet.4-win-x64.zip",
       "sha256": "29ec421a48c8a1171bc464e47a5075ec479a8e82e9c39333e1044b61451265dc",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.4/SHA256SUMS",
-      "role": "primary",
       "sizeShort": "215 MB",
-      "sizeBytes": 225246182,
-      "notes": ""
+      "sizeBytes": 225246182
     },
     {
       "product": "wallet",
       "platform": "Linux",
-      "status": "coming-soon",
-      "variant": "",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
+      "os": "linux",
+      "state": "coming",
       "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": ""
+      "plannedVersion": "0.1.0-testnet.5",
+      "variant": "AppImage"
+    },
+    {
+      "product": "wallet",
+      "platform": "Linux",
+      "os": "linux",
+      "state": "coming",
+      "role": "alt",
+      "plannedVersion": "0.1.0-testnet.5",
+      "variant": ".deb",
+      "label": ".deb package"
     },
     {
       "product": "wallet",
       "platform": "macOS",
-      "status": "coming-soon",
-      "variant": "",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
+      "os": "macos",
+      "state": "coming",
       "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": ""
+      "plannedVersion": "0.1.0-testnet.5"
     },
     {
       "product": "node",
       "platform": "Windows",
-      "status": "available",
+      "os": "windows",
+      "state": "available",
+      "role": "primary",
       "variant": "Installer",
       "version": "0.2.0-testnet.3",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.3/SWARM-Node-0.2.0-testnet.3-win-x64.exe",
       "sha256": "b09e41f9ab05d204ba51a78dc272abbbdc9e67a23f1ce06be8b6399bd88b4abf",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.3/SHA256SUMS",
-      "role": "primary",
       "sizeShort": "141 MB",
-      "sizeBytes": 147997541,
-      "notes": ""
+      "sizeBytes": 147997541
     },
     {
       "product": "node",
       "platform": "Windows",
-      "status": "available",
+      "os": "windows",
+      "state": "available",
+      "role": "alt",
       "variant": "Portable zip",
+      "label": "Portable zip (174 MB)",
       "version": "0.2.0-testnet.3",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.3/SWARM-Node-0.2.0-testnet.3-win-x64.zip",
       "sha256": "b231b845a11ac67f4b747edfdbe2a8b51c98a3d726014451da39a94f042c0bef",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.3/SHA256SUMS",
-      "role": "alt",
       "sizeShort": "174 MB",
-      "sizeBytes": 182831456,
-      "notes": "",
-      "label": "Portable zip (174 MB)"
+      "sizeBytes": 182831456
     },
     {
       "product": "node",
       "platform": "Linux",
-      "status": "coming-soon",
-      "variant": "",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
+      "os": "linux",
+      "state": "coming",
       "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": ""
+      "plannedVersion": "0.2.0-testnet.3",
+      "variant": "AppImage"
+    },
+    {
+      "product": "node",
+      "platform": "Linux",
+      "os": "linux",
+      "state": "coming",
+      "role": "alt",
+      "plannedVersion": "0.2.0-testnet.3",
+      "variant": ".deb",
+      "label": ".deb package"
     },
     {
       "product": "node",
       "platform": "macOS",
-      "status": "coming-soon",
-      "variant": "",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
+      "os": "macos",
+      "state": "coming",
       "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": ""
+      "plannedVersion": "0.2.0-testnet.3"
     },
     {
       "product": "mobile-ios",
       "platform": "App Store",
-      "status": "coming-soon",
-      "variant": "",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
-      "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": ""
+      "os": "ios",
+      "state": "coming",
+      "role": "primary"
     },
     {
       "product": "mobile-android",
       "platform": "Android",
-      "status": "available",
+      "os": "android",
+      "state": "available",
+      "role": "primary",
       "variant": "Direct APK",
       "version": "0.1.0-testnet.1",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-android-0.1.0-testnet.1/swarm-wallet-0.1.0-testnet.1-android.apk",
       "sha256": "d0525571bdae014e59f794fd3304be828cfa0cfec36cfb7b8ae59632fbb32cf6",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-android-0.1.0-testnet.1/SHA256SUMS",
-      "role": "primary",
       "sizeShort": "227 MB",
-      "sizeBytes": 237629428,
-      "notes": "Debug-signed test build — Android will warn."
+      "notes": "Debug-signed test build — Android will warn.",
+      "sizeBytes": 237629428
     },
     {
       "product": "mobile-android",
       "platform": "Google Play",
-      "status": "coming-soon",
-      "variant": "",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
-      "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": ""
+      "os": "android",
+      "state": "coming",
+      "role": "primary"
     },
     {
       "product": "explorer",
       "platform": "Web",
-      "status": "coming-soon",
-      "variant": "",
-      "version": "",
-      "url": "https://explore.swarm.green",
-      "sha256": "",
-      "checksums": "",
+      "os": "web",
+      "state": "coming",
       "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": ""
+      "url": "https://explore.swarm.green"
     },
     {
       "product": "source",
       "platform": "GitHub",
-      "status": "available",
-      "variant": "",
-      "version": "",
-      "url": "https://github.com/Swarm-Official/swarm-releases",
-      "sha256": "",
-      "checksums": "",
+      "os": "source",
+      "state": "available",
       "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": ""
+      "url": "https://github.com/Swarm-Official/swarm-releases"
     }
   ]
 }

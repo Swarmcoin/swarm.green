@@ -25,7 +25,7 @@ const data = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "downloads.json"
 const products = new Map((data.products || []).map((p) => [p.key, p]));
 const targets = [];
 for (const e of data.entries || []) {
-  if (e.status !== "available" || !e.url) continue;
+  if ((e.state || e.status) !== "available" || !e.url) continue;
   const name = (products.get(e.product) || {}).name || e.product;
   const what = e.variant ? `${e.platform} · ${e.variant}` : e.platform;
   targets.push({ label: `${name} — ${what}`, url: e.url, kind: "download" });

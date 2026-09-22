@@ -627,71 +627,104 @@
     return b;
   }
 
-  /* One card shape for everything in the grid, so the icon, the title, the
-     spec line, the button and the footer all sit at the same height whether or
-     not the card has anything to download yet. */
-  function dlCard(product, entries, meta) {
-    var card = el("article", "card dl");
-    var glyph = dlGlyph(product.glyph);
-    if (glyph) card.appendChild(glyph);
-    card.appendChild(el("p", "step__app", product.tagline));
-    card.appendChild(el("h3", null, product.name));
-    card.appendChild(el("p", "dl__desc", product.detail));
+  var OS_LABEL = { windows: "Windows", macos: "macOS", linux: "Linux",
+                   android: "Android", ios: "iPhone", web: "Web", source: "GitHub" };
 
-    var available = entries.filter(function (e) { return e.status === "available" && e.url; });
+  /* Which platform to show first. A guess from the user agent, never a claim:
+     every other platform is one click away and the no-JS page lists them all. */
+  function detectOs() {
+    var ua = navigator.userAgent || "";
+    if (/Android/i.test(ua)) return "android";
+    if (/iPhone|iPad|iPod/i.test(ua)) return "ios";
+    if (/Windows|Win32|Win64/i.test(ua)) return "windows";
+    if (/Mac OS X|Macintosh/i.test(ua)) return "macos";
+    if (/Linux|X11|CrOS/i.test(ua)) return "linux";
+    return "";
+  }
+
+  function groupByOs(entries, order) {
+    var map = {}, keys = [];
+    entries.forEach(function (e) {
+      var k = e.os || "other";
+      if (!map[k]) { map[k] = []; keys.push(k); }
+      map[k].push(e);
+    });
+    keys.sort(function (a, b) {
+      var ia = order.indexOf(a), ib = order.indexOf(b);
+      if (ia < 0) ia = 99; if (ib < 0) ib = 99;
+      return ia - ib;
+    });
+    return keys.map(function (k) { return { os: k, entries: map[k] }; });
+  }
+
+  /* The swappable half of a card: spec, button, alternates, one warning and
+     the checksum. Identical whether it sits behind a tab or on its own. */
+  function dlPane(product, group, meta) {
+    var pane = el("div", "dl__pane");
+    var available = group.entries.filter(function (e) { return e.state === "available" && e.url; });
     var primary = available.filter(function (e) { return e.role !== "alt"; })[0];
     var alts = available.filter(function (e) { return e.role === "alt"; });
-    var waiting = entries.filter(function (e) { return e.status !== "available" || !e.url; });
+    var label = OS_LABEL[group.os] || group.os;
 
-    var build = el("div", "dl__build");
-
-    // spec: platform, version and size on one line
-    var spec = [];
+    /* Two explicit lines, always: the platform, then the version and size.
+       One free-flowing line wrapped to two or three depending on the words and
+       shifted the button with it. */
+    var line1 = label, line2 = "";
     if (primary) {
-      spec.push(primary.platform);
-      if (primary.version) spec.push(primary.version);
-      if (primary.sizeShort) spec.push(primary.sizeShort);
+      line1 = [primary.platform, primary.sizeShort].filter(Boolean).join(" · ");
+      line2 = primary.version || "";
+    } else {
+      var pending = group.entries[0] || {};
+      line2 = pending.plannedVersion || product.soonMeta || "";
     }
-    build.appendChild(el("p", "dl__spec", spec.length ? spec.join(" · ") : (product.soonSpec || "")));
+    var spec = el("p", "dl__spec");
+    spec.appendChild(el("span", "dl__specos", line1));
+    spec.appendChild(el("span", "dl__specmeta", line2));
+    pane.appendChild(spec);
 
     if (primary) {
-      var label = product.kind === "link" ? "Open"
-        : primary.platform === "Android" ? "Download APK"
-        : "Download for " + primary.platform;
-      var a = el("a", "btn btn--primary btn--sm dl__cta", label);
+      var text = product.kind === "link" ? "Open"
+        : primary.os === "android" ? "Download APK"
+        : "Download for " + label;
+      var a = el("a", "btn btn--primary btn--sm dl__cta", text);
       a.setAttribute("href", primary.url);
       a.setAttribute("rel", "noopener noreferrer");
       if (product.kind === "link") {
         a.setAttribute("target", "_blank");
         a.appendChild(el("span", "vh", " " + product.name + " (opens in a new tab)"));
       }
-      build.appendChild(a);
+      pane.appendChild(a);
     } else {
-      build.appendChild(dlSoonPill());
+      pane.appendChild(dlSoonPill());
     }
 
-    // an alternate build is a small link, not a second box
+    group.entries.filter(function (e) {
+      return e.state !== "available" && primary && e.platform !== primary.platform;
+    }).forEach(function (e) {
+      pane.appendChild(el("p", "dl__alt dl__alt--soon", e.platform + ": coming soon."));
+    });
+
     alts.forEach(function (e) {
       var p = el("p", "dl__alt");
-      var link = el("a", "textlink", e.label || (e.variant + " (" + e.sizeShort + ")"));
+      var link = el("a", "textlink", e.label || (e.variant + (e.sizeShort ? " (" + e.sizeShort + ")" : "")));
       link.setAttribute("href", e.url);
       link.setAttribute("rel", "noopener noreferrer");
       p.appendChild(link);
-      build.appendChild(p);
+      pane.appendChild(p);
     });
 
-    // exactly one small line, never two
     var notice = "";
     if (primary) {
       notice = primary.notes
-        || (primary.platform === "Windows" ? meta.windowsNotice : meta.unsignedNotice)
-        || "";
-    } else if (product.key === "mobile-ios" || product.key === "mobile-android") {
+        || (group.os === "windows" ? meta.windowsNotice
+          : group.os === "macos" ? meta.macosNotice
+          : group.os === "linux" ? meta.linuxNotice
+          : meta.unsignedNotice) || "";
+    } else if (group.os === "ios" || group.os === "android") {
       notice = meta.mobileNotice || "";
     }
-    if (notice) build.appendChild(el("p", "dl__notice", notice));
+    if (notice) pane.appendChild(el("p", "dl__notice", notice));
 
-    // the 64-character hash lives behind a disclosure so it stops dominating
     if (primary && primary.sha256) {
       var d = document.createElement("details");
       d.className = "dl__sum";
@@ -704,7 +737,7 @@
       var copy = el("button", "btn btn--ghost btn--sm", "Copy");
       copy.setAttribute("type", "button");
       copy.setAttribute("data-copy", primary.sha256);
-      copy.appendChild(el("span", "vh", " the SHA-256 checksum for " + product.name));
+      copy.appendChild(el("span", "vh", " the SHA-256 checksum for " + product.name + " on " + label));
       row.appendChild(copy);
       if (primary.checksums) {
         var sa = el("a", "textlink", "SHA256SUMS");
@@ -717,14 +750,96 @@
       body.appendChild(row);
       if (primary.sizeBytes) body.appendChild(el("p", "dl__bytes", nf.format(primary.sizeBytes) + " bytes"));
       d.appendChild(body);
-      build.appendChild(d);
+      pane.appendChild(d);
+    }
+    return pane;
+  }
+
+  var dlCardSeq = 0;
+
+  function dlCard(product, entries, meta) {
+    var card = el("article", "card dl");
+    var glyph = dlGlyph(product.glyph);
+    if (glyph) card.appendChild(glyph);
+    card.appendChild(el("p", "step__app", product.tagline));
+    card.appendChild(el("h3", null, product.name));
+    card.appendChild(el("p", "dl__desc", product.detail));
+
+    var groups = groupByOs(entries, meta.osOrder || []);
+    var uid = "dl" + (++dlCardSeq);
+    var build = el("div", "dl__build" + (groups.length > 1 ? "" : " dl__build--plain"));
+
+    if (groups.length > 1) {
+      var tabs = el("div", "dl__os");
+      tabs.setAttribute("role", "tablist");
+      tabs.setAttribute("aria-label", "Platform for " + product.name);
+
+      var panes = groups.map(function (g) { return dlPane(product, g, meta); });
+      var buttons = [];
+
+      function select(i) {
+        buttons.forEach(function (b, j) {
+          var on = i === j;
+          b.setAttribute("aria-selected", on ? "true" : "false");
+          b.setAttribute("tabindex", on ? "0" : "-1");
+          b.classList.toggle("is-on", on);
+          if (on) panes[j].removeAttribute("hidden"); else panes[j].setAttribute("hidden", "");
+        });
+      }
+
+      groups.forEach(function (g, i) {
+        var hasBuild = g.entries.some(function (e) { return e.state === "available" && e.url; });
+        var b = el("button", "dl__ostab" + (hasBuild ? "" : " is-soon"), OS_LABEL[g.os] || g.os);
+        b.setAttribute("type", "button");
+        b.setAttribute("role", "tab");
+        b.id = uid + "-t" + i;
+        b.setAttribute("aria-controls", uid + "-p" + i);
+        if (!hasBuild) b.appendChild(el("span", "vh", " — coming soon"));
+        b.addEventListener("click", function () { select(i); });
+        b.addEventListener("keydown", function (ev) {
+          var k = ev.key, n = null;
+          if (k === "ArrowRight" || k === "ArrowDown") n = (i + 1) % buttons.length;
+          else if (k === "ArrowLeft" || k === "ArrowUp") n = (i - 1 + buttons.length) % buttons.length;
+          else if (k === "Home") n = 0;
+          else if (k === "End") n = buttons.length - 1;
+          if (n === null) return;
+          ev.preventDefault();
+          select(n);
+          buttons[n].focus();
+        });
+        buttons.push(b);
+        tabs.appendChild(b);
+
+        panes[i].setAttribute("role", "tabpanel");
+        panes[i].id = uid + "-p" + i;
+        panes[i].setAttribute("aria-labelledby", b.id);
+      });
+
+      build.appendChild(tabs);
+      panes.forEach(function (p) { build.appendChild(p); });
+
+      function hasBuildAt(i) {
+        return groups[i].entries.some(function (e) { return e.state === "available" && e.url; });
+      }
+      var want = detectOs();
+      var guess = -1, firstReal = -1;
+      groups.forEach(function (g, i) {
+        if (g.os === want && guess < 0) guess = i;
+        if (firstReal < 0 && hasBuildAt(i)) firstReal = i;
+      });
+      // Prefer the visitor's own platform, but never open on an empty tab when
+      // a real build is one click away.
+      var start = guess >= 0 && hasBuildAt(guess) ? guess
+        : firstReal >= 0 ? firstReal
+        : guess >= 0 ? guess : 0;
+      select(start);
+    } else {
+      build.appendChild(dlPane(product, groups[0], meta));
     }
 
     card.appendChild(build);
 
-    // footer, pushed to the bottom of every card by CSS
-    var foot = waiting.map(function (e) { return e.platform; }).join(", ");
-    card.appendChild(el("p", "dl__foot", foot ? foot + ": coming soon." : ""));
+    card.appendChild(el("p", "dl__foot", ""));
     return card;
   }
 
