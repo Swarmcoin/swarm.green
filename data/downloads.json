@@ -24,7 +24,7 @@
       "name": "SWARM Node",
       "tagline": "Full node and mining",
       "detail": "Run a full node and mine with one click.",
-      "platformLine": "Windows, Linux and Apple silicon. Intel Mac build in progress.",
+      "platformLine": "Windows, Linux and macOS (Apple silicon and Intel).",
       "glyph": "desktop"
     },
     {
@@ -328,15 +328,29 @@
     {
       "product": "node",
       "platform": "macOS (Intel)",
-      "status": "coming-soon",
-      "variant": "",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
+      "status": "available",
+      "variant": "Disk image",
+      "version": "0.2.0-testnet.5",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-mac-x64.dmg",
+      "sha256": "cdc7a98b2db6463e37d536cbc16cb8dc6e5090c3f9fbb0ed76230eba4fac0129",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SHA256SUMS",
       "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
+      "sizeShort": "167 MB",
+      "sizeBytes": 175521720,
+      "notes": ""
+    },
+    {
+      "product": "node",
+      "platform": "macOS (Intel)",
+      "status": "available",
+      "variant": "Portable zip",
+      "version": "0.2.0-testnet.5",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-mac-x64.zip",
+      "sha256": "970b096b0eab3cdb2c5ee8db8deab84ed92fb8764f20c83460cf0a68e84053bf",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SHA256SUMS",
+      "role": "alt",
+      "sizeShort": "163 MB",
+      "sizeBytes": 171319972,
       "notes": ""
     }
   ]
