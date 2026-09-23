@@ -12,3 +12,6 @@ Thumbs.db
 
 .vercel
 .env*
+
+# Python page generator cache
+__pycache__/

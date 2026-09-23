@@ -30,4 +30,7 @@
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
+  <url><loc>https://swarm.green/ecosystem</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://swarm.green/ecosystem/wallet</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://swarm.green/ecosystem/node</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>

@@ -82,7 +82,7 @@ def head(title, desc, path, og_title, og_desc):
       <a href="/#hive">The Hive</a>
       <a href="/#honey">Honey</a>
       <a href="/#swarm">The Swarm</a>
-      <a href="/#downloads">Downloads</a>
+      <a href="/ecosystem">Ecosystem</a>
       <a href="/#join">Join</a>
       <a href="/#roadmap">Roadmap</a>
       <a href="/#faq">FAQ</a>
@@ -99,7 +99,7 @@ def head(title, desc, path, og_title, og_desc):
         <li><a href="/#hive">The Hive</a></li>
         <li><a href="/#honey">Honey</a></li>
         <li><a href="/#swarm">The Swarm</a></li>
-        <li><a href="/#downloads">Downloads</a></li>
+        <li><a href="/ecosystem">Ecosystem</a></li>
         <li><a href="/#join">Join</a></li>
         <li><a href="/#roadmap">Roadmap</a></li>
         <li><a href="/#faq">FAQ</a></li>
@@ -142,7 +142,7 @@ FOOTER = f"""</main>
         <h2 id="ft-get">Get started</h2>
         <ul>
           <li><a href="/join">Join the testnet</a></li>
-          <li><a href="/#downloads">Downloads</a></li>
+          <li><a href="/ecosystem">Ecosystem</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a></li>
         </ul>
@@ -460,15 +460,15 @@ write("network/index.html", network)
 # ------------------------------------------------------------------- /join
 join = head(
     "Join the testnet — SWARM",
-    "How to run SWARM: get the desktop wallet, run a full node, and start CPU mining with one click. All three apps are coming soon; nothing ever runs without your consent.",
+    "How to run SWARM: get the desktop wallet, run a full node, and start CPU mining with one click. Choose your testnet downloads; nothing runs without your consent.",
     "/join",
     "Join the SWARM testnet",
-    "Get the wallet, run a node, start foraging. Three apps, coming soon. Test coins have no value.",
+    "Get the wallet, run a node, start foraging. Testnet downloads available. Test coins have no value.",
 ) + page_head(
     "Join the testnet",
     "Join the swarm.",
-    "Public downloads are not open yet. This is the shape of it: three small apps, three steps, and nothing that runs behind your back.",
-    pill="Downloads coming soon",
+    "Choose a wallet, run a node, and join the testnet. Nothing runs without you pressing the button.",
+    pill="Testnet downloads",
 ) + f"""
   <section class="band band--cream">
     <div class="wrap">
@@ -484,7 +484,7 @@ join = head(
           <h3>Get a wallet</h3>
           <p>A desktop wallet that holds your coins and sends payments — transparent or shielded, your choice on every payment.</p>
           <p class="mt-s">On first run it will show you a recovery phrase. Write it down on paper and keep it offline. It is the only way to restore your wallet.</p>
-          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+          <a class="btn btn--primary" href="/ecosystem/wallet">Choose your wallet</a>
         </article>
 
         <article class="card step">
@@ -493,7 +493,7 @@ join = head(
           <h3>Run a node</h3>
           <p>One app that runs a full node: it downloads the chain, checks every block against the rules itself, and relays to its peers.</p>
           <p class="mt-s">Running a node is what makes you part of the hive. You are not trusting anyone&rsquo;s word about what the chain says — you are checking it.</p>
-          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+          <a class="btn btn--primary" href="/ecosystem/node">Get SWARM Node</a>
         </article>
 
         <article class="card step">
@@ -502,11 +502,11 @@ join = head(
           <h3>Start foraging</h3>
           <p>The same app has a mining switch. Press <strong>Start</strong> and your CPU begins looking for blocks; press <strong>Stop</strong> and it stops. That is the whole interface.</p>
           <p class="mt-s">The proof of work is Equihash and it is CPU-mineable on the testnet, so an ordinary computer can take part from the first block. As the network grows and difficulty rises, specialised miners can join too — nothing in the rules keeps anyone out.</p>
-          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+          <a class="btn btn--primary" href="/ecosystem/node">Start mining</a>
         </article>
       </div>
 
-      <p class="note mt-l" data-reveal>Every app, the block explorer and the source code are listed together in <a href="/#downloads">Downloads</a> on the home page.</p>
+      <p class="note mt-l" data-reveal>Every app, the block explorer and the source code are listed together in <a href="/ecosystem">Ecosystem</a>.</p>
 
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">

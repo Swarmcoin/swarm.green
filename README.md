@@ -328,3 +328,7 @@ The site is staged on the Vercel project `swarm-green` (`https://swarm-green-thr
 ## Regenerating the sub-pages
 
 `/network`, `/join`, `/brand`, `/terms`, `/privacy` and `404.html` are produced by `tools/build_pages.py` (plain Python, no dependencies) so that their shared navigation and footer stay identical. `index.html` is maintained by hand. Run `python tools/build_pages.py` from anywhere; it writes into the repository root. Review the diff before committing: a regeneration must never drop reviewed wording. `tools/`, `_review/` and this README are excluded from deployment by `.vercelignore`.
+
+## Ecosystem downloads
+
+`/ecosystem` introduces Wallet and Node. Their product pages contain platform choices and all per-file checksums. After editing `data/downloads.json` or the shared support page shell, run `python tools/build_ecosystem.py`, then `python tools/build_ecosystem.py --check`. Commit the generated HTML with the metadata change. Platform selection progressively enhances the static pages; all downloads remain available without JavaScript.

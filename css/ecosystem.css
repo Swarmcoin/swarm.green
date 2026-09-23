@@ -1,0 +1,55 @@
+/* Product discovery stays compact; file choices live on the product pages. */
+.ecosystem-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+.ecosystem-card { padding: clamp(1.5rem, 3.5vw, 3rem); display: flex; flex-direction: column; align-items: flex-start; }
+.ecosystem-card__top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; width: 100%; margin-bottom: 1.6rem; }
+.ecosystem-card__top .hexicon { margin: 0; flex-shrink: 0; }
+.ecosystem-tag { display: inline-block; font-size: .75rem; color: var(--fg-dim); letter-spacing: .025em; }
+.ecosystem-card .eyebrow { color: var(--accent); font-size: .75rem; }
+.ecosystem-card h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.25; letter-spacing: -.04em; margin: .65rem 0 1rem; }
+.ecosystem-card > p:not(.eyebrow) { max-width: 39ch; margin-bottom: 2rem; }
+.ecosystem-card .btn { margin-top: auto; }
+.ecosystem-more { margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 2rem; }
+.ecosystem-more h2 { font-size: 1.35rem; max-width: 20ch; margin-top: .65rem; }
+.ecosystem-more h3 { font-size: 1rem; margin-bottom: .6rem; }
+.ecosystem-more p:not(.eyebrow) { color: var(--fg-dim); font-size: .9rem; margin-bottom: .9rem; }
+.ecosystem-note { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); color: var(--fg-dim); font-size: .8rem; line-height: 1.7; }
+.download-layout { display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(220px, 1fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.download-main > h2 { font-size: 1.5rem; }
+.download-intro { margin-top: .6rem; color: var(--fg-dim); }
+.platform-picker { margin-top: 1.5rem; }
+.platform-options { display: flex; flex-wrap: wrap; gap: .5rem; }
+.platform-choice { appearance: none; font: inherit; font-size: .875rem; font-weight: 600; padding: .8rem 1.2rem; color: var(--fg); background: var(--surface); border: 1px solid var(--rule); border-radius: 999px; cursor: pointer; }
+.platform-choice:hover { border-color: var(--accent); }
+.platform-choice[aria-pressed="true"] { color: var(--cream); background: var(--bark); border-color: var(--bark); }
+.platform-panel { margin-top: 2rem; }
+.platform-panel[hidden], .platform-picker[hidden] { display: none; }
+.platform-panel > h2 { font-size: 1.2rem; }
+.platform-help { font-size: .875rem; color: var(--fg-dim); line-height: 1.7; max-width: 65ch; margin: .6rem 0 1.5rem; }
+.download-file { padding: 1.4rem; border: 1px solid var(--rule); border-radius: 14px; background: var(--surface); margin-top: .75rem; }
+.download-file__row { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; }
+.download-file h3 { font-size: .95rem; line-height: 1.5; }
+.download-file__meta { font-size: .75rem; font-family: var(--font-mono); color: var(--fg-dim); margin-top: .35rem; }
+.download-file .btn { flex-shrink: 0; }
+.download-file .dl__sum { margin-top: 1rem; }
+.download-file .dl__hashline { white-space: normal; overflow-wrap: anywhere; }
+.download-empty { border: 1px dashed var(--rule); border-radius: 14px; padding: 1.5rem; margin-top: 1rem; }
+.download-empty h3 { font-size: 1.05rem; margin: .6rem 0; }
+.download-empty p { color: var(--fg-dim); font-size: .9rem; }
+.download-aside { border-left: 1px solid var(--rule); padding-left: 2rem; }
+.download-aside h2 { font-size: 1.2rem; margin: 1rem 0; }
+.download-aside p:not(.eyebrow) { color: var(--fg-dim); font-size: .875rem; line-height: 1.8; margin: 1rem 0; }
+.download-aside .textlink { font-size: .85rem; }
+.download-aside__other { border-top: 1px solid var(--rule); margin-top: 2rem; padding-top: 1rem; }
+@media (max-width: 760px) {
+  .ecosystem-grid, .ecosystem-more, .download-layout { grid-template-columns: minmax(0, 1fr); }
+  .ecosystem-card__top { margin-bottom: 1rem; }
+  .ecosystem-more { margin-top: 2.5rem; }
+  .download-aside { border-left: 0; border-top: 1px solid var(--rule); padding: 2rem 0 0; }
+}
+@media (max-width: 420px) {
+  .download-file__row { align-items: flex-start; flex-direction: column; gap: .85rem; }
+  .platform-choice { padding: .7rem 1rem; }
+  .ecosystem-card__top { align-items: flex-start; }
+  .ecosystem-tag { max-width: 18ch; text-align: right; }
+  .download-empty .ecosystem-tag { text-align: left; }
+}

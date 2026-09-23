@@ -33,6 +33,7 @@
 <script src="/js/boot.js?v=4"></script>
 <script src="/js/site.js?v=12" defer></script>
 <script src="/js/map.js?v=6" defer></script>
+<link rel="stylesheet" href="/css/ecosystem.css?v=1">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -50,7 +51,7 @@
       <a href="#hive">The Hive</a>
       <a href="#honey">Honey</a>
       <a href="#swarm">The Swarm</a>
-      <a href="#downloads">Downloads</a>
+      <a href="/ecosystem">Ecosystem</a>
       <a href="#join">Join</a>
       <a href="#roadmap">Roadmap</a>
       <a href="#faq">FAQ</a>
@@ -67,7 +68,7 @@
         <li><a href="#hive">The Hive</a></li>
         <li><a href="#honey">Honey</a></li>
         <li><a href="#swarm">The Swarm</a></li>
-        <li><a href="#downloads">Downloads</a></li>
+        <li><a href="/ecosystem">Ecosystem</a></li>
         <li><a href="#join">Join</a></li>
         <li><a href="#roadmap">Roadmap</a></li>
         <li><a href="#faq">FAQ</a></li>
@@ -381,35 +382,16 @@
 
   <!-- ================= DOWNLOADS ================= -->
   <section class="band band--cream" id="downloads">
-    <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">Downloads</p>
-        <h2>Get the apps.</h2>
-        <p>Two small desktop apps do everything, and a wallet is on the way to your phone. Mobile apps are wallets only &mdash; phones do not mine.</p>
-      </div>
-
-      <!-- Rendered from data/downloads.json. The markup below is the
-           no-JavaScript fallback and must say the same thing as the data. -->
-      <div class="dlgrid" data-downloads data-reveal>
-        <article class="card dl"><div class="hexicon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 5.5h18v11H3z"></path><path d="M9 20h6"></path><path d="M12 16.5V20"></path></svg></div><p class="step__app">Desktop wallet</p><h3>SWARM Wallet</h3><p class="dl__desc">Hold, send and receive — shielded or transparent.</p><div class="dl__build"><p class="dl__spec">Windows · 0.1.0-testnet.5 · 165 MB</p><a class="btn btn--primary btn--sm dl__cta" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.5/SWARM-Wallet-0.1.0-testnet.5-win-x64.exe" rel="noopener noreferrer">Download for Windows</a><p class="dl__notice">Unsigned test build — Windows will warn.</p><details class="dl__sum"><summary>Checksum</summary><div class="dl__sumbody"><code class="dl__hashline">460dcec4a79967917955a3463c305a6edf97865f23a25df0539a375725682fe9</code><p class="dl__sumrow"><button class="btn btn--ghost btn--sm" type="button" data-copy="460dcec4a79967917955a3463c305a6edf97865f23a25df0539a375725682fe9">Copy<span class="vh"> the SHA-256 checksum for SWARM Wallet</span></button><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.5/SHA256SUMS" target="_blank" rel="noopener noreferrer">SHA256SUMS<span class="vh"> for this release (opens in a new tab)</span></a></p><p class="dl__bytes">173,084,477 bytes</p></div></details></div><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.5/SWARM-Wallet-0.1.0-testnet.5-amd64.deb">Linux · Installer</a></p><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.5/SWARM-Wallet-0.1.0-testnet.5-x86_64.AppImage">Linux · Portable AppImage</a></p><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.5/SWARM-Wallet-0.1.0-testnet.5-arm64.dmg">macOS (Apple silicon) · Installer</a></p><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.5/SWARM-Wallet-0.1.0-testnet.5-arm64.zip">macOS (Apple silicon) · Portable zip</a></p><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.5/SWARM-Wallet-0.1.0-testnet.5-x64.dmg">macOS (Intel) · Installer</a></p><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.5/SWARM-Wallet-0.1.0-testnet.5-x64.zip">macOS (Intel) · Portable zip</a></p><p class="dl__foot"></p></article>
-
-        <article class="card dl"><div class="hexicon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 5.5h18v11H3z"></path><path d="M9 20h6"></path><path d="M12 16.5V20"></path></svg></div><p class="step__app">Full node and mining</p><h3>SWARM Node</h3><p class="dl__desc">Run a full node and mine with one click.</p><div class="dl__build"><p class="dl__spec">Windows · 0.2.0-testnet.5 · 141 MB</p><a class="btn btn--primary btn--sm dl__cta" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-win-x64.exe" rel="noopener noreferrer">Download for Windows</a><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-win-x64.zip" rel="noopener noreferrer">Portable zip (174 MB)</a></p><p class="dl__notice">Unsigned test build — Windows will warn.</p><details class="dl__sum"><summary>Checksum</summary><div class="dl__sumbody"><code class="dl__hashline">95758c059b564bd59ea3f0a0c922eadb2dc894fd45e747ae29dad0801d64fa34</code><p class="dl__sumrow"><button class="btn btn--ghost btn--sm" type="button" data-copy="95758c059b564bd59ea3f0a0c922eadb2dc894fd45e747ae29dad0801d64fa34">Copy<span class="vh"> the SHA-256 checksum for SWARM Node</span></button><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SHA256SUMS" target="_blank" rel="noopener noreferrer">SHA256SUMS<span class="vh"> for this release (opens in a new tab)</span></a></p><p class="dl__bytes">147,719,185 bytes</p></div></details></div><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-linux-amd64.deb">Linux · Installer (.deb)</a></p><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-linux-x86_64.AppImage">Linux · Portable AppImage</a></p><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-mac-arm64.dmg">macOS (Apple silicon) · Disk image</a></p><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-mac-arm64.zip">macOS (Apple silicon) · Portable zip</a></p><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-mac-x64.dmg">macOS (Intel) · Disk image</a></p><p class="dl__alt"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-mac-x64.zip">macOS (Intel) · Portable zip</a></p></article>
-
-        <article class="card dl"><div class="hexicon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7.6 2.6h8.8v18.8H7.6z"></path><path d="M10.6 5.4h2.8"></path></svg></div><p class="step__app">App Store</p><h3>SWARM Wallet for iPhone</h3><p class="dl__desc">The same wallet on your phone.</p><div class="dl__build"><p class="dl__spec">iPhone · App Store</p><button class="btn btn--soon btn--sm dl__cta" type="button" disabled="">Coming soon</button><p class="dl__notice">Mobile apps are wallets only — phones do not mine.</p></div><p class="dl__foot">App Store: coming soon.</p></article>
-
-        <article class="card dl"><div class="hexicon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7.6 2.6h8.8v18.8H7.6z"></path><path d="M10.6 5.4h2.8"></path></svg></div><p class="step__app">Google Play</p><h3>SWARM Wallet for Android</h3><p class="dl__desc">The same wallet on your phone.</p><div class="dl__build"><p class="dl__spec">Android · 0.1.0-testnet.1 · 227 MB</p><a class="btn btn--primary btn--sm dl__cta" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-android-0.1.0-testnet.1/swarm-wallet-0.1.0-testnet.1-android.apk" rel="noopener noreferrer">Download APK</a><p class="dl__notice">Debug-signed test build — Android will warn.</p><details class="dl__sum"><summary>Checksum</summary><div class="dl__sumbody"><code class="dl__hashline">d0525571bdae014e59f794fd3304be828cfa0cfec36cfb7b8ae59632fbb32cf6</code><p class="dl__sumrow"><button class="btn btn--ghost btn--sm" type="button" data-copy="d0525571bdae014e59f794fd3304be828cfa0cfec36cfb7b8ae59632fbb32cf6">Copy<span class="vh"> the SHA-256 checksum for SWARM Wallet for Android</span></button><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-android-0.1.0-testnet.1/SHA256SUMS" target="_blank" rel="noopener noreferrer">SHA256SUMS<span class="vh"> for this release (opens in a new tab)</span></a></p><p class="dl__bytes">237,629,428 bytes</p></div></details></div><p class="dl__foot">Google Play: coming soon.</p></article>
-
-        <article class="card dl"><div class="hexicon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 4.2a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6z"></path><path d="M16 16l4.4 4.4"></path></svg></div><p class="step__app">explore.swarm.green</p><h3>Block explorer</h3><p class="dl__desc">Watch blocks as they are found.</p><div class="dl__build"><p class="dl__spec">Web · explore.swarm.green</p><button class="btn btn--soon btn--sm dl__cta" type="button" disabled="">Coming soon</button></div><p class="dl__foot">Web: coming soon.</p></article>
-
-        <article class="card dl"><div class="hexicon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8.6 7 3.4 12l5.2 5"></path><path d="M15.4 7l5.2 5-5.2 5"></path><path d="M13.6 4.4l-3.2 15.2"></path></svg></div><p class="step__app">Swarm-Official/swarm-releases</p><h3>Source code</h3><p class="dl__desc">Every component and what it is based on.</p><div class="dl__build"><p class="dl__spec">GitHub</p><a class="btn btn--primary btn--sm dl__cta" href="https://github.com/Swarm-Official/swarm-releases" rel="noopener noreferrer" target="_blank">Open<span class="vh"> Source code (opens in a new tab)</span></a><p class="dl__notice">Unsigned test build — your system will warn.</p></div><p class="dl__foot"></p></article>
-      </div>
-
-      <p class="dl__releases mt-m" data-downloads-releases data-reveal><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases" target="_blank" rel="noopener noreferrer">All downloads and checksums: github.com/Swarm-Official/swarm-releases<span class="vh"> (opens in a new tab)</span></a></p>
-
-      <div class="note mt-l" data-reveal>
-        <strong>Nothing installs itself.</strong> Every build is published with its SHA-256 checksum, and the testnet builds are not code-signed, so Windows will warn you the first time. Test coins have no value.
-      </div>
-    </div>
+    <div class="wrap"><div class="sec-head"><p class="eyebrow">THE ECOSYSTEM</p><h2>Your way into SWARM.</h2><p>Choose a wallet for your coins or a node for the network.</p></div>
+<div class="ecosystem-grid"><article class="card ecosystem-card">
+          <div class="ecosystem-card__top"><div class="hexicon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16v14H4z M4 6V4h13v2 M15 11h5v5h-5z"/></svg></div><span class="ecosystem-tag">Desktop &amp; mobile</span></div>
+          <p class="eyebrow">SWARM WALLET</p><h2>Your coins. Your wallet.</h2><p>Hold, send and receive SWM. Choose a wallet for your computer or phone.</p>
+          <a class="btn btn--primary" href="/ecosystem/wallet">Explore wallet<span aria-hidden="true"> →</span></a>
+        </article><article class="card ecosystem-card">
+          <div class="ecosystem-card__top"><div class="hexicon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v11H4z M8 20h8 M12 15v5"/></svg></div><span class="ecosystem-tag">Windows · macOS · Linux</span></div>
+          <p class="eyebrow">SWARM NODE</p><h2>Be part of the network.</h2><p>Run a full node, verify the chain and mine from one app.</p>
+          <a class="btn btn--primary" href="/ecosystem/node">Explore node<span aria-hidden="true"> →</span></a>
+        </article></div><p class="mt-l"><a class="textlink" href="/ecosystem">Explore the ecosystem →</a></p></div>
   </section>
 
   <!-- ================= JOIN ================= -->
@@ -418,7 +400,7 @@
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Join the swarm</p>
         <h2>Three steps. Every bee counts.</h2>
-        <p>Public downloads are not open yet. When they are, this is all there is to it — and nothing ever runs without you pressing the button.</p>
+        <p>Choose your app, install it, and join the testnet. Nothing runs without you pressing the button.</p>
       </div>
 
       <div class="steps" data-reveal>
@@ -426,8 +408,8 @@
           <div class="step__n" aria-hidden="true">1</div>
           <p class="step__app">SWARM Wallet</p>
           <h3>Get a wallet</h3>
-          <p>The desktop wallet holds your coins and sends payments — transparent or shielded. Windows first, with Linux and macOS to follow.</p>
-          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+          <p>The desktop wallet holds your coins and sends payments — transparent or shielded. Available for Windows, Linux and macOS.</p>
+          <a class="btn btn--primary" href="/ecosystem/wallet">Choose your wallet</a>
         </article>
 
         <article class="card step">
@@ -435,15 +417,15 @@
           <p class="step__app">SWARM Node</p>
           <h3>Run a node</h3>
           <p>One app runs a full node and lets you start or stop CPU mining with a single click. Consent-first: nothing runs hidden, nothing starts by itself.</p>
-          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+          <a class="btn btn--primary" href="/ecosystem/node">Get SWARM Node</a>
         </article>
 
         <article class="card step">
           <div class="step__n" aria-hidden="true">3</div>
-          <p class="step__app">SWARM Explorer</p>
+          <p class="step__app">SWARM Node</p>
           <h3>Start foraging</h3>
           <p>Press Start and your CPU begins looking for blocks. Follow what the chain is doing in the block explorer, planned at explore.swarm.green.</p>
-          <button class="btn btn--soon" type="button" disabled>Coming soon</button>
+          <a class="btn btn--primary" href="/ecosystem/node">Start mining</a>
         </article>
       </div>
 
@@ -565,7 +547,7 @@
         <h2 id="ft-get">Get started</h2>
         <ul>
           <li><a href="/join">Join the testnet</a></li>
-          <li><a href="/#downloads">Downloads</a></li>
+          <li><a href="/ecosystem">Ecosystem</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="https://github.com/Swarm-Official/swarm-releases" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></li>
         </ul>

@@ -1,0 +1,129 @@
+"""Generate accessible download pages from data/downloads.json. Use --check in review."""
+import html
+import json
+from pathlib import Path
+import re
+import sys
+
+ROOT = Path(__file__).resolve().parent.parent
+DATA = json.loads((ROOT / 'data/downloads.json').read_text(encoding='utf-8'))
+SHELL = (ROOT / 'support/index.html').read_text(encoding='utf-8')
+esc = lambda value: html.escape(str(value), quote=True)
+
+
+def page(title, description, path, body):
+    before, rest = SHELL.split('<main id="main">', 1)
+    after = rest.split('</main>', 1)[1]
+    before = re.sub(r'<title>.*?</title>', f'<title>{esc(title)} — SWARM</title>', before)
+    for key in ['description', 'og:description', 'twitter:description']:
+        before = re.sub(r'((?:name|property)="' + key + r'" content=")[^"]*', lambda m: m[1] + esc(description), before)
+    before = before.replace('SWARM — Support', 'SWARM — ' + esc(title)).replace('https://swarm.green/support', 'https://swarm.green' + path)
+    before = before.replace('</head>', '<link rel="stylesheet" href="/css/ecosystem.css?v=1">\n<script src="/js/ecosystem.js?v=1" defer></script>\n</head>')
+    return before + '<main id="main">\n' + body + '\n</main>' + after
+
+
+def hero(title, lead, product=False):
+    crumbs = '<a href="/">Home</a><span aria-hidden="true">/</span>'
+    crumbs += '<a href="/ecosystem">Ecosystem</a><span aria-hidden="true">/</span>' + esc(title) if product else 'Ecosystem'
+    return f'''<section class="band band--dark band--comb page-head">
+  <div class="wrap"><p class="crumbs">{crumbs}</p>
+    <p class="eyebrow">THE SWARM ECOSYSTEM</p><h1>{title}</h1>
+    <p class="page-head__lead">{lead}</p>
+  </div>
+</section>'''
+
+
+def cards():
+    result = '<div class="ecosystem-grid">'
+    for key, label, detail, platforms, glyph in [
+        ('wallet', 'Your coins. Your wallet.', 'Hold, send and receive SWM. Choose a wallet for your computer or phone.', 'Desktop &amp; mobile', 'M4 6h16v14H4z M4 6V4h13v2 M15 11h5v5h-5z'),
+        ('node', 'Be part of the network.', 'Run a full node, verify the chain and mine from one app.', 'Windows · macOS · Linux', 'M4 4h16v11H4z M8 20h8 M12 15v5')]:
+        result += f'''<article class="card ecosystem-card">
+          <div class="ecosystem-card__top"><div class="hexicon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="{glyph}"/></svg></div><span class="ecosystem-tag">{platforms}</span></div>
+          <p class="eyebrow">SWARM {key.upper()}</p><h2>{label}</h2><p>{detail}</p>
+          <a class="btn btn--primary" href="/ecosystem/{key}">Explore {key}<span aria-hidden="true"> →</span></a>
+        </article>'''
+    return result + '</div>'
+
+
+def download(entry):
+    platform = entry['platform']
+    if entry['status'] != 'available' or not entry.get('url'):
+        return f'<div class="download-empty"><span class="ecosystem-tag">Coming soon</span><h3>{esc(platform)}</h3><p>This wallet is not available from {esc(platform)} yet.</p></div>'
+    variant = entry.get('variant') or 'Download'
+    suffix = ' · Apple silicon' if 'Apple silicon' in platform else ' · Intel' if 'Intel' in platform else ''
+    if platform == 'Linux' and 'Installer' in variant:
+        variant = 'Debian / Ubuntu (.deb)'
+    if variant == 'Installer' and platform.startswith('macOS'):
+        variant = 'Disk image (.dmg)'
+    sha = entry.get('sha256', '')
+    details = ''
+    if sha:
+        details = f'''<details class="dl__sum"><summary>Verify download</summary><div class="dl__sumbody">
+          <p>SHA-256</p><code class="dl__hashline">{esc(sha)}</code>
+          <div class="dl__sumrow"><button class="btn btn--ghost btn--sm" type="button" data-copy="{esc(sha)}">Copy<span class="vh"> checksum for {esc(variant + suffix)}</span></button>
+          <a class="textlink" href="{esc(entry['checksums'])}">SHA256SUMS</a><span class="dl__bytes">{entry['sizeBytes']:,} bytes</span></div></div></details>'''
+    return f'''<article class="download-file"><div class="download-file__row"><div><h3>{esc(variant + suffix)}</h3><p class="download-file__meta">{esc(entry.get('version', ''))} · {esc(entry.get('sizeShort', ''))}</p></div>
+      <a class="btn btn--primary btn--sm" href="{esc(entry['url'])}">Download<span class="vh"> {esc(platform + ' ' + variant)}</span><span aria-hidden="true"> ↓</span></a></div>{details}</article>'''
+
+
+def product(key):
+    wallet = key == 'wallet'
+    name = 'SWARM Wallet' if wallet else 'SWARM Node'
+    intro = 'Your wallet, wherever you are. Choose your platform to get started.' if wallet else 'Verify the chain. Support the network. Choose your platform to start mining.'
+    body = hero(name, intro, True)
+    groups = [('windows', 'Windows'), ('macos', 'macOS'), ('linux', 'Linux')]
+    if wallet:
+        groups += [('android', 'Android'), ('iphone', 'iPhone')]
+    body += '<section class="band band--cream"><div class="wrap download-layout"><div class="download-main"><h2>Choose your platform</h2><p class="download-intro">Find the right download for your device.</p><div class="platform-picker" data-platform-picker hidden><span class="vh" id="platform-label">Platform</span><div class="platform-options" role="group" aria-labelledby="platform-label">'
+    for slug, label in groups:
+        body += f'<button type="button" class="platform-choice" data-platform="{slug}" aria-controls="platform-{slug}" aria-pressed="false">{label}</button>'
+    body += '</div></div>'
+    for slug, label in groups:
+        entries = [e for e in DATA['entries'] if
+                   (e['product'] == key and ((slug == 'macos' and e['platform'].startswith('macOS')) or e['platform'].lower() == slug)) or
+                   (wallet and slug == 'android' and e['product'] == 'mobile-android') or
+                   (wallet and slug == 'iphone' and e['product'] == 'mobile-ios')]
+        tips = {
+            'windows': 'For Windows on Intel or AMD (64-bit). Unsigned test builds; Windows will show a warning.',
+            'macos': 'Choose Apple silicon for M-series Macs, or Intel for older Intel Macs. Check Apple menu → About This Mac. These test builds are not signed or notarized.',
+            'linux': 'For Intel or AMD (64-bit). Choose .deb for Debian / Ubuntu, or AppImage for a portable download.',
+            'android': 'A direct APK is available for testing. It is debug-signed; Android will show a warning.',
+            'iphone': 'The iPhone wallet is being prepared for release. A public download is not available yet.'}
+        body += f'<section class="platform-panel" id="platform-{slug}" data-platform-panel="{slug}" aria-labelledby="heading-{slug}"><h2 id="heading-{slug}">{label}</h2><p class="platform-help">{esc(tips[slug])}</p>'
+        body += ''.join(download(e) for e in entries) + '</section>'
+    other = 'node' if wallet else 'wallet'
+    body += f'''</div><aside class="download-aside"><p class="eyebrow">BEFORE YOU START</p><h2>A little preparation.</h2>
+      <p>{'Keep your recovery phrase backed up somewhere safe. Never share it.' if wallet else 'Mining needs a synced node and connected peers. Allow time for the first sync.'}</p>
+      <p>{'Mobile wallets let you send and receive. Phones do not mine.' if wallet else 'Have your SWARM payout address ready. You can get one from SWARM Wallet.'}</p>
+      <a class="textlink" href="/support">Need a hand? Get support →</a>
+      <div class="download-aside__other"><p>{'Want to mine?' if wallet else 'Need a wallet?'}</p><a class="textlink" href="/ecosystem/{other}">Explore SWARM {other.title()} →</a></div>
+      </aside></div><div class="wrap"><p class="ecosystem-note">Experimental testnet software. Test coins have no value. Every available build includes a SHA-256 checksum.</p></div></section>'''
+    return page(name, intro, '/ecosystem/' + key, body)
+
+
+def outputs():
+    overview = hero('Find your place in the swarm.', 'A wallet for your coins. A node for the network. Choose what you want to do.')
+    overview += '<section class="band band--cream"><div class="wrap">' + cards()
+    overview += '''<div class="ecosystem-more"><div><p class="eyebrow">EXPLORE</p><h2>Follow what we’re building.</h2></div>
+      <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p><span class="ecosystem-tag">Coming soon</span></div>
+      <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
+      <p class="ecosystem-note">SWARM is on testnet. Test coins have no value. iPhone and Google Play releases are coming soon; an Android test APK is available.</p></div></section>'''
+    yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform to download testnet software.', '/ecosystem', overview)
+    for key in ['wallet', 'node']:
+        yield f'ecosystem/{key}/index.html', product(key)
+
+
+if __name__ == '__main__':
+    stale = []
+    for path, content in outputs():
+        target = ROOT / path
+        if '--check' in sys.argv:
+            if not target.exists() or target.read_text(encoding='utf-8') != content:
+                stale.append(path)
+        else:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(content, encoding='utf-8', newline='\n')
+            print(path)
+    if stale:
+        sys.exit('Regenerate with python tools/build_ecosystem.py: ' + ', '.join(stale))
