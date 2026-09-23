@@ -162,6 +162,27 @@
     });
     frag.appendChild(dots);
 
+    /* Every place is NAMED on the map, not only on hover.
+       The owner reported on 2026-09-23 that "the heatmap locations are still not
+       showing up": a single 2.6 px dot on a world map is easy to look straight
+       past, and a tooltip needs a pointer to find. With few places the names fit,
+       so they are drawn while there are at most eight of them and the map stays a
+       heat map rather than a wall of text as the swarm grows. */
+    if (points.length <= 8) {
+      var names = svg("g");
+      points.forEach(function (p) {
+        var where = p.node.city + (p.node.country ? ", " + p.node.country : "");
+        var atEnd = p.x > W - 120;
+        names.appendChild(text({
+          x: (p.x + (atEnd ? -8 : 8)).toFixed(1), y: (p.y + 3.2).toFixed(1),
+          "text-anchor": atEnd ? "end" : "start",
+          fill: "#D9D1C4", "font-family": "JetBrains Mono, monospace", "font-size": "10",
+          "paint-order": "stroke", stroke: "#0A0908", "stroke-width": "3", "stroke-opacity": ".85"
+        }, where));
+      });
+      frag.appendChild(names);
+    }
+
     /* tooltip, built once and moved by transform */
     var tip = svg("g", { class: "map__tip", "aria-hidden": "true", visibility: "hidden" });
     var tipBox = svg("rect", { x: "0", y: "0", rx: "8", ry: "8", height: "40", fill: "#100E0C", "fill-opacity": ".96", stroke: "#FF8A1F", "stroke-opacity": ".4" });
@@ -274,21 +295,36 @@
   }
 
   /* -------------------------------------------------------- lazy trigger */
+  // Draw as soon as the page has settled, and once more if the figure is
+  // scrolled to. Whichever comes first, and only ever once.
+  //
+  // This used to wait for the figure to come within 300 px of the viewport, with
+  // a fallback that fired only when it was within two screens. Measured against
+  // the live site on 2026-09-23: at every width from 390 to 1440 the figure sat
+  // at opacity 0 with ZERO children drawn — no world, no markers — until it was
+  // scrolled to, which is what the owner reported as "the heatmap locations are
+  // still not showing up". The two files it needs are 65 KB, so waiting is not
+  // worth an empty map.
+  // The flag here is deliberately NOT `started`: that one belongs to start(),
+  // which sets it and returns early on a second call. Reusing it made the
+  // trigger below set the guard before start() could do its work, so the map
+  // silently drew nothing at all — measured on the local copy, 2026-09-23.
+  var triggered = false;
+  var io = null;
+  function startOnce() {
+    if (triggered) return;
+    triggered = true;
+    if (io) io.disconnect();
+    start();
+  }
   if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
+    io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        io.disconnect();
-        start();
+        if (e.isIntersecting) startOnce();
       });
     }, { rootMargin: "300px 0px" });
     io.observe(root);
-    // Belt and braces for renderers that never deliver the first callback.
-    window.setTimeout(function () {
-      var r = root.getBoundingClientRect();
-      if (r.top < window.innerHeight * 2) start();
-    }, 2500);
-  } else {
-    start();
   }
+  window.setTimeout(startOnce, 2500);
+  window.addEventListener("load", function () { window.setTimeout(startOnce, 200); });
 })();
