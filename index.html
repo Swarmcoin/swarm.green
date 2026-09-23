@@ -32,7 +32,7 @@
 <link rel="stylesheet" href="/css/site.css?v=4">
 <script src="/js/boot.js?v=4"></script>
 <script src="/js/site.js?v=4" defer></script>
-<script src="/js/map.js?v=5" defer></script>
+<script src="/js/map.js?v=6" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -339,26 +339,26 @@
       <div class="sec-head" data-reveal>
         <p class="eyebrow">The Swarm</p>
         <h2>Every glow is a real node.</h2>
-        <p>The map shows nodes whose operators chose to share a city-level location. Today that is one: the project&rsquo;s seed node in Dallas. Start a node, opt in, and your city lights up.</p>
+        <p>Every glow is a node connected to the SWARM network right now. The seed checks its connections every 30 seconds and places each node by city &mdash; never anything finer. Go offline and your glow goes with you.</p>
       </div>
 
       <figure class="swarmmap" data-map-root data-reveal>
         <div class="swarmmap__frame">
           <div class="swarmmap__plot">
-            <p class="swarmmap__pill" data-map-badge>1 NODE · UPDATED 21 SEP 2026</p>
-            <svg data-map viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet" role="group" aria-label="World map of the nodes that share a city-level location"></svg>
+            <p class="swarmmap__pill is-live" data-map-badge>1 NODE ONLINE · LIVE</p>
+            <svg data-map viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet" role="group" aria-label="World map of the nodes connected to the SWARM network right now"></svg>
             <p class="swarmmap__key" aria-hidden="true"><span>FEW</span><i></i><span>MANY</span></p>
           </div>
           <dl class="swarmmap__stats">
-            <div><dt>Nodes on the map</dt><dd data-map-total>1</dd><p>the project&rsquo;s seed node</p></div>
+            <div><dt>Nodes online</dt><dd data-map-total>1</dd><p>connected to the seed right now</p></div>
             <div><dt>Cities</dt><dd class="is-plain" data-map-cities>1</dd><p data-map-top>Dallas, US</p></div>
             <div><dt>Location detail</dt><dd class="is-plain">City level</dd><p>never finer than a city</p></div>
-            <div><dt>Listing</dt><dd class="is-plain">Opt-in</dd><p>off unless you switch it on</p></div>
+            <div><dt>Freshness</dt><dd class="is-plain">Live</dd><p>checked every 30 seconds</p></div>
           </dl>
         </div>
 
         <figcaption>
-          Not a census of the network — a list of the nodes that chose to appear on it.
+          A live census of the nodes connected to the seed right now — placed by city, and never finer.
           <span class="swarmmap__src">Source: <span data-map-source>Operated by the SWARM project</span> · updated <time data-map-updated datetime="2026-09-21">21 September 2026</time></span>
         </figcaption>
 
@@ -366,7 +366,7 @@
 
         <div class="swarmmap__table">
           <table class="minitable" data-map-table>
-            <caption>Nodes that share a city-level location.</caption>
+            <caption>Nodes connected to the seed right now.</caption>
             <thead>
               <tr><th scope="col">City</th><th scope="col">Country</th><th scope="col" class="num">Nodes</th></tr>
             </thead>

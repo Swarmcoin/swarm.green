@@ -1454,6 +1454,25 @@ tbody th { font-weight: 500; white-space: nowrap; }
   box-shadow: 0 0 8px var(--comb);
   animation: swarmPip 1.8s ease-in-out infinite;
 }
+/* Live census pill: green while it is fresh, dimmed once the seed has not
+   answered within the staleness window (see js/map.js LIVE_STALE_MS). */
+.swarmmap__pill.is-live {
+  color: var(--leaf);
+  border-color: rgba(63, 185, 80, .45);
+}
+.swarmmap__pill.is-live::before {
+  background: var(--leaf);
+  box-shadow: 0 0 8px var(--leaf);
+}
+.swarmmap__pill.is-stale {
+  color: var(--ink-dim);
+  border-color: rgba(154, 164, 178, .4);
+}
+.swarmmap__pill.is-stale::before {
+  background: var(--ink-dim);
+  box-shadow: none;
+  animation: none;
+}
 @keyframes swarmPip { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
 
 .swarmmap__key {

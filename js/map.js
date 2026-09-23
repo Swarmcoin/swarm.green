@@ -23,6 +23,15 @@
      data as real hotspots appear. */
   var R_MIN = 7, R_MAX = 46, R_REF = 12;
 
+  /* The live census supersedes the opt-in list: the seed publishes, every 30 s,
+     which nodes are connected to it right now, at city level. This origin is on
+     Caddy's allow-list for that file, so the fetch below is a legitimate
+     cross-origin read. If it cannot answer, the page falls back to the published
+     opt-in list and says so rather than inventing a count. */
+  var MAP_URL = "/data/swarm-map.json";
+  var LIVE_URL = "https://lwd.swarm.green/swarm-map-live.json";
+  var LIVE_STALE_MS = 3 * 60 * 1000;
+
   var root = document.querySelector("[data-map-root]");
   if (!root) return;
   var plot = root.querySelector("[data-map]");
@@ -61,6 +70,47 @@
     });
   }
 
+  function toMapData(live) {
+    var nodes = (live.places || []).map(function (p) {
+      return {
+        city: typeof p.city === "string" ? p.city : "",
+        country: typeof p.country === "string" ? p.country : "",
+        lon: Number(p.lon), lat: Number(p.lat), count: Number(p.count),
+        seed: !!p.seed
+      };
+    }).filter(function (n) {
+      return n.city && isFinite(n.lon) && isFinite(n.lat) && n.count > 0;
+    });
+    return {
+      nodes: nodes,
+      updated: typeof live.updated === "string" ? live.updated : null,
+      source: "Live: connected to the seed right now",
+      note: typeof live.note === "string" ? live.note : null,
+      live: true,
+      liveAgeMs: live.generated_unix ? Date.now() - live.generated_unix * 1000 : null
+    };
+  }
+
+  /* Try the live census first; fall back to the opt-in list if it is unusable. */
+  function loadMapData() {
+    return fetch(LIVE_URL, { credentials: "omit", cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (live) {
+        if (!live || live.live !== true || !Array.isArray(live.places) || !live.places.length) {
+          throw new Error("the live map has no places");
+        }
+        return toMapData(live);
+      })
+      .catch(function () {
+        return loadJson(MAP_URL).then(function (s) {
+          return {
+            nodes: (s && s.nodes) || [], updated: s && s.updated || null,
+            source: s && s.source || null, note: s && s.note || null, live: false
+          };
+        });
+      });
+  }
+
   function start() {
     if (started) return;
     started = true;
@@ -68,7 +118,7 @@
       loadScript("/js/vendor/topojson-client.min.js"),
       loadScript("/js/vendor/geo-natural-earth1.js")
     ])
-      .then(function () { return Promise.all([loadJson("/data/world-110m.json"), loadJson("/data/swarm-map.json")]); })
+      .then(function () { return Promise.all([loadJson("/data/world-110m.json"), loadMapData()]); })
       .then(function (res) { draw(res[0], res[1]); })
       .catch(function () { /* the visually hidden table is already the answer */ });
   }
@@ -252,14 +302,24 @@
     setText("[data-map-top]", biggest.city + (biggest.country ? ", " + biggest.country : ""));
     // Pill reads straight from the data: how many nodes, and when it was last
     // checked. Never "members", never "live" — this is a list, not a census.
+    var badgeEl = root.querySelector("[data-map-badge]") || document.querySelector("[data-map-badge]");
+    var liveStale = data.live && data.liveAgeMs != null && data.liveAgeMs > LIVE_STALE_MS;
     setText("[data-map-badge]",
-      nf(total) + (total === 1 ? " NODE" : " NODES") + (stamp ? " · UPDATED " + stamp : ""));
+      data.live
+        ? nf(total) + (total === 1 ? " NODE ONLINE" : " NODES ONLINE") + (liveStale ? " · LIVE (STALE)" : " · LIVE")
+        : nf(total) + (total === 1 ? " NODE" : " NODES") + (stamp ? " · UPDATED " + stamp : ""));
+    if (badgeEl) {
+      badgeEl.classList.toggle("is-live", !!data.live && !liveStale);
+      badgeEl.classList.toggle("is-stale", !!liveStale);
+    }
     if (data.source) setText("[data-map-source]", data.source);
     if (data.updated && !isNaN(when)) {
       var el = root.querySelector("[data-map-updated]") || document.querySelector("[data-map-updated]");
       if (el) {
-        el.setAttribute("datetime", data.updated.slice(0, 10));
-        el.textContent = when.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+        el.setAttribute("datetime", data.updated.slice(0, 20));
+        el.textContent = data.live
+          ? "checked continuously"
+          : when.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
       }
     }
     renderTable(nodes);
