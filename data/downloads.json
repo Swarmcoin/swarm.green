@@ -76,11 +76,11 @@
       "variant": "Installer",
       "version": "0.1.0-testnet.5",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.5/SWARM-Wallet-0.1.0-testnet.5-win-x64.exe",
-      "sha256": "24659f4b4f408717388d6b173bc966bf366ac8b7c6b3316d46182c335e0baae1",
+      "sha256": "460dcec4a79967917955a3463c305a6edf97865f23a25df0539a375725682fe9",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.5/SHA256SUMS",
       "role": "primary",
       "sizeShort": "165 MB",
-      "sizeBytes": 173056590,
+      "sizeBytes": 173084477,
       "notes": ""
     },
     {
@@ -118,11 +118,11 @@
       "variant": "Installer",
       "version": "0.2.0-testnet.5",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-win-x64.exe",
-      "sha256": "c703832b6fb248cf609abcda4c6053c31dfa2818ebdc75c47f229f94c505a22d",
+      "sha256": "95758c059b564bd59ea3f0a0c922eadb2dc894fd45e747ae29dad0801d64fa34",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SHA256SUMS",
       "role": "primary",
       "sizeShort": "141 MB",
-      "sizeBytes": 148027805,
+      "sizeBytes": 147719185,
       "notes": ""
     },
     {
@@ -132,11 +132,11 @@
       "variant": "Portable zip",
       "version": "0.2.0-testnet.5",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-win-x64.zip",
-      "sha256": "8841cc9764f1e402ac15c2afe527ef2fa5891f76d5013e3956f50688560e2c61",
+      "sha256": "695a017c632db3b8ac3c625b7a26fda8b6f4af7b7b2255d8b558d7001d9dfddc",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SHA256SUMS",
       "role": "alt",
       "sizeShort": "174 MB",
-      "sizeBytes": 182862732,
+      "sizeBytes": 182890693,
       "notes": "",
       "label": "Portable zip (174 MB)"
     },
