@@ -647,7 +647,7 @@
 
     var available = entries.filter(function (e) { return e.status === "available" && e.url; });
     var primary = available.filter(function (e) { return e.role !== "alt"; })[0];
-    var alts = available.filter(function (e) { return e.role === "alt"; });
+    var alts = available.filter(function (e) { return e !== primary; });
     var waiting = entries.filter(function (e) { return e.status !== "available" || !e.url; });
 
     var build = el("div", "dl__build");
@@ -680,7 +680,7 @@
     // an alternate build is a small link, not a second box
     alts.forEach(function (e) {
       var p = el("p", "dl__alt");
-      var link = el("a", "textlink", e.label || (e.variant + " (" + e.sizeShort + ")"));
+      var link = el("a", "textlink", (e.platform !== primary.platform ? e.platform + " · " : "") + (e.label || (e.variant + " (" + e.sizeShort + ")")));
       link.setAttribute("href", e.url);
       link.setAttribute("rel", "noopener noreferrer");
       p.appendChild(link);

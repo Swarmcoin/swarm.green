@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-09-22",
+    "updated": "2026-09-23",
     "note": "Source of truth for the Downloads section. Going live is a data change, not an HTML edit: set an entry's status to \"available\" and fill in version, url, sha256 and size. js/site.js renders this into every [data-downloads] block; the static HTML in index.html is the no-JavaScript fallback and must say the same thing.",
     "windowsNotice": "Unsigned test build — Windows will warn.",
     "mobileNotice": "Mobile apps are wallets only — phones do not mine.",
@@ -15,7 +15,7 @@
       "name": "SWARM Wallet",
       "tagline": "Desktop wallet",
       "detail": "Hold, send and receive — shielded or transparent.",
-      "platformLine": "Windows first, Linux and macOS to follow.",
+      "platformLine": "Windows, Linux and macOS.",
       "glyph": "desktop"
     },
     {
@@ -24,7 +24,7 @@
       "name": "SWARM Node",
       "tagline": "Full node and mining",
       "detail": "Run a full node and mine with one click.",
-      "platformLine": "Windows first, Linux and macOS to follow.",
+      "platformLine": "Windows, Linux and Apple silicon. Intel Mac build in progress.",
       "glyph": "desktop"
     },
     {
@@ -200,34 +200,6 @@
       "label": "Portable zip (174 MB)"
     },
     {
-      "product": "node",
-      "platform": "Linux",
-      "status": "coming-soon",
-      "variant": "",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
-      "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": ""
-    },
-    {
-      "product": "node",
-      "platform": "macOS",
-      "status": "coming-soon",
-      "variant": "",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
-      "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": ""
-    },
-    {
       "product": "mobile-ios",
       "platform": "App Store",
       "status": "coming-soon",
@@ -290,6 +262,76 @@
       "variant": "",
       "version": "",
       "url": "https://github.com/Swarm-Official/swarm-releases",
+      "sha256": "",
+      "checksums": "",
+      "role": "primary",
+      "sizeShort": "",
+      "sizeBytes": 0,
+      "notes": ""
+    },
+    {
+      "product": "node",
+      "platform": "Linux",
+      "status": "available",
+      "variant": "Installer (.deb)",
+      "version": "0.2.0-testnet.5",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-linux-amd64.deb",
+      "sha256": "9c89a5a1c963700fed6717152f26b9033135b533b2f64738b407c9208de9738b",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SHA256SUMS",
+      "role": "primary",
+      "sizeShort": "145 MB",
+      "sizeBytes": 151581972,
+      "notes": ""
+    },
+    {
+      "product": "node",
+      "platform": "Linux",
+      "status": "available",
+      "variant": "Portable AppImage",
+      "version": "0.2.0-testnet.5",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-linux-x86_64.AppImage",
+      "sha256": "cc4297be11619f404375e34fff5526841d6c4fc0b9be10f3788f5e1113df8507",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SHA256SUMS",
+      "role": "alt",
+      "sizeShort": "191 MB",
+      "sizeBytes": 199897166,
+      "notes": ""
+    },
+    {
+      "product": "node",
+      "platform": "macOS (Apple silicon)",
+      "status": "available",
+      "variant": "Disk image",
+      "version": "0.2.0-testnet.5",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-mac-arm64.dmg",
+      "sha256": "437d3ea75fb3b7406316e13421264b4a73804759dfd50fd3e280511d773c9d2d",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SHA256SUMS",
+      "role": "primary",
+      "sizeShort": "162 MB",
+      "sizeBytes": 170117666,
+      "notes": ""
+    },
+    {
+      "product": "node",
+      "platform": "macOS (Apple silicon)",
+      "status": "available",
+      "variant": "Portable zip",
+      "version": "0.2.0-testnet.5",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SWARM-Node-0.2.0-testnet.5-mac-arm64.zip",
+      "sha256": "b2af5cd797cb38a90cb6fd1f0764984467d5e03f38849c0074efd8f18982467a",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.5/SHA256SUMS",
+      "role": "alt",
+      "sizeShort": "158 MB",
+      "sizeBytes": 165898096,
+      "notes": ""
+    },
+    {
+      "product": "node",
+      "platform": "macOS (Intel)",
+      "status": "coming-soon",
+      "variant": "",
+      "version": "",
+      "url": "",
       "sha256": "",
       "checksums": "",
       "role": "primary",
