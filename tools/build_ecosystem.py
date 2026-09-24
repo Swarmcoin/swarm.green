@@ -46,10 +46,10 @@ def cards():
     return result + '</div>'
 
 
-def download(entry):
+def download(entry, product_name):
     platform = entry['platform']
     if entry['status'] != 'available' or not entry.get('url'):
-        return f'<div class="download-empty"><span class="ecosystem-tag">Coming soon</span><h3>{esc(platform)}</h3><p>This wallet is not available from {esc(platform)} yet.</p></div>'
+        return f'<div class="download-empty"><span class="ecosystem-tag">Coming soon</span><h3>{esc(platform)}</h3><p>{esc(product_name)} is not available for {esc(platform)} yet.</p></div>'
     variant = entry.get('variant') or 'Download'
     suffix = ' · Apple silicon' if 'Apple silicon' in platform else ' · Intel' if 'Intel' in platform else ''
     if platform == 'Linux' and 'Installer' in variant:
@@ -86,7 +86,7 @@ def product(key):
                    (wallet and slug == 'iphone' and e['product'] == 'mobile-ios')]
         tips = {
             'windows': 'For Windows on Intel or AMD (64-bit). Unsigned test builds; Windows will show a warning.',
-            'macos': 'Choose Apple silicon for M-series Macs, or Intel for older Intel Macs. Check Apple menu → About This Mac. These test builds are not signed or notarized.',
+            'macos': 'Apple silicon downloads are signed and notarized. Intel Mac downloads are coming later. Check Apple menu → About This Mac to see which processor you have.',
             'linux': 'For Intel or AMD (64-bit). Choose .deb for Debian / Ubuntu, or AppImage for a portable download.',
             'android': 'A direct APK is available for testing. It is debug-signed; Android will show a warning.',
             'iphone': 'The iPhone wallet is being prepared for release. A public download is not available yet.'}
@@ -95,7 +95,7 @@ def product(key):
             tips[slug] = 'Mac downloads are temporarily paused while updated builds are tested.'
         body += f'<section class="platform-panel" id="platform-{slug}" data-platform-panel="{slug}" aria-labelledby="heading-{slug}"><h2 id="heading-{slug}">{label}</h2><p class="platform-help">{esc(tips[slug])}</p>'
         body += ('<div class="download-empty"><span class="ecosystem-tag">Update in progress</span><p>Apple silicon and Intel downloads will return after installation and launch checks pass.</p></div>'
-                 if paused_mac else ''.join(download(e) for e in entries)) + '</section>'
+                 if paused_mac else ''.join(download(e, name) for e in entries)) + '</section>'
     other = 'node' if wallet else 'wallet'
     body += f'''</div><aside class="download-aside"><p class="eyebrow">BEFORE YOU START</p><h2>A little preparation.</h2>
       <p>{'Keep your recovery phrase backed up somewhere safe. Never share it.' if wallet else 'Mining needs a synced node and connected peers. Allow time for the first sync.'}</p>
@@ -131,7 +131,7 @@ if __name__ == '__main__':
                 stale.append(path)
         else:
             target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(content, encoding='utf-8', newline='\n')
+            target.write_text(content, encoding='utf-8')
             print(path)
     if stale:
         sys.exit('Regenerate with python tools/build_ecosystem.py: ' + ', '.join(stale))

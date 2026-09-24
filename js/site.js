@@ -599,11 +599,9 @@
   /* ------------------------------------------------------------------ */
   /* ------------------------------------------------------------------ */
   /* 5. Downloads                                                        */
-  /* data/downloads.json is the source of truth. Today every app entry is */
-  /* "coming-soon" and renders the same disabled button as the static     */
-  /* markup. Setting one to "available" turns its row into a real link    */
-  /* with a version, a size and a checksum — a data change, not an HTML   */
-  /* edit. The static markup stays as the no-JavaScript fallback.         */
+  /* data/downloads.json is the source of truth. Available entries render */
+  /* with a version, size and checksum; pending entries stay disabled.     */
+  /* The static markup remains the no-JavaScript fallback.                */
   /* ------------------------------------------------------------------ */
   /* Generic glyphs, drawn here. Deliberately not Apple's or Google's store
      badges: their guidelines do not allow badge artwork for an app that is not
