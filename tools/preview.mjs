@@ -74,6 +74,18 @@ const server = createServer(async (req, res) => {
   }
 
   // trailingSlash: false
+  if (pathname === "/data/swarm-map-live.json") {
+    try {
+      const upstream = await fetch("https://lwd.swarm.green/swarm-map-live.json", { signal: AbortSignal.timeout(12000) });
+      const body = await upstream.text();
+      res.writeHead(upstream.status, { ...SITE_HEADERS, "Content-Type": "application/json", "Cache-Control": "no-store" });
+      res.end(body);
+    } catch {
+      res.writeHead(502, { "Cache-Control": "no-store" }).end("Live map unavailable");
+    }
+    return;
+  }
+
   if (pathname.length > 1 && pathname.endsWith("/")) {
     res.writeHead(308, { Location: pathname.replace(/\/+$/, "") }).end();
     return;

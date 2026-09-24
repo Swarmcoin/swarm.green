@@ -2,7 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/data/swarm-map-live.json", "destination": "https://lwd.swarm.green/swarm-map-live.json" }
+  ],
   "headers": [
+    {
+      "source": "/data/swarm-map-live.json",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    },
     {
       "source": "/(.*)",
       "headers": [

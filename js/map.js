@@ -24,12 +24,11 @@
   var R_MIN = 7, R_MAX = 46, R_REF = 12;
 
   /* The live census supersedes the opt-in list: the seed publishes, every 30 s,
-     which nodes are connected to it right now, at city level. This origin is on
-     Caddy's allow-list for that file, so the fetch below is a legitimate
-     cross-origin read. If it cannot answer, the page falls back to the published
+     which nodes are connected to it right now, at city level. A fixed Vercel
+     rewrite serves the census from this site under its existing security policy. If it cannot answer, the page falls back to the published
      opt-in list and says so rather than inventing a count. */
   var MAP_URL = "/data/swarm-map.json";
-  var LIVE_URL = "https://lwd.swarm.green/swarm-map-live.json";
+  var LIVE_URL = "/data/swarm-map-live.json";
   var LIVE_STALE_MS = 3 * 60 * 1000;
 
   var root = document.querySelector("[data-map-root]");
@@ -71,6 +70,10 @@
   }
 
   function toMapData(live) {
+    var generated = Number(live.generated_unix) * 1000;
+    if (!isFinite(generated) || generated <= 0 || generated > Date.now() + 60000) {
+      throw new Error("the live map has no valid generation time");
+    }
     var nodes = (live.places || []).map(function (p) {
       return {
         city: typeof p.city === "string" ? p.city : "",
@@ -87,7 +90,8 @@
       source: "Live: connected to the seed right now",
       note: typeof live.note === "string" ? live.note : null,
       live: true,
-      liveAgeMs: live.generated_unix ? Date.now() - live.generated_unix * 1000 : null
+      liveAgeMs: Math.max(0, Date.now() - generated),
+      nodesOnline: Number.isInteger(live.nodes_online) && live.nodes_online >= 0 ? live.nodes_online : null
     };
   }
 
@@ -119,7 +123,15 @@
       loadScript("/js/vendor/geo-natural-earth1.js")
     ])
       .then(function () { return Promise.all([loadJson("/data/world-110m.json"), loadMapData()]); })
-      .then(function (res) { draw(res[0], res[1]); })
+      .then(function (res) {
+        draw(res[0], res[1]);
+        function refresh() {
+          loadMapData().then(function (data) { draw(res[0], data); })
+            .catch(function () { setText("[data-map-badge]", "MAP UNAVAILABLE · RETRYING"); })
+            .finally(function () { window.setTimeout(refresh, 30000); });
+        }
+        window.setTimeout(refresh, 30000);
+      })
       .catch(function () { /* the visually hidden table is already the answer */ });
   }
 
@@ -297,7 +309,8 @@
     var stamp = isNaN(when) ? ""
       : when.getUTCDate() + " " + MONTHS[when.getUTCMonth()] + " " + when.getUTCFullYear();
 
-    setText("[data-map-total]", nf(total));
+    var online = data.nodesOnline == null ? total : data.nodesOnline;
+    setText("[data-map-total]", nf(online));
     setText("[data-map-cities]", nf(cities));
     setText("[data-map-top]", biggest.city + (biggest.country ? ", " + biggest.country : ""));
     // Pill reads straight from the data: how many nodes, and when it was last
@@ -306,7 +319,7 @@
     var liveStale = data.live && data.liveAgeMs != null && data.liveAgeMs > LIVE_STALE_MS;
     setText("[data-map-badge]",
       data.live
-        ? nf(total) + (total === 1 ? " NODE ONLINE" : " NODES ONLINE") + (liveStale ? " · LIVE (STALE)" : " · LIVE")
+        ? nf(online) + (online === 1 ? " NODE ONLINE" : " NODES ONLINE") + (liveStale ? " · LIVE (STALE)" : " · LIVE")
         : nf(total) + (total === 1 ? " NODE" : " NODES") + (stamp ? " · UPDATED " + stamp : ""));
     if (badgeEl) {
       badgeEl.classList.toggle("is-live", !!data.live && !liveStale);
