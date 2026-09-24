@@ -15,7 +15,7 @@
       "name": "SWARM Wallet",
       "tagline": "Desktop wallet",
       "detail": "Hold, send and receive — shielded or transparent.",
-      "platformLine": "Windows, Linux and macOS on Apple silicon. Intel Mac build coming later.",
+      "platformLine": "Windows, Linux and macOS on Apple silicon and Intel.",
       "glyph": "desktop"
     },
     {
@@ -24,7 +24,7 @@
       "name": "SWARM Node",
       "tagline": "Full node and mining",
       "detail": "Run a full node and mine with one click.",
-      "platformLine": "Windows, Linux and macOS on Apple silicon. Intel Mac build coming later.",
+      "platformLine": "Windows, Linux and macOS on Apple silicon and Intel.",
       "glyph": "desktop"
     },
     {
@@ -159,31 +159,31 @@
     {
       "product": "wallet",
       "platform": "macOS (Intel)",
-      "status": "coming-soon",
+      "status": "available",
       "variant": "Installer",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
+      "version": "0.1.0-testnet.7",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.7/SWARM-Wallet-0.1.0-testnet.7-x64.dmg",
+      "sha256": "39356f05092834fd0ad6e032f9455cbbaa58d5038d9a6e2724dd332956888b66",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.7/SHA256SUMS-mac-x64",
       "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": "Mac downloads are paused while updated builds are tested."
+      "sizeShort": "208 MB",
+      "sizeBytes": 208384631,
+      "notes": "Signed and notarized for Intel Macs."
     },
     {
       "product": "wallet",
       "platform": "macOS (Intel)",
-      "status": "coming-soon",
+      "status": "available",
       "variant": "Portable zip",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
+      "version": "0.1.0-testnet.7",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.7/SWARM-Wallet-0.1.0-testnet.7-x64.zip",
+      "sha256": "6184710a388704114e5be43242c442fa22f5561ef4d1b6adade7b1c0c2ae7c15",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-testnet.7/SHA256SUMS-mac-x64",
       "role": "alt",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": "Mac downloads are paused while updated builds are tested.",
-      "label": "Portable zip (191 MB)"
+      "sizeShort": "210 MB",
+      "sizeBytes": 209686845,
+      "notes": "Signed and notarized for Intel Macs.",
+      "label": "Portable zip (210 MB)"
     },
     {
       "product": "node",
@@ -344,30 +344,31 @@
     {
       "product": "node",
       "platform": "macOS (Intel)",
-      "status": "coming-soon",
+      "status": "available",
       "variant": "Disk image",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
+      "version": "0.2.0-testnet.7",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.7/SWARM-Node-0.2.0-testnet.7-mac-x64.dmg",
+      "sha256": "ad30ebc0d7e422f2ef48f98d9b27ed3b1a38e667def288dc4e5a60d0cbc806b2",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.7/SHA256SUMS-mac-x64",
       "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": "Mac downloads are paused while updated builds are tested."
+      "sizeShort": "191 MB",
+      "sizeBytes": 191141089,
+      "notes": "Signed and notarized for Intel Macs."
     },
     {
       "product": "node",
       "platform": "macOS (Intel)",
-      "status": "coming-soon",
+      "status": "available",
       "variant": "Portable zip",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
+      "version": "0.2.0-testnet.7",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.7/SWARM-Node-0.2.0-testnet.7-mac-x64.zip",
+      "sha256": "3796918fc58c2078cc233a99594791f6030019938d2d927421fa8db27ffb7546",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-testnet.7/SHA256SUMS-mac-x64",
       "role": "alt",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": "Mac downloads are paused while updated builds are tested."
+      "sizeShort": "178 MB",
+      "sizeBytes": 178364925,
+      "notes": "Signed and notarized for Intel Macs.",
+      "label": "Portable zip (178 MB)"
     }
   ]
 }
