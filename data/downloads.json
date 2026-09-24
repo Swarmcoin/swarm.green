@@ -1,12 +1,12 @@
 {
   "meta": {
     "updated": "2026-09-24",
-    "note": "Source of truth for the Downloads section. Going live is a data change, not an HTML edit: set an entry's status to \"available\" and fill in version, url, sha256 and size. js/site.js renders this into every [data-downloads] block; the static HTML in index.html is the no-JavaScript fallback and must say the same thing.",
-    "windowsNotice": "Unsigned test build â€” Windows will warn.",
-    "mobileNotice": "Mobile apps are wallets only â€” phones do not mine.",
+    "note": "Download metadata for the ecosystem pages. After updating entries, run python tools/build_ecosystem.py and verify with --check. Every available entry must have a working URL, version, SHA-256 and byte size.",
+    "windowsNotice": "Unsigned test build — Windows will warn.",
+    "mobileNotice": "Mobile apps are wallets only — phones do not mine.",
     "releasesUrl": "https://github.com/Swarm-Official/swarm-releases",
     "releasesLabel": "All downloads and checksums: github.com/Swarm-Official/swarm-releases",
-    "unsignedNotice": "Unsigned test build â€” your system will warn."
+    "unsignedNotice": "Unsigned test build — your system will warn."
   },
   "products": [
     {
@@ -14,7 +14,7 @@
       "kind": "app",
       "name": "SWARM Wallet",
       "tagline": "Desktop wallet",
-      "detail": "Hold, send and receive â€” shielded or transparent.",
+      "detail": "Hold, send and receive — shielded or transparent.",
       "platformLine": "Windows, Linux and macOS.",
       "glyph": "desktop"
     },
@@ -33,9 +33,9 @@
       "name": "SWARM Wallet for iPhone",
       "tagline": "App Store",
       "detail": "The same wallet on your phone.",
-      "platformLine": "Mobile apps are wallets only â€” phones do not mine.",
+      "platformLine": "Mobile apps are wallets only — phones do not mine.",
       "glyph": "phone",
-      "soonSpec": "iPhone Â· App Store"
+      "soonSpec": "iPhone · App Store"
     },
     {
       "key": "mobile-android",
@@ -43,7 +43,7 @@
       "name": "SWARM Wallet for Android",
       "tagline": "Google Play",
       "detail": "The same wallet on your phone.",
-      "platformLine": "Mobile apps are wallets only â€” phones do not mine.",
+      "platformLine": "Mobile apps are wallets only — phones do not mine.",
       "glyph": "phone"
     },
     {
@@ -55,7 +55,7 @@
       "platformLine": "",
       "navLabel": "Explorer",
       "glyph": "explorer",
-      "soonSpec": "Web Â· explore.swarm.green"
+      "soonSpec": "Web · explore.swarm.green"
     },
     {
       "key": "source",
@@ -65,7 +65,7 @@
       "detail": "Every component and what it is based on.",
       "platformLine": "",
       "glyph": "code",
-      "soonSpec": "GitHub Â· swarm-releases"
+      "soonSpec": "GitHub · swarm-releases"
     }
   ],
   "entries": [
@@ -240,7 +240,7 @@
       "role": "primary",
       "sizeShort": "227 MB",
       "sizeBytes": 237629428,
-      "notes": "Debug-signed test build â€” Android will warn."
+      "notes": "Debug-signed test build — Android will warn."
     },
     {
       "product": "mobile-android",
