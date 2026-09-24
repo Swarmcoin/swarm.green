@@ -90,8 +90,12 @@ def product(key):
             'linux': 'For Intel or AMD (64-bit). Choose .deb for Debian / Ubuntu, or AppImage for a portable download.',
             'android': 'A direct APK is available for testing. It is debug-signed; Android will show a warning.',
             'iphone': 'The iPhone wallet is being prepared for release. A public download is not available yet.'}
+        paused_mac = slug == 'macos' and entries and all(e['status'] != 'available' for e in entries)
+        if paused_mac:
+            tips[slug] = 'Mac downloads are temporarily paused while updated builds are tested.'
         body += f'<section class="platform-panel" id="platform-{slug}" data-platform-panel="{slug}" aria-labelledby="heading-{slug}"><h2 id="heading-{slug}">{label}</h2><p class="platform-help">{esc(tips[slug])}</p>'
-        body += ''.join(download(e) for e in entries) + '</section>'
+        body += ('<div class="download-empty"><span class="ecosystem-tag">Update in progress</span><p>Apple silicon and Intel downloads will return after installation and launch checks pass.</p></div>'
+                 if paused_mac else ''.join(download(e) for e in entries)) + '</section>'
     other = 'node' if wallet else 'wallet'
     body += f'''</div><aside class="download-aside"><p class="eyebrow">BEFORE YOU START</p><h2>A little preparation.</h2>
       <p>{'Keep your recovery phrase backed up somewhere safe. Never share it.' if wallet else 'Mining needs a synced node and connected peers. Allow time for the first sync.'}</p>
@@ -103,10 +107,14 @@ def product(key):
 
 
 def outputs():
+    explorer = next(e for e in DATA['entries'] if e['product'] == 'explorer')
+    explorer_link = (f'<a class="textlink" href="{esc(explorer["url"])}">Open explorer →</a>'
+                     if explorer['status'] == 'available' and explorer.get('url')
+                     else '<span class="ecosystem-tag">Coming soon</span>')
     overview = hero('Find your place in the swarm.', 'A wallet for your coins. A node for the network. Choose what you want to do.')
     overview += '<section class="band band--cream"><div class="wrap">' + cards()
-    overview += '''<div class="ecosystem-more"><div><p class="eyebrow">EXPLORE</p><h2>Follow what we’re building.</h2></div>
-      <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p><span class="ecosystem-tag">Coming soon</span></div>
+    overview += f'''<div class="ecosystem-more"><div><p class="eyebrow">EXPLORE</p><h2>Follow what we’re building.</h2></div>
+      <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p>{explorer_link}</div>
       <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
       <p class="ecosystem-note">SWARM is on testnet. Test coins have no value. iPhone and Google Play releases are coming soon; an Android test APK is available.</p></div></section>'''
     yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform to download testnet software.', '/ecosystem', overview)
