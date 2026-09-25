@@ -10,6 +10,15 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent  # repository root
 # data file, which is copied from the published network manifest. The
 # baseline-miner payout address is operational, not consensus, and is not here.
 GENESIS = json.loads((ROOT / "data" / "network.json").read_text(encoding="utf-8"))["genesis"]
+# Launch-day site: every page states that mainnet is live, so it must never be
+# built (and therefore never deployed) with the testnet genesis in the data
+# file. Local previews before launch set SWARM_ALLOW_PRELAUNCH_BUILD=1.
+import os
+if GENESIS.get("network") != "SwarmMainnet" and not os.environ.get("SWARM_ALLOW_PRELAUNCH_BUILD"):
+    raise SystemExit("refusing to build: data/network.json genesis is %r, not SwarmMainnet. "
+                     "Copy the mainnet genesis and destinations from the launch manifest first "
+                     "(README: launch checklist). For a local preview only: SWARM_ALLOW_PRELAUNCH_BUILD=1."
+                     % GENESIS.get("network"))
 
 
 def esc(value):
@@ -69,7 +78,7 @@ def head(title, desc, path, og_title, og_desc):
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<p class="ribbon"><span class="dot"></span><b>Mainnet</b> in preparation · the public testnet is live — test coins have no value.</p>
+<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · run a node, mine a block, send a shielded payment.</p>
 
 <header class="nav">
   <div class="wrap nav__bar">
@@ -84,7 +93,7 @@ def head(title, desc, path, og_title, og_desc):
       <a href="/#swarm">The Swarm</a>
       <a href="/ecosystem">Ecosystem</a>
       <a href="/#join">Join</a>
-      <a href="/mainnet">Mainnet</a>
+      <a href="/roadmap">Roadmap</a>
       <a href="/#faq">FAQ</a>
       <a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a>
     </nav>
@@ -101,7 +110,7 @@ def head(title, desc, path, og_title, og_desc):
         <li><a href="/#swarm">The Swarm</a></li>
         <li><a href="/ecosystem">Ecosystem</a></li>
         <li><a href="/#join">Join</a></li>
-        <li><a href="/mainnet">Mainnet</a></li>
+        <li><a href="/roadmap">Roadmap</a></li>
         <li><a href="/#faq">FAQ</a></li>
         <li><a href="/network">Network &amp; supply</a></li>
         <li><a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">GitHub</a></li>
@@ -124,7 +133,7 @@ FOOTER = f"""</main>
           <img src="/assets/logo-mark.svg?v=2" alt="" width="56" height="27">
           <span>SWARM</span>
         </a>
-        <p>Private, proof-of-work money run by its community. Mainnet in preparation; the public testnet is live and test coins have no value.</p>
+        <p>Private, proof-of-work money run by its community. Mainnet is live.</p>
       </div>
 
       <nav aria-labelledby="ft-net">
@@ -134,15 +143,14 @@ FOOTER = f"""</main>
           <li><a href="/#honey">Honey</a></li>
           <li><a href="/#swarm">The Swarm</a></li>
           <li><a href="/network">Network &amp; supply</a></li>
-          <li><a href="/#roadmap">The road to mainnet</a></li>
-          <li><a href="/mainnet">Mainnet</a></li>
+          <li><a href="/roadmap">Roadmap</a></li>
         </ul>
       </nav>
 
       <nav aria-labelledby="ft-get">
         <h2 id="ft-get">Get started</h2>
         <ul>
-          <li><a href="/join">Join the swarm</a></li>
+          <li><a href="/join">Get SWARM</a></li>
           <li><a href="/ecosystem">Ecosystem</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a></li>
@@ -168,7 +176,7 @@ FOOTER = f"""</main>
     </div>
 
     <div class="footer__bottom">
-      <p><strong>Experimental software. Mainnet has not launched.</strong> Today&rsquo;s downloads run on the public testnet and test coins have no value. Nothing on this site is an offer, a solicitation or financial advice; there is no sale, no token offering and no launch date. SWARM is not affiliated with or endorsed by the Electric Coin Company, the Zcash Foundation, Zingo Labs, Foursquare&rsquo;s Swarm app, or the Ethereum Swarm (BZZ) project.</p>
+      <p><strong>Open-source software, provided as is.</strong> Nothing on this site is an offer, a solicitation or financial advice. SWM has no guaranteed value and can lose value, including all of it. There is no sale and no token offering. SWARM is not affiliated with or endorsed by the Electric Coin Company, the Zcash Foundation, Zingo Labs, Foursquare&rsquo;s Swarm app, or the Ethereum Swarm (BZZ) project.</p>
       <div class="row">
         <p>© 2026 SWARM contributors. Open source.</p>
         <p>swarm.green</p>
@@ -230,7 +238,7 @@ params = [
     ("Privacy", "Optional. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs."),
     ("Lineage", "Forked from open-source Zcash software — the Zebra full node, the Zaino indexer and the Zingo desktop wallet — with consensus rules and cryptography left unmodified."),
     ("Ticker", "SWM"),
-    ("Status", "Mainnet in preparation. The public testnet has run these rules unchanged since 21 September 2026; test coins have no monetary value and do not carry over."),
+    ("Status", "Mainnet, live."),
 ]
 param_rows = "\n".join(
     f'          <tr><th scope="row">{k}</th><td>{v}</td></tr>' for k, v in params)
@@ -286,15 +294,15 @@ genesis_rows = "\n".join(
 
 network = head(
     "Network &amp; supply — SWARM",
-    "Every SWARM mainnet parameter in one place: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM, no premine, and the four-way block reward split fixed for the whole emission schedule. Already running on the public testnet.",
+    "Every SWARM parameter in one place: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM, no premine, the four-way block reward split fixed for the whole emission schedule, and the genesis block it is all fixed in.",
     "/network",
     "SWARM — Network &amp; supply",
     "75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and no premine.",
 ) + page_head(
     "Network &amp; supply",
     "Every number, in one place.",
-    "These are the mainnet rules. The monetary base is inherited from the Zcash design and fixed in the code, and the public testnet has been running it unchanged since 21 September 2026. Nothing on this page is a projection — it is arithmetic you can check yourself against the source.",
-    pill="Mainnet rules · live on the public testnet",
+    "The monetary base is inherited from the Zcash design and fixed in the code. Nothing on this page is a projection — it is arithmetic you can check yourself against the source, and against the chain in the block explorer.",
+    pill="Mainnet · live",
 ) + f"""
   <section class="band band--cream">
     <div class="wrap">
@@ -390,14 +398,14 @@ network = head(
       <div class="sec-head mt-l" data-reveal>
         <p class="eyebrow">Genesis rules</p>
         <h2>The three destinations, in full.</h2>
-        <p>These are the addresses the allocations are paid to on the SWARM <strong>public testnet</strong>, and the genesis block they are fixed in. They are part of the network definition every node loads, so a node with different addresses rejects this chain&rsquo;s blocks and forks itself off.</p>
-        <p class="mt-s">Mainnet gets its own genesis block and fresh destination addresses, generated offline under a published custody policy and fixed into the launch rules before block 1. They will be listed here, in the same form, when they exist. <a class="textlink" href="/mainnet">What changes at mainnet</a></p>
+        <p>These are the addresses the allocations are paid to, and the genesis block they are fixed in. They are part of the network definition every node loads, so a node with different addresses rejects this chain&rsquo;s blocks and forks itself off. Compare the genesis hash below with what your node reports: if they match, you are on SWARM.</p>
+        <p class="mt-s">The keys behind the three addresses were generated offline and are held under the custody policy published with the launch manifest in the <a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">release repository{EXT}</a>.</p>
         <p class="mt-s">{esc(GENESIS["addressType"])} {esc(GENESIS["custody"])}</p>
       </div>
 
       <div class="tablewrap" data-reveal>
         <table>
-          <caption>Allocation destinations on the SWARM testnet. Test coins have no monetary value.</caption>
+          <caption>Allocation destinations, fixed in the genesis rules.</caption>
           <thead>
             <tr><th scope="col">Allocation</th><th scope="col">Share</th><th scope="col">Destination address</th></tr>
           </thead>
@@ -424,7 +432,7 @@ network = head(
         </article>
         <article class="card">
           <h3>The reserve</h3>
-          <p>Paid block by block to its own predefined address, like the other allocations. How it is governed and spent will be defined separately and published before mainnet launches.</p>
+          <p>Paid block by block to its own predefined address, like the other allocations. How it is governed and spent is set out in the custody policy published with the launch manifest.</p>
         </article>
       </div>
     </div>
@@ -451,7 +459,7 @@ network = head(
         </table>
       </div>
       <div class="cta-row mt-l" data-reveal>
-        <a class="btn btn--primary" href="/join">Join the public testnet</a>
+        <a class="btn btn--primary" href="/join">Get SWARM</a>
         <a class="btn btn--ghost" href="{GH}" target="_blank" rel="noopener noreferrer">Read the source{EXT}</a>
       </div>
     </div>
@@ -462,16 +470,16 @@ write("network/index.html", network)
 
 # ------------------------------------------------------------------- /join
 join = head(
-    "Join the swarm — SWARM",
-    "How to run SWARM: get the wallet, run a full node, and start CPU mining with one click on the public testnet. The same apps carry you to mainnet. Nothing runs without your consent.",
+    "Get SWARM — SWARM",
+    "How to run SWARM: get the wallet, run a full node, and start CPU mining with one click. Nothing runs without your consent.",
     "/join",
-    "Join the SWARM public testnet",
-    "Get the wallet, run a node, start foraging. Public testnet downloads are live; test coins have no value.",
+    "Get SWARM",
+    "Get the wallet, run a node, start foraging.",
 ) + page_head(
-    "Join",
+    "Get SWARM",
     "Join the swarm.",
-    "Choose a wallet, run a node, and join the public testnet today. Everything you learn here carries over to mainnet; the test coins do not. Nothing runs without you pressing the button.",
-    pill="Public testnet · downloads live",
+    "Choose a wallet, run a node, and join the network. Nothing runs without you pressing the button.",
+    pill="Mainnet · live",
 ) + f"""
   <section class="band band--cream">
     <div class="wrap">
@@ -504,7 +512,7 @@ join = head(
           <p class="step__app">SWARM Node</p>
           <h3>Start foraging</h3>
           <p>The same app has a mining switch. Press <strong>Start</strong> and your CPU begins looking for blocks; press <strong>Stop</strong> and it stops. That is the whole interface.</p>
-          <p class="mt-s">The proof of work is Equihash and the chain starts at minimum difficulty, so an ordinary computer can take part from the first block — on the testnet today and on mainnet at launch. As the network grows and difficulty rises, specialised miners can join too — nothing in the rules keeps anyone out.</p>
+          <p class="mt-s">The proof of work is Equihash and the chain started at minimum difficulty, so an ordinary computer can take part. As the network grows and difficulty rises, specialised miners can join too — nothing in the rules keeps anyone out.</p>
           <a class="btn btn--primary" href="/ecosystem/node">Start mining</a>
         </article>
       </div>
@@ -514,8 +522,8 @@ join = head(
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
           <h3>SWARM Explorer</h3>
-          <p>A block explorer, so you can watch what the chain is actually doing: blocks as they are found, the supply as it is issued, and the four-way allocation in every block. Live for the public testnet.</p>
-          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="https://lwd.swarm.green:8443">Open the explorer{EXT}</a></p>
+          <p>A block explorer, so you can watch what the chain is actually doing: blocks as they are found, the supply as it is issued, and the four-way allocation in every block.</p>
+          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="/ecosystem">Open the explorer{ARROW}</a></p>
         </article>
         <article class="card">
           <h3>Build it yourself</h3>
@@ -548,7 +556,7 @@ join = head(
           </div>
           <h3>Mining only runs when you say so</h3>
           <p>Mining starts when you press <strong>Start</strong> and stops when you press <strong>Stop</strong>. It never starts by itself, it never runs hidden in the background, and there is no &ldquo;silent&rdquo; mode.</p>
-          <p class="mt-s">Mining uses your processor and your electricity. On the testnet what you earn is test coins, which have no monetary value and do not carry over to mainnet.</p>
+          <p class="mt-s">Mining uses your processor and your electricity. What you earn is SWM, paid to the payout address you choose, once each reward has matured for 100 blocks.</p>
         </article>
       </div>
 
@@ -570,12 +578,12 @@ join = head(
     <div class="wrap wrap--narrow">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Reminder</p>
-        <h2>Testnet today, mainnet next.</h2>
-        <p>Test coins have no monetary value and are not converted into mainnet coins. The testnet chain may be reset without warning while the software is being built. Mainnet launches only after the gates on the road to mainnet are passed; there is no sale, no token offering and no launch date. When mainnet launches, create a fresh wallet for it rather than reusing a testnet recovery phrase.</p>
+        <h2>Your keys, your coins.</h2>
+        <p>Nobody can freeze, reverse or recover a SWARM payment for you — not us, not anyone. That is the point, and it cuts both ways: keep your recovery phrase safe, check an address before you send, and treat anyone who asks for your phrase as a thief.</p>
       </div>
       <div class="cta-row" data-reveal>
-        <a class="btn btn--primary" href="/mainnet">The road to mainnet</a>
-        <a class="btn btn--ghost" href="/network">See the supply schedule</a>
+        <a class="btn btn--primary" href="/network">See the supply schedule</a>
+        <a class="btn btn--ghost" href="/roadmap">What comes next</a>
       </div>
     </div>
   </section>
@@ -583,78 +591,54 @@ join = head(
 write("join/index.html", join)
 
 
-# ---------------------------------------------------------------- /mainnet
-same_rows = "\n".join(
-    f'          <tr><th scope="row">{k}</th><td>{v}</td></tr>' for k, v in [
-        ("Block reward", "6.25 SWM per block at launch, halving every 1,680,000 blocks"),
-        ("Block time", "75-second target"),
-        ("Maximum supply", "20,999,987.3152 SWM, fixed by the halving arithmetic"),
-        ("Allocation", "80% miner · 8% Core Development · 4% Grants &amp; Ecosystem · 8% Community &amp; Development Reserve, in every block, for the whole schedule"),
-        ("Premine", "None. Block 1 is the first SWM ever issued."),
-        ("Coinbase maturity", "100 blocks"),
-        ("Proof of work", "Equihash 200,9 with the inherited per-block difficulty rule, unchanged"),
-        ("Privacy", "Shielded (Orchard) and transparent payments, chosen per payment"),
-        ("Software", "The same SWARM Node and SWARM Wallet, in mainnet releases of their own"),
+# ---------------------------------------------------------------- /roadmap
+verify_rows = "\n".join(
+    f'          <tr><th scope="row">{k}</th><td class="{cls}">{v}</td></tr>'
+    for k, v, cls in [
+        ("Network", esc(GENESIS["network"]), ""),
+        ("Genesis block hash", esc(GENESIS["hash"]), "addr"),
+        ("Genesis header time", esc(GENESIS["headerTimeUtc"]), "mono"),
+        ("Spendable outputs in the genesis block", esc(GENESIS["spendableOutputs"]) + " \u2014 there is no premine", ""),
     ])
 
-change_rows = "\n".join(
-    f'          <tr><th scope="row">{k}</th><td>{t}</td><td>{m}</td></tr>' for k, t, m in [
-        ("Genesis block", "<span class=\"mono\">045993f5&hellip;</span>, header time 21 September 2026 12:00 UTC", "A new block, derived at launch from a public, unpredictable input. Zero spendable outputs."),
-        ("Balances", "Test coins, no value", "Starts empty. No testnet balance, key or address is copied across; no airdrop, no conversion."),
-        ("Network identity", "SwarmTestnet: its own network magic and ports", "Its own name, magic and ports. A node on one network rejects blocks from the other."),
-        ("Addresses", "Begin with <span class=\"mono\">swarm1</span>", "A distinct mainnet prefix, so a wallet can tell the two apart and refuses a cross-network payment. Testnet keeps its prefix."),
-        ("Transactions", "Signed for the testnet only", "Signed for mainnet only. A transaction from one network is invalid on the other by construction, not by luck."),
-        ("The three destinations", "One key each, held by the project", "Fresh keys generated offline, held on separate devices under a threshold policy, with spending and recovery tested on disposable funds. Addresses published before block 1."),
-        ("Servers", "One seed server, shared by node, indexer and explorer", "Separate production hosts, more than one, with backups and monitoring. The testnet server stays as it is."),
-        ("Releases", "Test builds, versioned <span class=\"mono\">-testnet.N</span>", "Separate mainnet builds with checksums and a published launch manifest. A mainnet wallet will not connect to the testnet by mistake."),
-        ("The testnet itself", "Live", "Stays online after launch as the place to rehearse upgrades."),
-    ])
-
-gate_rows = "\n".join(
-    f'          <tr><th scope="row" class="num">{n}</th><td>{k}</td><td>{w}</td><td>{st}</td></tr>' for n, k, w, st in [
-        ("1", "One source tree", "Every platform&rsquo;s wallet and node built from one reviewed source, with the fixes from each platform merged both ways.", "In progress"),
-        ("2", "Production identity", "Own genesis, network magic, ports and address prefix implemented in the node, the wallet SDK, the indexer and the apps. Negative tests: wrong network, testnet address, testnet transaction all rejected.", "In progress"),
-        ("3", "Economics and mining", "Exact issuance and allocation replayed against the implementation. Difficulty behaviour measured with miners entering and leaving. On the public testnet the inherited rule reached the 75-second target in about ten hours from genesis; the remaining scenarios run on a disposable network.", "In progress"),
-        ("4", "Treasury custody", "Build, sign, shield and recover a payment from each of the three destinations, with disposable keys, on a clean machine, before any real key exists.", "In progress"),
-        ("5", "Services and miners", "Two production hosts in separate places, tested failover, off-site backups, alerting, and miners that restart themselves after every kind of failure we can cause.", "In progress"),
-        ("6", "Independent review and soak", "External review of every change on top of upstream Zcash software, then weeks of the integrated launch candidate under normal and failure workloads.", "Not started"),
-        ("7", "Keys and release ceremony", "Offline key generation for the three destinations, public addresses verified independently, recovery rehearsed, signed releases and launch manifest published.", "Not started"),
-        ("8", "Launch decision", "An evidence packet for every gate above, then an explicit go. Then block 1, mined in public.", "Not started"),
-    ])
-
-mainnet = head(
-    "Mainnet — SWARM",
-    "The road to SWARM mainnet: what stays the same (the money), what changes (the network), how the launch is kept fair, the gates that must pass first, and what you can do now. Mainnet is in preparation; there is no launch date.",
-    "/mainnet",
-    "SWARM — The road to mainnet",
-    "What stays the same, what changes, how the launch is kept fair, and the gates that must pass first. In preparation; no launch date.",
+roadmap = head(
+    "Roadmap — SWARM",
+    "SWARM mainnet is live. What is running today, how to verify you are on the real chain, and what comes next: SWARM Market, a privacy browser and private messaging.",
+    "/roadmap",
+    "SWARM — Roadmap",
+    "Mainnet is live. Next: SWARM Market, a privacy browser and private messaging.",
 ) + page_head(
-    "Mainnet",
-    "The road to mainnet.",
-    "Mainnet is the SWARM network whose coins are the real SWM. It has not launched. It is being built on the code that runs the public testnet today, and everything it will run on &mdash; the rules, the addresses, the launch input &mdash; is published before block 1. This page is the whole plan, in the order it happens.",
-    pill="In preparation · no launch date",
+    "Roadmap",
+    "The money first. Then the things you do with it.",
+    "SWARM mainnet is live: the coin, the chain and the apps to run them. Everything else on this page is built on top of that foundation, ships when it is finished and reviewed, and is announced here first.",
+    pill="Mainnet · live",
 ) + f"""
   <section class="band band--cream">
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="eyebrow">Where things stand</p>
-        <h2>Testnet today. Mainnet when the gates pass.</h2>
+        <p class="eyebrow">Live today</p>
+        <h2>The foundation.</h2>
       </div>
       <div class="cards" data-reveal>
         <article class="card">
           <p class="pill pill--live">Live</p>
-          <h3>Public testnet</h3>
-          <p>Running since 21 September 2026 with the final economic rules: 6.25 SWM a block, 75-second target, the 80 / 8 / 4 / 8 split paid in every block. Wallets, the one-click mining app, an Android wallet and the block explorer are public. Anyone can mine, send shielded payments, and try to break it.</p>
+          <h3>SWARM mainnet</h3>
+          <p>Proof-of-work money with a fixed supply and shielded payments. 6.25 SWM a block, a block every 75 seconds, halving every 1,680,000 blocks, 20,999,987.3152 SWM at most. Block 1 was mined in public from a genesis block that holds nothing.</p>
         </article>
         <article class="card">
-          <p class="pill">Now</p>
-          <h3>Mainnet engineering</h3>
-          <p>Giving the production network an identity of its own so it can never be confused with the testnet, building the custody tooling for the three project destinations, preparing separate production hosts, and reconciling every platform&rsquo;s app into one reviewed source tree.</p>
+          <p class="pill pill--live">Live</p>
+          <h3>SWARM Node</h3>
+          <p>A full node and a miner in one app. It checks every block against the rules itself and lets you start or stop mining with one click. Windows, Linux and macOS.</p>
         </article>
         <article class="card">
-          <p class="pill pill--soon">Not yet</p>
-          <h3>Review, ceremony, launch</h3>
-          <p>An independent review of the changes on top of upstream Zcash software, a soak of the launch candidate under normal and failure conditions, the offline key ceremony, signed releases, a published launch manifest &mdash; and only then block 1.</p>
+          <p class="pill pill--live">Live</p>
+          <h3>SWARM Wallet</h3>
+          <p>Hold, send and receive SWM &mdash; shielded or transparent, your choice on every payment. Desktop and Android; the App Store and Google Play listings are next.</p>
+        </article>
+        <article class="card">
+          <p class="pill pill--live">Live</p>
+          <h3>Block explorer</h3>
+          <p>Every block, every transaction, every one of the four allocations in every block reward. Public data only: it never asks for a key.</p>
         </article>
       </div>
     </div>
@@ -663,123 +647,111 @@ mainnet = head(
   <section class="band band--dark2">
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="eyebrow">What stays the same</p>
-        <h2>The money does not change.</h2>
-        <p>The economic rules were settled before the public testnet launched and they carry over to mainnet unchanged. They have been running in public, block by block, since 21 September 2026 &mdash; you can check every one of them in the <a href="https://lwd.swarm.green:8443">block explorer</a> today.</p>
+        <p class="eyebrow">Verify it</p>
+        <h2>Check you are on SWARM.</h2>
+        <p>A chain is identified by its genesis block. SWARM Node compares the genesis it loads with the one below before it syncs anything; you can do the same by hand. The launch manifest, the source at the launch commit and every release with its checksum are in the <a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">release repository{EXT}</a>.</p>
       </div>
       <div class="tablewrap" data-reveal>
         <table>
-          <caption>Rules that are identical on the public testnet and on mainnet.</caption>
+          <caption>The genesis block the rules are fixed in.</caption>
           <tbody>
-{same_rows}
+{verify_rows}
           </tbody>
         </table>
       </div>
-      <p class="note mt-m" data-reveal>The full schedule &mdash; every era, every per-block amount, the lifetime totals and the rounding rule &mdash; is on the <a href="/network">network page</a>.</p>
+      <p class="note mt-m" data-reveal>The three destination addresses are listed with the full reward schedule on the <a href="/network">network page</a>.</p>
     </div>
   </section>
 
   <section class="band band--cream">
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="eyebrow">What changes</p>
-        <h2>The network does.</h2>
-        <p>Mainnet is a fresh network, not a renamed testnet. Nothing that exists on the testnet today is carried across, and the two are built so that they cannot be mistaken for each other by a wallet, a node or a person.</p>
+        <p class="eyebrow">Next</p>
+        <h2>SWARM Market.</h2>
+        <p>An online marketplace where merchants list what they sell and buyers pay in SWM. Shielded by default, so a purchase is between you and the seller.</p>
       </div>
-      <div class="tablewrap" data-reveal>
-        <table>
-          <caption>Testnet today versus mainnet at launch.</caption>
-          <thead>
-            <tr><th scope="col">What</th><th scope="col">Public testnet (today)</th><th scope="col">Mainnet (at launch)</th></tr>
-          </thead>
-          <tbody>
-{change_rows}
-          </tbody>
-        </table>
+      <div class="cards" data-reveal>
+        <article class="card">
+          <h3>Pay from your wallet</h3>
+          <p>A merchant issues an invoice: exact amount, recipient, expiry. Your wallet checks it is a real SWARM invoice for the right network before it shows you a confirmation. You pay; the seller sees the payment confirm on the chain.</p>
+        </article>
+        <article class="card">
+          <h3>No custody</h3>
+          <p>The coins go from you to the seller. The Market holds nothing on your behalf and cannot spend anything of yours. Fees, where there are any, are shown before you pay, not after.</p>
+        </article>
+        <article class="card">
+          <h3>Nothing personal on the chain</h3>
+          <p>Order details, addresses and messages between buyer and seller live off-chain, protected and deletable. The chain only ever records that a valid payment happened.</p>
+        </article>
       </div>
-      <p class="note mt-m" data-reveal><strong>About the address prefix.</strong> Testnet addresses begin with <span class="mono">swarm1</span>. Mainnet uses a different, distinct prefix, which will be published with the launch manifest; the exact spelling is one of the last things fixed, so that it is never printed here and then changed. What is settled is that the two can never overlap.</p>
+    </div>
+  </section>
+
+  <section class="band band--dark2">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Then</p>
+        <h2>A privacy browser.</h2>
+        <p>A browser with the SWARM wallet built in, so paying a site is one click and no site sees more of you than it must.</p>
+      </div>
+      <div class="cards" data-reveal>
+        <article class="card">
+          <h3>Wallet built in</h3>
+          <p>Pay a site or a merchant from the address bar, with the same confirmation screen as the wallet. A site can ask for a payment; it can never take one.</p>
+        </article>
+        <article class="card">
+          <h3>Private by default</h3>
+          <p>Tracking blocked, fingerprinting reduced, nothing phoning home. Each site gets only the permissions you give it, and the wallet is never one of them by default.</p>
+        </article>
+        <article class="card">
+          <h3>Open source, like everything else</h3>
+          <p>Built on a maintained open-source browser engine, with the SWARM parts published in the open. Read it, build it, check it.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Then</p>
+        <h2>Private messaging.</h2>
+        <p>End-to-end encrypted messages between people who hold SWARM wallets, with payments inside the conversation.</p>
+      </div>
+      <div class="cards" data-reveal>
+        <article class="card">
+          <h3>Encrypted end to end</h3>
+          <p>Only you and the person you write to can read a message. Relays carry ciphertext and the minimum needed to deliver it, and nothing is ever written to the chain.</p>
+        </article>
+        <article class="card">
+          <h3>Pay inside the chat</h3>
+          <p>Send SWM to the person you are talking to, or send them an invoice, without leaving the conversation. A message can ask for a payment; it can never spend for you.</p>
+        </article>
+        <article class="card">
+          <h3>Keys kept apart</h3>
+          <p>Your chat identity is not your spending key, and your wallet address does not publish who you talk to. You verify a contact once, and you are told if their key ever changes.</p>
+        </article>
+      </div>
     </div>
   </section>
 
   <section class="band band--dark2">
     <div class="wrap wrap--narrow">
       <div class="sec-head" data-reveal>
-        <p class="eyebrow">A fair launch</p>
-        <h2>How nobody gets a head start &mdash; including us.</h2>
+        <p class="eyebrow">Always</p>
+        <h2>What will never change.</h2>
       </div>
       <div class="prose" data-reveal>
-        <h3>Genesis holds nothing</h3>
-        <p>The genesis block contains no spendable coins. Block 1 is the first SWM ever issued, and it is mined by whoever is running SWARM Node at that moment. There is no allocation at genesis, no founders&rsquo; balance, no reserved supply. The 20% of every block reward that goes to the three project destinations is paid block by block, in public, and only for blocks that are actually mined.</p>
-
-        <h3>Genesis comes from a public, unpredictable input</h3>
-        <p>The genesis block is derived from an input that nobody can know in advance and everybody can check afterwards, fixed only at launch. That is what makes a private head start impossible: blocks cannot be mined before an input that does not exist yet. The exact source of that input, how it is encoded and the fallback if it fails are published with the launch procedure, and the procedure is rehearsed beforehand with substitute inputs.</p>
-
-        <h3>Everything is published before block 1</h3>
-        <p>The rules, the three destination addresses, the network identity, the source code at the launch commit, the builds with their checksums and a launch manifest that ties all of it together are public before the first block. Anyone who syncs a node checks the genesis hash against the manifest; a node that disagrees does not join the network.</p>
-
-        <h3>You can verify it, not just read it</h3>
-        <p>The block explorer shows every block and the four-way split in each one. SWARM Node checks the network&rsquo;s genesis and rules for itself before it syncs a single block. The source is open, and the numbers on this site are arithmetic you can redo against it.</p>
-
-        <h3>What will not happen</h3>
-        <p>No sale, presale or token offering. No private mining before the public launch. No airdrop or conversion of testnet coins. No exchange or listing arrangement made before launch. No promise of a price, ever. Anything presented as SWARM that offers one of these is not SWARM.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="band band--cream">
-    <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">The gates</p>
-        <h2>Eight things that must be true first.</h2>
-        <p>These run mostly in this order, each with evidence that is written down. Status as of 25 September 2026; this table is updated as gates pass.</p>
-      </div>
-      <div class="tablewrap" data-reveal>
-        <table>
-          <caption>The gates on the road to mainnet, and where each stands.</caption>
-          <thead>
-            <tr><th scope="col" class="num">#</th><th scope="col">Gate</th><th scope="col">What must be true</th><th scope="col">Status</th></tr>
-          </thead>
-          <tbody>
-{gate_rows}
-          </tbody>
-        </table>
-      </div>
-      <p class="note mt-m" data-reveal>Weeks of soak are not proof by themselves; the scenario results are. A finding late in the list sends the affected gate back, not the whole list &mdash; but nothing launches while a critical finding is open. There is no date until gate 8, and the date follows the evidence.</p>
-    </div>
-  </section>
-
-  <section class="band band--dark2">
-    <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">What you can do now</p>
-        <h2>The testnet is the rehearsal. Rehearse.</h2>
-      </div>
-      <div class="cards cards--2" data-reveal>
-        <article class="card">
-          <h3>Run it</h3>
-          <p>Install <a href="/ecosystem/wallet">SWARM Wallet</a> and <a href="/ecosystem/node">SWARM Node</a>, mine a few blocks, send yourself a shielded payment, restore your wallet from its recovery phrase. Everything you learn carries over to mainnet.</p>
-        </article>
-        <article class="card">
-          <h3>Break it</h3>
-          <p>If something fails, that is what the testnet is for. Write to <a href="mailto:{EMAIL}">{EMAIL}</a> with the app version, your system and what happened. Every bug found now is one that does not touch real money later.</p>
-        </article>
-        <article class="card">
-          <h3>Read the rules</h3>
-          <p>The <a href="/network">network page</a> has every number. The specifications and the source are on <a href="{GH}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a>. If this site and the code ever disagree, the code is right and the site gets fixed.</p>
-        </article>
-        <article class="card">
-          <h3>Follow the official channels only</h3>
-          <p>This site, <a href="{GH}" target="_blank" rel="noopener noreferrer">github.com/Swarm-Official{EXT}</a>, <a href="{X_URL}" target="_blank" rel="noopener noreferrer">{X_HANDLE} on X{EXT}</a> and <a href="mailto:{EMAIL}">{EMAIL}</a>. A launch date, when there is one, appears here first. We never ask for your recovery words, your keys or a payment.</p>
-        </article>
+        <p>No sale, presale or token offering: every SWM is mined. No premine and no hidden treasury: the 80 / 8 / 4 / 8 split is fixed in the rules and visible in every block. No promise of a price, ever. No product that takes custody of your coins behind a decentralisation claim. Nothing that runs on your machine without you pressing the button. And if this site and the code ever disagree, the code is right and the site gets fixed.</p>
       </div>
       <div class="cta-row mt-l" data-reveal>
-        <a class="btn btn--primary" href="/join">Join the public testnet</a>
+        <a class="btn btn--primary" href="/join">Get SWARM</a>
         <a class="btn btn--ghost" href="/network">Network &amp; supply</a>
       </div>
     </div>
   </section>
 """ + FOOTER
-write("mainnet/index.html", mainnet)
+write("roadmap/index.html", roadmap)
 
 
 # ------------------------------------------------------------------ /brand
@@ -926,10 +898,10 @@ write("brand/index.html", brand)
 # ------------------------------------------------------------------ /terms
 terms = head(
     "Terms — SWARM",
-    "Short, honest terms for swarm.green: an information site about experimental software and a network whose mainnet has not launched. Nothing here is an offer, a solicitation or financial advice.",
+    "Short, honest terms for swarm.green: an information site about open-source software and the SWARM network. Nothing here is an offer, a solicitation or financial advice.",
     "/terms",
     "SWARM — Terms",
-    "An information site about experimental software. Mainnet has not launched. Nothing here is an offer or financial advice.",
+    "An information site about open-source software and the SWARM network. Nothing here is an offer or financial advice.",
 ) + page_head(
     "Terms",
     "Terms.",
@@ -938,24 +910,24 @@ terms = head(
   <section class="band band--cream">
     <div class="wrap wrap--narrow prose" data-reveal>
       <h2>What this site is</h2>
-      <p>swarm.green is an information site about SWARM, an independent, community-run proof-of-work network. It describes software, the public testnet that runs today and the mainnet that is being prepared. It does not host the network, run a service on your behalf, or hold anything belonging to you.</p>
+      <p>swarm.green is an information site about SWARM, an independent, community-run proof-of-work network. It describes software and the network. It does not host the network, run a service on your behalf, or hold anything belonging to you.</p>
 
       <h2>No offer, no advice</h2>
-      <p>Nothing on this site is an offer or a solicitation to buy or sell anything, and nothing on it is financial, investment, legal or tax advice. There is no sale, no token offering and no launch date.</p>
-      <p>SWARM&rsquo;s mainnet has not launched. The software available today runs on a public testnet; test coins have no monetary value, are not intended to have any, and are not converted into mainnet coins. Nobody is promising you earnings, returns, a price, or a date on which the mainnet will launch.</p>
+      <p>Nothing on this site is an offer or a solicitation to buy or sell anything, and nothing on it is financial, investment, legal or tax advice. There is no sale and no token offering; every SWM in existence was mined.</p>
+      <p>SWM is a cryptocurrency. It has no guaranteed value, no issuer standing behind it and no price set by anyone. It can lose value, including all of it. Nobody is promising you earnings, returns or a price.</p>
 
       <h2>Experimental software</h2>
-      <p>The node, indexer and wallet are experimental and under active development. They are provided as open source, as-is and without warranty of any kind. Among other things:</p>
+      <p>The node, indexer and wallet are open source, under active development, and provided as-is and without warranty of any kind. Among other things:</p>
       <ul>
-        <li>The testnet chain may be reset, restarted or abandoned without notice. Mainnet launches only after the published gates are passed, and may be postponed while findings remain.</li>
-        <li>Bugs may cause loss of test coins, loss of data, or failure to sync.</li>
+        <li>The network can fork, reorganise recent blocks, or require a software upgrade. A payment is final only in the sense that the network makes it so; no fixed number of confirmations is a guarantee.</li>
+        <li>Bugs may cause loss of coins, loss of data, or failure to sync.</li>
         <li>Privacy features may have defects. Shielding protects what is written to the chain; it does not protect everything about how you use a computer or a network.</li>
         <li>If you lose your recovery phrase, nobody can recover your wallet for you.</li>
       </ul>
       <p>To the fullest extent allowed by law, the SWARM contributors are not liable for any loss or damage arising from the use of this site or the software it describes.</p>
 
       <h2>Your own responsibility</h2>
-      <p>Running a node and mining use your own computer, your own electricity and your own bandwidth. Whether that is lawful and sensible where you live is yours to work out.</p>
+      <p>Running a node, mining, and holding or paying with SWM use your own computer, your own electricity, your own bandwidth and your own money. Whether that is lawful, taxable and sensible where you live is yours to work out.</p>
 
       <h2>Trade marks and independence</h2>
       <p>SWARM is not affiliated with or endorsed by the Electric Coin Company, the Zcash Foundation, Zingo Labs, Foursquare&rsquo;s Swarm app, or the Ethereum Swarm (BZZ) project. Names and marks mentioned on this site belong to their respective owners and are used only to describe what SWARM is built from.</p>

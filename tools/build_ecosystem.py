@@ -1,12 +1,20 @@
 """Generate accessible download pages from data/downloads.json. Use --check in review."""
 import html
 import json
+import os
 from pathlib import Path
 import re
 import sys
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = json.loads((ROOT / 'data/downloads.json').read_text(encoding='utf-8'))
+# Launch-day site: the pages say mainnet is live, so testnet builds must never
+# be listed as available. Local previews before launch set SWARM_ALLOW_PRELAUNCH_BUILD=1.
+_test = [e for e in DATA['entries'] if e['status'] == 'available' and 'testnet' in (e.get('version', '') + e.get('url', '') + e.get('notes', '')).lower()]
+if _test and not os.environ.get('SWARM_ALLOW_PRELAUNCH_BUILD'):
+    sys.exit('refusing to build: %d available download entries are testnet builds (e.g. %s %s). '
+             'Replace data/downloads.json with the mainnet releases first (README: launch checklist).'
+             % (len(_test), _test[0]['product'], _test[0].get('version') or _test[0]['url']))
 SHELL = (ROOT / 'support/index.html').read_text(encoding='utf-8')
 esc = lambda value: html.escape(str(value), quote=True)
 
@@ -85,11 +93,11 @@ def product(key):
                    (wallet and slug == 'android' and e['product'] == 'mobile-android') or
                    (wallet and slug == 'iphone' and e['product'] == 'mobile-ios')]
         tips = {
-            'windows': 'For Windows on Intel or AMD (64-bit). Unsigned test builds; Windows will show a warning.',
+            'windows': 'For Windows on Intel or AMD (64-bit). Windows may show a SmartScreen notice for a new publisher; check the SHA-256 below before you install.',
             'macos': 'Apple silicon and Intel downloads are signed and notarized. Check Apple menu → About This Mac to see which processor you have.',
             'linux': 'For Intel or AMD (64-bit). Choose .deb for Debian / Ubuntu, or AppImage for a portable download.',
-            'android': 'A direct APK is available for testing. It is debug-signed; Android will show a warning.',
-            'iphone': 'The iPhone wallet is being prepared for release. A public download is not available yet.'}
+            'android': 'A direct APK you install yourself; Android will ask you to allow it. Google Play is next.',
+            'iphone': 'The iPhone wallet is on its way to the App Store. A public download is not available yet.'}
         paused_mac = slug == 'macos' and entries and all(e['status'] != 'available' for e in entries)
         if paused_mac:
             tips[slug] = 'Mac downloads are temporarily paused while updated builds are tested.'
@@ -102,7 +110,7 @@ def product(key):
       <p>{'Mobile wallets let you send and receive. Phones do not mine.' if wallet else 'Have your SWARM payout address ready. You can get one from SWARM Wallet.'}</p>
       <a class="textlink" href="/support">Need a hand? Get support →</a>
       <div class="download-aside__other"><p>{'Want to mine?' if wallet else 'Need a wallet?'}</p><a class="textlink" href="/ecosystem/{other}">Explore SWARM {other.title()} →</a></div>
-      </aside></div><div class="wrap"><p class="ecosystem-note">These builds run on the public testnet. Test coins have no value and do not carry over. Mainnet releases will be published here separately when the network launches. Every available build includes a SHA-256 checksum.</p></div></section>'''
+      </aside></div><div class="wrap"><p class="ecosystem-note">Every build includes a SHA-256 checksum. Check it before you install, and only ever download from this site or the release repository.</p></div></section>'''
     return page(name, intro, '/ecosystem/' + key, body)
 
 
@@ -116,8 +124,8 @@ def outputs():
     overview += f'''<div class="ecosystem-more"><div><p class="eyebrow">EXPLORE</p><h2>Follow what we’re building.</h2></div>
       <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p>{explorer_link}</div>
       <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
-      <p class="ecosystem-note">Mainnet is in preparation; today&rsquo;s builds run on the public testnet and test coins have no value. iPhone and Google Play releases are coming soon; an Android test APK is available.</p></div></section>'''
-    yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform; today\'s downloads run on the public testnet, mainnet releases follow at launch.', '/ecosystem', overview)
+      <p class="ecosystem-note">iPhone and Google Play releases are next; an Android APK is available now.</p></div></section>'''
+    yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform.', '/ecosystem', overview)
     for key in ['wallet', 'node']:
         yield f'ecosystem/{key}/index.html', product(key)
 

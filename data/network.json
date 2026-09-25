@@ -6,12 +6,18 @@
     "note": "Single source of truth for every number shown on the site. Edit here, then mirror the same values in the static HTML fallbacks (see README.md)."
   },
   "status": {
-    "phase": "mainnet-preparation",
-    "short": "Mainnet in preparation",
-    "ribbon": "Mainnet in preparation · the public testnet is live — test coins have no value.",
-    "detail": "SWARM's mainnet has not launched. The public testnet has run the final economic rules since 2026-09-21; test coins have no monetary value and do not carry over. There is no sale, no token offering and no launch date.",
-    "testnetSince": "2026-09-21",
-    "flipNote": "When mainnet launches: set phase to 'mainnet', update ribbon/badge/footer text in index.html, tools/build_pages.py and support/index.html, add mainnet entries to data/downloads.json, and copy the mainnet genesis block into the genesis object below."
+    "phase": "mainnet",
+    "short": "Mainnet · live",
+    "ribbon": "SWARM mainnet is live · run a node, mine a block, send a shielded payment.",
+    "detail": "SWARM mainnet is live. There was no sale, no presale and no token offering; every SWM is mined.",
+    "launchChecklist": [
+      "genesis: replace network/hash/headerTimeUtc/spendableOutputs/addressType/custody/destinations with the mainnet launch manifest values (tools/build_pages.py refuses to build while genesis.network != SwarmMainnet)",
+      "data/downloads.json: replace every available entry with the mainnet releases and checksums; remove testnet notes (tools/build_ecosystem.py refuses to build while testnet builds are listed)",
+      "explorer: point the explorer entry in data/downloads.json and links.explorer at the mainnet explorer",
+      "vercel.json: point the /data/swarm-map-live.json rewrite at the mainnet seed",
+      "custody policy: publish it with the launch manifest in the release repository (the site says it is there)",
+      "run: python tools/build_pages.py && python tools/build_ecosystem.py --check && node tools/check_downloads.mjs, then deploy"
+    ]
   },
   "chain": {
     "blockTimeSeconds": 75,
@@ -28,13 +34,13 @@
     "cpuMineableFromGenesis": true
   },
   "genesis": {
-    "note": "Copied from network/swarm-testnet/manifest.json, the published network definition. tools/build_pages.py renders the Genesis rules block on /network from here, so no address or hash is typed into HTML by hand. The baseline-miner payout address is operational, not consensus, and is deliberately not listed.",
+    "note": "LAUNCH CHECKLIST: these are still the TESTNET values. Replace every field from the mainnet launch manifest before building; tools/build_pages.py refuses to build the launch-day site while network != SwarmMainnet. The baseline-miner payout address is operational, not consensus, and is deliberately not listed.",
     "network": "SwarmTestnet",
     "hash": "045993f5c91ea160c7ebda573dd97b0016816bca68d395bfff202779b88e2a28",
     "headerTimeUtc": "2026-09-21T12:00:00Z",
     "spendableOutputs": 0,
-    "addressType": "Pay-to-script-hash on the testnet (t2…).",
-    "custody": "On this testnet each script is controlled by a single key held by the project. How keys are generated, held and used will be written down and published before mainnet launches.",
+    "addressType": "Pay-to-script-hash.",
+    "custody": "Each script is controlled by keys generated offline and held under the custody policy published with the launch manifest.",
     "destinations": [
       {
         "name": "Core Development",
@@ -237,7 +243,7 @@
       "key": "wallet",
       "name": "SWARM Wallet",
       "tagline": "Desktop and mobile wallet",
-      "detail": "Hold, send and receive — transparent or shielded. Windows, Linux, macOS and Android today.",
+      "detail": "Hold, send and receive — transparent or shielded. Windows, Linux, macOS and Android.",
       "state": "available"
     },
     {
@@ -251,46 +257,40 @@
       "key": "explorer",
       "name": "SWARM Explorer",
       "tagline": "Block explorer",
-      "detail": "Live for the public testnet at lwd.swarm.green:8443.",
+      "detail": "Every block, every transaction, every allocation.",
       "state": "available"
     }
   ],
   "roadmap": [
     {
       "stage": 1,
-      "name": "Engineering testnets",
-      "state": "done",
-      "detail": "Two closed networks proved the inherited proof of work, the difficulty rule, reorganisation and recovery, and end-to-end shielded payments."
+      "name": "SWARM mainnet",
+      "state": "live",
+      "detail": "The coin, the chain, SWARM Node with one-click mining, SWARM Wallet on desktop and Android, the block explorer."
     },
     {
       "stage": 2,
-      "name": "Public testnet",
+      "name": "Growing the swarm",
       "state": "now",
-      "detail": "Live since 2026-09-21 with the final economic rules; wallets, mining app, Android wallet and explorer public."
+      "detail": "More nodes and miners; the wallet in the App Store and on Google Play; signed builds on every platform."
     },
     {
       "stage": 3,
-      "name": "Mainnet engineering",
-      "state": "now",
-      "detail": "Distinct production identity (genesis, magic, address prefix), replay isolation, custody tooling, separate production hosts."
+      "name": "SWARM Market",
+      "state": "next",
+      "detail": "An online marketplace where merchants list and buyers pay in SWM, shielded by default, without custody."
     },
     {
       "stage": 4,
-      "name": "Independent review and soak",
-      "state": "next",
-      "detail": "External review of the changes on top of upstream Zcash software, then weeks of the launch candidate under normal and failure workloads."
+      "name": "Privacy browser",
+      "state": "later",
+      "detail": "A browser with the SWARM wallet built in: one-click payments, private by default, nothing phoning home."
     },
     {
       "stage": 5,
-      "name": "Launch ceremony",
+      "name": "Private messaging",
       "state": "later",
-      "detail": "Offline keys, genesis from a public unpredictable input, signed releases, published launch manifest."
-    },
-    {
-      "stage": 6,
-      "name": "Mainnet",
-      "state": "later",
-      "detail": "Block 1 mined in public. No sale, no airdrop, no conversion of test coins. No date until the gates pass."
+      "detail": "End-to-end encrypted messages between wallets with payments inside the conversation; keys kept apart from spending keys."
     }
   ],
   "links": {

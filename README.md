@@ -5,7 +5,13 @@ cryptocurrency network with optional shielded transactions, built by forking
 open-source Zcash software (the Zebra full node, the Zaino indexer and the Zingo
 desktop wallet) with consensus rules and cryptography left unmodified.
 
-**Status: mainnet in preparation. The public testnet is live (since 2026-09-21); test coins have no monetary value. The site never says "mainnet live" until it is: see `status` in `data/network.json` for the flip checklist.**
+**This branch is the launch-day site.** Every page states that SWARM mainnet is
+live, so it is deployed only once block 1 exists. Two guards enforce that:
+`tools/build_pages.py` refuses to build while `data/network.json` still carries
+the testnet genesis, and `tools/build_ecosystem.py` refuses while testnet builds
+are listed as available. `status.launchChecklist` in `data/network.json` lists
+what to replace. For a local preview before launch:
+`SWARM_ALLOW_PRELAUNCH_BUILD=1 python tools/build_pages.py`.
 
 ---
 
@@ -25,7 +31,7 @@ collects anything. The only third-party origin used anywhere is Google Fonts.
 ├── index.html                 Home
 ├── network/index.html         Parameters, era table, reward allocation
 ├── join/index.html            Step-by-step guide
-├── mainnet/index.html         The road to mainnet: what stays, what changes, the gates
+├── roadmap/index.html         Live today, verify the chain, SWARM Market, privacy browser, messaging
 ├── brand/index.html           Logo downloads, colour, type, do/don't
 ├── terms/index.html
 ├── privacy/index.html
