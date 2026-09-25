@@ -53,3 +53,55 @@
   .ecosystem-tag { max-width: 18ch; text-align: right; }
   .download-empty .ecosystem-tag { text-align: left; }
 }
+
+/* --------------------------------------------------------------------------
+   Phones. The platform picker becomes one swipeable row of chips instead of a
+   block of wrapped buttons, the download rows stack, and the checksum panel
+   fits 360px without shrinking anything below the readable floor.
+   -------------------------------------------------------------------------- */
+@media (max-width: 560px) {
+  .platform-picker { margin-top: 1.1rem; }
+  .platform-options {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    gap: .45rem;
+    padding-bottom: .35rem;
+    /* An edge shadow only where there are more chips to reach. */
+    background-image:
+      linear-gradient(90deg, var(--bg), transparent),
+      linear-gradient(270deg, var(--bg), transparent),
+      linear-gradient(90deg, rgba(0, 0, 0, .18), transparent),
+      linear-gradient(270deg, rgba(0, 0, 0, .18), transparent);
+    background-position: left center, right center, left center, right center;
+    background-repeat: no-repeat;
+    background-size: 20px 100%, 20px 100%, 14px 100%, 14px 100%;
+    background-attachment: local, local, scroll, scroll;
+  }
+  .platform-choice {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-height: 44px;
+    padding: .6rem 1.05rem;
+  }
+  .platform-panel { margin-top: 1.5rem; }
+  .platform-help { margin-bottom: 1.1rem; }
+
+  .download-file { padding: 1.1rem; }
+  .download-file__row { flex-direction: column; align-items: stretch; gap: .85rem; }
+  .download-file__row .btn { width: 100%; }
+  .download-file h3 { font-size: 1rem; }
+  .download-file .dl__sum { margin-top: .85rem; }
+  .download-file .dl__hashline { font-size: .72rem; line-height: 1.5; padding: .5rem .55rem; }
+  .download-file .dl__sumrow { gap: .5rem .8rem; }
+  .download-file .dl__sumrow .btn { flex: 0 0 auto; }
+  .download-file .dl__bytes { margin-top: 0; }
+
+  .ecosystem-card { padding: 1.3rem; }
+  .ecosystem-card > p:not(.eyebrow) { margin-bottom: 1.3rem; }
+  .ecosystem-card .btn { width: 100%; }
+  .ecosystem-more { margin-top: 2rem; padding-top: 1.6rem; gap: 1.4rem; }
+  .ecosystem-note { margin-top: 2rem; }
+  .download-aside { padding-top: 1.6rem; }
+}

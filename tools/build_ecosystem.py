@@ -26,7 +26,7 @@ def page(title, description, path, body):
     for key in ['description', 'og:description', 'twitter:description']:
         before = re.sub(r'((?:name|property)="' + key + r'" content=")[^"]*', lambda m: m[1] + esc(description), before)
     before = before.replace('SWARM — Support', 'SWARM — ' + esc(title)).replace('https://swarm.green/support', 'https://swarm.green' + path)
-    before = before.replace('</head>', '<link rel="stylesheet" href="/css/ecosystem.css?v=1">\n<script src="/js/ecosystem.js?v=1" defer></script>\n</head>')
+    before = before.replace('</head>', '<link rel="stylesheet" href="/css/ecosystem.css?v=2">\n<script src="/js/ecosystem.js?v=1" defer></script>\n</head>')
     return before + '<main id="main">\n' + body + '\n</main>' + after
 
 
@@ -44,10 +44,10 @@ def hero(title, lead, product=False):
 def cards():
     result = '<div class="ecosystem-grid">'
     for key, label, detail, platforms, glyph in [
-        ('wallet', 'Your coins. Your wallet.', 'Hold, send and receive SWM. Choose a wallet for your computer or phone.', 'Desktop &amp; mobile', 'M4 6h16v14H4z M4 6V4h13v2 M15 11h5v5h-5z'),
-        ('node', 'Be part of the network.', 'Run a full node, verify the chain and mine from one app.', 'Windows · macOS · Linux', 'M4 4h16v11H4z M8 20h8 M12 15v5')]:
+        ('wallet', 'Your coins. Your wallet.', 'Hold, send and receive SWM. Choose a wallet for your computer or phone.', 'Desktop &amp; mobile', 'i-wallet'),
+        ('node', 'Be part of the network.', 'Run a full node, verify the chain and mine from one app.', 'Windows · macOS · Linux', 'i-node')]:
         result += f'''<article class="card ecosystem-card">
-          <div class="ecosystem-card__top"><div class="hexicon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="{glyph}"/></svg></div><span class="ecosystem-tag">{platforms}</span></div>
+          <div class="ecosystem-card__top"><div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#{glyph}"/></svg></div><span class="ecosystem-tag">{platforms}</span></div>
           <p class="eyebrow">SWARM {key.upper()}</p><h2>{label}</h2><p>{detail}</p>
           <a class="btn btn--primary" href="/ecosystem/{key}">Explore {key}<span aria-hidden="true"> →</span></a>
         </article>'''

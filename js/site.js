@@ -47,23 +47,43 @@
     var panel = $("[data-nav-panel]");
     if (!toggle || !panel) return;
 
+    function isOpen() { return toggle.getAttribute("aria-expanded") === "true"; }
+
     function setOpen(open) {
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       panel.setAttribute("data-open", open ? "true" : "false");
+      if (open) {
+        var first = panel.querySelector("a");
+        if (first) first.focus();
+      }
     }
     setOpen(false);
 
     toggle.addEventListener("click", function () {
-      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+      setOpen(!isOpen());
     });
     panel.addEventListener("click", function (e) {
       if (e.target.closest("a")) setOpen(false);
     });
+    // While the sheet is open it is the whole page as far as the keyboard is
+    // concerned: Tab cycles through the toggle and the links inside it, and
+    // Escape closes it and hands focus back.
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+      if (!isOpen()) return;
+      if (e.key === "Escape") {
         setOpen(false);
         toggle.focus();
+        return;
       }
+      if (e.key !== "Tab") return;
+      var stops = [toggle].concat($$("a", panel));
+      if (stops.length < 2) return;
+      var i = stops.indexOf(document.activeElement);
+      var next = e.shiftKey
+        ? (i <= 0 ? stops[stops.length - 1] : stops[i - 1])
+        : (i === -1 || i === stops.length - 1 ? stops[0] : stops[i + 1]);
+      e.preventDefault();
+      next.focus();
     });
     window.addEventListener("resize", function () {
       if (window.innerWidth > 860) setOpen(false);
@@ -133,9 +153,11 @@
     ];
     var phase = 0, phaseT = 0;
 
+    /* The link pass is O(n squared), so a phone gets a deliberately thinner
+       swarm: it still reads as a swarm, and it keeps the frame budget. */
     function count() {
+      if (w < 600) return Math.max(20, Math.min(30, Math.round(w / 18)));
       var n = Math.round(w / 15);
-      if (w < 520) n = Math.round(w / 11);
       return Math.max(28, Math.min(118, n));
     }
 
@@ -603,24 +625,25 @@
   /* with a version, size and checksum; pending entries stay disabled.     */
   /* The static markup remains the no-JavaScript fallback.                */
   /* ------------------------------------------------------------------ */
-  /* Generic glyphs, drawn here. Deliberately not Apple's or Google's store
-     badges: their guidelines do not allow badge artwork for an app that is not
-     published yet, so the store names are plain text instead. */
+  /* Icons come from the page's own sprite (the <svg class="sprite"> right after
+     <body>), so a rendered download card is drawn exactly like a hand-written
+     one. Deliberately not Apple's or Google's store badges: their guidelines do
+     not allow badge artwork for an app that is not published yet, so the store
+     names are plain text instead. */
   var DL_GLYPHS = {
-    desktop: ["M3 5.5h18v11H3z", "M9 20h6", "M12 16.5V20"],
-    phone: ["M7.6 2.6h8.8v18.8H7.6z", "M10.6 5.4h2.8"],
-    explorer: ["M11 4.2a6.8 6.8 0 1 0 0 13.6 6.8 6.8 0 0 0 0-13.6z", "M16 16l4.4 4.4"],
-    code: ["M8.6 7 3.4 12l5.2 5", "M15.4 7l5.2 5-5.2 5", "M13.6 4.4l-3.2 15.2"]
+    desktop: "i-desktop",
+    phone: "i-phone",
+    explorer: "i-explorer",
+    code: "i-code"
   };
 
   function dlGlyph(name) {
-    var paths = DL_GLYPHS[name];
-    if (!paths) return null;
+    var id = DL_GLYPHS[name];
+    if (!id || !document.getElementById(id)) return null;
     var box = el("div", "hexicon");
     box.setAttribute("aria-hidden", "true");
-    var s = svg("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor",
-      "stroke-width": "1.8", "stroke-linecap": "round", "stroke-linejoin": "round", focusable: "false" });
-    paths.forEach(function (d) { s.appendChild(svg("path", { d: d })); });
+    var s = svg("svg", { "class": "ico", viewBox: "0 0 32 32", focusable: "false" });
+    s.appendChild(svg("use", { href: "#" + id }));
     box.appendChild(s);
     return box;
   }
@@ -830,9 +853,9 @@
     document.addEventListener("pointermove", function (e) {
       if (e.pointerType && e.pointerType !== "mouse") return;
       var t = e.target;
-      var area = t && t.closest ? t.closest(".stat, .card, .why > li") : null;
+      var area = t && t.closest ? t.closest(".stat, .phase, .card, .why > li") : null;
       var cell = null;
-      if (area) cell = area.classList.contains("stat") ? area : area.querySelector(".hexicon, .step__n");
+      if (area) cell = area.classList.contains("stat") ? area : area.querySelector(".hexicon, .step__n, .phase__node");
       if (!cell) { if (active) release(); return; }
       if (!active || active.cell !== cell) {
         release();

@@ -97,6 +97,14 @@ body {
 img, svg, canvas { display: block; max-width: 100%; }
 img { height: auto; }
 
+/* The icon sprite is markup, never a box. The author rule above outranks the
+   user-agent rule for [hidden], so the sprite is switched off explicitly. */
+.sprite { display: none; }
+
+/* One grid, one size, one stroke weight for the whole icon set. Every glyph is
+   a <use> of a 32-grid symbol from the sprite, so the CSP never sees a style. */
+.ico { width: 28px; height: 28px; flex: none; }
+
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 700;
@@ -456,10 +464,21 @@ button { font: inherit; color: inherit; }
     transition: max-height .35s var(--ease), visibility 0s linear .35s;
   }
   .nav__panel[data-open="true"] {
-    max-height: 480px;
+    max-height: min(78vh, 620px);
+    overflow-y: auto;
     visibility: visible;
     transition: max-height .35s var(--ease), visibility 0s;
   }
+  /* The Roadmap row carries the phase chips, so the plan is one tap away. */
+  .nav__panel a.nav__road { gap: .5rem; flex-wrap: wrap; }
+  .nav__chips { display: inline-flex; align-items: center; gap: .28rem; }
+  .nav__chips .phase__chip {
+    font-size: .66rem;
+    padding: .16rem .46rem;
+    letter-spacing: .07em;
+    gap: .26rem;
+  }
+  .nav__chips .phase__chip::before { width: 6px; height: 6.93px; }
   .nav__panel ul { padding: .6rem 0 1.1rem; }
   .nav__panel a {
     display: flex;
@@ -528,6 +547,8 @@ button { font: inherit; color: inherit; }
   font-size: .795rem;
   font-weight: 500;
   letter-spacing: .04em;
+  max-width: 100%;
+  text-wrap: balance;
 }
 .hero__badge .pip {
   width: 8px; height: 9.2px;
@@ -538,7 +559,7 @@ button { font: inherit; color: inherit; }
 .hero h1 {
   margin: 1.5rem auto 0;
   max-width: 16ch;
-  font-size: clamp(2.9rem, 8.4vw, 6.1rem);
+  font-size: clamp(2.4rem, 8.4vw, 6.1rem);
   font-weight: 800;
   line-height: .95;
   letter-spacing: -.04em;
@@ -554,7 +575,7 @@ button { font: inherit; color: inherit; }
 .hero__lead {
   margin: 1.5rem auto 0;
   max-width: 60ch;
-  font-size: clamp(1.05rem, 1.55vw, 1.28rem);
+  font-size: clamp(1rem, 1.55vw, 1.28rem);
   line-height: 1.68;
   color: var(--ink-dim);
 }
@@ -661,9 +682,10 @@ button { font: inherit; color: inherit; }
   .stat__l { font-size: .72rem; }
 }
 @media (max-width: 460px) {
-  .stat { --w: 112px; --depth: 6px; --rim: 3px; }
-  .stat__in { padding: 0 .7rem; }
-  .stat__v { font-size: 1.3rem; }
+  .stats { gap: 8px 5px; margin-top: 2.1rem; }
+  .stat { --w: 100px; --depth: 6px; --rim: 3px; }
+  .stat__in { padding: 0 .5rem; }
+  .stat__v { font-size: 1.22rem; }
   .stat__l { font-size: .66rem; }
 }
 
@@ -731,11 +753,13 @@ button { font: inherit; color: inherit; }
    specular hotspot and a light that sweeps across every few seconds), and the
    glyph sits engraved on top. The cell rests tilted back a little, floats
    gently, and turns towards the pointer (js/site.js writes --rx and --ry).
-   .step__n, the numbered badge on the join steps, is the same cell. */
+   .step__n, the numbered badge on the join steps, and .phase__node, the node on
+   the roadmap rail, are the same cell. */
 .hexicon,
-.step__n {
-  --w: 46px;
-  --h: 53px;
+.step__n,
+.phase__node {
+  --w: 54px;
+  --h: 62px;
   --depth: 6px;
   --rx: 6deg;
   --ry: 0deg;
@@ -757,7 +781,9 @@ button { font: inherit; color: inherit; }
 .hexicon::before,
 .hexicon::after,
 .step__n::before,
-.step__n::after {
+.step__n::after,
+.phase__node::before,
+.phase__node::after {
   content: "";
   position: absolute;
   left: 0;
@@ -767,14 +793,16 @@ button { font: inherit; color: inherit; }
   pointer-events: none;
 }
 .hexicon::before,
-.step__n::before {
+.step__n::before,
+.phase__node::before {
   top: var(--depth);
   bottom: 0;
   background: linear-gradient(180deg, #C9770A, #9A5606 55%, var(--honey-deep));
   filter: drop-shadow(var(--hex-shadow)) drop-shadow(var(--hex-glow));
 }
 .hexicon::after,
-.step__n::after {
+.step__n::after,
+.phase__node::after {
   top: 0;
   bottom: var(--depth);
   background:
@@ -787,9 +815,11 @@ button { font: inherit; color: inherit; }
   animation: hexShine 7s linear infinite;
   transition: filter .3s var(--ease);
 }
-.hexicon > svg {
-  width: 22px;
-  height: 22px;
+.hexicon > svg,
+.step__n > svg,
+.phase__node > svg {
+  width: 28px;
+  height: 28px;
   filter: drop-shadow(0 1px 0 rgba(255, 255, 255, .45));
 }
 /* Desynchronise the float and the light sweep from cell to cell. */
@@ -808,15 +838,17 @@ button { font: inherit; color: inherit; }
 /* Hovering the card the cell belongs to lifts and brightens it. */
 .card:hover .hexicon,
 .why > li:hover .hexicon,
-.card:hover .step__n { --s: 1.08; }
+.card:hover .step__n,
+.phase:hover .phase__node { --s: 1.08; }
 .card:hover .hexicon::after,
 .why > li:hover .hexicon::after,
-.card:hover .step__n::after { filter: brightness(1.08); }
+.card:hover .step__n::after,
+.phase:hover .phase__node::after { filter: brightness(1.08); }
 
 /* The quiet cell: dark polished wax with an amber glyph, for the feature list. */
 .hexicon--quiet {
-  --w: 38px;
-  --h: 44px;
+  --w: 46px;
+  --h: 53px;
   --depth: 5px;
   color: var(--honey);
 }
@@ -853,7 +885,7 @@ button { font: inherit; color: inherit; }
 }
 .why li { display: flex; gap: 1.05rem; align-items: flex-start; }
 .why .hexicon { margin: .2rem 0 0; }
-.why .hexicon > svg { width: 18px; height: 18px; }
+.why .hexicon > svg { width: 24px; height: 24px; }
 .why h3 { font-size: 1.11rem; font-weight: 600; margin-bottom: .35rem; }
 .why p { color: var(--fg-dim); font-size: .975rem; line-height: 1.62; }
 
@@ -974,7 +1006,7 @@ button { font: inherit; color: inherit; }
 
 /* Phone sizing for the per-era table. Kept after the base rules so it wins the cascade. */
 @media (max-width: 560px) {
-  .minitable { font-size: .76rem; }
+  .minitable { font-size: .8rem; }
   .minitable th,
   .minitable td { padding: .4rem .35rem; }
   /* The block reward is the sum of the four amounts and is listed on /network, so phones drop that column to fit. */
@@ -982,9 +1014,9 @@ button { font: inherit; color: inherit; }
   .minitable td:nth-child(2) { display: none; }
 }
 @media (max-width: 420px) {
-  .minitable { font-size: .7rem; }
+  .minitable { font-size: .78rem; }
   .minitable th,
-  .minitable td { padding: .4rem .22rem; }
+  .minitable td { padding: .4rem .26rem; }
 }
 
 .legend { margin-top: 1.3rem; display: grid; gap: .8rem; }
@@ -1026,11 +1058,11 @@ button { font: inherit; color: inherit; }
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(276px, 1fr)); gap: clamp(14px, 1.8vw, 22px); }
 /* The numbered badge is a 3D honey cell (shared rules in section 8). */
 .step__n {
-  --w: 44px;
-  --h: 50.8px;
+  --w: 52px;
+  --h: 60px;
   margin-bottom: 1.1rem;
   font-family: var(--font-mono);
-  font-size: 1.02rem;
+  font-size: 1.2rem;
   font-weight: 500;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .45);
 }
@@ -1343,6 +1375,7 @@ tbody th { font-weight: 500; white-space: nowrap; }
 .js [data-reveal] > .card,
 .js .why[data-reveal] > li,
 .js .road[data-reveal] > li,
+.js .phases[data-reveal] > li,
 .js .faq[data-reveal] > details {
   opacity: 0;
   translate: 0 18px;
@@ -1351,6 +1384,7 @@ tbody th { font-weight: 500; white-space: nowrap; }
 .js [data-reveal].is-in > .card,
 .js .why[data-reveal].is-in > li,
 .js .road[data-reveal].is-in > li,
+.js .phases[data-reveal].is-in > li,
 .js .faq[data-reveal].is-in > details {
   opacity: 1;
   translate: 0 0;
@@ -1381,13 +1415,16 @@ tbody th { font-weight: 500; white-space: nowrap; }
   .js [data-reveal] > .card,
   .js .why[data-reveal] > li,
   .js .road[data-reveal] > li,
+  .js .phases[data-reveal] > li,
   .js .faq[data-reveal] > details { opacity: 1; translate: none; scale: none; }
   .card:hover, .btn:hover { transform: none; }
   /* The 3D cells keep their depth but stand still: no float, no sweep, no
      pop-in, no tilt (js/site.js does not bind the pointer either). */
   .hexicon, .step__n, .stat, .hexicon::after, .step__n::after,
+  .phase__node, .phase__node::after, .phase__rail::after,
   .hero::before, .hero h1 .glow, .road li.is-now::after { animation: none !important; }
-  .hexicon, .step__n, .stat { transition: none; }
+  .hexicon, .step__n, .stat, .phase__node { transition: none; }
+  .phase__rail::after { display: none; }
   .btn--primary::after { display: none; }
 }
 
@@ -1592,8 +1629,17 @@ tbody th { font-weight: 500; white-space: nowrap; }
 @media (max-width: 620px) {
   .swarmmap__key { display: none; }
   .swarmmap__pill { top: 12px; left: 12px; padding: 5px 10px; font-size: .6rem; }
-  .swarmmap__stats > div { border-right: 0; border-bottom: 1px solid rgba(230, 237, 243, .06); }
-  .swarmmap__stats > div:last-child { border-bottom: 0; }
+  /* Four figures two by two, instead of one long column. */
+  .swarmmap__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .swarmmap__stats > div {
+    padding: .85rem 1rem;
+    border-right: 1px solid rgba(230, 237, 243, .06);
+    border-bottom: 1px solid rgba(230, 237, 243, .06);
+  }
+  .swarmmap__stats > div:nth-child(2n) { border-right: 0; }
+  .swarmmap__stats > div:nth-child(n + 3) { border-bottom: 0; }
+  .swarmmap__stats dd { font-size: 1.12rem; }
+  .swarmmap__stats p { font-size: .74rem; }
 }
 
 /* --------------------------------------------------------------------------
@@ -1787,4 +1833,300 @@ tbody th { font-weight: 500; white-space: nowrap; }
   .footer__bottom { padding-top: 1.4rem; gap: .7rem; }
   .footer__bottom p { font-size: .78rem; line-height: 1.6; }
   .footer__bottom .row { justify-content: flex-start; gap: .2rem 1rem; }
+}
+
+/* --------------------------------------------------------------------------
+   19. The phase timeline  (home #roadmap and /roadmap)
+   A rail of five 3D honey cells: the status chip above the node, the phase
+   card below it. Live and Now glow leaf-green, the rest honey, and the live
+   node breathes. Below 880px the rail stands up: it runs down the left edge
+   with the cards beside it, so the section never scrolls sideways.
+   The 3D cell itself is the shared one from section 8.
+   -------------------------------------------------------------------------- */
+.phases {
+  --phase-gap: clamp(10px, 1.6vw, 20px);
+  --node-w: 58px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--phase-gap);
+  align-items: stretch;
+}
+.phase {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "chip" "rail" "card";
+  grid-template-rows: auto auto 1fr;
+  min-width: 0;
+}
+
+.phase__chip {
+  grid-area: chip;
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .26rem .7rem;
+  border-radius: 999px;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+}
+.phase__chip::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 9.24px;
+  background: currentColor;
+  clip-path: var(--hex);
+}
+.phase__chip--live,
+.phase__chip--now {
+  background: color-mix(in srgb, var(--ok) 16%, transparent);
+  color: var(--ok);
+}
+
+/* The rail: a hairline through the row of nodes, trimmed at both ends. */
+.phase__rail {
+  grid-area: rail;
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: calc(var(--node-w) / .866 + 20px);
+}
+.phase__rail::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(var(--phase-gap) / -2 - 1px);
+  right: calc(var(--phase-gap) / -2 - 1px);
+  height: 2px;
+  margin-top: -1px;
+  background: color-mix(in srgb, var(--accent) 38%, transparent);
+}
+.phase:first-child .phase__rail::before { left: 50%; }
+.phase:last-child .phase__rail::before { right: 50%; }
+/* The live node breathes: a hexagon of leaf light opening out of it. */
+.phase__rail::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--node-w);
+  height: calc(var(--node-w) / .866);
+  translate: -50% -50%;
+  clip-path: var(--hex);
+  background: var(--ok);
+  opacity: 0;
+  pointer-events: none;
+}
+.phase.is-live .phase__rail::after { animation: phasePulse 2.8s var(--ease) infinite; }
+
+.phase__node {
+  --w: var(--node-w);
+  --h: calc(var(--node-w) / .866);
+  position: relative;
+  z-index: 1;
+  margin-bottom: 0;
+}
+.phase.is-live .phase__node,
+.phase.is-now .phase__node { color: #0B2E14; }
+.phase.is-live .phase__node::before,
+.phase.is-now .phase__node::before {
+  background: linear-gradient(180deg, #2F9E40, #1E7A2D 55%, #0F5219);
+  filter: drop-shadow(var(--hex-shadow)) drop-shadow(0 0 14px rgba(63, 185, 80, .3));
+}
+.phase.is-live .phase__node::after,
+.phase.is-now .phase__node::after {
+  background:
+    linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .7) 50%, transparent 62%) no-repeat,
+    radial-gradient(60% 48% at 32% 22%, rgba(255, 255, 255, .5), rgba(255, 255, 255, 0) 72%),
+    conic-gradient(from 0deg, rgba(255, 255, 255, .14) 0 60deg, rgba(0, 0, 0, .05) 60deg 120deg, rgba(0, 0, 0, .16) 120deg 180deg, rgba(0, 0, 0, .1) 180deg 240deg, rgba(255, 255, 255, .02) 240deg 300deg, rgba(255, 255, 255, .2) 300deg 360deg),
+    linear-gradient(160deg, #C9F7CF 0%, #7BE38A 30%, var(--leaf) 62%, #1E7A2D 100%);
+  background-size: 260% 100%, auto, auto, auto;
+  background-position: 200% 0, 0 0, 0 0, 0 0;
+}
+
+/* The card, cut like every other card on the site. */
+.phase__card {
+  grid-area: card;
+  position: relative;
+  isolation: isolate;
+  height: 100%;
+  margin-top: .3rem;
+  padding: clamp(1rem, 1.6vw, 1.35rem);
+}
+.phase__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--surface);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+.band--cream .phase__card::before { box-shadow: inset 0 0 0 1px var(--rule-light), inset 0 1px 0 #FFFFFF; }
+.band--dark .phase__card::before,
+.band--dark2 .phase__card::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .035), transparent 38%), var(--surface);
+  box-shadow: inset 0 0 0 1px rgba(245, 166, 35, .12), inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+.phase__card h3 { font-size: 1.06rem; font-weight: 600; margin-bottom: .45rem; }
+.phase__card > p { color: var(--fg-dim); font-size: .92rem; line-height: 1.6; }
+.phase__card > .phase__you {
+  margin-top: .95rem;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.phase.is-live .phase__card > .phase__you,
+.phase.is-now .phase__card > .phase__you { color: var(--ok); }
+.phase__list { margin-top: .5rem; display: grid; gap: .45rem; }
+.phase__list li {
+  display: flex;
+  gap: .5rem;
+  align-items: flex-start;
+  font-size: .88rem;
+  line-height: 1.5;
+  color: var(--fg-dim);
+}
+.ico--tick { width: 17px; height: 17px; margin-top: .16rem; color: var(--accent); }
+.phase.is-live .ico--tick,
+.phase.is-now .ico--tick { color: var(--ok); }
+
+.phases__note {
+  margin-top: clamp(1.5rem, 2.8vw, 2.2rem);
+  max-width: 62ch;
+  font-size: .9rem;
+  color: var(--fg-dim);
+}
+
+@keyframes phasePulse {
+  0% { opacity: .34; scale: 1; }
+  70%, 100% { opacity: 0; scale: 1.75; }
+}
+
+/* The rail stands up on tablets and phones. */
+@media (max-width: 880px) {
+  .phases {
+    --node-w: 46px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .phase {
+    grid-template-columns: calc(var(--node-w) + 10px) minmax(0, 1fr);
+    grid-template-areas: "rail chip" "rail card";
+    grid-template-rows: auto 1fr;
+    column-gap: .9rem;
+    padding-bottom: 1.2rem;
+  }
+  .phase__chip { justify-self: start; margin-top: .25rem; }
+  .phase__rail {
+    grid-row: 1 / -1;
+    height: 100%;
+    align-content: start;
+    justify-items: center;
+  }
+  .phase__rail::before {
+    top: calc(var(--node-w) / .866 / 2);
+    bottom: -1.2rem;
+    left: 50%;
+    right: auto;
+    width: 2px;
+    height: auto;
+    margin: 0 0 0 -1px;
+  }
+  .phase:first-child .phase__rail::before,
+  .phase:last-child .phase__rail::before { left: 50%; right: auto; }
+  .phase:last-child .phase__rail::before { display: none; }
+  .phase__rail::after { top: calc(var(--node-w) / .866 / 2); }
+  .phase__node > svg { width: 24px; height: 24px; }
+  .phase__card { margin-top: .5rem; }
+}
+
+/* --------------------------------------------------------------------------
+   20. Wide tables on narrow screens
+   The scroller keeps its own edge shadows: two "local" layers in the surface
+   colour ride with the content and cover the two "scroll" shadows underneath,
+   so a shadow only appears on a side there is more table to reach.
+   -------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  .tablewrap,
+  .ladder {
+    background-image:
+      linear-gradient(90deg, var(--surface), transparent),
+      linear-gradient(270deg, var(--surface), transparent),
+      linear-gradient(90deg, rgba(0, 0, 0, .22), transparent),
+      linear-gradient(270deg, rgba(0, 0, 0, .22), transparent);
+    background-position: left center, right center, left center, right center;
+    background-repeat: no-repeat;
+    background-size: 22px 100%, 22px 100%, 15px 100%, 15px 100%;
+    background-attachment: local, local, scroll, scroll;
+  }
+  /* The row heading stays put, so a figure never loses its label. */
+  .tablewrap thead th:first-child,
+  .tablewrap tbody th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: var(--surface);
+  }
+  table { font-size: .88rem; }
+  th, td { padding: .72rem .85rem; }
+  caption { padding: .9rem .85rem .2rem; }
+}
+
+/* --------------------------------------------------------------------------
+   21. The phone
+   Tighter rhythm, bigger targets, nothing below the readable floor. Only sizes
+   and spacing change here; every colour, shape and depth is the same as on the
+   desktop, so this is the same page, not a second design.
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  :root { --section-y: 52px; }
+
+  .hero { padding-block: 44px 34px; }
+  .hero h1 { margin-top: 1.1rem; }
+  .hero__lead { margin-top: 1.05rem; line-height: 1.6; }
+  .hero .cta-row { margin-top: 1.6rem; gap: .7rem; }
+  .hero .cta-row .btn { flex: 1 1 100%; }
+  .hero__sub { margin-top: 1rem; }
+
+  .sec-head { margin-bottom: 1.7rem; }
+  .sec-head p { margin-top: .8rem; }
+
+  .cards,
+  .cards--2,
+  .steps,
+  .dlgrid,
+  .ecosystem-grid { gap: 12px; }
+  .card { padding: 1.2rem; }
+  .card h3 { font-size: 1.16rem; }
+  .card p,
+  .why p,
+  .faq .answer p,
+  .prose p,
+  .prose li { font-size: .95rem; }
+  .why { gap: 1.5rem; }
+  .why .hexicon { --w: 42px; --h: 48.5px; }
+  .why .hexicon > svg { width: 22px; height: 22px; }
+  .mt-l { margin-top: 1.9rem; }
+  .panel { padding: 1.2rem; }
+
+  .faq summary { min-height: 52px; padding: .85rem 1.05rem; font-size: 1rem; }
+  .faq .answer { padding: 0 1.05rem 1.2rem; }
+  .faq summary .ind { width: 24px; height: 24px; }
+
+  .hexicon,
+  .step__n { --w: 48px; --h: 55.4px; margin-bottom: .9rem; }
+  .hexicon > svg,
+  .step__n > svg,
+  .phase__node > svg { width: 25px; height: 25px; }
+
+  .phases__note { font-size: .88rem; }
+  .page-head { padding-block: 42px 28px; }
 }

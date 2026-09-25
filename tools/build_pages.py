@@ -39,6 +39,122 @@ X_HANDLE = "@swarm_coin"
 EMAIL = "swarmofficial@atomicmail.io"
 
 
+# The phase timeline, byte-identical to the one in the home page's
+# #roadmap section. Used at the top of /roadmap.
+PHASES = """      <ol class="phases" data-reveal>
+        <li class="phase is-live">
+          <span class="phase__chip phase__chip--live">Live</span>
+          <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-coin"/></svg></span></span>
+          <div class="phase__card">
+            <h3>SWARM mainnet</h3>
+            <p>The coin, the chain and the apps to run them. Block 1 was mined in public from a genesis block that holds nothing; every SWM since has been mined.</p>
+            <p class="phase__you">You can</p>
+            <ul class="phase__list">
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>mine with one click in SWARM Node</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>watch every block and every allocation in the explorer</span></li>
+            </ul>
+          </div>
+        </li>
+        <li class="phase is-now">
+          <span class="phase__chip phase__chip--now">Now</span>
+          <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-growth"/></svg></span></span>
+          <div class="phase__card">
+            <h3>Growing the swarm</h3>
+            <p>More bees, more cities, more ways in. The wallet goes to the App Store and Google Play, every build ships signed, and more seed nodes come online around the world.</p>
+            <p class="phase__you">You can</p>
+            <ul class="phase__list">
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>run a node and light up your city on the map</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>install the wallet on your phone</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>tell us what breaks</span></li>
+            </ul>
+          </div>
+        </li>
+        <li class="phase">
+          <span class="phase__chip">Next</span>
+          <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-market"/></svg></span></span>
+          <div class="phase__card">
+            <h3>SWARM Market</h3>
+            <p>An online marketplace where merchants list what they sell and buyers pay in SWM, shielded by default. The wallet checks every invoice before you confirm; the Market never holds your coins; fees are shown before you pay; order details never touch the chain.</p>
+            <p class="phase__you">You can</p>
+            <ul class="phase__list">
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>pay for real goods and services with SWM</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>sell to the whole swarm without a payment processor</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>keep what you bought between you and the seller</span></li>
+            </ul>
+          </div>
+        </li>
+        <li class="phase">
+          <span class="phase__chip">Then</span>
+          <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-browser"/></svg></span></span>
+          <div class="phase__card">
+            <h3>Privacy browser</h3>
+            <p>A browser with the SWARM wallet built in. Paying a site is one click with the same confirmation screen as the wallet; trackers are blocked, fingerprinting is reduced, nothing phones home, and each site gets only the permissions you give it.</p>
+            <p class="phase__you">You can</p>
+            <ul class="phase__list">
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>pay from the address bar</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>browse without being followed</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>give a site access to your wallet only when you choose</span></li>
+            </ul>
+          </div>
+        </li>
+        <li class="phase">
+          <span class="phase__chip">Then</span>
+          <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-message"/></svg></span></span>
+          <div class="phase__card">
+            <h3>Private messaging</h3>
+            <p>End-to-end encrypted messages between people who hold SWARM wallets, with payments inside the conversation. Your chat identity is separate from your spending key, relays see only what they need to deliver, and no message is ever written to the chain.</p>
+            <p class="phase__you">You can</p>
+            <ul class="phase__list">
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>message and pay in one place</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>send an invoice in a chat</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>verify a contact once and be told if their key ever changes</span></li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+
+      <p class="phases__note" data-reveal>No dates. Each product ships when it is finished and reviewed, and is announced here first.</p>"""
+
+
+# The shared icon sprite, byte-identical to the one in index.html and
+# support/index.html. head() is an f-string, so it arrives through {SPRITE}.
+SPRITE = """<!-- The SWARM icon set. One 32-grid symbol per concept, drawn once and used
+     everywhere with <svg class="ico"><use href="#i-..."/></svg>. Same-document
+     references, so the strict CSP is untouched. Two tones: the solid shapes
+     take the cell's ink, the half-opacity shapes read as the lit inner face. -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="i-coin" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3.2 27.2 9.6v12.8L16 28.8 4.8 22.4V9.6Z"/><path d="M16 7.6 23.4 11.9v8.2L16 24.4 8.6 20.1v-8.2Z" stroke-width="1.6" opacity=".38"/><path d="M19.2 12.7c-.7-1.2-2-1.9-3.4-1.9-1.9 0-3.2 1-3.2 2.5 0 3.2 6.8 1.5 6.8 4.9 0 1.6-1.4 2.7-3.4 2.7-1.5 0-2.8-.7-3.5-1.8" stroke-width="2.2"/></symbol>
+<symbol id="i-apps" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9.6" y="4.4" width="18.4" height="13.4" rx="2.8" opacity=".42"/><rect x="4" y="10.4" width="18.4" height="17.2" rx="2.8"/><path d="M4 16.2h18.4" opacity=".42"/><circle cx="8.4" cy="13.4" r="1.1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-people" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12.4" cy="10.4" r="4.4"/><path d="M4 26.8c.5-5 3.9-7.8 8.4-7.8s7.9 2.8 8.4 7.8"/><circle cx="22.8" cy="12" r="3.2" opacity=".42"/><path d="M22 19.4c3.4.5 5.5 3 6 7.4" opacity=".42"/></symbol>
+<symbol id="i-shield" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3.4 27.4 7.6v8.2c0 5.9-4.4 10.2-11.4 12.2C9 26 4.6 21.7 4.6 15.8V7.6Z"/><path d="M16 10.6l3 1.7v3.4l-3 1.7-3-1.7v-3.4Z" fill="currentColor" stroke="none"/><path d="M16 18v3.6" stroke-width="2.6"/></symbol>
+<symbol id="i-mining" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 9.2c3.6-2 8.1-1.4 11 1.5 2.9 2.9 3.5 7.4 1.5 11"/><path d="M12.6 9.2 25.1 21.7" stroke-width="1.8" opacity=".42"/><path d="M5.4 26.6 18.9 13.1"/><path d="M8 5.4l2.7 1.6v3.1L8 11.7 5.3 10.1V7Z" fill="currentColor" stroke="none" opacity=".42"/></symbol>
+<symbol id="i-principles" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 9.2 6.8 11.6 11.2 6.6"/><path d="M15 9.4h12.6" opacity=".42"/><path d="M4.4 17.6 6.8 20 11.2 15"/><path d="M15 17.8h12.6" opacity=".42"/><path d="M4.4 26 6.8 28.4 11.2 23.4"/><path d="M15 26.2h8.6" opacity=".42"/></symbol>
+<symbol id="i-bee" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="18.8" rx="6.2" ry="7.6"/><path d="M10 16.6h12M10.4 21.6h11.2" opacity=".42"/><path d="M13.4 12C11.3 7.9 7 6.2 5.4 8.4c-1.3 1.8.7 4.7 4.1 5.9"/><path d="M18.6 12c2.1-4.1 6.4-5.8 8-3.6 1.3 1.8-.7 4.7-4.1 5.9"/></symbol>
+<symbol id="i-forager" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="13.6" cy="18" rx="5.6" ry="6.8"/><path d="M8.2 16h10.8M8.6 20.6h10" opacity=".42"/><path d="M11.4 11.6C9.5 8 5.6 6.4 4.2 8.4c-1.2 1.7.6 4.2 3.7 5.3"/><path d="M16 11.6c1.9-3.6 5.8-5.2 7.2-3.2 1.2 1.7-.6 4.2-3.7 5.3"/><circle cx="24.4" cy="19.6" r="2.4" fill="currentColor" stroke="none"/><circle cx="27" cy="24.8" r="1.7" fill="currentColor" stroke="none" opacity=".42"/><circle cx="21" cy="25.8" r="1.5" fill="currentColor" stroke="none" opacity=".42"/></symbol>
+<symbol id="i-honey" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3.6s8.4 9.4 8.4 14.5A8.4 8.4 0 0 1 7.6 18.1C7.6 13 16 3.6 16 3.6Z"/><path d="M12.4 18.6a3.8 3.8 0 0 0 2.8 4.8" stroke-width="2" opacity=".42"/></symbol>
+<symbol id="i-comb" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 15.5l5.4 3.1v6.2L16 27.9l-5.4-3.1v-6.2Z" fill="currentColor" stroke="none" opacity=".2"/><path d="M10.6 3.6 16 6.7v6.2l-5.4 3.1-5.4-3.1V6.7Z"/><path d="M21.4 3.6 26.8 6.7v6.2l-5.4 3.1-5.4-3.1V6.7Z" opacity=".42"/><path d="M16 15.5l5.4 3.1v6.2L16 27.9l-5.4-3.1v-6.2Z"/></symbol>
+<symbol id="i-hive" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 9.6 8.2 21M17.6 9.6 23.8 21M10 24h12" opacity=".42"/><circle cx="16" cy="6.6" r="3.4"/><circle cx="6.6" cy="24" r="3.4"/><circle cx="25.4" cy="24" r="3.4"/></symbol>
+<symbol id="i-lock" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5.6" y="13.6" width="20.8" height="14.2" rx="3.4"/><path d="M10.6 13.6V9.8a5.4 5.4 0 0 1 10.8 0v3.8"/><circle cx="16" cy="19.6" r="2.2" fill="currentColor" stroke="none" opacity=".5"/><path d="M16 21.8v2.8" opacity=".5"/></symbol>
+<symbol id="i-eye-off" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16s4.8-7.4 12-7.4S28 16 28 16s-4.8 7.4-12 7.4S4 16 4 16Z"/><circle cx="16" cy="16" r="3.4" opacity=".42"/><path d="M6.6 27 25.4 5"/></symbol>
+<symbol id="i-supply" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 5.2v22.2h22.8" opacity=".42"/><path d="M7 25.4h4.6v-7.6h5.2v-4.6h5.2v-2.8h5"/></symbol>
+<symbol id="i-layers" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3.8 28.4 10.2 16 16.6 3.6 10.2Z"/><path d="M3.6 15.8 16 22.2l12.4-6.4" opacity=".42"/><path d="M3.6 21.4 16 27.8l12.4-6.4" opacity=".42"/></symbol>
+<symbol id="i-code" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11.6 8.4 3.8 16l7.8 7.6M20.4 8.4 28.2 16l-7.8 7.6"/><path d="M18.4 5.2 13.6 26.8" opacity=".42"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3.8" y="7.4" width="24.4" height="18" rx="3.6"/><path d="M28.2 13.2h-5.8a2.8 2.8 0 0 0 0 5.6h5.8" opacity=".42"/><circle cx="22.8" cy="16" r="1.5" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-node" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4.2" y="5" width="23.6" height="9.2" rx="2.6"/><rect x="4.2" y="17.8" width="23.6" height="9.2" rx="2.6"/><circle cx="9.4" cy="9.6" r="1.5" fill="currentColor" stroke="none"/><circle cx="9.4" cy="22.4" r="1.5" fill="currentColor" stroke="none"/><path d="M14.6 9.6h8.6M14.6 22.4h8.6" opacity=".42"/></symbol>
+<symbol id="i-explorer" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13.8 4.2 22.4 9.2v9.8l-8.6 5-8.6-5V9.2Z" stroke-width="1.8" opacity=".42"/><circle cx="13.8" cy="14.2" r="6.6"/><path d="M18.6 18.9 26.6 26.9"/></symbol>
+<symbol id="i-phone" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="8.8" y="3.2" width="14.4" height="25.6" rx="3.4"/><path d="M13.6 7h4.8" opacity=".42"/><path d="M14.2 24.6h3.6"/></symbol>
+<symbol id="i-desktop" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="5.4" width="25.2" height="16.8" rx="2.8"/><path d="M3.4 18h25.2" opacity=".42"/><path d="M16 22.2v4.4M11.4 26.6h9.2"/></symbol>
+<symbol id="i-market" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.6 6.8 5.2h18.4L28 11.6Z"/><path d="M6.2 11.6v15.2h19.6V11.6"/><path d="M12.8 26.8v-7.4h6.4v7.4" opacity=".42"/></symbol>
+<symbol id="i-browser" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.6" cy="13.6" r="9.6"/><path d="M4 13.6h19.2M13.6 4c2.6 2.8 3.9 6 3.9 9.6s-1.3 6.8-3.9 9.6C11 20.4 9.7 17.2 9.7 13.6S11 6.8 13.6 4Z" opacity=".42"/><path d="M22.4 17.2 28.4 19.3v3.9c0 2.9-2.2 5-6 6-3.8-1-6-3.1-6-6v-3.9Z" fill="currentColor" stroke="none"/><path d="M19.9 23.2l1.8 1.8 3.2-3.6" stroke="#FFF8E7" stroke-width="2"/></symbol>
+<symbol id="i-message" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M27.6 16.4c0 5.7-5.2 10.4-11.6 10.4-1.6 0-3.1-.3-4.5-.8l-6.9 2.4 2.2-5.6c-1.8-1.8-2.8-4-2.8-6.4C4 10.7 9.2 6 15.6 6s12 4.7 12 10.4Z"/><rect x="12.6" y="15.4" width="7" height="5.8" rx="1.2" fill="currentColor" stroke="none"/><path d="M13.8 15.4v-1.8a2.3 2.3 0 0 1 4.6 0v1.8" stroke-width="2" opacity=".5"/></symbol>
+<symbol id="i-rocket" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3.4c3.9 3.6 6.1 8.3 6.1 13.5l-2.5 4.5h-7.2l-2.5-4.5c0-5.2 2.2-9.9 6.1-13.5Z"/><circle cx="16" cy="12.8" r="2.6" opacity=".42"/><path d="M12.3 15.6 8.2 19.7v4.5l3.5-2.6M19.7 15.6l4.1 4.1v4.5l-3.5-2.6"/><path d="M13.9 23.6c.5 2.5 1.2 4.2 2.1 5.2.9-1 1.6-2.7 2.1-5.2" opacity=".42"/></symbol>
+<symbol id="i-growth" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 28.4V13.6"/><path d="M16 18.2c0-4.7-3.7-8.5-8.4-8.5 0 4.7 3.7 8.5 8.4 8.5Z" opacity=".42"/><path d="M16 15.4c0-4.7 3.7-8.5 8.4-8.5 0 4.7-3.7 8.5-8.4 8.5Z"/></symbol>
+<symbol id="i-check" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3.2 27.2 9.6v12.8L16 28.8 4.8 22.4V9.6Z"/><path d="M10.8 16.2 14.4 19.8 21.4 12.4" stroke-width="2.6"/></symbol>
+<symbol id="i-store" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4.4v13.8"/><path d="M10.2 12.6 16 18.4l5.8-5.8"/><path d="M4.8 20.2v4.2a3 3 0 0 0 3 3h16.4a3 3 0 0 0 3-3v-4.2" opacity=".42"/></symbol>
+</defs></svg>"""
+
+
 def head(title, desc, path, og_title, og_desc):
     return f"""<!doctype html>
 <html lang="en">
@@ -71,11 +187,13 @@ def head(title, desc, path, og_title, og_desc):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=4">
+<link rel="stylesheet" href="/css/site.css?v=5">
 <script src="/js/boot.js?v=4"></script>
-<script src="/js/site.js?v=4" defer></script>
+<script src="/js/site.js?v=13" defer></script>
 </head>
 <body>
+{SPRITE}
+
 <a class="skip" href="#main">Skip to content</a>
 
 <p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · run a node, mine a block, send a shielded payment.</p>
@@ -531,7 +649,7 @@ join = head(
       <div class="cards cards--2" data-reveal>
         <article class="card">
           <div class="hexicon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4.4" y="10.4" width="15.2" height="10.2" rx="2"/><path d="M8.2 10.4V7.6a3.8 3.8 0 0 1 7.6 0v2.8"/></svg>
+            <svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-lock"/></svg>
           </div>
           <h3>Back up your recovery phrase offline</h3>
           <p>Write the phrase down on paper and store it somewhere safe. Do not photograph it, do not put it in a password manager you do not control, and do not type it into anything that asks you to &ldquo;verify&rdquo; it on a website.</p>
@@ -539,7 +657,7 @@ join = head(
         </article>
         <article class="card">
           <div class="hexicon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.4v5.2l3.2 2"/></svg>
+            <svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-mining"/></svg>
           </div>
           <h3>Mining only runs when you say so</h3>
           <p>Mining starts when you press <strong>Start</strong> and stops when you press <strong>Stop</strong>. It never starts by itself, it never runs hidden in the background, and there is no &ldquo;silent&rdquo; mode.</p>
@@ -597,33 +715,44 @@ roadmap = head(
 ) + page_head(
     "Roadmap",
     "The money first. Then the things you do with it.",
-    "SWARM mainnet is live: the coin, the chain and the apps to run them. Everything else on this page is built on top of that foundation, ships when it is finished and reviewed, and is announced here first.",
+    "SWARM mainnet is live: the coin, the chain and the apps to run them. Everything else on this page is built on that foundation.",
     pill="Mainnet · live",
 ) + f"""
   <section class="band band--cream">
     <div class="wrap">
       <div class="sec-head" data-reveal>
+        <p class="eyebrow">The plan</p>
+        <h2>Five phases, in order.</h2>
+        <p>The order is fixed; the calendar follows the work.</p>
+      </div>
+{PHASES}
+
+      <div class="sec-head mt-l" data-reveal>
         <p class="eyebrow">Live today</p>
         <h2>The foundation.</h2>
       </div>
       <div class="cards" data-reveal>
         <article class="card">
           <p class="pill pill--live">Live</p>
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-coin"/></svg></div>
           <h3>SWARM mainnet</h3>
           <p>Proof-of-work money with a fixed supply and shielded payments. 6.25 SWM a block, a block every 75 seconds, halving every 1,680,000 blocks, 20,999,987.3152 SWM at most. Block 1 was mined in public from a genesis block that holds nothing.</p>
         </article>
         <article class="card">
           <p class="pill pill--live">Live</p>
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-node"/></svg></div>
           <h3>SWARM Node</h3>
           <p>A full node and a miner in one app. It checks every block against the rules itself and lets you start or stop mining with one click. Windows, Linux and macOS.</p>
         </article>
         <article class="card">
           <p class="pill pill--live">Live</p>
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-wallet"/></svg></div>
           <h3>SWARM Wallet</h3>
           <p>Hold, send and receive SWM &mdash; shielded or transparent, your choice on every payment. Desktop and Android; the App Store and Google Play listings are next.</p>
         </article>
         <article class="card">
           <p class="pill pill--live">Live</p>
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-explorer"/></svg></div>
           <h3>Block explorer</h3>
           <p>Every block, every transaction, every one of the four allocations in every block reward. Public data only: it never asks for a key.</p>
         </article>
@@ -659,14 +788,17 @@ roadmap = head(
       </div>
       <div class="cards" data-reveal>
         <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-wallet"/></svg></div>
           <h3>Pay from your wallet</h3>
           <p>A merchant issues an invoice: exact amount, recipient, expiry. Your wallet checks it is a real SWARM invoice for the right network before it shows you a confirmation. You pay; the seller sees the payment confirm on the chain.</p>
         </article>
         <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-shield"/></svg></div>
           <h3>No custody</h3>
           <p>The coins go from you to the seller. The Market holds nothing on your behalf and cannot spend anything of yours. Fees, where there are any, are shown before you pay, not after.</p>
         </article>
         <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-eye-off"/></svg></div>
           <h3>Nothing personal on the chain</h3>
           <p>Order details, addresses and messages between buyer and seller live off-chain, protected and deletable. The chain only ever records that a valid payment happened.</p>
         </article>
@@ -683,14 +815,17 @@ roadmap = head(
       </div>
       <div class="cards" data-reveal>
         <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-browser"/></svg></div>
           <h3>Wallet built in</h3>
           <p>Pay a site or a merchant from the address bar, with the same confirmation screen as the wallet. A site can ask for a payment; it can never take one.</p>
         </article>
         <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-eye-off"/></svg></div>
           <h3>Private by default</h3>
           <p>Tracking blocked, fingerprinting reduced, nothing phoning home. Each site gets only the permissions you give it, and the wallet is never one of them by default.</p>
         </article>
         <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
           <h3>Open source, like everything else</h3>
           <p>Built on a maintained open-source browser engine, with the SWARM parts published in the open. Read it, build it, check it.</p>
         </article>
@@ -707,14 +842,17 @@ roadmap = head(
       </div>
       <div class="cards" data-reveal>
         <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-message"/></svg></div>
           <h3>Encrypted end to end</h3>
           <p>Only you and the person you write to can read a message. Relays carry ciphertext and the minimum needed to deliver it, and nothing is ever written to the chain.</p>
         </article>
         <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-coin"/></svg></div>
           <h3>Pay inside the chat</h3>
           <p>Send SWM to the person you are talking to, or send them an invoice, without leaving the conversation. A message can ask for a payment; it can never spend for you.</p>
         </article>
         <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-lock"/></svg></div>
           <h3>Keys kept apart</h3>
           <p>Your chat identity is not your spending key, and your wallet address does not publish who you talk to. You verify a contact once, and you are told if their key ever changes.</p>
         </article>
