@@ -2,14 +2,16 @@
   "meta": {
     "name": "SWARM",
     "domain": "swarm.green",
-    "updated": "2026-09-21",
+    "updated": "2026-09-25",
     "note": "Single source of truth for every number shown on the site. Edit here, then mirror the same values in the static HTML fallbacks (see README.md)."
   },
   "status": {
-    "phase": "testnet",
-    "short": "Testnet only",
-    "ribbon": "SWARM is on testnet — test coins have no value.",
-    "detail": "SWARM is a private testnet. Test coins have no monetary value. There is no sale, no token offering and no mainnet date."
+    "phase": "mainnet-preparation",
+    "short": "Mainnet in preparation",
+    "ribbon": "Mainnet in preparation · the public testnet is live — test coins have no value.",
+    "detail": "SWARM's mainnet has not launched. The public testnet has run the final economic rules since 2026-09-21; test coins have no monetary value and do not carry over. There is no sale, no token offering and no launch date.",
+    "testnetSince": "2026-09-21",
+    "flipNote": "When mainnet launches: set phase to 'mainnet', update ribbon/badge/footer text in index.html, tools/build_pages.py and support/index.html, add mainnet entries to data/downloads.json, and copy the mainnet genesis block into the genesis object below."
   },
   "chain": {
     "blockTimeSeconds": 75,
@@ -21,7 +23,9 @@
     "coinbaseMaturityBlocks": 100,
     "proofOfWork": "Equihash",
     "cpuMineableOnTestnet": true,
-    "lineage": "Forked from open-source Zcash software (Zebra full node, Zaino indexer, Zingo desktop wallet) with consensus rules and cryptography left unmodified."
+    "lineage": "Forked from open-source Zcash software (Zebra full node, Zaino indexer, Zingo desktop wallet) with consensus rules and cryptography left unmodified.",
+    "ticker": "SWM",
+    "cpuMineableFromGenesis": true
   },
   "genesis": {
     "note": "Copied from network/swarm-testnet/manifest.json, the published network definition. tools/build_pages.py renders the Genesis rules block on /network from here, so no address or hash is typed into HTML by hand. The baseline-miner payout address is operational, not consensus, and is deliberately not listed.",
@@ -30,19 +34,58 @@
     "headerTimeUtc": "2026-09-21T12:00:00Z",
     "spendableOutputs": 0,
     "addressType": "Pay-to-script-hash on the testnet (t2…).",
-    "custody": "On this testnet each script is controlled by a single key held by the project. How keys are generated, held and used will be written down and published before any mainnet.",
+    "custody": "On this testnet each script is controlled by a single key held by the project. How keys are generated, held and used will be written down and published before mainnet launches.",
     "destinations": [
-      { "name": "Core Development", "percent": "8%", "address": "t2DGVURG5tAyXXSkj85JV5xbvTobYv7H99n" },
-      { "name": "Grants & Ecosystem", "percent": "4%", "address": "t2LVPzRYpZ4QtRRmQMS1zWUmG7TZaYcMjBR" },
-      { "name": "Community & Development Reserve", "percent": "8%", "address": "t2UHhsicXnapNJrfewHqgwXef5HDwCHd7wk" }
+      {
+        "name": "Core Development",
+        "percent": "8%",
+        "address": "t2DGVURG5tAyXXSkj85JV5xbvTobYv7H99n"
+      },
+      {
+        "name": "Grants & Ecosystem",
+        "percent": "4%",
+        "address": "t2LVPzRYpZ4QtRRmQMS1zWUmG7TZaYcMjBR"
+      },
+      {
+        "name": "Community & Development Reserve",
+        "percent": "8%",
+        "address": "t2UHhsicXnapNJrfewHqgwXef5HDwCHd7wk"
+      }
     ]
   },
   "stats": [
-    { "key": "blockTime", "value": "75", "unit": "s", "label": "Target block time" },
-    { "key": "maxSupply", "value": "≈21", "unit": "M", "label": "Maximum supply", "note": "20,999,987.3152 coins" },
-    { "key": "blockReward", "value": "6.25", "unit": "", "label": "Coins per block" },
-    { "key": "halving", "value": "≈4", "unit": "yr", "label": "Halving interval", "note": "1,680,000 blocks" },
-    { "key": "premine", "value": "0", "unit": "", "label": "Premine" }
+    {
+      "key": "blockTime",
+      "value": "75",
+      "unit": "s",
+      "label": "Target block time"
+    },
+    {
+      "key": "maxSupply",
+      "value": "≈21",
+      "unit": "M",
+      "label": "Maximum supply",
+      "note": "20,999,987.3152 coins"
+    },
+    {
+      "key": "blockReward",
+      "value": "6.25",
+      "unit": "",
+      "label": "Coins per block"
+    },
+    {
+      "key": "halving",
+      "value": "≈4",
+      "unit": "yr",
+      "label": "Halving interval",
+      "note": "1,680,000 blocks"
+    },
+    {
+      "key": "premine",
+      "value": "0",
+      "unit": "",
+      "label": "Premine"
+    }
   ],
   "rewardSplit": {
     "status": "fixed",
@@ -89,15 +132,50 @@
         "perBlock": 0.5,
         "era0Total": 839999,
         "color": "#9AA4B2",
-        "desc": "Set aside for the community and for future development. How it is governed and spent will be defined separately and published before any mainnet."
+        "desc": "Set aside for the community and for future development. How it is governed and spent will be defined separately and published before mainnet launches."
       }
     ],
     "perBlockByEra": [
-      { "era": 0, "reward": 6.25,     "miner": 5.0,    "core": 0.5,     "grants": 0.25,     "reserve": 0.5 },
-      { "era": 1, "reward": 3.125,    "miner": 2.5,    "core": 0.25,    "grants": 0.125,    "reserve": 0.25 },
-      { "era": 2, "reward": 1.5625,   "miner": 1.25,   "core": 0.125,   "grants": 0.0625,   "reserve": 0.125 },
-      { "era": 3, "reward": 0.78125,  "miner": 0.625,  "core": 0.0625,  "grants": 0.03125,  "reserve": 0.0625 },
-      { "era": 4, "reward": 0.390625, "miner": 0.3125, "core": 0.03125, "grants": 0.015625, "reserve": 0.03125 }
+      {
+        "era": 0,
+        "reward": 6.25,
+        "miner": 5.0,
+        "core": 0.5,
+        "grants": 0.25,
+        "reserve": 0.5
+      },
+      {
+        "era": 1,
+        "reward": 3.125,
+        "miner": 2.5,
+        "core": 0.25,
+        "grants": 0.125,
+        "reserve": 0.25
+      },
+      {
+        "era": 2,
+        "reward": 1.5625,
+        "miner": 1.25,
+        "core": 0.125,
+        "grants": 0.0625,
+        "reserve": 0.125
+      },
+      {
+        "era": 3,
+        "reward": 0.78125,
+        "miner": 0.625,
+        "core": 0.0625,
+        "grants": 0.03125,
+        "reserve": 0.0625
+      },
+      {
+        "era": 4,
+        "reward": 0.390625,
+        "miner": 0.3125,
+        "core": 0.03125,
+        "grants": 0.015625,
+        "reserve": 0.03125
+      }
     ],
     "lifetimeTotals": {
       "miner": 16799990.4872,
@@ -158,30 +236,62 @@
     {
       "key": "wallet",
       "name": "SWARM Wallet",
-      "tagline": "Desktop wallet",
-      "detail": "Hold, send and receive — transparent or shielded. Windows first.",
-      "state": "coming-soon"
+      "tagline": "Desktop and mobile wallet",
+      "detail": "Hold, send and receive — transparent or shielded. Windows, Linux, macOS and Android today.",
+      "state": "available"
     },
     {
       "key": "node",
       "name": "SWARM Node",
       "tagline": "Full node + one-click mining",
       "detail": "One app runs a full node and lets you start or stop CPU mining with one click. Consent-first — nothing runs hidden.",
-      "state": "coming-soon"
+      "state": "available"
     },
     {
       "key": "explorer",
       "name": "SWARM Explorer",
       "tagline": "Block explorer",
-      "detail": "Planned at explore.swarm.green.",
-      "state": "coming-soon"
+      "detail": "Live for the public testnet at lwd.swarm.green:8443.",
+      "state": "available"
     }
   ],
   "roadmap": [
-    { "stage": 1, "name": "Private testnet", "state": "now", "detail": "Node, indexer and wallet running end to end on a closed testnet." },
-    { "stage": 2, "name": "Public testnet", "state": "next", "detail": "Open testnet with a block explorer and a faucet." },
-    { "stage": 3, "name": "Independent security review", "state": "later", "detail": "External review of the changes made on top of the upstream Zcash software." },
-    { "stage": 4, "name": "Mainnet readiness decision", "state": "later", "detail": "A public decision, made only once the work above is done. No date." }
+    {
+      "stage": 1,
+      "name": "Engineering testnets",
+      "state": "done",
+      "detail": "Two closed networks proved the inherited proof of work, the difficulty rule, reorganisation and recovery, and end-to-end shielded payments."
+    },
+    {
+      "stage": 2,
+      "name": "Public testnet",
+      "state": "now",
+      "detail": "Live since 2026-09-21 with the final economic rules; wallets, mining app, Android wallet and explorer public."
+    },
+    {
+      "stage": 3,
+      "name": "Mainnet engineering",
+      "state": "now",
+      "detail": "Distinct production identity (genesis, magic, address prefix), replay isolation, custody tooling, separate production hosts."
+    },
+    {
+      "stage": 4,
+      "name": "Independent review and soak",
+      "state": "next",
+      "detail": "External review of the changes on top of upstream Zcash software, then weeks of the launch candidate under normal and failure workloads."
+    },
+    {
+      "stage": 5,
+      "name": "Launch ceremony",
+      "state": "later",
+      "detail": "Offline keys, genesis from a public unpredictable input, signed releases, published launch manifest."
+    },
+    {
+      "stage": 6,
+      "name": "Mainnet",
+      "state": "later",
+      "detail": "Block 1 mined in public. No sale, no airdrop, no conversion of test coins. No date until the gates pass."
+    }
   ],
   "links": {
     "github": "https://github.com/Swarm-Official",

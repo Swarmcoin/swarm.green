@@ -5,7 +5,7 @@ cryptocurrency network with optional shielded transactions, built by forking
 open-source Zcash software (the Zebra full node, the Zaino indexer and the Zingo
 desktop wallet) with consensus rules and cryptography left unmodified.
 
-**Status: testnet only. Test coins have no monetary value.**
+**Status: mainnet in preparation. The public testnet is live (since 2026-09-21); test coins have no monetary value. The site never says "mainnet live" until it is: see `status` in `data/network.json` for the flip checklist.**
 
 ---
 
@@ -24,7 +24,8 @@ collects anything. The only third-party origin used anywhere is Google Fonts.
 .
 ├── index.html                 Home
 ├── network/index.html         Parameters, era table, reward allocation
-├── join/index.html            Step-by-step guide (apps are "coming soon")
+├── join/index.html            Step-by-step guide
+├── mainnet/index.html         The road to mainnet: what stays, what changes, the gates
 ├── brand/index.html           Logo downloads, colour, type, do/don't
 ├── terms/index.html
 ├── privacy/index.html
@@ -148,7 +149,7 @@ Three things the site must never say:
   upgrade. How it is governed and spent is not decided yet. The one approved
   description is: *"Paid block by block to its own predefined address, like the
   other allocations. How it is governed and spent will be defined separately and
-  published before any mainnet."*
+  published before mainnet launches."*
   It **is** accurate and approved to say that all three destinations are
   multisignature addresses held by the project and that they will be published
   with the genesis rules; that sentence is on `/network`. Do not go beyond it into

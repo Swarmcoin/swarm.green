@@ -86,7 +86,7 @@ def product(key):
                    (wallet and slug == 'iphone' and e['product'] == 'mobile-ios')]
         tips = {
             'windows': 'For Windows on Intel or AMD (64-bit). Unsigned test builds; Windows will show a warning.',
-            'macos': 'Apple silicon downloads are signed and notarized. Intel Mac downloads are coming later. Check Apple menu → About This Mac to see which processor you have.',
+            'macos': 'Apple silicon and Intel downloads are signed and notarized. Check Apple menu → About This Mac to see which processor you have.',
             'linux': 'For Intel or AMD (64-bit). Choose .deb for Debian / Ubuntu, or AppImage for a portable download.',
             'android': 'A direct APK is available for testing. It is debug-signed; Android will show a warning.',
             'iphone': 'The iPhone wallet is being prepared for release. A public download is not available yet.'}
@@ -102,7 +102,7 @@ def product(key):
       <p>{'Mobile wallets let you send and receive. Phones do not mine.' if wallet else 'Have your SWARM payout address ready. You can get one from SWARM Wallet.'}</p>
       <a class="textlink" href="/support">Need a hand? Get support →</a>
       <div class="download-aside__other"><p>{'Want to mine?' if wallet else 'Need a wallet?'}</p><a class="textlink" href="/ecosystem/{other}">Explore SWARM {other.title()} →</a></div>
-      </aside></div><div class="wrap"><p class="ecosystem-note">Experimental testnet software. Test coins have no value. Every available build includes a SHA-256 checksum.</p></div></section>'''
+      </aside></div><div class="wrap"><p class="ecosystem-note">These builds run on the public testnet. Test coins have no value and do not carry over. Mainnet releases will be published here separately when the network launches. Every available build includes a SHA-256 checksum.</p></div></section>'''
     return page(name, intro, '/ecosystem/' + key, body)
 
 
@@ -116,8 +116,8 @@ def outputs():
     overview += f'''<div class="ecosystem-more"><div><p class="eyebrow">EXPLORE</p><h2>Follow what we’re building.</h2></div>
       <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p>{explorer_link}</div>
       <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
-      <p class="ecosystem-note">SWARM is on testnet. Test coins have no value. iPhone and Google Play releases are coming soon; an Android test APK is available.</p></div></section>'''
-    yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform to download testnet software.', '/ecosystem', overview)
+      <p class="ecosystem-note">Mainnet is in preparation; today&rsquo;s builds run on the public testnet and test coins have no value. iPhone and Google Play releases are coming soon; an Android test APK is available.</p></div></section>'''
+    yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform; today\'s downloads run on the public testnet, mainnet releases follow at launch.', '/ecosystem', overview)
     for key in ['wallet', 'node']:
         yield f'ecosystem/{key}/index.html', product(key)
 
