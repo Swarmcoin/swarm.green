@@ -176,7 +176,7 @@ FOOTER = f"""</main>
     </div>
 
     <div class="footer__bottom">
-      <p><strong>Open-source software, provided as is.</strong> Nothing on this site is an offer, a solicitation or financial advice. SWM has no guaranteed value and can lose value, including all of it. There is no sale and no token offering. SWARM is not affiliated with or endorsed by the Electric Coin Company, the Zcash Foundation, Zingo Labs, Foursquare&rsquo;s Swarm app, or the Ethereum Swarm (BZZ) project.</p>
+      <p><strong>Open-source software, provided as is.</strong> Nothing on this site is an offer, a solicitation or financial advice. SWM has no guaranteed value and can lose value, including all of it. There is no sale and no token offering.</p>
       <div class="row">
         <p>© 2026 SWARM contributors. Open source.</p>
         <p>swarm.green</p>
@@ -236,7 +236,7 @@ params = [
     ("Coinbase maturity", "100 blocks"),
     ("Proof of work", "Equihash 200,9, inherited unchanged. The chain starts at minimum difficulty, so it is CPU-mineable from the first block; nothing in the rules keeps larger miners out later."),
     ("Privacy", "Optional. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs."),
-    ("Lineage", "Forked from open-source Zcash software — the Zebra full node, the Zaino indexer and the Zingo desktop wallet — with consensus rules and cryptography left unmodified."),
+    ("Code", "Proven open-source code, with consensus rules and cryptography left unmodified. Read it, build it, check it."),
     ("Ticker", "SWM"),
     ("Status", "Mainnet, live."),
 ]
@@ -301,7 +301,7 @@ network = head(
 ) + page_head(
     "Network &amp; supply",
     "Every number, in one place.",
-    "The monetary base is inherited from the Zcash design and fixed in the code. Nothing on this page is a projection — it is arithmetic you can check yourself against the source, and against the chain in the block explorer.",
+    "The monetary base is fixed in the code. Nothing on this page is a projection — it is arithmetic you can check yourself against the source, and against the chain in the block explorer.",
     pill="Mainnet · live",
 ) + f"""
   <section class="band band--cream">
@@ -312,7 +312,7 @@ network = head(
       </div>
       <div class="tablewrap" data-reveal>
         <table>
-          <caption>Consensus and monetary parameters. Inherited from the upstream Zcash design and left unmodified.</caption>
+          <caption>Consensus and monetary parameters, fixed in the code.</caption>
           <tbody>
 {param_rows}
           </tbody>
@@ -441,22 +441,9 @@ network = head(
   <section class="band band--dark2">
     <div class="wrap wrap--narrow">
       <div class="sec-head" data-reveal>
-        <p class="eyebrow">Precedent</p>
-        <h2>How Zcash did it.</h2>
-        <p>SWARM did not invent the idea of funding development out of the block reward. The upstream project has run three different arrangements, in public, over nearly a decade. SWARM&rsquo;s arrangement is simpler than any of them: one fixed split for the whole emission schedule.</p>
-      </div>
-      <div class="tablewrap" data-reveal>
-        <table>
-          <caption>Zcash block reward arrangements over time, for context.</caption>
-          <thead>
-            <tr><th scope="col">Period</th><th scope="col">Split</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">2016 – 2020</th><td>80% miners / 20% Founders&rsquo; Reward</td></tr>
-            <tr><th scope="row">2020 – 2024</th><td>80% miners / 7% / 5% / 8% development fund</td></tr>
-            <tr><th scope="row">2024 onward</th><td>80% miners / 8% grants / 12% lockbox</td></tr>
-          </tbody>
-        </table>
+        <p class="eyebrow">Next</p>
+        <h2>Now run it.</h2>
+        <p>Every number on this page is enforced by every node on the network. Run one and check for yourself.</p>
       </div>
       <div class="cta-row mt-l" data-reveal>
         <a class="btn btn--primary" href="/join">Get SWARM</a>
@@ -881,14 +868,10 @@ brand = head(
             <li>Don&rsquo;t recolour it — the honey, comb and amber are the mark.</li>
             <li>Don&rsquo;t place it on a mid-tone or a busy photograph.</li>
             <li>Don&rsquo;t redraw the mark, and don&rsquo;t set the wordmark in a script face.</li>
-            <li>Don&rsquo;t imply endorsement by Zcash, the Zcash Foundation, Zingo Labs, Foursquare or Ethereum Swarm.</li>
           </ul>
         </article>
       </div>
 
-      <div class="note mt-l" data-reveal>
-        <strong>On the name.</strong> SWARM has no connection to the Ethereum Swarm (BZZ) project or to Foursquare&rsquo;s Swarm app. The SWARM mark is original artwork: a chevron over two eyes in two tones of honey, with the wordmark set in Sora.
-      </div>
     </div>
   </section>
 """ + FOOTER
@@ -928,9 +911,6 @@ terms = head(
 
       <h2>Your own responsibility</h2>
       <p>Running a node, mining, and holding or paying with SWM use your own computer, your own electricity, your own bandwidth and your own money. Whether that is lawful, taxable and sensible where you live is yours to work out.</p>
-
-      <h2>Trade marks and independence</h2>
-      <p>SWARM is not affiliated with or endorsed by the Electric Coin Company, the Zcash Foundation, Zingo Labs, Foursquare&rsquo;s Swarm app, or the Ethereum Swarm (BZZ) project. Names and marks mentioned on this site belong to their respective owners and are used only to describe what SWARM is built from.</p>
 
       <h2>Licences</h2>
       <p>The software is open source; each repository carries its own licence. See <a href="https://github.com/Swarm-Official" target="_blank" rel="noopener noreferrer">github.com/Swarm-Official</a>.</p>

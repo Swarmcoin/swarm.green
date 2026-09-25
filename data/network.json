@@ -29,7 +29,7 @@
     "coinbaseMaturityBlocks": 100,
     "proofOfWork": "Equihash",
     "cpuMineableOnTestnet": true,
-    "lineage": "Forked from open-source Zcash software (Zebra full node, Zaino indexer, Zingo desktop wallet) with consensus rules and cryptography left unmodified.",
+    "lineage": "Proven open-source code with consensus rules and cryptography left unmodified.",
     "ticker": "SWM",
     "cpuMineableFromGenesis": true
   },

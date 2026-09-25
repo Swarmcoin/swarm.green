@@ -318,7 +318,8 @@ off camera, microphone and geolocation).
 
 ## Independence
 
-SWARM is not affiliated with or endorsed by the Electric Coin Company, the Zcash
+Owner rule 2026-09-25: the public site names no other project and carries no
+affiliation disclaimer. (Formerly: not affiliated with the Electric Coin Company, the Zcash
 Foundation, Zingo Labs, Foursquare's Swarm app, or the Ethereum Swarm (BZZ)
 project.
 
