@@ -116,9 +116,10 @@ def product(key):
             'iphone': 'The iPhone wallet is on its way to the App Store. A public download is not available yet.'}
         paused_mac = slug == 'macos' and entries and all(e['status'] != 'available' for e in entries)
         if paused_mac:
-            tips[slug] = 'Mac downloads are temporarily paused while updated builds are tested.'
+            tips[slug] = ('The macOS mainnet build is signed and notarized on the owner’s Mac, not in CI. '
+                          'That signed build is in progress.')
         body += f'<section class="platform-panel" id="platform-{slug}" data-platform-panel="{slug}" aria-labelledby="heading-{slug}"><h2 id="heading-{slug}">{label}</h2><p class="platform-help">{esc(tips[slug])}</p>'
-        body += ('<div class="download-empty"><span class="ecosystem-tag">Update in progress</span><p>Apple silicon and Intel downloads will return after installation and launch checks pass.</p></div>'
+        body += ('<div class="download-empty"><span class="ecosystem-tag">Coming soon</span><p>Apple silicon and Intel downloads appear here, with their SHA-256, once the signed build is ready.</p></div>'
                  if paused_mac else ''.join(download(e, name) for e in entries)) + '</section>'
     other = 'node' if wallet else 'wallet'
     body += f'''</div><aside class="download-aside"><p class="eyebrow">BEFORE YOU START</p><h2>A little preparation.</h2>
