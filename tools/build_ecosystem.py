@@ -110,7 +110,10 @@ def product(key):
                    (wallet and slug == 'iphone' and e['product'] == 'mobile-ios'))]
         tips = {
             'windows': 'For Windows on Intel or AMD (64-bit). Windows may show a SmartScreen notice for a new publisher; check the SHA-256 below before you install.',
-            'macos': 'Apple silicon and Intel downloads are signed and notarized. Check Apple menu → About This Mac to see which processor you have.',
+            'macos': ('Apple silicon and Intel downloads. Check Apple menu → About This Mac to see which processor you have. '
+                      f'These builds are not signed yet, so macOS blocks the first open: right-click {name} in Applications '
+                      f'and choose Open, or run xattr -d com.apple.quarantine "/Applications/{name}.app" in Terminal. '
+                      'A signed build follows.'),
             'linux': 'For Intel or AMD (64-bit). Choose .deb for Debian / Ubuntu, or AppImage for a portable download.',
             'android': 'A direct APK you install yourself; Android will ask you to allow it. Google Play is next.',
             'iphone': 'The iPhone wallet is on its way to the App Store. A public download is not available yet.'}
@@ -173,9 +176,11 @@ def outputs():
     overview += f'''<div class="ecosystem-more"><div><p class="eyebrow">EXPLORE</p><h2>Follow what we’re building.</h2></div>
       <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p>{explorer_link}</div>
       <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
-      <p class="ecosystem-note">SWARM mainnet is live. The mainnet SWARM Node is available for Windows today; the Linux
-      package, the mainnet wallet and the signed macOS builds are finishing and appear here with their SHA-256 as
-      soon as they do. The public testnet builds are still published, in the Testnet section of each app page.</p></div></section>'''
+      <p class="ecosystem-note">SWARM mainnet is live. SWARM Node and SWARM Wallet are available for Windows, Linux and
+      macOS today, each with its SHA-256. The macOS builds are not signed yet — macOS blocks the first open and the
+      app page says how to get past it; a signed build follows. The Android wallet is finishing and appears here with
+      its SHA-256 as soon as it does. The public testnet builds are still published, in the Testnet section of each
+      app page.</p></div></section>'''
     yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform.', '/ecosystem', overview)
     for key in ['wallet', 'node']:
         yield f'ecosystem/{key}/index.html', product(key)
