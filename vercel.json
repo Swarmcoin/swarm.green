@@ -3,7 +3,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/data/swarm-map-live.json", "destination": "https://lwd.swarm.green/swarm-map-live.json" }
+    { "source": "/data/swarm-map-live.json", "destination": "https://lwd-main.swarm.green/swarm-map-live.json" }
   ],
   "headers": [
     {
