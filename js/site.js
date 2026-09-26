@@ -846,12 +846,15 @@
     if (diff !== null) netSet("difficulty", fmt(diff, 2));
     if (mean !== null) netSet("interval", Math.round(mean) + "s");
 
+    /* The seed's own peer count is deliberately not printed. It is the number
+       of nodes connected to one server at one instant, not the size of the
+       network, and printing "0 peers" next to the height would say something
+       untrue to almost everyone who read it. The Swarm map is where the
+       network's reach belongs. */
     var when = typeof data.server_time_utc === "string" ? data.server_time_utc : null;
-    var peers = num(node.peers);
     var parts = ["Live from the SWARM mainnet seed server"];
     if (when) parts.push("read " + when.replace("T", " ").replace("Z", " UTC"));
-    if (peers !== null) parts.push("the seed itself is connected to " + peers + (peers === 1 ? " peer" : " peers"));
-    netSet("foot", parts.join(" · ") + ". It refreshes every 30 seconds; your own node is still the authority.");
+    netSet("foot", parts.join(" · ") + ". It refreshes every 30 seconds, and your own node is still the authority.");
     return true;
   }
 
