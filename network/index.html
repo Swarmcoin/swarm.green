@@ -118,7 +118,7 @@
       <p class="crumbs"><a href="/">Home</a><span aria-hidden="true">/</span>Network &amp; supply</p>
       <p class="pill">Mainnet · live</p>
       <h1>Every number, in one place.</h1>
-      <p class="page-head__lead">The monetary base is fixed in the code. Nothing on this page is a projection — it is arithmetic you can check yourself against the source, and against the chain in the block explorer.</p>
+      <p class="page-head__lead">The monetary base is fixed in the code. Nothing on this page is a projection — it is arithmetic you can check yourself against the source, and against the chain with your own node.</p>
     </div>
   </section>
 
@@ -242,7 +242,7 @@
         <h2>The three destinations, in full.</h2>
         <p>These are the addresses the allocations are paid to, and the genesis block they are fixed in. They are part of the network definition every node loads, so a node with different addresses rejects this chain&rsquo;s blocks and forks itself off. Compare the genesis hash below with what your node reports: if they match, you are on SWARM.</p>
         <p class="mt-s">The keys behind the three addresses were generated offline and are held under the custody policy published with the launch manifest in the <a href="https://github.com/Swarm-Official/swarm-releases" target="_blank" rel="noopener noreferrer">release repository<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>.</p>
-        <p class="mt-s">Pay-to-script-hash. Each script is controlled by keys generated offline and held under the custody policy published with the launch manifest.</p>
+        <p class="mt-s">Pay-to-script-hash, 2-of-3 multisig (s3…). Each script is controlled by three key shares generated offline at the launch key ceremony and held under the custody policy published with the launch manifest; two of the three are needed to spend.</p>
       </div>
 
       <div class="tablewrap" data-reveal>
@@ -252,9 +252,9 @@
             <tr><th scope="col">Allocation</th><th scope="col">Share</th><th scope="col">Destination address</th></tr>
           </thead>
           <tbody>
-          <tr><th scope="row">Core Development</th><td class="num">8%</td><td class="addr">t2DGVURG5tAyXXSkj85JV5xbvTobYv7H99n</td></tr>
-          <tr><th scope="row">Grants &amp; Ecosystem</th><td class="num">4%</td><td class="addr">t2LVPzRYpZ4QtRRmQMS1zWUmG7TZaYcMjBR</td></tr>
-          <tr><th scope="row">Community &amp; Development Reserve</th><td class="num">8%</td><td class="addr">t2UHhsicXnapNJrfewHqgwXef5HDwCHd7wk</td></tr>
+          <tr><th scope="row">Core Development</th><td class="num">8%</td><td class="addr">s3fLmEHc1xqs8KAe7QS7oupkhuGDjidV4eq</td></tr>
+          <tr><th scope="row">Grants &amp; Ecosystem</th><td class="num">4%</td><td class="addr">s3RiGvK5JzS8eh6ywN3K22f2LzDAhicgFuq</td></tr>
+          <tr><th scope="row">Community &amp; Development Reserve</th><td class="num">8%</td><td class="addr">s3g3pzQVhvVX17bzrrEN3vmcXZWSpj7KFVp</td></tr>
           </tbody>
         </table>
       </div>
@@ -263,10 +263,51 @@
         <table>
           <caption>The genesis block these rules are fixed in.</caption>
           <tbody>
-          <tr><th scope="row">Network</th><td class="">SwarmTestnet</td></tr>
-          <tr><th scope="row">Genesis block hash</th><td class="addr">045993f5c91ea160c7ebda573dd97b0016816bca68d395bfff202779b88e2a28</td></tr>
-          <tr><th scope="row">Genesis header time</th><td class="mono">2026-09-21T12:00:00Z</td></tr>
+          <tr><th scope="row">Network</th><td class="">SwarmMainnet</td></tr>
+          <tr><th scope="row">Genesis block hash</th><td class="addr">01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd</td></tr>
+          <tr><th scope="row">Genesis header time</th><td class="mono">2026-09-26T12:19:57Z</td></tr>
           <tr><th scope="row">Spendable outputs in the genesis block</th><td class="">0 — there is no premine</td></tr>
+          <tr><th scope="row">Launched</th><td class="mono">26 September 2026, 12:25 UTC</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">Where the apps connect</p>
+        <h2>The public addresses of the live network.</h2>
+        <p><code>seed-main.swarm.green</code> is a <strong>peer address on the P2P port</strong>, not a web address. Opening it as <code>https://</code> reaches a web server that holds no certificate for it; that refusal is correct behaviour, not a fault.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>SWARM mainnet endpoints.</caption>
+          <tbody>
+          <tr><th scope="row">Seed node (P2P)</th><td class="mono">seed-main.swarm.green:28233</td></tr>
+          <tr><th scope="row">Light-wallet server (TLS)</th><td class="mono">lwd-main.swarm.green:8443</td></tr>
+          <tr><th scope="row">Node RPC</th><td class="">28232 — Loopback only. The node RPC is never exposed publicly.</td></tr>
+          <tr><th scope="row">Mainnet block explorer</th><td class="">Being brought up now at <span class="mono">mainnet.explore.swarm.green</span></td></tr>
+          <tr><th scope="row">Testnet block explorer</th><td class=""><a href="https://explore.swarm.green" target="_blank" rel="noopener noreferrer">explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> — the public testnet, whose coins have no value</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">Addresses</p>
+        <h2>How to tell which network you are on.</h2>
+        <p>Read the first characters of any address. Mainnet and testnet use different prefixes on purpose, so a testnet address can never be mistaken for a real one.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>SWARM address prefixes.</caption>
+          <thead>
+            <tr><th scope="col">Starts with</th><th scope="col">Network</th><th scope="col">What it is</th></tr>
+          </thead>
+          <tbody>
+          <tr><th scope="row" class="mono">swm1…</th><td>Mainnet</td><td>Shielded — Unified shielded address. The default in SWARM Wallet.</td></tr>
+          <tr><th scope="row" class="mono">s1…</th><td>Mainnet</td><td>Transparent — Transparent pay-to-public-key-hash address.</td></tr>
+          <tr><th scope="row" class="mono">s3…</th><td>Mainnet</td><td>Transparent (script) — Pay-to-script-hash, used by the three fund addresses and by mining payouts.</td></tr>
+          <tr><th scope="row" class="mono">swarm1…</th><td>Testnet</td><td>Shielded — The public testnet keeps its own prefix. Testnet coins have no value.</td></tr>
           </tbody>
         </table>
       </div>

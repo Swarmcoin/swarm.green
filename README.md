@@ -5,12 +5,21 @@ cryptocurrency network with optional shielded transactions, built by forking
 open-source Zcash software (the Zebra full node, the Zaino indexer and the Zingo
 desktop wallet) with consensus rules and cryptography left unmodified.
 
-**This branch is the launch-day site.** Every page states that SWARM mainnet is
-live, so it is deployed only once block 1 exists. Two guards enforce that:
-`tools/build_pages.py` refuses to build while `data/network.json` still carries
-the testnet genesis, and `tools/build_ecosystem.py` refuses while testnet builds
-are listed as available. `status.launchChecklist` in `data/network.json` lists
-what to replace. For a local preview before launch:
+**SWARM mainnet went live on 2026-09-26 at 12:25 UTC**, genesis
+`01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd`. Every page
+says so, and the numbers on them come from `data/network.json`, which is copied
+from the published launch manifest. Two guards keep that honest:
+
+- `tools/build_pages.py` refuses to build while `data/network.json` does not
+  carry the `SwarmMainnet` genesis;
+- `tools/build_ecosystem.py` refuses to build while an **available** download
+  entry is a testnet build that is not marked `"channel": "testnet"`.
+
+Testnet builds are still published. They live in the same
+`data/downloads.json`, marked `"channel": "testnet"`, and the generator puts
+them in their own labelled Testnet section at the bottom of each app page,
+never in the platform panels. Anything without a `channel` is a mainnet
+download. For a local preview that bypasses both guards:
 `SWARM_ALLOW_PRELAUNCH_BUILD=1 python tools/build_pages.py`.
 
 ---

@@ -8,12 +8,24 @@ import sys
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = json.loads((ROOT / 'data/downloads.json').read_text(encoding='utf-8'))
-# Launch-day site: the pages say mainnet is live, so testnet builds must never
-# be listed as available. Local previews before launch set SWARM_ALLOW_PRELAUNCH_BUILD=1.
-_test = [e for e in DATA['entries'] if e['status'] == 'available' and 'testnet' in (e.get('version', '') + e.get('url', '') + e.get('notes', '')).lower()]
+# Launch-day site: the pages say mainnet is live, so a testnet build must never
+# be offered as if it were the mainnet download. Testnet builds are still
+# published, but only in an entry that says so: channel == "testnet". Those are
+# rendered in their own clearly labelled Testnet section, never in the main
+# platform panels. Anything that smells of testnet without that label is a bug,
+# and the build refuses. Local previews before launch set
+# SWARM_ALLOW_PRELAUNCH_BUILD=1.
+def channel(entry):
+    return entry.get('channel', 'mainnet')
+
+
+_test = [e for e in DATA['entries']
+         if e['status'] == 'available' and channel(e) != 'testnet'
+         and 'testnet' in (e.get('version', '') + e.get('url', '') + e.get('notes', '')).lower()]
 if _test and not os.environ.get('SWARM_ALLOW_PRELAUNCH_BUILD'):
-    sys.exit('refusing to build: %d available download entries are testnet builds (e.g. %s %s). '
-             'Replace data/downloads.json with the mainnet releases first (README: launch checklist).'
+    sys.exit('refusing to build: %d available download entries are testnet builds but are not marked '
+             '"channel": "testnet" (e.g. %s %s). Either point them at the mainnet releases or mark them '
+             'as testnet so they render in the Testnet section (README: launch checklist).'
              % (len(_test), _test[0]['product'], _test[0].get('version') or _test[0]['url']))
 SHELL = (ROOT / 'support/index.html').read_text(encoding='utf-8')
 esc = lambda value: html.escape(str(value), quote=True)
@@ -57,7 +69,11 @@ def cards():
 def download(entry, product_name):
     platform = entry['platform']
     if entry['status'] != 'available' or not entry.get('url'):
-        return f'<div class="download-empty"><span class="ecosystem-tag">Coming soon</span><h3>{esc(platform)}</h3><p>{esc(product_name)} is not available for {esc(platform)} yet.</p></div>'
+        # A "coming soon" card that says nothing is a dead end. When the entry
+        # carries a note (why it is not here, and what is happening), print it.
+        why = f'<p>{esc(entry["notes"])}</p>' if entry.get('notes') else ''
+        return (f'<div class="download-empty"><span class="ecosystem-tag">Coming soon</span>'
+                f'<h3>{esc(platform)}</h3><p>{esc(product_name)} is not available for {esc(platform)} yet.</p>{why}</div>')
     variant = entry.get('variant') or 'Download'
     suffix = ' · Apple silicon' if 'Apple silicon' in platform else ' · Intel' if 'Intel' in platform else ''
     if platform == 'Linux' and 'Installer' in variant:
@@ -88,10 +104,10 @@ def product(key):
         body += f'<button type="button" class="platform-choice" data-platform="{slug}" aria-controls="platform-{slug}" aria-pressed="false">{label}</button>'
     body += '</div></div>'
     for slug, label in groups:
-        entries = [e for e in DATA['entries'] if
+        entries = [e for e in DATA['entries'] if channel(e) != 'testnet' and (
                    (e['product'] == key and ((slug == 'macos' and e['platform'].startswith('macOS')) or e['platform'].lower() == slug)) or
                    (wallet and slug == 'android' and e['product'] == 'mobile-android') or
-                   (wallet and slug == 'iphone' and e['product'] == 'mobile-ios')]
+                   (wallet and slug == 'iphone' and e['product'] == 'mobile-ios'))]
         tips = {
             'windows': 'For Windows on Intel or AMD (64-bit). Windows may show a SmartScreen notice for a new publisher; check the SHA-256 below before you install.',
             'macos': 'Apple silicon and Intel downloads are signed and notarized. Check Apple menu → About This Mac to see which processor you have.',
@@ -111,20 +127,54 @@ def product(key):
       <a class="textlink" href="/support">Need a hand? Get support →</a>
       <div class="download-aside__other"><p>{'Want to mine?' if wallet else 'Need a wallet?'}</p><a class="textlink" href="/ecosystem/{other}">Explore SWARM {other.title()} →</a></div>
       </aside></div><div class="wrap"><p class="ecosystem-note">Every build includes a SHA-256 checksum. Check it before you install, and only ever download from this site or the release repository.</p></div></section>'''
+    body += testnet_section(key, name)
     return page(name, intro, '/ecosystem/' + key, body)
+
+
+def testnet_section(key, name):
+    """The old public testnet builds, kept available and clearly marked as such.
+
+    They connect to SwarmTestnet, whose coins have no value. They are never
+    mixed into the platform panels above, so nobody can pick one up by mistake
+    while looking for the mainnet download."""
+    entries = [e for e in DATA['entries']
+               if channel(e) == 'testnet' and e['status'] == 'available'
+               and (e['product'] == key or (key == 'wallet' and e['product'].startswith('mobile-')))]
+    if not entries:
+        return ''
+    body = ''.join(download(e, name) for e in entries)
+    return f'''<section class="band band--dark2" id="testnet">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow">TESTNET</p>
+    <h2>The public testnet is still running.</h2>
+    <p>SWARM mainnet is the real network, and everything above is a mainnet build. The public testnet stays
+      online for testing: it is a different chain, its addresses start <code>swarm1…</code>, and
+      <strong>its coins have no value and never will</strong>. Only install one of these if you know you want
+      the testnet.</p>
+    <details class="dl__sum"><summary>Show the testnet downloads for {esc(name)}</summary>
+      <div class="dl__sumbody">{body}</div>
+    </details>
+  </div>
+</section>'''
 
 
 def outputs():
     explorer = next(e for e in DATA['entries'] if e['product'] == 'explorer')
     explorer_link = (f'<a class="textlink" href="{esc(explorer["url"])}">Open explorer →</a>'
                      if explorer['status'] == 'available' and explorer.get('url')
-                     else '<span class="ecosystem-tag">Coming soon</span>')
+                     else '<span class="ecosystem-tag">Coming soon</span>'
+                          '<p>The mainnet explorer is being brought up at <code>mainnet.explore.swarm.green</code>. '
+                          'Until it opens, your own node is the authority. The '
+                          '<a class="textlink" href="https://explore.swarm.green">public testnet explorer</a> '
+                          'is already running — it shows SwarmTestnet, not mainnet.</p>')
     overview = hero('Find your place in the swarm.', 'A wallet for your coins. A node for the network. Choose what you want to do.')
     overview += '<section class="band band--cream"><div class="wrap">' + cards()
     overview += f'''<div class="ecosystem-more"><div><p class="eyebrow">EXPLORE</p><h2>Follow what we’re building.</h2></div>
       <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p>{explorer_link}</div>
       <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
-      <p class="ecosystem-note">iPhone and Google Play releases are next; an Android APK is available now.</p></div></section>'''
+      <p class="ecosystem-note">SWARM mainnet is live. The mainnet SWARM Node is available for Windows today; the Linux
+      package, the mainnet wallet and the signed macOS builds are finishing and appear here with their SHA-256 as
+      soon as they do. The public testnet builds are still published, in the Testnet section of each app page.</p></div></section>'''
     yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform.', '/ecosystem', overview)
     for key in ['wallet', 'node']:
         yield f'ecosystem/{key}/index.html', product(key)

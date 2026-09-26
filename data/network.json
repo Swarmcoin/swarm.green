@@ -2,22 +2,16 @@
   "meta": {
     "name": "SWARM",
     "domain": "swarm.green",
-    "updated": "2026-09-25",
-    "note": "Single source of truth for every number shown on the site. Edit here, then mirror the same values in the static HTML fallbacks (see README.md)."
+    "updated": "2026-09-26",
+    "note": "Single source of truth for every number shown on the site. Values come from the published SWARM mainnet launch manifest (rendered 2026-09-26T12:23:33Z). Edit here, then mirror the same values in the static HTML fallbacks (see README.md)."
   },
   "status": {
     "phase": "mainnet",
     "short": "Mainnet · live",
     "ribbon": "SWARM mainnet is live · run a node, mine a block, send a shielded payment.",
-    "detail": "SWARM mainnet is live. There was no sale, no presale and no token offering; every SWM is mined.",
-    "launchChecklist": [
-      "genesis: replace network/hash/headerTimeUtc/spendableOutputs/addressType/custody/destinations with the mainnet launch manifest values (tools/build_pages.py refuses to build while genesis.network != SwarmMainnet)",
-      "data/downloads.json: replace every available entry with the mainnet releases and checksums; remove testnet notes (tools/build_ecosystem.py refuses to build while testnet builds are listed)",
-      "explorer: point the explorer entry in data/downloads.json and links.explorer at the mainnet explorer",
-      "vercel.json: point the /data/swarm-map-live.json rewrite at the mainnet seed",
-      "custody policy: publish it with the launch manifest in the release repository (the site says it is there)",
-      "run: python tools/build_pages.py && python tools/build_ecosystem.py --check && node tools/check_downloads.mjs, then deploy"
-    ]
+    "detail": "SWARM mainnet went live on 26 September 2026 at 12:25 UTC. There was no sale, no presale and no token offering; every SWM is mined.",
+    "launchedUtc": "2026-09-26T12:25:00Z",
+    "launchedLabel": "26 September 2026, 12:25 UTC"
   },
   "chain": {
     "blockTimeSeconds": 75,
@@ -27,35 +21,37 @@
     "maxSupply": 20999987.3152,
     "premine": 0,
     "coinbaseMaturityBlocks": 100,
-    "proofOfWork": "Equihash",
+    "proofOfWork": "Equihash 200,9",
     "cpuMineableOnTestnet": true,
     "lineage": "Proven open-source code with consensus rules and cryptography left unmodified.",
     "ticker": "SWM",
-    "cpuMineableFromGenesis": true
+    "cpuMineableFromGenesis": true,
+    "networkMagic": "SWMN",
+    "lightWalletChainLabel": "swarm-mainnet"
   },
   "genesis": {
-    "note": "LAUNCH CHECKLIST: these are still the TESTNET values. Replace every field from the mainnet launch manifest before building; tools/build_pages.py refuses to build the launch-day site while network != SwarmMainnet. The baseline-miner payout address is operational, not consensus, and is deliberately not listed.",
-    "network": "SwarmTestnet",
-    "hash": "045993f5c91ea160c7ebda573dd97b0016816bca68d395bfff202779b88e2a28",
-    "headerTimeUtc": "2026-09-21T12:00:00Z",
+    "note": "Read from the published mainnet launch manifest (network/swarm-mainnet/manifest.json, sha256 c5ee6cf83985a529a46d32366eae82d939c23c2b38ffb85541b74c1e96f76d25). The baseline-miner payout address is operational, not consensus, and is deliberately not listed.",
+    "network": "SwarmMainnet",
+    "hash": "01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd",
+    "headerTimeUtc": "2026-09-26T12:19:57Z",
     "spendableOutputs": 0,
-    "addressType": "Pay-to-script-hash.",
-    "custody": "Each script is controlled by keys generated offline and held under the custody policy published with the launch manifest.",
+    "addressType": "Pay-to-script-hash, 2-of-3 multisig (s3…).",
+    "custody": "Each script is controlled by three key shares generated offline at the launch key ceremony and held under the custody policy published with the launch manifest; two of the three are needed to spend.",
     "destinations": [
       {
         "name": "Core Development",
         "percent": "8%",
-        "address": "t2DGVURG5tAyXXSkj85JV5xbvTobYv7H99n"
+        "address": "s3fLmEHc1xqs8KAe7QS7oupkhuGDjidV4eq"
       },
       {
         "name": "Grants & Ecosystem",
         "percent": "4%",
-        "address": "t2LVPzRYpZ4QtRRmQMS1zWUmG7TZaYcMjBR"
+        "address": "s3RiGvK5JzS8eh6ywN3K22f2LzDAhicgFuq"
       },
       {
         "name": "Community & Development Reserve",
         "percent": "8%",
-        "address": "t2UHhsicXnapNJrfewHqgwXef5HDwCHd7wk"
+        "address": "s3g3pzQVhvVX17bzrrEN3vmcXZWSpj7KFVp"
       }
     ]
   },
@@ -297,6 +293,48 @@
     "github": "https://github.com/Swarm-Official",
     "x": "https://x.com/swarm_coin",
     "email": "swarmofficial@atomicmail.io",
-    "explorer": "https://explore.swarm.green"
+    "explorer": "https://mainnet.explore.swarm.green",
+    "explorerTestnet": "https://explore.swarm.green"
+  },
+  "endpoints": {
+    "note": "The public addresses of the live mainnet. seed-main is a peer address, not a web address: never open it as https://.",
+    "seed": "seed-main.swarm.green:28233",
+    "seedLabel": "Seed node (P2P)",
+    "lightWallet": "lwd-main.swarm.green:8443",
+    "lightWalletLabel": "Light-wallet server (TLS)",
+    "p2pPort": 28233,
+    "rpcPort": 28232,
+    "rpcNote": "Loopback only. The node RPC is never exposed publicly.",
+    "explorerMainnet": "https://mainnet.explore.swarm.green",
+    "explorerTestnet": "https://explore.swarm.green"
+  },
+  "addressFormats": {
+    "note": "What a SWARM address looks like, so you can tell at a glance which network you are on.",
+    "formats": [
+      {
+        "prefix": "swm1…",
+        "network": "Mainnet",
+        "kind": "Shielded",
+        "detail": "Unified shielded address. The default in SWARM Wallet."
+      },
+      {
+        "prefix": "s1…",
+        "network": "Mainnet",
+        "kind": "Transparent",
+        "detail": "Transparent pay-to-public-key-hash address."
+      },
+      {
+        "prefix": "s3…",
+        "network": "Mainnet",
+        "kind": "Transparent (script)",
+        "detail": "Pay-to-script-hash, used by the three fund addresses and by mining payouts."
+      },
+      {
+        "prefix": "swarm1…",
+        "network": "Testnet",
+        "kind": "Shielded",
+        "detail": "The public testnet keeps its own prefix. Testnet coins have no value."
+      }
+    ]
   }
 }

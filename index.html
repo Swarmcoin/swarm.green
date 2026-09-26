@@ -83,6 +83,7 @@
       <span class="vh">— home</span>
     </a>
     <nav class="nav__links" aria-label="Primary">
+      <a href="#mainnet">Mainnet</a>
       <a href="#hive">The Hive</a>
       <a href="#honey">Honey</a>
       <a href="#swarm">The Swarm</a>
@@ -100,6 +101,7 @@
   <div class="nav__panel" id="navpanel" data-nav-panel>
     <nav aria-label="Primary, compact">
       <ul>
+        <li><a href="#mainnet">Mainnet</a></li>
         <li><a href="#hive">The Hive</a></li>
         <li><a href="#honey">Honey</a></li>
         <li><a href="#swarm">The Swarm</a></li>
@@ -139,6 +141,106 @@
     </div>
   </section>
 
+  <!-- ================= MAINNET IS LIVE ================= -->
+  <section class="band band--dark band--comb" id="mainnet">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Mainnet</p>
+        <h2>SWARM mainnet is live.</h2>
+        <p>The chain started on <strong>26 September 2026 at 12:25&nbsp;UTC</strong>. Block 1 was mined in public from a genesis block that holds nothing: no sale, no presale, no premine, no head start. Every SWM that exists has been mined since that moment, and the numbers below are the ones your own node will report back to you.</p>
+      </div>
+
+      <div class="cards mt-l" data-reveal>
+        <article class="card">
+          <p class="pill pill--live">Live</p>
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-coin"/></svg></div>
+          <h3>The coin</h3>
+          <p>Ticker <strong>SWM</strong>. <strong>6.25 SWM</strong> per block, a block every <strong>75 seconds</strong>, halving every <strong>1,680,000 blocks</strong> (about four years), <strong>20,999,987.3152 SWM</strong> at most. Mining rewards mature after 100 blocks.</p>
+        </article>
+        <article class="card">
+          <p class="pill pill--live">Live</p>
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-mining"/></svg></div>
+          <h3>The work</h3>
+          <p>Proof of work, <strong>Equihash 200,9</strong>, inherited unchanged and CPU-mineable from the first block. No checkpoints, no admin key, no way to mint a coin without finding a block.</p>
+        </article>
+        <article class="card">
+          <p class="pill pill--live">Live</p>
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-supply"/></svg></div>
+          <h3>The split</h3>
+          <p><strong>80%</strong> of every block goes to the miner who found it. The other <strong>20%</strong> is paid block by block to the three project funds &mdash; 8% Core Development, 4% Grants &amp; Ecosystem, 8% Community &amp; Development Reserve &mdash; at the published addresses below. Fixed in the genesis rules; it is not a premine and it cannot be changed without a protocol upgrade.</p>
+        </article>
+      </div>
+
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">Verify it</p>
+        <h2>Check you are on the real chain.</h2>
+        <p>A chain is identified by its genesis block. SWARM Node compares the genesis it loads against the one below before it syncs anything, and so can you.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>The SWARM mainnet launch, as published in the launch manifest.</caption>
+          <tbody>
+            <tr><th scope="row">Network</th><td>SwarmMainnet</td></tr>
+            <tr><th scope="row">Launched</th><td class="mono">2026-09-26 12:25 UTC</td></tr>
+            <tr><th scope="row">Genesis block hash</th><td class="addr">01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd</td></tr>
+            <tr><th scope="row">Genesis header time</th><td class="mono">2026-09-26T12:19:57Z</td></tr>
+            <tr><th scope="row">Spendable outputs in the genesis block</th><td>0 &mdash; there is no premine</td></tr>
+            <tr><th scope="row">Proof of work</th><td>Equihash 200,9</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap mt-m" data-reveal>
+        <table>
+          <caption>Where the apps connect. <code>seed-main</code> is a peer address, not a web address &mdash; never open it as <code>https://</code>.</caption>
+          <tbody>
+            <tr><th scope="row">Seed node (P2P)</th><td class="mono">seed-main.swarm.green:28233</td></tr>
+            <tr><th scope="row">Light-wallet server (TLS)</th><td class="mono">lwd-main.swarm.green:8443</td></tr>
+            <tr><th scope="row">Mainnet block explorer</th><td>Being brought up now at <span class="mono">mainnet.explore.swarm.green</span></td></tr>
+            <tr><th scope="row">Testnet block explorer</th><td><a href="https://explore.swarm.green" target="_blank" rel="noopener noreferrer">explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> &mdash; the public testnet, whose coins have no value</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap mt-m" data-reveal>
+        <table>
+          <caption>The project&rsquo;s published fund addresses. These three receive the 20% allocation automatically, block by block.</caption>
+          <thead>
+            <tr><th scope="col">Fund</th><th scope="col">Share</th><th scope="col">Published address</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Core Development</th><td class="num">8%</td><td class="addr">s3fLmEHc1xqs8KAe7QS7oupkhuGDjidV4eq</td></tr>
+            <tr><th scope="row">Grants &amp; Ecosystem</th><td class="num">4%</td><td class="addr">s3RiGvK5JzS8eh6ywN3K22f2LzDAhicgFuq</td></tr>
+            <tr><th scope="row">Community &amp; Development Reserve</th><td class="num">8%</td><td class="addr">s3g3pzQVhvVX17bzrrEN3vmcXZWSpj7KFVp</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note mt-m" data-reveal>Each fund address is a 2-of-3 multisignature script. The key shares were generated offline at the launch key ceremony and are held under the custody policy published with the launch manifest. The project&rsquo;s own mining payout is a private wallet and is deliberately not published here.</p>
+
+      <div class="tablewrap mt-l" data-reveal>
+        <table>
+          <caption>How to read a SWARM address, so you always know which network you are on.</caption>
+          <thead>
+            <tr><th scope="col">Starts with</th><th scope="col">Network</th><th scope="col">What it is</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row" class="mono">swm1…</th><td>Mainnet</td><td>Shielded. The default in SWARM Wallet: address and amount stay private.</td></tr>
+            <tr><th scope="row" class="mono">s1…</th><td>Mainnet</td><td>Transparent. Visible on the chain, like Bitcoin.</td></tr>
+            <tr><th scope="row" class="mono">s3…</th><td>Mainnet</td><td>Transparent script address. The three fund addresses above, and mining payouts.</td></tr>
+            <tr><th scope="row" class="mono">swarm1…</th><td>Testnet</td><td>The public testnet keeps its own prefix. Testnet coins have no value and never will.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cta-row mt-l" data-reveal>
+        <a class="btn btn--primary" href="#downloads">Get the mainnet apps</a>
+        <a class="btn btn--ghost" href="/network">The full supply schedule</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= WHAT SWARM IS ================= -->
   <section class="band band--dark2" id="what">
     <div class="wrap">
@@ -162,7 +264,7 @@
             <svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-apps"/></svg>
           </div>
           <h3>The software</h3>
-          <p><strong>SWARM Node</strong> runs a full node and mines with one click. <strong>SWARM Wallet</strong> holds, sends and receives, shielded or transparent, on desktop and phone. A public <strong>block explorer</strong> shows every block and every allocation. All of it is open source: read it, build it, check it.</p>
+          <p><strong>SWARM Node</strong> runs a full node and mines with one click. <strong>SWARM Wallet</strong> holds, sends and receives, shielded or transparent, on desktop and phone. A public <strong>block explorer</strong> for mainnet is being brought up now. All of it is open source: read it, build it, check it.</p>
         </article>
 
         <article class="card">
@@ -496,7 +598,42 @@
           <div class="ecosystem-card__top"><div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-node"/></svg></div><span class="ecosystem-tag">Windows · macOS · Linux</span></div>
           <p class="eyebrow">SWARM NODE</p><h2>Be part of the network.</h2><p>Run a full node, verify the chain and mine from one app.</p>
           <a class="btn btn--primary" href="/ecosystem/node">Explore node<span aria-hidden="true"> →</span></a>
-        </article></div><p class="mt-l"><a class="textlink" href="/ecosystem">Explore the ecosystem →</a></p></div>
+        </article></div><p class="mt-l"><a class="textlink" href="/ecosystem">Explore the ecosystem →</a></p>
+
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">Mainnet downloads</p>
+        <h2>Straight to the mainnet build.</h2>
+        <p>These connect to SWARM mainnet, genesis <span class="mono">01c34428…afdd</span>. Every file carries a SHA-256; check it before you install. The builds are <strong>not code-signed</strong>, so Windows SmartScreen will warn: <em>More info</em> &rarr; <em>Run anyway</em>.</p>
+      </div>
+
+      <div class="cards cards--2" data-reveal>
+        <article class="card">
+          <p class="eyebrow">SWARM NODE &middot; 0.2.0-mainnet.2</p>
+          <h3>Windows</h3>
+          <p>A full node and a one-click CPU miner. Choose <strong>&ldquo;SWARM mainnet&rdquo;</strong> on the network screen.</p>
+          <p class="mt-s"><a class="btn btn--primary btn--sm" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.2/SWARM-Node-0.2.0-mainnet.2-win-x64.exe">Download the installer<span class="vh"> for Windows, 141 MB</span><span aria-hidden="true"> ↓</span></a></p>
+          <details class="dl__sum"><summary>Verify download</summary><div class="dl__sumbody">
+            <p>Installer &mdash; SHA-256</p>
+            <code class="dl__hashline">506e6f9b6f23ffb7d9388d03fc162bf6c55581fdbce4090d7a70114c2d2a9191</code>
+            <p class="mt-s">141 MB &middot; 147,691,628 bytes</p>
+            <p class="mt-s">Portable zip &mdash; SHA-256</p>
+            <code class="dl__hashline">bf3f21fd23d6521aa67645cd0732d45770b8ff35f125047326c57b52a0ba03ad</code>
+            <p class="mt-s">174 MB &middot; 182,980,809 bytes &middot; <a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.2/SWARM-Node-0.2.0-mainnet.2-win-x64.zip">download the zip</a></p>
+            <p class="mt-s"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/tag/swarm-node-0.2.0-mainnet.2">Release, notes and SHA256SUMS<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></p>
+          </div></details>
+        </article>
+        <article class="card">
+          <p class="eyebrow">STILL BUILDING</p>
+          <h3>Linux, macOS and the wallet</h3>
+          <p>The Linux <span class="mono">.deb</span> and AppImage for SWARM Node, the mainnet SWARM Wallet and the Android build are finishing. They appear on the app pages with their SHA-256 the moment they are published &mdash; nothing is listed here before it can be checked.</p>
+          <p class="mt-s"><strong>macOS: coming, signed build in progress.</strong> The macOS packages are signed and notarized on the owner&rsquo;s Mac, never in CI.</p>
+          <p class="mt-s"><a class="textlink" href="/ecosystem/node">SWARM Node downloads →</a></p>
+          <p class="mt-s"><a class="textlink" href="/ecosystem/wallet">SWARM Wallet downloads →</a></p>
+        </article>
+      </div>
+
+      <p class="note mt-m" data-reveal><strong>Testnet.</strong> The public testnet is still running and its builds are still published, in the Testnet section at the bottom of each app page. It is a different chain, its addresses start <span class="mono">swarm1…</span>, and its coins have no value.</p>
+    </div>
   </section>
 
   <!-- ================= JOIN ================= -->
@@ -529,7 +666,7 @@
           <div class="step__n" aria-hidden="true">3</div>
           <p class="step__app">SWARM Node</p>
           <h3>Start foraging</h3>
-          <p>Press Start and your CPU begins looking for blocks. Follow blocks, rewards and the allocation in every block in the <a href="/ecosystem">SWARM block explorer</a>.</p>
+          <p>Press Start and your CPU begins looking for blocks. Your node shows the chain tip, your peers and every reward you find; the mainnet <a href="/ecosystem">block explorer</a> opens shortly.</p>
           <a class="btn btn--primary" href="/ecosystem/node">Start mining</a>
         </article>
       </div>
@@ -561,7 +698,7 @@
             <ul class="phase__list">
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>mine with one click in SWARM Node</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet</span></li>
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>watch every block and every allocation in the explorer</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>check the genesis hash and every block for yourself &mdash; the node verifies, it never trusts</span></li>
             </ul>
           </div>
         </li>
@@ -576,6 +713,7 @@
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>run a node and light up your city on the map</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>install the wallet on your phone</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>tell us what breaks</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>browse the chain in the mainnet block explorer, as soon as it opens</span></li>
             </ul>
           </div>
         </li>

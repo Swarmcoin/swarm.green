@@ -9,7 +9,13 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent  # repository root
 # Addresses and hashes must not exist in two places, so they are read from the
 # data file, which is copied from the published network manifest. The
 # baseline-miner payout address is operational, not consensus, and is not here.
-GENESIS = json.loads((ROOT / "data" / "network.json").read_text(encoding="utf-8"))["genesis"]
+NETWORK = json.loads((ROOT / "data" / "network.json").read_text(encoding="utf-8"))
+GENESIS = NETWORK["genesis"]
+# The public addresses of the live mainnet, and the address prefixes a reader
+# can use to tell at a glance which network they are looking at.
+ENDPOINTS = NETWORK["endpoints"]
+ADDRESS_FORMATS = NETWORK["addressFormats"]["formats"]
+STATUS = NETWORK["status"]
 # Launch-day site: every page states that mainnet is live, so it must never be
 # built (and therefore never deployed) with the testnet genesis in the data
 # file. Local previews before launch set SWARM_ALLOW_PRELAUNCH_BUILD=1.
@@ -52,7 +58,7 @@ PHASES = """      <ol class="phases" data-reveal>
             <ul class="phase__list">
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>mine with one click in SWARM Node</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet</span></li>
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>watch every block and every allocation in the explorer</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>check the genesis hash and every block for yourself &mdash; the node verifies, it never trusts</span></li>
             </ul>
           </div>
         </li>
@@ -67,6 +73,7 @@ PHASES = """      <ol class="phases" data-reveal>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>run a node and light up your city on the map</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>install the wallet on your phone</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>tell us what breaks</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>browse the chain in the mainnet block explorer, as soon as it opens</span></li>
             </ul>
           </div>
         </li>
@@ -408,7 +415,30 @@ genesis_rows = "\n".join(
         ("Genesis header time", esc(GENESIS["headerTimeUtc"]), "mono"),
         ("Spendable outputs in the genesis block",
             esc(GENESIS["spendableOutputs"]) + " \u2014 there is no premine", ""),
+        ("Launched", esc(STATUS["launchedLabel"]), "mono"),
     ])
+
+# The public addresses of the live network. seed-main is a peer address on the
+# P2P port, not a web address: linking it as https:// reaches a web server that
+# holds no certificate for it, and an audit has read that failure as a fault
+# once already. It is printed, never linked.
+endpoint_rows = "\n".join(
+    f'          <tr><th scope="row">{k}</th><td class="{cls}">{v}</td></tr>'
+    for k, v, cls in [
+        ("Seed node (P2P)", esc(ENDPOINTS["seed"]), "mono"),
+        ("Light-wallet server (TLS)", esc(ENDPOINTS["lightWallet"]), "mono"),
+        ("Node RPC", esc(ENDPOINTS["rpcPort"]) + " \u2014 " + esc(ENDPOINTS["rpcNote"]), ""),
+        ("Mainnet block explorer",
+            "Being brought up now at <span class=\"mono\">mainnet.explore.swarm.green</span>", ""),
+        ("Testnet block explorer",
+            f'<a href="{ENDPOINTS["explorerTestnet"]}" target="_blank" rel="noopener noreferrer">'
+            f'explore.swarm.green{EXT}</a> \u2014 the public testnet, whose coins have no value', ""),
+    ])
+
+address_rows = "\n".join(
+    f'          <tr><th scope="row" class="mono">{esc(f["prefix"])}</th>'
+    f'<td>{esc(f["network"])}</td><td>{esc(f["kind"])} \u2014 {esc(f["detail"])}</td></tr>'
+    for f in ADDRESS_FORMATS)
 
 network = head(
     "Network &amp; supply — SWARM",
@@ -419,7 +449,7 @@ network = head(
 ) + page_head(
     "Network &amp; supply",
     "Every number, in one place.",
-    "The monetary base is fixed in the code. Nothing on this page is a projection — it is arithmetic you can check yourself against the source, and against the chain in the block explorer.",
+    "The monetary base is fixed in the code. Nothing on this page is a projection — it is arithmetic you can check yourself against the source, and against the chain with your own node.",
     pill="Mainnet · live",
 ) + f"""
   <section class="band band--cream">
@@ -542,6 +572,39 @@ network = head(
         </table>
       </div>
 
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">Where the apps connect</p>
+        <h2>The public addresses of the live network.</h2>
+        <p><code>seed-main.swarm.green</code> is a <strong>peer address on the P2P port</strong>, not a web address. Opening it as <code>https://</code> reaches a web server that holds no certificate for it; that refusal is correct behaviour, not a fault.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>SWARM mainnet endpoints.</caption>
+          <tbody>
+{endpoint_rows}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-head mt-l" data-reveal>
+        <p class="eyebrow">Addresses</p>
+        <h2>How to tell which network you are on.</h2>
+        <p>Read the first characters of any address. Mainnet and testnet use different prefixes on purpose, so a testnet address can never be mistaken for a real one.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>SWARM address prefixes.</caption>
+          <thead>
+            <tr><th scope="col">Starts with</th><th scope="col">Network</th><th scope="col">What it is</th></tr>
+          </thead>
+          <tbody>
+{address_rows}
+          </tbody>
+        </table>
+      </div>
+
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
           <h3>At every halving</h3>
@@ -627,8 +690,8 @@ join = head(
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
           <h3>SWARM Explorer</h3>
-          <p>A block explorer, so you can watch what the chain is actually doing: blocks as they are found, the supply as it is issued, and the four-way allocation in every block.</p>
-          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="/ecosystem">Open the explorer{ARROW}</a></p>
+          <p>A block explorer, so you can watch what the chain is actually doing: blocks as they are found, the supply as it is issued, and the four-way allocation in every block. The mainnet explorer is being brought up now; until it opens, your own node is the authority.</p>
+          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="/ecosystem">See the ecosystem{ARROW}</a></p>
         </article>
         <article class="card">
           <h3>Build it yourself</h3>
@@ -751,10 +814,10 @@ roadmap = head(
           <p>Hold, send and receive SWM &mdash; shielded or transparent, your choice on every payment. Desktop and Android; the App Store and Google Play listings are next.</p>
         </article>
         <article class="card">
-          <p class="pill pill--live">Live</p>
+          <p class="pill">Coming</p>
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-explorer"/></svg></div>
           <h3>Block explorer</h3>
-          <p>Every block, every transaction, every one of the four allocations in every block reward. Public data only: it never asks for a key.</p>
+          <p>Every block, every transaction, every one of the four allocations in every block reward. Public data only: it never asks for a key. The mainnet explorer is being brought up now; the public testnet explorer is already running.</p>
         </article>
       </div>
     </div>
