@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Support — SWARM</title>
-<meta name="description" content="Help with SWARM Wallet and SWARM Node. Contact the project and find downloads.">
-<link rel="canonical" href="https://swarm.green/support">
+<title>Verify the chain — SWARM</title>
+<meta name="description" content="Check you are on the real SWARM chain: the genesis hash, the launch time, the public endpoints, the three published fund addresses and the address prefixes that tell mainnet from testnet.">
+<link rel="canonical" href="https://swarm.green/verify">
 <meta name="theme-color" content="#0E1116">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SWARM">
 <meta property="og:locale" content="en">
-<meta property="og:title" content="SWARM — Support">
-<meta property="og:description" content="Help with SWARM Wallet and SWARM Node. Contact the project and find downloads.">
-<meta property="og:url" content="https://swarm.green/support">
+<meta property="og:title" content="SWARM — Verify the chain">
+<meta property="og:description" content="Genesis 01c34428…afdd. Check the chain you joined is the one that was announced.">
+<meta property="og:url" content="https://swarm.green/verify">
 <meta property="og:image" content="https://swarm.green/assets/og.png?v=2">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -20,8 +20,8 @@
 <meta property="og:image:alt" content="SWARM — Together we are strong. Private, proof-of-work money run by its community.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@swarm_coin">
-<meta name="twitter:title" content="SWARM — Support">
-<meta name="twitter:description" content="Help with SWARM Wallet and SWARM Node. Contact the project and find downloads.">
+<meta name="twitter:title" content="SWARM — Verify the chain">
+<meta name="twitter:description" content="Genesis 01c34428…afdd. Check the chain you joined is the one that was announced.">
 <meta name="twitter:image" content="https://swarm.green/assets/og.png?v=2">
 <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
 <link rel="mask-icon" href="/assets/logo-mono-dark.svg?v=2" color="#F5A623">
@@ -119,24 +119,163 @@
 <main id="main">
   <section class="band band--dark band--comb page-head">
     <div class="wrap">
-      <p class="crumbs"><a href="/">Home</a><span aria-hidden="true">/</span>Support</p>
-      <h1>Help with SWARM</h1>
-      <p class="page-head__lead">Support for SWARM Wallet and SWARM Node.</p>
+      <p class="crumbs"><a href="/">Home</a><span aria-hidden="true">/</span>Verify</p>
+      <p class="pill">Mainnet · live</p>
+      <h1>Check you are on the real chain.</h1>
+      <p class="page-head__lead">A chain is identified by its genesis block. SWARM Node compares the genesis it loads against the one below before it syncs anything &mdash; and so can you. Nothing on this page needs to be taken on trust: every value is published, and every one of them is something your own node will report back to you.</p>
     </div>
   </section>
+
   <section class="band band--cream">
-    <div class="wrap wrap--narrow prose">
-      <h2>Contact the project</h2>
-      <p>Email <a href="mailto:swarmofficial@atomicmail.io">swarmofficial@atomicmail.io</a>. Include the app version, your operating system and what happened. Review screenshots or logs before sharing them and remove personal information.</p>
-      <p>We will never ask for your recovery words, private keys, passwords or a payment. Keep those details to yourself.</p>
-      <h2>Downloads and updates</h2>
-      <p>Get the current installers from <a href="/ecosystem">SWARM downloads</a>. Release files and checksums are also available in the <a href="https://github.com/Swarm-Official/swarm-releases" target="_blank" rel="noopener noreferrer">official release repository</a>.</p>
-      <h2>If the wallet cannot connect</h2>
-      <p>Check your internet connection and the server selected in the wallet settings. The default SWARM wallet server is <code>lwd-main.swarm.green:8443</code> on mainnet, and <code>lwd.swarm.green:443</code> on the public testnet. If the problem continues, email the app version and the error text. Keep your recovery information backed up before changing or reinstalling the app.</p>
-      <h2>If mining pauses</h2>
-      <p>The node needs network peers and an up-to-date chain before it can mine. Reconnect to the internet and check the node's sync and peer status. The <a href="/#faq">FAQ</a> explains mining and rewards.</p>
-      <h2>Your keys, your coins</h2>
-      <p>Nobody can recover a wallet or reverse a payment for you. Keep your recovery phrase backed up offline before you change or reinstall anything, and never type it into a website or send it to anyone, including us.</p>
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">The launch</p>
+        <h2>One block, published in advance.</h2>
+        <p>SWARM mainnet started on <strong>26 September 2026, 12:25 UTC</strong>. The rules, the genesis block and the three destination addresses were published before block 1 was mined, so there was no window in which anyone could mine in private. The genesis block holds no spendable coins: there is no premine, no sale and no head start.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>The SWARM mainnet launch, as published in the launch manifest.</caption>
+          <tbody>
+          <tr><th scope="row">Network</th><td><span class="mono">SwarmMainnet</span></td></tr>
+          <tr><th scope="row">Launched</th><td><span class="mono">26 September 2026, 12:25 UTC</span></td></tr>
+          <tr><th scope="row">Genesis block hash</th><td><span class="copyrow"><code class="mono">01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd</code><button class="btn btn--ghost btn--sm" type="button" data-copy="01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd">Copy<span class="vh"> the genesis block hash</span></button></span></td></tr>
+          <tr><th scope="row">Genesis header time</th><td><span class="mono">2026-09-26T12:19:57Z</span></td></tr>
+          <tr><th scope="row">Spendable outputs in the genesis block</th><td>0 &mdash; there is no premine</td></tr>
+          <tr><th scope="row">Proof of work</th><td>Equihash 200,9</td></tr>
+          <tr><th scope="row">Ticker</th><td>SWM</td></tr>
+          <tr><th scope="row">Target block time</th><td>75 seconds</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cards mt-l" data-reveal>
+        <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-node"/></svg></div>
+          <h3>In SWARM Node</h3>
+          <p>Open <em>Settings &rarr; Network</em>. It prints the chain, the genesis hash and the ports the app is using. If the genesis hash there is not the one above, you are not on SWARM mainnet.</p>
+          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="/ecosystem/node">Get SWARM Node<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></p>
+        </article>
+        <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-explorer"/></svg></div>
+          <h3>In the block explorer</h3>
+          <p>Look up height 0 in the mainnet explorer. It shows the same hash, the same header time and an empty coinbase. The explorer is a convenience &mdash; your own node is still the authority.</p>
+          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="https://mainnet.explore.swarm.green" target="_blank" rel="noopener noreferrer">Open the explorer<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></p>
+        </article>
+        <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
+          <h3>From the source</h3>
+          <p>The launch manifest, the source at the launch commit and every release with its SHA-256 are in the release repository. Build the node yourself and it will derive the same genesis.</p>
+          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="https://github.com/Swarm-Official/swarm-releases" target="_blank" rel="noopener noreferrer">Release repository<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--dark2">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Where the apps connect</p>
+        <h2>The public addresses of the live network.</h2>
+        <p><code>seed-main.swarm.green</code> is a <strong>peer address on the P2P port</strong>, not a web address. Opening it as <code>https://</code> reaches a web server that holds no certificate for it; that refusal is correct behaviour, not a fault.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>SWARM mainnet endpoints.</caption>
+          <tbody>
+          <tr><th scope="row">Seed node (P2P)</th><td class="mono">seed-main.swarm.green:28233</td></tr>
+          <tr><th scope="row">Light-wallet server (TLS)</th><td class="mono">lwd-main.swarm.green:8443</td></tr>
+          <tr><th scope="row">Node RPC</th><td class="">28232 — Loopback only. The node RPC is never exposed publicly.</td></tr>
+          <tr><th scope="row">Mainnet block explorer</th><td class=""><a href="https://mainnet.explore.swarm.green" target="_blank" rel="noopener noreferrer">mainnet.explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> — live, showing SwarmMainnet</td></tr>
+          <tr><th scope="row">Testnet block explorer</th><td class=""><a href="https://explore.swarm.green" target="_blank" rel="noopener noreferrer">explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> — the public testnet, whose coins have no value</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note mt-m" data-reveal>You do not have to use any of them. A node with no seed configured will still find peers, and a node you build yourself connects to whichever peers you point it at. These are the addresses the published apps use by default.</p>
+    </div>
+  </section>
+
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">The project&rsquo;s funds</p>
+        <h2>Three addresses, published, paid block by block.</h2>
+        <p>Twenty per cent of every block reward goes to these three addresses, automatically, as part of the block itself. It is not a premine and not a treasury that was filled in advance: it accumulates one block at a time, in public, and you can watch it arrive in the explorer.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>The three published fund addresses, fixed in the genesis rules.</caption>
+          <thead>
+            <tr><th scope="col">Fund</th><th scope="col">Share</th><th scope="col">Published address</th></tr>
+          </thead>
+          <tbody>
+          <tr><th scope="row">Core Development</th><td class="num">8%</td><td><span class="copyrow"><code class="mono">s3fLmEHc1xqs8KAe7QS7oupkhuGDjidV4eq</code><button class="btn btn--ghost btn--sm" type="button" data-copy="s3fLmEHc1xqs8KAe7QS7oupkhuGDjidV4eq">Copy<span class="vh"> the Core Development address</span></button></span></td></tr>
+          <tr><th scope="row">Grants &amp; Ecosystem</th><td class="num">4%</td><td><span class="copyrow"><code class="mono">s3RiGvK5JzS8eh6ywN3K22f2LzDAhicgFuq</code><button class="btn btn--ghost btn--sm" type="button" data-copy="s3RiGvK5JzS8eh6ywN3K22f2LzDAhicgFuq">Copy<span class="vh"> the Grants &amp; Ecosystem address</span></button></span></td></tr>
+          <tr><th scope="row">Community &amp; Development Reserve</th><td class="num">8%</td><td><span class="copyrow"><code class="mono">s3g3pzQVhvVX17bzrrEN3vmcXZWSpj7KFVp</code><button class="btn btn--ghost btn--sm" type="button" data-copy="s3g3pzQVhvVX17bzrrEN3vmcXZWSpj7KFVp">Copy<span class="vh"> the Community &amp; Development Reserve address</span></button></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cards cards--2 mt-l" data-reveal>
+        <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-lock"/></svg></div>
+          <h3>How the keys are held</h3>
+          <p>Pay-to-script-hash, 2-of-3 multisig (s3…). Each script is controlled by three key shares generated offline at the launch key ceremony and held under the custody policy published with the launch manifest; two of the three are needed to spend.</p>
+          <p class="mt-s">No single person and no single machine can move these funds, and the signing procedure has been exercised end to end rather than only written down.</p>
+        </article>
+        <article class="card">
+          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-eye-off"/></svg></div>
+          <h3>What is deliberately not here</h3>
+          <p>The project also mines, like anyone else. That payout goes to an ordinary private wallet, and it is <strong>not</strong> published: publishing it would hand everyone a permanent view of a wallet that has no governance role.</p>
+          <p class="mt-s">The three addresses above are the ones with a claim on the block reward, so those are the three that are published.</p>
+        </article>
+      </div>
+
+      <p class="note mt-m" data-reveal>The percentages are fixed in the genesis rules and cannot be changed. The destinations can only be changed by a formal protocol upgrade, which every node would have to accept. The full schedule, era by era, is on the <a href="/network">network page</a>.</p>
+    </div>
+  </section>
+
+  <section class="band band--dark2">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Addresses</p>
+        <h2>How to tell which network you are on.</h2>
+        <p>Read the first characters of any address. Mainnet and testnet use different prefixes on purpose, so a testnet address can never be mistaken for a real one &mdash; and a payment sent to the wrong kind of address is rejected rather than lost into another chain.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>SWARM address prefixes.</caption>
+          <thead>
+            <tr><th scope="col">Starts with</th><th scope="col">Network</th><th scope="col">What it is</th></tr>
+          </thead>
+          <tbody>
+          <tr><th scope="row" class="mono">swm1…</th><td>Mainnet</td><td>Shielded — Unified shielded address. The default in SWARM Wallet.</td></tr>
+          <tr><th scope="row" class="mono">s1…</th><td>Mainnet</td><td>Transparent — Transparent pay-to-public-key-hash address.</td></tr>
+          <tr><th scope="row" class="mono">s3…</th><td>Mainnet</td><td>Transparent (script) — Pay-to-script-hash, used by the three fund addresses and by mining payouts.</td></tr>
+          <tr><th scope="row" class="mono">swarm1…</th><td>Testnet</td><td>Shielded — The public testnet keeps its own prefix. Testnet coins have no value.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--cream">
+    <div class="wrap wrap--narrow">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">If something does not match</p>
+        <h2>Then stop, and tell us.</h2>
+        <p>A genesis hash that differs from the one on this page means the software you are running is not on SWARM mainnet. That can be an old build, a testnet build, or something that is not ours at all. Do not send coins to it, and do not enter a recovery phrase into it.</p>
+        <p class="mt-s">Download only from the links on this site, check the SHA-256 before you install, and write to <a href="mailto:swarmofficial@atomicmail.io">swarmofficial@atomicmail.io</a> if a published value and a running app disagree. We will never ask you for your recovery phrase, your private keys or a payment.</p>
+      </div>
+      <div class="cta-row mt-l" data-reveal>
+        <a class="btn btn--primary" href="/ecosystem">Get the apps</a>
+        <a class="btn btn--ghost" href="/network">The full supply schedule</a>
+      </div>
     </div>
   </section>
 </main>

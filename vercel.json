@@ -3,11 +3,16 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/data/swarm-map-live.json", "destination": "https://lwd-main.swarm.green/swarm-map-live.json" }
+    { "source": "/data/swarm-map-live.json", "destination": "https://lwd-main.swarm.green/swarm-map-live.json" },
+    { "source": "/data/status.json", "destination": "https://lwd-main.swarm.green/status.json" }
   ],
   "headers": [
     {
       "source": "/data/swarm-map-live.json",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    },
+    {
+      "source": "/data/status.json",
       "headers": [{ "key": "Cache-Control", "value": "no-store" }]
     },
     {

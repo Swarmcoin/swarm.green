@@ -336,5 +336,112 @@
         "detail": "The public testnet keeps its own prefix. Testnet coins have no value."
       }
     ]
+  },
+  "deliveries": {
+    "note": "What has actually shipped, what is being built now, and what is only planned. Rendered on /roadmap. Rules: 'live' means the public can use it today and the date is the day it became public; 'in-development' means work has started and there is no date; 'planned' means it has not started and gets neither a date nor a promise.",
+    "items": [
+      {
+        "state": "live",
+        "when": "21 September 2026",
+        "name": "Public testnet",
+        "detail": "The first public SWARM chain, mined in the open. It is still running, still published, and its coins have no value."
+      },
+      {
+        "state": "live",
+        "when": "26 September 2026",
+        "name": "SWARM mainnet",
+        "detail": "Block 1 mined in public at 12:25 UTC from a genesis block holding nothing. No sale, no presale, no premine."
+      },
+      {
+        "state": "live",
+        "when": "26 September 2026",
+        "name": "Mainnet block explorer",
+        "detail": "mainnet.explore.swarm.green, showing SwarmMainnet. The testnet explorer keeps running alongside it."
+      },
+      {
+        "state": "live",
+        "when": "26 September 2026",
+        "name": "SWARM Node for Windows, Linux and macOS",
+        "detail": "A full node and a one-click CPU miner in one app: installer and portable zip for Windows, .deb and AppImage for Linux, disk image and zip for macOS, each with its SHA-256. The macOS packages are unsigned."
+      },
+      {
+        "state": "live",
+        "when": "26 September 2026",
+        "name": "SWARM Wallet for Windows, Linux and macOS",
+        "detail": "Hold, send and receive SWM, shielded or transparent. It checks the chain label and the genesis before it syncs or sends anything. The macOS packages are unsigned."
+      },
+      {
+        "state": "live",
+        "when": "26 September 2026",
+        "name": "Wallet SDK, swarm-sdk-mainnet-1",
+        "detail": "The light-wallet SDK carrying the SWARM mainnet network definition, published so other wallets can be built against the same chain."
+      },
+      {
+        "state": "in-development",
+        "when": null,
+        "name": "Signed macOS builds",
+        "detail": "Unsigned macOS packages are published for Apple silicon and Intel, and the first open has to be allowed by hand. Signing and notarization happen on the owner’s Mac, never in CI; the signed build replaces the unsigned one when it is ready."
+      },
+      {
+        "state": "in-development",
+        "when": null,
+        "name": "Android and iOS mainnet wallets",
+        "detail": "The mobile wallet exists on the testnet. The mainnet builds, and the Google Play and App Store listings, are being prepared."
+      },
+      {
+        "state": "in-development",
+        "when": null,
+        "name": "SWARM Market",
+        "detail": "A marketplace where merchants list what they sell and buyers pay in SWM, shielded by default and without custody. Non-custodial invoices come first; escrow, multisignature and dispute handling need their own protocol and operational review before any of it ships."
+      },
+      {
+        "state": "in-development",
+        "when": null,
+        "name": "A wider operator network",
+        "detail": "More full nodes in more places, starting with machines the project runs itself and opening out from there. The Swarm map shows the cities whose operators asked to be listed."
+      },
+      {
+        "state": "in-development",
+        "when": null,
+        "name": "A second seed node",
+        "detail": "One seed node is one failure domain. A second seed in a different network and a different provider removes the single point that new nodes currently bootstrap from."
+      },
+      {
+        "state": "in-development",
+        "when": null,
+        "name": "Custody tooling for the three funds",
+        "detail": "The 2-of-3 signing procedure for the published fund addresses has been exercised end to end. The tooling and the written policy around it are being finished so the process is repeatable and reviewable, not improvised."
+      },
+      {
+        "state": "in-development",
+        "when": null,
+        "name": "An independent security review",
+        "detail": "A review of the code as it was launched, by people who did not write it. Its findings will be published, including the ones that are uncomfortable."
+      },
+      {
+        "state": "planned",
+        "when": null,
+        "name": "A pool protocol for miners",
+        "detail": "Today every miner is solo. A pool needs a work-distribution protocol, share accounting and an answer to who holds rewards before they are paid out — that last part needs review before it exists."
+      },
+      {
+        "state": "planned",
+        "when": null,
+        "name": "Exchange and SDK integrations",
+        "detail": "Making SWM reachable from software the project does not write. Nothing is agreed, nothing is announced, and no listing is promised."
+      },
+      {
+        "state": "planned",
+        "when": null,
+        "name": "Privacy browser",
+        "detail": "A browser with the SWARM wallet built in: pay from the address bar, trackers blocked, nothing phoning home, and each site given only the permissions you grant it."
+      },
+      {
+        "state": "planned",
+        "when": null,
+        "name": "Private messaging",
+        "detail": "End-to-end encrypted messages between wallets, with payments inside the conversation and chat identities kept apart from spending keys."
+      }
+    ]
   }
 }

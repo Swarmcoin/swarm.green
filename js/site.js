@@ -816,6 +816,60 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* 5b. Live network figures                                            */
+  /* The seed server publishes a read-only status file every 30 s. The    */
+  /* strict CSP allows same-origin connections only, so vercel.json       */
+  /* rewrites /data/status.json to lwd-main.swarm.green/status.json, the  */
+  /* same pattern the Swarm map census already uses.                      */
+  /*                                                                      */
+  /* Nothing is ever invented here. A field that is missing, unreadable   */
+  /* or not a finite number leaves the markup's em dash in place, and a   */
+  /* status file for a different network is ignored outright rather than  */
+  /* printed: a wrong number would be worse than no number.               */
+  /* ------------------------------------------------------------------ */
+  var STATUS_URL = "/data/status.json";
+  var STATUS_NETWORK = "SwarmMainnet";
+
+  function netSet(key, text) {
+    $$('[data-net="' + key + '"]').forEach(function (node) { node.textContent = text; });
+  }
+
+  function num(v) { return typeof v === "number" && isFinite(v) ? v : null; }
+
+  function renderStatus(data) {
+    if (!data || data.network !== STATUS_NETWORK) return false;
+    var node = data.node || {};
+    var height = num(node.height);
+    var diff = num(node.difficulty);
+    var mean = num(node.mean_interval_last_100_seconds);
+    if (height !== null) netSet("height", nf.format(height));
+    if (diff !== null) netSet("difficulty", fmt(diff, 2));
+    if (mean !== null) netSet("interval", Math.round(mean) + "s");
+
+    var when = typeof data.server_time_utc === "string" ? data.server_time_utc : null;
+    var peers = num(node.peers);
+    var parts = ["Live from the SWARM mainnet seed server"];
+    if (when) parts.push("read " + when.replace("T", " ").replace("Z", " UTC"));
+    if (peers !== null) parts.push("the seed itself is connected to " + peers + (peers === 1 ? " peer" : " peers"));
+    netSet("foot", parts.join(" · ") + ". It refreshes every 30 seconds; your own node is still the authority.");
+    return true;
+  }
+
+  function initNetStatus() {
+    if (!$("[data-netstatus]")) return;
+    fetch(STATUS_URL, { credentials: "omit", cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (data) {
+        if (!renderStatus(data)) throw new Error("not " + STATUS_NETWORK);
+      })
+      .catch(function () {
+        /* Leave every dash exactly where the markup put it. */
+        netSet("foot", "The seed server could not be reached just now, so no figures are shown. "
+          + "Your own node reports all of them on its Node screen.");
+      });
+  }
+
+  /* ------------------------------------------------------------------ */
   /* 6. Pointer tilt for the 3D hex cells                                */
   /* The cells are drawn entirely in CSS (css/site.css, sections 7, 8,   */
   /* 10). This feeds them two custom properties, --rx and --ry, through   */
@@ -884,6 +938,7 @@
     initData();
     initCopy();
     initDownloads();
+    initNetStatus();
     initTilt();
   }
 

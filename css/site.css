@@ -2049,6 +2049,32 @@ tbody th { font-weight: 500; white-space: nowrap; }
 }
 
 /* --------------------------------------------------------------------------
+   19b. Copy-to-clipboard rows  (/verify)  (added, nothing above is changed)
+   A monospaced value with its own Copy button, used for the genesis hash and
+   the three published fund addresses. The click handler is the delegated
+   [data-copy] listener already in js/site.js, so these need no new script.
+   -------------------------------------------------------------------------- */
+.copyrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem .85rem;
+}
+.copyrow > code {
+  font-family: var(--font-mono);
+  font-size: .9em;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.copyrow > .btn { flex: none; }
+
+/* The live network figures on the home page and /mining reuse the hero's
+   honey cells. A cell whose value has not arrived keeps its dash; a cell that
+   has just been updated is never animated, so nothing flickers on refresh. */
+[data-netstatus] { margin-top: clamp(2rem, 4vw, 3rem); }
+[data-netstatus] .stat__v { font-size: 1.62rem; }
+
+/* --------------------------------------------------------------------------
    20. Wide tables on narrow screens
    The scroller keeps its own edge shadows: two "local" layers in the surface
    colour ride with the content and cover the two "scroll" shadows underneath,

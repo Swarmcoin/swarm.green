@@ -29,9 +29,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=5">
+<link rel="stylesheet" href="/css/site.css?v=6">
 <script src="/js/boot.js?v=4"></script>
-<script src="/js/site.js?v=13" defer></script>
+<script src="/js/site.js?v=14" defer></script>
 </head>
 <body>
 <!-- The SWARM icon set. One 32-grid symbol per concept, drawn once and used
@@ -81,11 +81,12 @@
       <span class="vh">— home</span>
     </a>
     <nav class="nav__links" aria-label="Primary">
+      <a href="/#mainnet">Mainnet</a>
+      <a href="/mining">Mine</a>
       <a href="/#hive">The Hive</a>
       <a href="/#honey">Honey</a>
-      <a href="/#swarm">The Swarm</a>
       <a href="/ecosystem">Ecosystem</a>
-      <a href="/#join">Join</a>
+      <a href="/verify">Verify</a>
       <a href="/roadmap">Roadmap</a>
       <a href="/#faq">FAQ</a>
       <a href="https://github.com/Swarm-Official/swarm-releases" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>
@@ -98,10 +99,13 @@
   <div class="nav__panel" id="navpanel" data-nav-panel>
     <nav aria-label="Primary, compact">
       <ul>
+        <li><a href="/#mainnet">Mainnet</a></li>
+        <li><a href="/mining">Mine</a></li>
         <li><a href="/#hive">The Hive</a></li>
         <li><a href="/#honey">Honey</a></li>
         <li><a href="/#swarm">The Swarm</a></li>
         <li><a href="/ecosystem">Ecosystem</a></li>
+        <li><a href="/verify">Verify</a></li>
         <li><a href="/#join">Join</a></li>
         <li><a href="/roadmap">Roadmap</a></li>
         <li><a href="/#faq">FAQ</a></li>
@@ -135,7 +139,7 @@
           <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-coin"/></svg></span></span>
           <div class="phase__card">
             <h3>SWARM mainnet</h3>
-            <p>The coin, the chain and the apps to run them. Block 1 was mined in public from a genesis block that holds nothing; every SWM since has been mined.</p>
+            <p>Public testnet <b>21 September 2026</b>; mainnet <b>26 September 2026</b>. The coin, the chain and the apps to run them. Block 1 was mined in public from a genesis block that holds nothing; every SWM since has been mined.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>mine with one click in SWARM Node</span></li>
@@ -149,13 +153,13 @@
           <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-growth"/></svg></span></span>
           <div class="phase__card">
             <h3>Growing the swarm</h3>
-            <p>More bees, more cities, more ways in. The wallet goes to the App Store and Google Play, every build ships signed, and more seed nodes come online around the world.</p>
+            <p>More bees, more cities, more ways in. In development: signed macOS builds, the Android and iOS mainnet wallets, a second seed node in another failure domain, custody tooling for the three published funds, and an independent security review of the code as it was launched.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>run a node and light up your city on the map</span></li>
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>install the wallet on your phone</span></li>
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>tell us what breaks</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>mine on the computer you already own</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>browse the chain in the mainnet block explorer</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>tell us what breaks</span></li>
             </ul>
           </div>
         </li>
@@ -164,7 +168,7 @@
           <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-market"/></svg></span></span>
           <div class="phase__card">
             <h3>SWARM Market</h3>
-            <p>An online marketplace where merchants list what they sell and buyers pay in SWM, shielded by default. The wallet checks every invoice before you confirm; the Market never holds your coins; fees are shown before you pay; order details never touch the chain.</p>
+            <p><b>In development.</b> An online marketplace where merchants list what they sell and buyers pay in SWM, shielded by default. The wallet checks every invoice before you confirm; the Market never holds your coins; fees are shown before you pay; order details never touch the chain. Non-custodial invoices come first &mdash; escrow, multisignature and dispute handling need their own protocol and operational review before any of it ships.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>pay for real goods and services with SWM</span></li>
@@ -203,60 +207,78 @@
         </li>
       </ol>
 
-      <p class="phases__note" data-reveal>No dates. Each product ships when it is finished and reviewed, and is announced here first.</p>
+      <p class="phases__note" data-reveal>Shipped work carries the date it shipped. Nothing that has not started gets one: each product is announced here when it is finished and reviewed, and not before.</p>
 
       <div class="sec-head mt-l" data-reveal>
-        <p class="eyebrow">Live today</p>
-        <h2>The foundation.</h2>
+        <p class="eyebrow">Where each thing stands</p>
+        <h2>Live, in development, or planned.</h2>
+        <p>Three words, used strictly. <strong>Live</strong> means you can use it today and the date is the day you could. <strong>In development</strong> means the work has started and is not finished. <strong>Planned</strong> means it has not started &mdash; no date, no promise. Nothing moves up this list until it is true.</p>
       </div>
-      <div class="cards" data-reveal>
-        <article class="card">
-          <p class="pill pill--live">Live</p>
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-coin"/></svg></div>
-          <h3>SWARM mainnet</h3>
-          <p>Proof-of-work money with a fixed supply and shielded payments. 6.25 SWM a block, a block every 75 seconds, halving every 1,680,000 blocks, 20,999,987.3152 SWM at most. Block 1 was mined in public from a genesis block that holds nothing.</p>
-        </article>
-        <article class="card">
-          <p class="pill pill--live">Live</p>
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-node"/></svg></div>
-          <h3>SWARM Node</h3>
-          <p>A full node and a miner in one app. It checks every block against the rules itself and lets you start or stop mining with one click. Windows, Linux and macOS.</p>
-        </article>
-        <article class="card">
-          <p class="pill pill--live">Live</p>
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-wallet"/></svg></div>
-          <h3>SWARM Wallet</h3>
-          <p>Hold, send and receive SWM &mdash; shielded or transparent, your choice on every payment. Desktop and Android; the App Store and Google Play listings are next.</p>
-        </article>
-        <article class="card">
-          <p class="pill">Coming</p>
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-explorer"/></svg></div>
-          <h3>Block explorer</h3>
-          <p>Every block, every transaction, every one of the four allocations in every block reward. Public data only: it never asks for a key. The mainnet explorer is live, and the public testnet explorer keeps running alongside it.</p>
-        </article>
+
+      <div class="tablewrap mt-m" data-reveal>
+        <table>
+          <caption><b>Live.</b> Shipped and public. The date is the day anyone could use it.</caption>
+          <thead>
+            <tr><th scope="col">What</th><th scope="col">Since</th><th scope="col">Detail</th></tr>
+          </thead>
+          <tbody>
+          <tr><th scope="row">Public testnet</th><td class="mono">21 September 2026</td><td>The first public SWARM chain, mined in the open. It is still running, still published, and its coins have no value.</td></tr>
+          <tr><th scope="row">SWARM mainnet</th><td class="mono">26 September 2026</td><td>Block 1 mined in public at 12:25 UTC from a genesis block holding nothing. No sale, no presale, no premine.</td></tr>
+          <tr><th scope="row">Mainnet block explorer</th><td class="mono">26 September 2026</td><td>mainnet.explore.swarm.green, showing SwarmMainnet. The testnet explorer keeps running alongside it.</td></tr>
+          <tr><th scope="row">SWARM Node for Windows, Linux and macOS</th><td class="mono">26 September 2026</td><td>A full node and a one-click CPU miner in one app: installer and portable zip for Windows, .deb and AppImage for Linux, disk image and zip for macOS, each with its SHA-256. The macOS packages are unsigned.</td></tr>
+          <tr><th scope="row">SWARM Wallet for Windows, Linux and macOS</th><td class="mono">26 September 2026</td><td>Hold, send and receive SWM, shielded or transparent. It checks the chain label and the genesis before it syncs or sends anything. The macOS packages are unsigned.</td></tr>
+          <tr><th scope="row">Wallet SDK, swarm-sdk-mainnet-1</th><td class="mono">26 September 2026</td><td>The light-wallet SDK carrying the SWARM mainnet network definition, published so other wallets can be built against the same chain.</td></tr>
+          </tbody>
+        </table>
       </div>
+
+      <div class="tablewrap mt-m" data-reveal>
+        <table>
+          <caption><b>In development.</b> Started, and not finished. No dates — a date on unfinished work is a guess.</caption>
+          <thead>
+            <tr><th scope="col">What</th><th scope="col">Since</th><th scope="col">Detail</th></tr>
+          </thead>
+          <tbody>
+          <tr><th scope="row">Signed macOS builds</th><td class="mono">&mdash;</td><td>Unsigned macOS packages are published for Apple silicon and Intel, and the first open has to be allowed by hand. Signing and notarization happen on the owner’s Mac, never in CI; the signed build replaces the unsigned one when it is ready.</td></tr>
+          <tr><th scope="row">Android and iOS mainnet wallets</th><td class="mono">&mdash;</td><td>The mobile wallet exists on the testnet. The mainnet builds, and the Google Play and App Store listings, are being prepared.</td></tr>
+          <tr><th scope="row">SWARM Market</th><td class="mono">&mdash;</td><td>A marketplace where merchants list what they sell and buyers pay in SWM, shielded by default and without custody. Non-custodial invoices come first; escrow, multisignature and dispute handling need their own protocol and operational review before any of it ships.</td></tr>
+          <tr><th scope="row">A wider operator network</th><td class="mono">&mdash;</td><td>More full nodes in more places, starting with machines the project runs itself and opening out from there. The Swarm map shows the cities whose operators asked to be listed.</td></tr>
+          <tr><th scope="row">A second seed node</th><td class="mono">&mdash;</td><td>One seed node is one failure domain. A second seed in a different network and a different provider removes the single point that new nodes currently bootstrap from.</td></tr>
+          <tr><th scope="row">Custody tooling for the three funds</th><td class="mono">&mdash;</td><td>The 2-of-3 signing procedure for the published fund addresses has been exercised end to end. The tooling and the written policy around it are being finished so the process is repeatable and reviewable, not improvised.</td></tr>
+          <tr><th scope="row">An independent security review</th><td class="mono">&mdash;</td><td>A review of the code as it was launched, by people who did not write it. Its findings will be published, including the ones that are uncomfortable.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tablewrap mt-m" data-reveal>
+        <table>
+          <caption><b>Planned.</b> Not started. Named so the order is public, with nothing promised and no date.</caption>
+          <thead>
+            <tr><th scope="col">What</th><th scope="col">Since</th><th scope="col">Detail</th></tr>
+          </thead>
+          <tbody>
+          <tr><th scope="row">A pool protocol for miners</th><td class="mono">&mdash;</td><td>Today every miner is solo. A pool needs a work-distribution protocol, share accounting and an answer to who holds rewards before they are paid out — that last part needs review before it exists.</td></tr>
+          <tr><th scope="row">Exchange and SDK integrations</th><td class="mono">&mdash;</td><td>Making SWM reachable from software the project does not write. Nothing is agreed, nothing is announced, and no listing is promised.</td></tr>
+          <tr><th scope="row">Privacy browser</th><td class="mono">&mdash;</td><td>A browser with the SWARM wallet built in: pay from the address bar, trackers blocked, nothing phoning home, and each site given only the permissions you grant it.</td></tr>
+          <tr><th scope="row">Private messaging</th><td class="mono">&mdash;</td><td>End-to-end encrypted messages between wallets, with payments inside the conversation and chat identities kept apart from spending keys.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </section>
 
   <section class="band band--dark2">
-    <div class="wrap">
+    <div class="wrap wrap--narrow">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Verify it</p>
         <h2>Check you are on SWARM.</h2>
-        <p>A chain is identified by its genesis block. SWARM Node compares the genesis it loads with the one below before it syncs anything; you can do the same by hand. The launch manifest, the source at the launch commit and every release with its checksum are in the <a href="https://github.com/Swarm-Official/swarm-releases" target="_blank" rel="noopener noreferrer">release repository<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>.</p>
+        <p>A chain is identified by its genesis block: <span class="mono">01c34428&hellip;afdd</span>. SWARM Node compares the genesis it loads with that one before it syncs anything, and you can do the same by hand. The launch facts, the public endpoints, the three published fund addresses and the address prefixes are all on one page.</p>
       </div>
-      <div class="tablewrap" data-reveal>
-        <table>
-          <caption>The genesis block the rules are fixed in.</caption>
-          <tbody>
-          <tr><th scope="row">Network</th><td class="">SwarmMainnet</td></tr>
-          <tr><th scope="row">Genesis block hash</th><td class="addr">01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd</td></tr>
-          <tr><th scope="row">Genesis header time</th><td class="mono">2026-09-26T12:19:57Z</td></tr>
-          <tr><th scope="row">Spendable outputs in the genesis block</th><td class="">0 — there is no premine</td></tr>
-          </tbody>
-        </table>
+      <div class="cta-row" data-reveal>
+        <a class="btn btn--primary" href="/verify">Verify the chain</a>
+        <a class="btn btn--ghost" href="https://github.com/Swarm-Official/swarm-releases" target="_blank" rel="noopener noreferrer">Release repository<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a>
       </div>
-      <p class="note mt-m" data-reveal>The three destination addresses are listed with the full reward schedule on the <a href="/network">network page</a>.</p>
     </div>
   </section>
 
@@ -376,6 +398,7 @@
           <li><a href="/#honey">Honey</a></li>
           <li><a href="/#swarm">The Swarm</a></li>
           <li><a href="/network">Network &amp; supply</a></li>
+          <li><a href="/verify">Verify the chain</a></li>
           <li><a href="/roadmap">Roadmap</a></li>
         </ul>
       </nav>
@@ -384,6 +407,7 @@
         <h2 id="ft-get">Get started</h2>
         <ul>
           <li><a href="/join">Get SWARM</a></li>
+          <li><a href="/mining">How to mine</a></li>
           <li><a href="/ecosystem">Ecosystem</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="https://github.com/Swarm-Official/swarm-releases" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></li>
