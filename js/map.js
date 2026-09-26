@@ -26,7 +26,13 @@
   /* The live census supersedes the opt-in list: the seed publishes, every 30 s,
      which nodes are connected to it right now, at city level. A fixed Vercel
      rewrite serves the census from this site under its existing security policy. If it cannot answer, the page falls back to the published
-     opt-in list and says so rather than inventing a count. */
+     opt-in list and says so rather than inventing a count.
+     The rewrite points at the mainnet seed (lwd-main.swarm.green); the
+     engineering testnet keeps its own census at lwd.swarm.green.
+     TODO: lwd-main.swarm.green/nodes.json is not published yet (checked
+     2026-09-26 16:20 UTC). When it exists, prefer it over
+     swarm-map-live.json and add the matching /data/nodes.json rewrite
+     to vercel.json. */
   var MAP_URL = "/data/swarm-map.json";
   var LIVE_URL = "/data/swarm-map-live.json";
   var LIVE_STALE_MS = 3 * 60 * 1000;

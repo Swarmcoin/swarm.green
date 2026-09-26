@@ -73,7 +73,7 @@ PHASES = """      <ol class="phases" data-reveal>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>run a node and light up your city on the map</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>install the wallet on your phone</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>tell us what breaks</span></li>
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>browse the chain in the mainnet block explorer, as soon as it opens</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>browse the chain in the mainnet block explorer</span></li>
             </ul>
           </div>
         </li>
@@ -429,7 +429,8 @@ endpoint_rows = "\n".join(
         ("Light-wallet server (TLS)", esc(ENDPOINTS["lightWallet"]), "mono"),
         ("Node RPC", esc(ENDPOINTS["rpcPort"]) + " \u2014 " + esc(ENDPOINTS["rpcNote"]), ""),
         ("Mainnet block explorer",
-            "Being brought up now at <span class=\"mono\">mainnet.explore.swarm.green</span>", ""),
+            f'<a href="{ENDPOINTS["explorerMainnet"]}" target="_blank" rel="noopener noreferrer">'
+            f'mainnet.explore.swarm.green{EXT}</a> \u2014 live, showing SwarmMainnet', ""),
         ("Testnet block explorer",
             f'<a href="{ENDPOINTS["explorerTestnet"]}" target="_blank" rel="noopener noreferrer">'
             f'explore.swarm.green{EXT}</a> \u2014 the public testnet, whose coins have no value', ""),
@@ -690,7 +691,7 @@ join = head(
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
           <h3>SWARM Explorer</h3>
-          <p>A block explorer, so you can watch what the chain is actually doing: blocks as they are found, the supply as it is issued, and the four-way allocation in every block. The mainnet explorer is being brought up now; until it opens, your own node is the authority.</p>
+          <p>A block explorer, so you can watch what the chain is actually doing: blocks as they are found, the supply as it is issued, and the four-way allocation in every block. The mainnet explorer is live at mainnet.explore.swarm.green. Your own node is still the authority — the explorer just makes it easy to look.</p>
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="/ecosystem">See the ecosystem{ARROW}</a></p>
         </article>
         <article class="card">
@@ -734,9 +735,9 @@ join = head(
           <li><strong>Windows 10 or 11, Linux or macOS, 64-bit.</strong> See <a href="/ecosystem/node">SWARM Node</a> for the builds available today.</li>
           <li><strong>2 CPU cores or more.</strong></li>
           <li><strong>4 GB of memory or more.</strong></li>
-          <li><strong>10 GB of free disk</strong> for the chain. The seed node was using about 6.4 GB after its first day.</li>
+          <li><strong>10 GB of free disk</strong> for the chain. Mainnet started on 26 September 2026, so the chain is still small; leave room for it to grow.</li>
           <li><strong>An internet connection.</strong></li>
-          <li><strong>Port 18233 open &mdash; only if you want other nodes to be able to connect to you.</strong> Mining and syncing work without it.</li>
+          <li><strong>Port 28233 open &mdash; only if you want other nodes to be able to connect to you.</strong> Mining and syncing work without it.</li>
         </ul>
       </div>
     </div>
@@ -817,7 +818,7 @@ roadmap = head(
           <p class="pill">Coming</p>
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-explorer"/></svg></div>
           <h3>Block explorer</h3>
-          <p>Every block, every transaction, every one of the four allocations in every block reward. Public data only: it never asks for a key. The mainnet explorer is being brought up now; the public testnet explorer is already running.</p>
+          <p>Every block, every transaction, every one of the four allocations in every block reward. Public data only: it never asks for a key. The mainnet explorer is live, and the public testnet explorer keeps running alongside it.</p>
         </article>
       </div>
     </div>

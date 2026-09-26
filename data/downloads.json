@@ -255,16 +255,16 @@
     {
       "product": "explorer",
       "platform": "Web",
-      "status": "coming-soon",
+      "status": "available",
       "variant": "",
       "version": "",
-      "url": "",
+      "url": "https://mainnet.explore.swarm.green",
       "sha256": "",
       "checksums": "",
       "role": "primary",
       "sizeShort": "",
       "sizeBytes": 0,
-      "notes": "The SWARM mainnet explorer is being brought up at mainnet.explore.swarm.green."
+      "notes": "The SWARM mainnet explorer. It shows SwarmMainnet: every block, every transaction, and the four-way allocation in every block reward."
     },
     {
       "product": "source",

@@ -1,7 +1,7 @@
 {
   "name": "SWARM — Together we are strong.",
   "short_name": "SWARM",
-  "description": "Private, proof-of-work money run by its community. Testnet only.",
+  "description": "Private, proof-of-work money run by its community. Mainnet is live.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
