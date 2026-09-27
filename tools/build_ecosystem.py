@@ -115,7 +115,9 @@ def product(key):
                       f'and choose Open, or run xattr -d com.apple.quarantine "/Applications/{name}.app" in Terminal. '
                       'A signed build follows.'),
             'linux': 'For Intel or AMD (64-bit). Choose .deb for Debian / Ubuntu, or AppImage for a portable download.',
-            'android': 'A direct APK you install yourself; Android will ask you to allow it. Google Play is next.',
+            'android': ('A direct APK you install yourself; Android will ask you to allow it, and Play Protect warns that '
+                        'the app is unknown because this build has never been through Play review. The Google Play '
+                        'listing is pending. The APK is debug-signed, so a later Play build cannot upgrade over it.'),
             'iphone': 'The iPhone wallet is on its way to the App Store. A public download is not available yet.'}
         paused_mac = slug == 'macos' and entries and all(e['status'] != 'available' for e in entries)
         if paused_mac:
@@ -178,9 +180,9 @@ def outputs():
       <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
       <p class="ecosystem-note">SWARM mainnet is live. SWARM Node and SWARM Wallet are available for Windows, Linux and
       macOS today, each with its SHA-256. The macOS builds are not signed yet — macOS blocks the first open and the
-      app page says how to get past it; a signed build follows. The Android wallet is finishing and appears here with
-      its SHA-256 as soon as it does. The public testnet builds are still published, in the Testnet section of each
-      app page.</p></div></section>'''
+      app page says how to get past it; a signed build follows. The Android wallet is a direct APK with its own
+      SHA-256: you install it by hand while the Google Play listing is pending. The public testnet builds are still
+      published, in the Testnet section of each app page.</p></div></section>'''
     yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform.', '/ecosystem', overview)
     for key in ['wallet', 'node']:
         yield f'ecosystem/{key}/index.html', product(key)

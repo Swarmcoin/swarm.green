@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-09-26",
+    "updated": "2026-09-27",
     "note": "Download metadata for the ecosystem pages. Mainnet builds are the downloads; testnet builds are kept under \"channel\": \"testnet\" and rendered in their own labelled section. After updating entries, run python tools/build_ecosystem.py and verify with --check. Every available entry must have a working URL, version, SHA-256 and byte size.",
     "windowsNotice": "Unsigned build — Windows SmartScreen will warn. Check the SHA-256.",
     "mobileNotice": "Mobile apps are wallets only — phones do not mine.",
@@ -42,10 +42,11 @@
       "key": "mobile-android",
       "kind": "app",
       "name": "SWARM Wallet for Android",
-      "tagline": "Google Play",
+      "tagline": "Android APK",
       "detail": "The same wallet on your phone.",
       "platformLine": "Mobile apps are wallets only — phones do not mine.",
-      "glyph": "phone"
+      "glyph": "phone",
+      "soonSpec": "Android · direct APK"
     },
     {
       "key": "explorer",
@@ -304,16 +305,16 @@
     {
       "product": "mobile-android",
       "platform": "Android",
-      "status": "coming-soon",
+      "status": "available",
       "variant": "Direct APK",
-      "version": "",
-      "url": "",
-      "sha256": "",
-      "checksums": "",
+      "version": "0.2.0-mainnet.1",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-android-0.2.0-mainnet.1/SWARM-Wallet-0.2.0-mainnet.1-android.apk",
+      "sha256": "99a8fe21345bbc89e6fa33aa40c8847e613d1fef6ad62f30b8f1a6b5932f8944",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-android-0.2.0-mainnet.1/SHA256SUMS",
       "role": "primary",
-      "sizeShort": "",
-      "sizeBytes": 0,
-      "notes": "A mainnet Android build follows the desktop wallet."
+      "sizeShort": "227 MB",
+      "sizeBytes": 237647040,
+      "notes": "Sideload — the Play listing is still pending."
     },
     {
       "product": "mobile-android",
@@ -327,7 +328,7 @@
       "role": "primary",
       "sizeShort": "",
       "sizeBytes": 0,
-      "notes": ""
+      "notes": "The Play listing is pending: it needs the owner’s Play account and upload key. Until then the direct APK above is the Android download."
     },
     {
       "product": "mobile-ios",

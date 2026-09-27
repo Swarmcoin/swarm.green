@@ -385,8 +385,8 @@
       {
         "state": "in-development",
         "when": null,
-        "name": "Android and iOS mainnet wallets",
-        "detail": "The mobile wallet exists on the testnet. The mainnet builds, and the Google Play and App Store listings, are being prepared."
+        "name": "Mobile wallets in the app stores",
+        "detail": "The Android mainnet wallet is published as a direct APK you install yourself. The Google Play listing and the iPhone build are being prepared."
       },
       {
         "state": "in-development",

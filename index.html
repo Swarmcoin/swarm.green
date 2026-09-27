@@ -301,15 +301,22 @@
           </div></details>
         </article>
         <article class="card">
-          <p class="eyebrow">STILL BUILDING</p>
+          <p class="eyebrow">SWARM WALLET &middot; 0.2.0-mainnet.1</p>
           <h3>Android</h3>
-          <p>The Android wallet is finishing. It appears on the wallet page with its SHA-256 the moment it is published &mdash; nothing is listed here before it can be checked.</p>
-          <p class="mt-s"><a class="textlink" href="/ecosystem/node">SWARM Node downloads →</a></p>
-          <p class="mt-s"><a class="textlink" href="/ecosystem/wallet">SWARM Wallet downloads →</a></p>
+          <p>The same wallet on your phone, on SWARM Mainnet. It is a <strong>direct APK you install yourself</strong> &mdash; the Google Play listing is still pending, so Android asks you to allow the installer, and Play Protect warns that the app is unknown. Phones do not mine.</p>
+          <p class="mt-s"><a class="btn btn--primary btn--sm" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-android-0.2.0-mainnet.1/SWARM-Wallet-0.2.0-mainnet.1-android.apk">Download the APK<span class="vh"> for Android, 227 MB</span><span aria-hidden="true"> &darr;</span></a></p>
+          <details class="dl__sum"><summary>Verify download</summary><div class="dl__sumbody">
+            <p>Android <span class="mono">.apk</span> &mdash; SHA-256</p>
+            <code class="dl__hashline">99a8fe21345bbc89e6fa33aa40c8847e613d1fef6ad62f30b8f1a6b5932f8944</code>
+            <p class="mt-s">227 MB &middot; 237,647,040 bytes</p>
+            <p class="mt-s">One universal APK for <span class="mono">arm64-v8a</span>, <span class="mono">armeabi-v7a</span> and <span class="mono">x86_64</span>. Debug-signed, for sideloading only: a later Play build will carry a different signature and cannot upgrade over it.</p>
+            <p class="mt-s"><a class="textlink" href="/ecosystem/wallet">Every platform and checksum →</a></p>
+            <p class="mt-s"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/tag/swarm-wallet-android-0.2.0-mainnet.1">Release, notes and SHA256SUMS<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></p>
+          </div></details>
         </article>
       </div>
 
-      <p class="note mt-m" data-reveal><strong>macOS is not signed yet.</strong> The macOS builds above are real mainnet builds and carry a SHA-256, but they are unsigned, so macOS blocks the first open. Right-click the app in Applications and choose <em>Open</em>, or run <code class="mono">xattr -d com.apple.quarantine</code> on it. A signed build follows. <strong>Still building:</strong> the Android wallet, which appears on the wallet page with its SHA-256 the moment it is published. Nothing is listed before it can be checked. <a class="textlink" href="/ecosystem/wallet">SWARM Wallet downloads →</a></p>
+      <p class="note mt-m" data-reveal><strong>macOS is not signed yet.</strong> The macOS builds above are real mainnet builds and carry a SHA-256, but they are unsigned, so macOS blocks the first open. Right-click the app in Applications and choose <em>Open</em>, or run <code class="mono">xattr -d com.apple.quarantine</code> on it. A signed build follows. <strong>Android is a direct APK.</strong> It is debug-signed and installed by hand while the Google Play listing is pending; Android asks you to allow the installer. <a class="textlink" href="/ecosystem/wallet">SWARM Wallet downloads →</a></p>
 
       <p class="note mt-m" data-reveal><strong>Testnet.</strong> The public testnet is still running and its builds are still published, in the Testnet section at the bottom of each app page. It is a different chain, its addresses start <span class="mono">swarm1…</span>, and its coins have no value.</p>
     </div>
@@ -766,7 +773,7 @@
           <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-growth"/></svg></span></span>
           <div class="phase__card">
             <h3>Growing the swarm</h3>
-            <p>More bees, more cities, more ways in. In development: signed macOS builds, the Android and iOS mainnet wallets, a second seed node in another failure domain, custody tooling for the three published funds, and an independent security review of the code as it was launched.</p>
+            <p>More bees, more cities, more ways in. In development: signed macOS builds, the Google Play and App Store listings for the mobile wallet, a second seed node in another failure domain, custody tooling for the three published funds, and an independent security review of the code as it was launched.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>run a node and light up your city on the map</span></li>
