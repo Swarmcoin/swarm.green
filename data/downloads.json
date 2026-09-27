@@ -7,7 +7,7 @@
     "releasesUrl": "https://github.com/Swarm-Official/swarm-releases",
     "releasesLabel": "All mainnet downloads and checksums: github.com/Swarm-Official/swarm-releases",
     "unsignedNotice": "Unsigned build — your system will warn. Check the SHA-256.",
-    "macosNotice": "macOS builds are not yet signed. The first open is blocked: right-click the app in Applications and choose Open, or run xattr -d com.apple.quarantine on it. A signed build follows."
+    "macosNotice": "SWARM Node for macOS is signed and notarized. The mainnet Mac wallet remains unsigned."
   },
   "products": [
     {
@@ -135,12 +135,12 @@
       "variant": "Disk image",
       "version": "0.2.0-mainnet.5",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-arm64.dmg",
-      "sha256": "84ed1983f0d57ec6c7ca4e138bb75b35eae5854e0dd68597ad42914c1d79ed31",
+      "sha256": "fc293c476945c2ffa51e2faa8398f64e0dc1c94b1201d479d254cfbf929ea62b",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SHA256SUMS-mac-arm64",
       "role": "primary",
-      "sizeShort": "162 MB",
-      "sizeBytes": 170264514,
-      "notes": "Unsigned build. The first open is blocked: right-click SWARM Node in Applications and choose Open, or run xattr -d com.apple.quarantine \"/Applications/SWARM Node.app\" in Terminal. A signed build follows."
+      "sizeShort": "163 MB",
+      "sizeBytes": 170680740,
+      "notes": "Signed and notarized for macOS. Open the disk image, drag SWARM Node to Applications, then open it there. macOS may ask you to confirm the first launch."
     },
     {
       "product": "node",
@@ -149,13 +149,13 @@
       "variant": "Portable zip",
       "version": "0.2.0-mainnet.5",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-arm64.zip",
-      "sha256": "fb86b508317dc558ddb37633952333a21e7e23105f18ec1ed0bb2387259f8187",
+      "sha256": "940981f60e572cdc077084013a7343e6079aee4c5560b041bc23a191c78e15d7",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SHA256SUMS-mac-arm64",
       "role": "alt",
-      "sizeShort": "158 MB",
-      "sizeBytes": 166026591,
-      "notes": "Unsigned build. The first open is blocked: right-click SWARM Node in Applications and choose Open, or run xattr -d com.apple.quarantine \"/Applications/SWARM Node.app\" in Terminal. A signed build follows.",
-      "label": "Portable zip (158 MB)"
+      "sizeShort": "163 MB",
+      "sizeBytes": 170568462,
+      "notes": "Signed and notarized for macOS. Extract the zip, move SWARM Node to Applications, then open it there. macOS may ask you to confirm the first launch.",
+      "label": "Portable zip (163 MB)"
     },
     {
       "product": "node",
@@ -164,12 +164,12 @@
       "variant": "Disk image",
       "version": "0.2.0-mainnet.5",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-x64.dmg",
-      "sha256": "0344c74c07033d4ef45733b8dac192e6649db7173e3487c76d8328fa02ce4a1f",
+      "sha256": "c4715f04e83010f1ac2e8acb70fbe371cf6ea1cbc119bba926a34692db4f78a6",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SHA256SUMS-mac-x64",
       "role": "primary",
-      "sizeShort": "167 MB",
-      "sizeBytes": 175634183,
-      "notes": "Unsigned build. The first open is blocked: right-click SWARM Node in Applications and choose Open, or run xattr -d com.apple.quarantine \"/Applications/SWARM Node.app\" in Terminal. A signed build follows."
+      "sizeShort": "170 MB",
+      "sizeBytes": 178423490,
+      "notes": "Signed and notarized for macOS. Open the disk image, drag SWARM Node to Applications, then open it there. macOS may ask you to confirm the first launch."
     },
     {
       "product": "node",
@@ -178,13 +178,13 @@
       "variant": "Portable zip",
       "version": "0.2.0-mainnet.5",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-x64.zip",
-      "sha256": "effda10d737b8fdc043751db9f55f899c6d14c3b589c4e0a77156188f3bb4075",
+      "sha256": "dac21fb7a256a94e1d567c41d5dd4bf5ecbe0859da90a46ac80e3269c440d17e",
       "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SHA256SUMS-mac-x64",
       "role": "alt",
-      "sizeShort": "164 MB",
-      "sizeBytes": 171455967,
-      "notes": "Unsigned build. The first open is blocked: right-click SWARM Node in Applications and choose Open, or run xattr -d com.apple.quarantine \"/Applications/SWARM Node.app\" in Terminal. A signed build follows.",
-      "label": "Portable zip (164 MB)"
+      "sizeShort": "170 MB",
+      "sizeBytes": 178510323,
+      "notes": "Signed and notarized for macOS. Extract the zip, move SWARM Node to Applications, then open it there. macOS may ask you to confirm the first launch.",
+      "label": "Portable zip (170 MB)"
     },
     {
       "product": "wallet",

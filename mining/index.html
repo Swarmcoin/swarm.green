@@ -199,7 +199,7 @@
           <div class="step__n" aria-hidden="true">1</div>
           <p class="step__app">SWARM Node</p>
           <h3>Download it</h3>
-          <p>Windows installer or portable zip; Debian/Ubuntu <span class="mono">.deb</span> or a portable AppImage for Linux. Check the SHA-256 on the download page before you install.</p>
+          <p>Windows installer or portable zip; Debian/Ubuntu <span class="mono">.deb</span> or portable AppImage for Linux; signed disk image or zip for Apple silicon and Intel Macs. Check the SHA-256 on the download page before you install.</p>
           <p class="mt-s">No build is code-signed yet. Windows SmartScreen will warn you: <em>More info</em> &rarr; <em>Run anyway</em>. macOS blocks the first open: right-click the app in Applications and choose <em>Open</em>. Both are expected, and the SHA-256 is what actually tells you the file is the published one.</p>
           <a class="btn btn--primary" href="/ecosystem/node">Get SWARM Node</a>
         </article>
@@ -333,8 +333,8 @@
         </article>
         <article class="card">
           <h3>macOS</h3>
-          <p>Disk image or portable zip, for Apple silicon and for Intel, each with its SHA-256. <strong>These builds are not code-signed</strong>, so the first open is blocked: right-click <em>SWARM Node</em> in Applications and choose <em>Open</em>, or run <span class="mono">xattr -d com.apple.quarantine</span> on it in Terminal.</p>
-          <p class="mt-s">Signing and notarization happen on the owner&rsquo;s Mac, never in CI. A signed build follows, and it is on the <a href="/roadmap">roadmap</a> as in development.</p>
+          <p>Disk image or portable zip, for Apple silicon and for Intel, each with its SHA-256. <strong>Both builds are signed and notarized.</strong> Open the disk image, drag <em>SWARM Node</em> into Applications, and open it there.</p>
+          <p class="mt-s">macOS may ask you to confirm the first launch. The signed builds and their checksums are on the <a href="/ecosystem/node">SWARM Node download page</a>.</p>
         </article>
       </div>
 
@@ -344,7 +344,7 @@
           <li><strong>2 CPU cores or more.</strong></li>
           <li><strong>4 GB of memory or more.</strong></li>
           <li><strong>10 GB of free disk</strong> where the chain is stored. Mainnet started on 26 September 2026, so the chain is still small &mdash; leave room for it to grow.</li>
-          <li><strong>64-bit Windows 10 or newer</strong>, or Linux.</li>
+          <li><strong>64-bit Windows 10 or newer</strong>, Linux, or macOS on Apple silicon or Intel.</li>
           <li><strong>Port 28233 free</strong> on this machine. Whether your router lets other nodes in cannot be tested from here, and mining works either way.</li>
         </ul>
       </div>

@@ -120,6 +120,10 @@ def product(key):
                         'listing is pending. The APK is debug-signed, so a later Play build cannot upgrade over it.'),
             'iphone': 'The iPhone wallet is on its way to the App Store. A public download is not available yet.'}
         paused_mac = slug == 'macos' and entries and all(e['status'] != 'available' for e in entries)
+        if slug == 'macos' and key == 'node' and not paused_mac:
+            tips[slug] = ('Apple silicon and Intel downloads. Check Apple menu → About This Mac to see which processor you have. '
+                          'These SWARM Node builds are signed and notarized by Apple. Open the disk image, drag SWARM Node '
+                          'to Applications, then open it there. macOS may ask you to confirm the first launch.')
         if paused_mac:
             tips[slug] = ('The macOS mainnet build is signed and notarized on the owner’s Mac, not in CI. '
                           'That signed build is in progress.')
@@ -179,8 +183,8 @@ def outputs():
       <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p>{explorer_link}</div>
       <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
       <p class="ecosystem-note">SWARM mainnet is live. SWARM Node and SWARM Wallet are available for Windows, Linux and
-      macOS today, each with its SHA-256. The macOS builds are not signed yet — macOS blocks the first open and the
-      app page says how to get past it; a signed build follows. The Android wallet is a direct APK with its own
+      macOS today, each with its SHA-256. SWARM Node for Mac is signed and notarized; the Mac wallet remains
+      unsigned and its app page explains the first-open step. The Android wallet is a direct APK with its own
       SHA-256: you install it by hand while the Google Play listing is pending. The public testnet builds are still
       published, in the Testnet section of each app page.</p></div></section>'''
     yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform.', '/ecosystem', overview)

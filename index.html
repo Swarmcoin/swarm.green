@@ -271,15 +271,15 @@
         <article class="card">
           <p class="eyebrow">SWARM NODE &middot; 0.2.0-mainnet.5</p>
           <h3>macOS</h3>
-          <p>The same app for Apple silicon and Intel, from the same commit as the Windows package. <strong>Not signed yet:</strong> macOS blocks the first open &mdash; right-click <em>SWARM Node</em> in Applications and choose <em>Open</em>, or run <code class="mono">xattr -d com.apple.quarantine "/Applications/SWARM Node.app"</code> in Terminal. A signed build follows.</p>
-          <p class="mt-s"><a class="btn btn--primary btn--sm" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-arm64.dmg">Download for Apple silicon<span class="vh">, disk image, 162 MB</span><span aria-hidden="true"> ↓</span></a></p>
+          <p>The mainnet Node app for Apple silicon and Intel is signed and notarized. Open the disk image, drag <em>SWARM Node</em> into Applications, and open it there. macOS may ask you to confirm the first launch.</p>
+          <p class="mt-s"><a class="btn btn--primary btn--sm" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-arm64.dmg">Download for Apple silicon<span class="vh">, disk image, 163 MB</span><span aria-hidden="true"> ↓</span></a></p>
           <details class="dl__sum"><summary>Verify download</summary><div class="dl__sumbody">
             <p>Apple silicon <span class="mono">.dmg</span> &mdash; SHA-256</p>
-            <code class="dl__hashline">84ed1983f0d57ec6c7ca4e138bb75b35eae5854e0dd68597ad42914c1d79ed31</code>
-            <p class="mt-s">162 MB &middot; 170,264,514 bytes</p>
+            <code class="dl__hashline">fc293c476945c2ffa51e2faa8398f64e0dc1c94b1201d479d254cfbf929ea62b</code>
+            <p class="mt-s">163 MB &middot; 170,680,740 bytes</p>
             <p class="mt-s">Intel <span class="mono">.dmg</span> &mdash; SHA-256</p>
-            <code class="dl__hashline">0344c74c07033d4ef45733b8dac192e6649db7173e3487c76d8328fa02ce4a1f</code>
-            <p class="mt-s">167 MB &middot; 175,634,183 bytes &middot; <a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-x64.dmg">download for Intel</a></p>
+            <code class="dl__hashline">c4715f04e83010f1ac2e8acb70fbe371cf6ea1cbc119bba926a34692db4f78a6</code>
+            <p class="mt-s">170 MB &middot; 178,423,490 bytes &middot; <a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-x64.dmg">download for Intel</a></p>
             <p class="mt-s"><a class="textlink" href="/ecosystem/node">Portable zips and every checksum →</a></p>
             <p class="mt-s"><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases/releases/tag/swarm-node-0.2.0-mainnet.5">Release, notes and SHA256SUMS<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></p>
           </div></details>
@@ -316,7 +316,7 @@
         </article>
       </div>
 
-      <p class="note mt-m" data-reveal><strong>macOS is not signed yet.</strong> The macOS builds above are real mainnet builds and carry a SHA-256, but they are unsigned, so macOS blocks the first open. Right-click the app in Applications and choose <em>Open</em>, or run <code class="mono">xattr -d com.apple.quarantine</code> on it. A signed build follows. <strong>Android is a direct APK.</strong> It is debug-signed and installed by hand while the Google Play listing is pending; Android asks you to allow the installer. <a class="textlink" href="/ecosystem/wallet">SWARM Wallet downloads →</a></p>
+      <p class="note mt-m" data-reveal><strong>SWARM Node for macOS is signed and notarized.</strong> The Mac wallet is still unsigned; its <a class="textlink" href="/ecosystem/wallet">download page</a> explains the first open. <strong>Android is a direct APK.</strong> It is debug-signed and installed by hand while the Google Play listing is pending; Android asks you to allow the installer.</p>
 
       <p class="note mt-m" data-reveal><strong>Testnet.</strong> The public testnet is still running and its builds are still published, in the Testnet section at the bottom of each app page. It is a different chain, its addresses start <span class="mono">swarm1…</span>, and its coins have no value.</p>
     </div>

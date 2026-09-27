@@ -362,7 +362,7 @@
         "state": "live",
         "when": "26 September 2026",
         "name": "SWARM Node for Windows, Linux and macOS",
-        "detail": "A full node and a one-click CPU miner in one app: installer and portable zip for Windows, .deb and AppImage for Linux, disk image and zip for macOS, each with its SHA-256. The macOS packages are unsigned."
+        "detail": "A full node and a one-click CPU miner in one app: installer and portable zip for Windows, .deb and AppImage for Linux, signed and notarized disk image and zip for macOS, each with its SHA-256."
       },
       {
         "state": "live",
@@ -379,8 +379,8 @@
       {
         "state": "in-development",
         "when": null,
-        "name": "Signed macOS builds",
-        "detail": "Unsigned macOS packages are published for Apple silicon and Intel, and the first open has to be allowed by hand. Signing and notarization happen on the owner’s Mac, never in CI; the signed build replaces the unsigned one when it is ready."
+        "name": "Signed SWARM Wallet for macOS",
+        "detail": "SWARM Node for Apple silicon and Intel is signed and notarized. The mainnet Mac wallet remains unsigned; its signed build is being prepared on the owner’s Mac."
       },
       {
         "state": "in-development",
