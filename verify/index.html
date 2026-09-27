@@ -161,7 +161,7 @@
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-explorer"/></svg></div>
           <h3>In the block explorer</h3>
           <p>Look up height 0 in the mainnet explorer. It shows the same hash, the same header time and an empty coinbase. The explorer is a convenience &mdash; your own node is still the authority.</p>
-          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="https://mainnet.explore.swarm.green" target="_blank" rel="noopener noreferrer">Open the explorer<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></p>
+          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="https://mainnet.explore.swarm.green" target="_blank" rel="noopener noreferrer">mainnet.explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></p>
         </article>
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
@@ -178,23 +178,23 @@
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Where the apps connect</p>
         <h2>The public addresses of the live network.</h2>
-        <p><code>seed-main.swarm.green</code> is a <strong>peer address on the P2P port</strong>, not a web address. Opening it as <code>https://</code> reaches a web server that holds no certificate for it; that refusal is correct behaviour, not a fault.</p>
+        <p>The mainnet seed <code>seed-main.swarm.green</code> is a <strong>peer address on the P2P port</strong>, not a web address. Opening it as <code>https://</code> reaches a web server that holds no certificate for it; that refusal is correct behaviour, not a fault.</p>
       </div>
 
       <div class="tablewrap" data-reveal>
         <table>
           <caption>SWARM mainnet endpoints.</caption>
           <tbody>
-          <tr><th scope="row">Seed node (P2P)</th><td class="mono">seed-main.swarm.green:28233</td></tr>
-          <tr><th scope="row">Light-wallet server (TLS)</th><td class="mono">lwd-main.swarm.green:8443</td></tr>
-          <tr><th scope="row">Node RPC</th><td class="">28232 — Loopback only. The node RPC is never exposed publicly.</td></tr>
+          <tr><th scope="row">Mainnet seed node (P2P)</th><td class="mono">seed-main.swarm.green:28233</td></tr>
+          <tr><th scope="row">Mainnet light server (TLS)</th><td class="mono">lwd-main.swarm.green:8443</td></tr>
+          <tr><th scope="row">Mainnet node RPC</th><td class="">28232 — Loopback only. The node RPC is never exposed publicly.</td></tr>
           <tr><th scope="row">Mainnet block explorer</th><td class=""><a href="https://mainnet.explore.swarm.green" target="_blank" rel="noopener noreferrer">mainnet.explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> — live, showing SwarmMainnet</td></tr>
-          <tr><th scope="row">Testnet block explorer</th><td class=""><a href="https://explore.swarm.green" target="_blank" rel="noopener noreferrer">explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> — the public testnet, whose coins have no value</td></tr>
+          <tr><th scope="row">Testnet block explorer</th><td class=""><a href="https://testnet.explore.swarm.green/" target="_blank" rel="noopener noreferrer">testnet.explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> — the public testnet, whose coins have no value</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p class="note mt-m" data-reveal>You do not have to use any of them. A node with no seed configured will still find peers, and a node you build yourself connects to whichever peers you point it at. These are the addresses the published apps use by default.</p>
+      <p class="note mt-m" data-reveal>You do not have to use any of them. A node with no seed configured will still find peers, and a node you build yourself connects to whichever peers you point it at. These are the addresses the published apps use by default. The plain name <code>explore.swarm.green</code> currently serves the testnet; use the names above.</p>
     </div>
   </section>
 

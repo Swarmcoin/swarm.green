@@ -76,7 +76,8 @@ const server = createServer(async (req, res) => {
   // trailingSlash: false
   if (pathname === "/data/swarm-map-live.json") {
     try {
-      const upstream = await fetch("https://lwd.swarm.green/swarm-map-live.json", { signal: AbortSignal.timeout(12000) });
+      // Same upstream as the vercel.json rewrite: the mainnet census on lwd-main.
+      const upstream = await fetch("https://lwd-main.swarm.green/swarm-map-live.json", { signal: AbortSignal.timeout(12000) });
       const body = await upstream.text();
       res.writeHead(upstream.status, { ...SITE_HEADERS, "Content-Type": "application/json", "Cache-Control": "no-store" });
       res.end(body);

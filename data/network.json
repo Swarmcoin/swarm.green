@@ -294,7 +294,7 @@
     "x": "https://x.com/swarm_coin",
     "email": "swarmofficial@atomicmail.io",
     "explorer": "https://mainnet.explore.swarm.green",
-    "explorerTestnet": "https://explore.swarm.green"
+    "explorerTestnet": "https://testnet.explore.swarm.green/"
   },
   "endpoints": {
     "note": "The public addresses of the live mainnet. seed-main is a peer address, not a web address: never open it as https://.",
@@ -306,7 +306,7 @@
     "rpcPort": 28232,
     "rpcNote": "Loopback only. The node RPC is never exposed publicly.",
     "explorerMainnet": "https://mainnet.explore.swarm.green",
-    "explorerTestnet": "https://explore.swarm.green"
+    "explorerTestnet": "https://testnet.explore.swarm.green/"
   },
   "addressFormats": {
     "note": "What a SWARM address looks like, so you can tell at a glance which network you are on.",

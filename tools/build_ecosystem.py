@@ -170,12 +170,14 @@ def testnet_section(key, name):
 
 def outputs():
     explorer = next(e for e in DATA['entries'] if e['product'] == 'explorer')
-    explorer_link = (f'<a class="textlink" href="{esc(explorer["url"])}">Open explorer →</a>'
+    # The visible text is the explorer's own hostname, so the reader sees which network it opens.
+    explorer_host = explorer['url'].split('//', 1)[-1].rstrip('/')
+    explorer_link = (f'<a class="textlink" href="{esc(explorer["url"])}">{esc(explorer_host)} →</a>'
                      if explorer['status'] == 'available' and explorer.get('url')
                      else '<span class="ecosystem-tag">Coming soon</span>'
                           '<p>The mainnet explorer is being brought up at <code>mainnet.explore.swarm.green</code>. '
-                          'Until it opens, your own node is the authority. The '
-                          '<a class="textlink" href="https://explore.swarm.green">public testnet explorer</a> '
+                          'Until it opens, your own node is the authority. The public testnet explorer, '
+                          '<a class="textlink" href="https://testnet.explore.swarm.green/">testnet.explore.swarm.green</a>, '
                           'is already running — it shows SwarmTestnet, not mainnet.</p>')
     overview = hero('Find your place in the swarm.', 'A wallet for your coins. A node for the network. Choose what you want to do.')
     overview += '<section class="band band--cream"><div class="wrap">' + cards()

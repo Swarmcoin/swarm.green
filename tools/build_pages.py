@@ -431,15 +431,15 @@ genesis_rows = "\n".join(
 endpoint_rows = "\n".join(
     f'          <tr><th scope="row">{k}</th><td class="{cls}">{v}</td></tr>'
     for k, v, cls in [
-        ("Seed node (P2P)", esc(ENDPOINTS["seed"]), "mono"),
-        ("Light-wallet server (TLS)", esc(ENDPOINTS["lightWallet"]), "mono"),
-        ("Node RPC", esc(ENDPOINTS["rpcPort"]) + " \u2014 " + esc(ENDPOINTS["rpcNote"]), ""),
+        ("Mainnet seed node (P2P)", esc(ENDPOINTS["seed"]), "mono"),
+        ("Mainnet light server (TLS)", esc(ENDPOINTS["lightWallet"]), "mono"),
+        ("Mainnet node RPC", esc(ENDPOINTS["rpcPort"]) + " \u2014 " + esc(ENDPOINTS["rpcNote"]), ""),
         ("Mainnet block explorer",
             f'<a href="{ENDPOINTS["explorerMainnet"]}" target="_blank" rel="noopener noreferrer">'
             f'mainnet.explore.swarm.green{EXT}</a> \u2014 live, showing SwarmMainnet', ""),
         ("Testnet block explorer",
             f'<a href="{ENDPOINTS["explorerTestnet"]}" target="_blank" rel="noopener noreferrer">'
-            f'explore.swarm.green{EXT}</a> \u2014 the public testnet, whose coins have no value', ""),
+            f'testnet.explore.swarm.green{EXT}</a> \u2014 the public testnet, whose coins have no value', ""),
     ])
 
 address_rows = "\n".join(
@@ -691,7 +691,7 @@ verify = head(
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-explorer"/></svg></div>
           <h3>In the block explorer</h3>
           <p>Look up height 0 in the mainnet explorer. It shows the same hash, the same header time and an empty coinbase. The explorer is a convenience &mdash; your own node is still the authority.</p>
-          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="{ENDPOINTS["explorerMainnet"]}" target="_blank" rel="noopener noreferrer">Open the explorer{EXT}</a></p>
+          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="{ENDPOINTS["explorerMainnet"]}" target="_blank" rel="noopener noreferrer">mainnet.explore.swarm.green{EXT}</a></p>
         </article>
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
@@ -708,7 +708,7 @@ verify = head(
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Where the apps connect</p>
         <h2>The public addresses of the live network.</h2>
-        <p><code>seed-main.swarm.green</code> is a <strong>peer address on the P2P port</strong>, not a web address. Opening it as <code>https://</code> reaches a web server that holds no certificate for it; that refusal is correct behaviour, not a fault.</p>
+        <p>The mainnet seed <code>seed-main.swarm.green</code> is a <strong>peer address on the P2P port</strong>, not a web address. Opening it as <code>https://</code> reaches a web server that holds no certificate for it; that refusal is correct behaviour, not a fault.</p>
       </div>
 
       <div class="tablewrap" data-reveal>
@@ -720,7 +720,7 @@ verify = head(
         </table>
       </div>
 
-      <p class="note mt-m" data-reveal>You do not have to use any of them. A node with no seed configured will still find peers, and a node you build yourself connects to whichever peers you point it at. These are the addresses the published apps use by default.</p>
+      <p class="note mt-m" data-reveal>You do not have to use any of them. A node with no seed configured will still find peers, and a node you build yourself connects to whichever peers you point it at. These are the addresses the published apps use by default. The plain name <code>explore.swarm.green</code> currently serves the testnet; use the names above.</p>
     </div>
   </section>
 
