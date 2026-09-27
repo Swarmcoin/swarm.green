@@ -197,6 +197,7 @@ def head(title, desc, path, og_title, og_desc):
 <link rel="stylesheet" href="/css/site.css?v=6">
 <script src="/js/boot.js?v=4"></script>
 <script src="/js/site.js?v=15" defer></script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 {SPRITE}
@@ -1593,19 +1594,19 @@ write("terms/index.html", terms)
 # ---------------------------------------------------------------- /privacy
 privacy = head(
     "Privacy — SWARM",
-    "swarm.green sets no cookies, runs no analytics and collects no personal data. There are no forms and no third-party scripts.",
+    "swarm.green sets no cookies and collects no personal data. Page views are counted with a first-party, cookieless counter; nothing follows you.",
     "/privacy",
     "SWARM — Privacy",
-    "No cookies, no analytics, no personal data, no forms, no third-party scripts.",
+    "swarm.green sets no cookies and collects no personal data. Page views are counted with a first-party, cookieless counter; nothing follows you.",
 ) + page_head(
     "Privacy",
-    "No cookies. No analytics. No data.",
+    "No cookies. No personal data. Page views counted, nothing more.",
     "This is the shortest page on the site, because there is very little to say.",
 ) + f"""
   <section class="band band--cream">
     <div class="wrap wrap--narrow prose" data-reveal>
       <h2>What this site collects</h2>
-      <p>Nothing. This site sets no cookies, runs no analytics, uses no tracking pixels and collects no personal data. There is no contact form, no newsletter sign-up and no account to create — there is nowhere on this site to type your email address, because we did not build one.</p>
+      <p>This site sets no cookies and collects no personal data. There is no contact form, no newsletter sign-up and no account to create. We count page views with a first-party, cookieless counter served from this domain (Vercel Web Analytics): your browser sends the page address and the referring site, and from that request the service records the browser, the operating system, the device type (mobile, tablet or desktop) and an approximate location (country, region and city). It derives a temporary identifier, a hash of the incoming request, that is discarded after 24 hours, and it never follows you to other sites. We see totals — visitors, pages, referrers, countries, browsers and devices — never who you are. Block the counter&rsquo;s script and the site works exactly the same.</p>
 
       <h2>Third parties</h2>
       <p>The only thing loaded from another origin is the web fonts, served by Google Fonts from <span class="mono">fonts.googleapis.com</span> and <span class="mono">fonts.gstatic.com</span>. Requesting a font file sends your IP address and user agent to Google, as any request to any server does. No other third-party script, frame, pixel or embed is used anywhere on this site, and the site&rsquo;s Content-Security-Policy blocks them.</p>

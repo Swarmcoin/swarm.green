@@ -30,8 +30,19 @@ Plain HTML, CSS and vanilla JavaScript. No build step, no bundler, no npm
 dependencies, no framework. What is in the repository is exactly what gets
 served. Deployed as a static site on Vercel.
 
-There is no analytics, no cookie banner, no tracking pixel and no form that
-collects anything. The only third-party origin used anywhere is Google Fonts.
+There are no cookies, no cookie banner, no tracking pixel and no form that
+collects anything. Page views are counted by Vercel Web Analytics, a
+first-party, cookieless counter served from this domain; `/privacy` says
+exactly what it records. Every page carries it once, as
+`<script defer src="/_vercel/insights/script.js"></script>`: in `head()` of
+`tools/build_pages.py`, in `index.html`, in `support/index.html` (which
+`tools/build_ecosystem.py` copies into the ecosystem pages) and in the four
+`wallet/*` legal pages. Its requests stay on this origin, so the CSP is
+unchanged. The inline `window.va` snippet in Vercel's docs is deliberately left
+out: the CSP forbids inline scripts, and the site sends no custom events. The
+script only serves once Web Analytics is enabled on the Vercel project; until
+then it 404s, locally too. The only third-party origin used anywhere is Google
+Fonts.
 
 ## File tree
 
