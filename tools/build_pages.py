@@ -35,10 +35,10 @@ EXT = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" s
 ARROW = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" '
          'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
          '<path d="M3 8h10M9 4l4 4-4 4"/></svg>')
-GH = "https://github.com/Swarm-Official"
+GH = "https://github.com/louisinthesubway"
 # Nav and footer point at the release repository: its README lists every
 # component and what it is based on. Prose references keep GH.
-GH_SOURCE = "https://github.com/Swarm-Official/swarm-releases"
+GH_SOURCE = "https://github.com/louisinthesubway/swarm-releases"
 # Official channels, set by the owner on 2026-09-21. index.html and data/network.json carry the same values.
 X_URL = "https://x.com/swarm_coin"
 X_HANDLE = "@swarm_coin"
@@ -106,15 +106,15 @@ PHASES = """      <ol class="phases" data-reveal>
           </div>
         </li>
         <li class="phase">
-          <span class="phase__chip">Then</span>
+          <span class="phase__chip phase__chip--live">Live</span>
           <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-message"/></svg></span></span>
           <div class="phase__card">
             <h3>Private messaging</h3>
-            <p>End-to-end encrypted messages between people who hold SWARM wallets, with payments inside the conversation. Your chat identity is separate from your spending key, relays see only what they need to deliver, and no message is ever written to the chain.</p>
+            <p>End-to-end encrypted messages between people who hold SWARM wallets, with payments inside the conversation. Your chat identity is separate from your spending key, relays see only what they need to deliver, and no message is ever written to the chain. <strong>SWARM Messenger 0.1.0 for Windows, Linux and macOS is available now</strong>: sign in with your 24 words, find people by username, and pay inside the chat. It is a first, unsigned desktop release; there is no phone app yet. <a class="textlink" href="/ecosystem/messenger">Download SWARM Messenger →</a></p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>message and pay in one place</span></li>
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>send an invoice in a chat</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>ask for or share a payment address inside a chat</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>verify a contact once and be told if their key ever changes</span></li>
             </ul>
           </div>
@@ -1580,7 +1580,7 @@ terms = head(
       <p>Running a node, mining, and holding or paying with SWM use your own computer, your own electricity, your own bandwidth and your own money. Whether that is lawful, taxable and sensible where you live is yours to work out.</p>
 
       <h2>Licences</h2>
-      <p>The software is open source; each repository carries its own licence. See <a href="https://github.com/Swarm-Official" target="_blank" rel="noopener noreferrer">github.com/Swarm-Official</a>.</p>
+      <p>The software is open source; each repository carries its own licence. See <a href="https://github.com/louisinthesubway/swarm-releases" target="_blank" rel="noopener noreferrer">github.com/louisinthesubway/swarm-releases</a>.</p>
 
       <h2>Changes</h2>
       <p>These terms may change as the project changes. The version on this page is the current one.</p>

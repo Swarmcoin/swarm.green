@@ -23,11 +23,16 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "downloads.json"), "utf8"));
 
 const products = new Map((data.products || []).map((p) => [p.key, p]));
+// Hosts that no longer answer (meta.unavailableHosts). The pages draw those rows
+// as "being re-published", not as buttons, so they are listed here, not failed.
+const unavailable = (data.meta && data.meta.unavailableHosts) || [];
 const targets = [];
+const paused = [];
 for (const e of data.entries || []) {
   if (e.status !== "available" || !e.url) continue;
   const name = (products.get(e.product) || {}).name || e.product;
   const what = e.variant ? `${e.platform} · ${e.variant}` : e.platform;
+  if (unavailable.some((h) => e.url.startsWith(h))) { paused.push(`${name} — ${what}`); continue; }
   targets.push({ label: `${name} — ${what}`, url: e.url, kind: "download" });
   if (e.checksums) targets.push({ label: `${name} — ${what} SHA256SUMS`, url: e.checksums, kind: "checksums" });
 }
@@ -57,6 +62,10 @@ for (const t of targets) {
   console.log(`${good ? "ok  " : "FAIL"} ${String(status).padEnd(4)} ${t.label}${size}\n       ${t.url}`);
 }
 
+if (paused.length) {
+  console.log(`\n${paused.length} rows sit on an unavailable host and render as "being re-published":`);
+  for (const p of paused) console.log(`       ${p}`);
+}
 console.log(bad
   ? `\n${bad} of ${targets.length} URLs did not resolve — do not deploy.`
   : `\nAll ${targets.length} URLs resolve.`);

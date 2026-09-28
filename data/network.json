@@ -383,6 +383,12 @@
         "detail": "One universal Mac app for Apple silicon and Intel. Signed with Developer ID, notarized by Apple and available as a disk image or ZIP archive."
       },
       {
+        "state": "live",
+        "when": "28 September 2026",
+        "name": "SWARM Messenger for Windows, Linux and macOS",
+        "detail": "The first public desktop release, 0.1.0: end-to-end encrypted messaging between SWARM wallets on SWARM’s own server, sign-in with the 24 words instead of a phone number, usernames, photos and files, the wallet inside the app and payments inside a chat. Unsigned builds; a first release."
+      },
+      {
         "state": "in-development",
         "when": null,
         "name": "Mobile wallets in the app stores",
@@ -439,8 +445,8 @@
       {
         "state": "planned",
         "when": null,
-        "name": "Private messaging",
-        "detail": "End-to-end encrypted messages between wallets, with payments inside the conversation and chat identities kept apart from spending keys."
+        "name": "Private messaging on phones, groups and calls",
+        "detail": "The desktop messenger is out. Next: the Android and iPhone apps, groups, and voice and video calls."
       }
     ]
   }
