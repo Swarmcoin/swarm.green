@@ -103,6 +103,11 @@ def product(key):
     name = 'SWARM Wallet' if wallet else 'SWARM Node'
     intro = 'Your wallet, wherever you are. Choose your platform to get started.' if wallet else 'Verify the chain. Support the network. Choose your platform to start mining.'
     body = hero(name, intro, True)
+    if wallet and DATA['meta'].get('walletUpdate'):
+        update = DATA['meta']['walletUpdate']
+        body += (f'<section class="band band--cream" aria-labelledby="wallet-update-title"><div class="wrap">'
+                 f'<h2 id="wallet-update-title">{esc(update["title"])}</h2><p>{esc(update["text"])}</p>'
+                 f'<a class="textlink" href="{esc(update["url"])}">{esc(update["label"])} →</a></div></section>')
     groups = [('windows', 'Windows'), ('macos', 'macOS'), ('linux', 'Linux')]
     if wallet:
         groups += [('android', 'Android'), ('iphone', 'iPhone')]
