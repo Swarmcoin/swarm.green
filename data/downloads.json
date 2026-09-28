@@ -1,13 +1,13 @@
 {
   "meta": {
-    "updated": "2026-09-27",
+    "updated": "2026-09-28",
     "note": "Download metadata for the ecosystem pages. Mainnet builds are the downloads; testnet builds are kept under \"channel\": \"testnet\" and rendered in their own labelled section. After updating entries, run python tools/build_ecosystem.py and verify with --check. Every available entry must have a working URL, version, SHA-256 and byte size.",
     "windowsNotice": "Unsigned build — Windows SmartScreen will warn. Check the SHA-256.",
     "mobileNotice": "Mobile apps are wallets only — phones do not mine.",
     "releasesUrl": "https://github.com/Swarm-Official/swarm-releases",
     "releasesLabel": "All mainnet downloads and checksums: github.com/Swarm-Official/swarm-releases",
     "unsignedNotice": "Unsigned build — your system will warn. Check the SHA-256.",
-    "macosNotice": "SWARM Node for macOS is signed and notarized. The mainnet Mac wallet remains unsigned."
+    "macosNotice": "SWARM Wallet and SWARM Node for macOS are signed and notarized. The wallet is one app for Apple silicon and Intel."
   },
   "products": [
     {
@@ -246,61 +246,33 @@
     },
     {
       "product": "wallet",
-      "platform": "macOS (Apple silicon)",
+      "platform": "macOS",
+      "architecture": "universal",
       "status": "available",
       "variant": "Installer",
-      "version": "0.1.0-mainnet.2",
-      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.2/SWARM-Wallet-0.1.0-mainnet.2-mac-arm64.dmg",
-      "sha256": "ada169af3c6c77bfd44061b15814727534ea6b2ea4ebcedba712c0783e5e68e7",
-      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.2/SHA256SUMS",
+      "version": "0.1.0-mainnet.8",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.8-macos/SWARM-Wallet-0.1.0-mainnet.8-mac-universal.dmg",
+      "sha256": "6148d0b93fdb6376f025e52e9940d71bb556eb553e941bef29bfda82ae4b1af9",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.8-macos/SHA256SUMS-mac-universal",
       "role": "primary",
-      "sizeShort": "191 MB",
-      "sizeBytes": 199942725,
-      "notes": "Unsigned build. The first open is blocked: right-click SWARM Wallet in Applications and choose Open, or run xattr -d com.apple.quarantine \"/Applications/SWARM Wallet.app\" in Terminal. A signed build follows."
+      "sizeShort": "382 MB",
+      "sizeBytes": 400531755,
+      "notes": "One app for Apple silicon and Intel. Signed with Developer ID and notarized by Apple. Open the disk image and drag SWARM Wallet to Applications."
     },
     {
       "product": "wallet",
-      "platform": "macOS (Apple silicon)",
+      "platform": "macOS",
+      "architecture": "universal",
       "status": "available",
       "variant": "Portable zip",
-      "version": "0.1.0-mainnet.2",
-      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.2/SWARM-Wallet-0.1.0-mainnet.2-mac-arm64.zip",
-      "sha256": "177459175b7312663736f0b33a38d8373d5049ee1c53db2bec4dd3fab06ecdb2",
-      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.2/SHA256SUMS",
+      "version": "0.1.0-mainnet.8",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.8-macos/SWARM-Wallet-0.1.0-mainnet.8-mac-universal.zip",
+      "sha256": "21e9dc7bad24093c5975e958bcaf9dcfd540b567b2ca303851506dbd03760efd",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.8-macos/SHA256SUMS-mac-universal",
       "role": "alt",
-      "sizeShort": "186 MB",
-      "sizeBytes": 194905488,
-      "notes": "Unsigned build. The first open is blocked: right-click SWARM Wallet in Applications and choose Open, or run xattr -d com.apple.quarantine \"/Applications/SWARM Wallet.app\" in Terminal. A signed build follows.",
-      "label": "Portable zip (186 MB)"
-    },
-    {
-      "product": "wallet",
-      "platform": "macOS (Intel)",
-      "status": "available",
-      "variant": "Installer",
-      "version": "0.1.0-mainnet.2",
-      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.2/SWARM-Wallet-0.1.0-mainnet.2-mac-x64.dmg",
-      "sha256": "15eb005ab006674c49e1a9340bcb58c080ae74017739949e0d523ee72cc820bb",
-      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.2/SHA256SUMS",
-      "role": "primary",
-      "sizeShort": "196 MB",
-      "sizeBytes": 205312878,
-      "notes": "Unsigned build. The first open is blocked: right-click SWARM Wallet in Applications and choose Open, or run xattr -d com.apple.quarantine \"/Applications/SWARM Wallet.app\" in Terminal. A signed build follows."
-    },
-    {
-      "product": "wallet",
-      "platform": "macOS (Intel)",
-      "status": "available",
-      "variant": "Portable zip",
-      "version": "0.1.0-mainnet.2",
-      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.2/SWARM-Wallet-0.1.0-mainnet.2-mac-x64.zip",
-      "sha256": "6d5d265cd34df110a69c140eafdab0a35b5c0fa129b3755f2db958e7099e745e",
-      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-wallet-0.1.0-mainnet.2/SHA256SUMS",
-      "role": "alt",
-      "sizeShort": "191 MB",
-      "sizeBytes": 200170336,
-      "notes": "Unsigned build. The first open is blocked: right-click SWARM Wallet in Applications and choose Open, or run xattr -d com.apple.quarantine \"/Applications/SWARM Wallet.app\" in Terminal. A signed build follows.",
-      "label": "Portable zip (191 MB)"
+      "sizeShort": "358 MB",
+      "sizeBytes": 375578415,
+      "notes": "One app for Apple silicon and Intel. Signed with Developer ID and notarized by Apple. Extract the ZIP and move SWARM Wallet to Applications."
     },
     {
       "product": "mobile-android",

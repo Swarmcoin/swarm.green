@@ -80,6 +80,9 @@ def download(entry, product_name):
         variant = 'Debian / Ubuntu (.deb)'
     if variant == 'Installer' and platform.startswith('macOS'):
         variant = 'Disk image (.dmg)'
+    universal_mac = platform == 'macOS' and entry.get('architecture') == 'universal'
+    if universal_mac:
+        variant = 'Mac download (.dmg)' if entry.get('role') == 'primary' else 'ZIP archive (optional)'
     sha = entry.get('sha256', '')
     details = ''
     if sha:
@@ -87,8 +90,12 @@ def download(entry, product_name):
           <p>SHA-256</p><code class="dl__hashline">{esc(sha)}</code>
           <div class="dl__sumrow"><button class="btn btn--ghost btn--sm" type="button" data-copy="{esc(sha)}">Copy<span class="vh"> checksum for {esc(variant + suffix)}</span></button>
           <a class="textlink" href="{esc(entry['checksums'])}">SHA256SUMS</a><span class="dl__bytes">{entry['sizeBytes']:,} bytes</span></div></div></details>'''
-    return f'''<article class="download-file"><div class="download-file__row"><div><h3>{esc(variant + suffix)}</h3><p class="download-file__meta">{esc(entry.get('version', ''))} · {esc(entry.get('sizeShort', ''))}</p></div>
-      <a class="btn btn--primary btn--sm" href="{esc(entry['url'])}">Download<span class="vh"> {esc(platform + ' ' + variant)}</span><span aria-hidden="true"> ↓</span></a></div>{details}</article>'''
+    button_label = 'Download for Mac' if universal_mac and entry.get('role') == 'primary' else 'Download'
+    result = f'''<article class="download-file"><div class="download-file__row"><div><h3>{esc(variant + suffix)}</h3><p class="download-file__meta">{esc(entry.get('version', ''))} · {esc(entry.get('sizeShort', ''))}</p></div>
+      <a class="btn btn--primary btn--sm" href="{esc(entry['url'])}">{button_label}<span class="vh"> {esc(platform + ' ' + variant)}</span><span aria-hidden="true"> ↓</span></a></div>{details}</article>'''
+    if universal_mac and entry.get('role') == 'alt':
+        return '<details class="dl__sum"><summary>Prefer a ZIP archive?</summary>' + result + '</details>'
+    return result
 
 
 def product(key):
@@ -123,6 +130,10 @@ def product(key):
         if slug == 'macos' and key == 'node' and not paused_mac:
             tips[slug] = ('Apple silicon and Intel downloads. Check Apple menu → About This Mac to see which processor you have. '
                           'These SWARM Node builds are signed and notarized by Apple. Open the disk image, drag SWARM Node '
+                          'to Applications, then open it there. macOS may ask you to confirm the first launch.')
+        if slug == 'macos' and wallet and any(e.get('architecture') == 'universal' for e in entries):
+            tips[slug] = ('One Mac app for Apple silicon and Intel, for macOS 12 or later. Your Mac automatically runs the right version. '
+                          'Signed with Developer ID and notarized by Apple. Open the disk image, drag SWARM Wallet '
                           'to Applications, then open it there. macOS may ask you to confirm the first launch.')
         if paused_mac:
             tips[slug] = ('The macOS mainnet build is signed and notarized on the owner’s Mac, not in CI. '
@@ -185,8 +196,8 @@ def outputs():
       <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p>{explorer_link}</div>
       <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
       <p class="ecosystem-note">SWARM mainnet is live. SWARM Node and SWARM Wallet are available for Windows, Linux and
-      macOS today, each with its SHA-256. SWARM Node for Mac is signed and notarized; the Mac wallet remains
-      unsigned and its app page explains the first-open step. The Android wallet is a direct APK with its own
+      macOS today, each with its SHA-256. Both Mac apps are signed and notarized. SWARM Wallet offers one
+      Mac download for Apple silicon and Intel. The Android wallet is a direct APK with its own
       SHA-256: you install it by hand while the Google Play listing is pending. The public testnet builds are still
       published, in the Testnet section of each app page.</p></div></section>'''
     yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform.', '/ecosystem', overview)

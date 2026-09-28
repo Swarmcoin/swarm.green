@@ -368,7 +368,7 @@
         "state": "live",
         "when": "26 September 2026",
         "name": "SWARM Wallet for Windows, Linux and macOS",
-        "detail": "Hold, send and receive SWM, shielded or transparent. It checks the chain label and the genesis before it syncs or sends anything. The macOS packages are unsigned."
+        "detail": "Hold, send and receive SWM, shielded or transparent. It checks the chain label and the genesis before it syncs or sends anything. The Mac wallet is signed and notarized, with one app for Apple silicon and Intel."
       },
       {
         "state": "live",
@@ -377,10 +377,10 @@
         "detail": "The light-wallet SDK carrying the SWARM mainnet network definition, published so other wallets can be built against the same chain."
       },
       {
-        "state": "in-development",
-        "when": null,
-        "name": "Signed SWARM Wallet for macOS",
-        "detail": "SWARM Node for Apple silicon and Intel is signed and notarized. The mainnet Mac wallet remains unsigned; its signed build is being prepared on the owner’s Mac."
+        "state": "live",
+        "when": "28 September 2026",
+        "name": "One signed SWARM Wallet for Mac",
+        "detail": "One universal Mac app for Apple silicon and Intel. Signed with Developer ID, notarized by Apple and available as a disk image or ZIP archive."
       },
       {
         "state": "in-development",
