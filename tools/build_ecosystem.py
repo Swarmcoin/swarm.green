@@ -57,7 +57,8 @@ def cards():
     result = '<div class="ecosystem-grid">'
     for key, label, detail, platforms, glyph in [
         ('wallet', 'Your coins. Your wallet.', 'Hold, send and receive SWM. Choose a wallet for your computer or phone.', 'Desktop &amp; mobile', 'i-wallet'),
-        ('node', 'Be part of the network.', 'Run a full node, verify the chain and mine from one app.', 'Windows · macOS · Linux', 'i-node')]:
+        ('node', 'Be part of the network.', 'Run a full node, verify the chain and mine from one app.', 'Windows · macOS · Linux', 'i-node'),
+        ('messenger', 'Talk privately. Pay inside the chat.', 'End-to-end encrypted messaging between SWARM wallets, with your wallet built in.', 'Windows · macOS · Linux', 'i-message')]:
         result += f'''<article class="card ecosystem-card">
           <div class="ecosystem-card__top"><div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#{glyph}"/></svg></div><span class="ecosystem-tag">{platforms}</span></div>
           <p class="eyebrow">SWARM {key.upper()}</p><h2>{label}</h2><p>{detail}</p>
@@ -100,8 +101,11 @@ def download(entry, product_name):
 
 def product(key):
     wallet = key == 'wallet'
-    name = 'SWARM Wallet' if wallet else 'SWARM Node'
-    intro = 'Your wallet, wherever you are. Choose your platform to get started.' if wallet else 'Verify the chain. Support the network. Choose your platform to start mining.'
+    messenger = key == 'messenger'
+    name = 'SWARM Wallet' if wallet else 'SWARM Messenger' if messenger else 'SWARM Node'
+    intro = ('Your wallet, wherever you are. Choose your platform to get started.' if wallet
+             else 'Private messages between SWARM wallets, with payments inside the chat. Choose your platform.' if messenger
+             else 'Verify the chain. Support the network. Choose your platform to start mining.')
     body = hero(name, intro, True)
     if wallet and DATA['meta'].get('walletUpdate'):
         update = DATA['meta']['walletUpdate']
@@ -141,13 +145,26 @@ def product(key):
         if paused_mac:
             tips[slug] = ('The macOS mainnet build is signed and notarized on the owner’s Mac, not in CI. '
                           'That signed build is in progress.')
+        if messenger:
+            tips['windows'] = ('For Windows 10 or 11 on Intel or AMD (64-bit). This first release is unsigned: Windows SmartScreen '
+                               'will warn (More info → Run anyway). Check the SHA-256 below before you install.')
+            tips['macos'] = ('For macOS 13 or later on Apple silicon (no Intel build yet). This first release is not signed by Apple: '
+                             'open the disk image, drag SWARM Messenger to Applications, then run once in Terminal: '
+                             'xattr -dr com.apple.quarantine "/Applications/SWARM Messenger.app". Check the SHA-256 first.')
+            tips['linux'] = 'For Intel or AMD (64-bit). Choose .deb for Debian 12+ / Ubuntu 22.04+, or the AppImage for a portable download.'
         body += f'<section class="platform-panel" id="platform-{slug}" data-platform-panel="{slug}" aria-labelledby="heading-{slug}"><h2 id="heading-{slug}">{label}</h2><p class="platform-help">{esc(tips[slug])}</p>'
         body += ('<div class="download-empty"><span class="ecosystem-tag">Coming soon</span><p>Apple silicon and Intel downloads appear here, with their SHA-256, once the signed build is ready.</p></div>'
                  if paused_mac else ''.join(download(e, name) for e in entries)) + '</section>'
     other = 'node' if wallet else 'wallet'
+    aside1 = ('Keep your recovery phrase backed up somewhere safe. Never share it.' if wallet
+              else 'Your 24 words are your chat identity and your wallet. Write them down and keep them offline; they never leave your computer.' if messenger
+              else 'Mining needs a synced node and connected peers. Allow time for the first sync.')
+    aside2 = ('Mobile wallets let you send and receive. Phones do not mine.' if wallet
+              else 'People find you by the username you set in Settings. There is no phone number and no phone app yet: one desktop per account.' if messenger
+              else 'Have your SWARM payout address ready. You can get one from SWARM Wallet.')
     body += f'''</div><aside class="download-aside"><p class="eyebrow">BEFORE YOU START</p><h2>A little preparation.</h2>
-      <p>{'Keep your recovery phrase backed up somewhere safe. Never share it.' if wallet else 'Mining needs a synced node and connected peers. Allow time for the first sync.'}</p>
-      <p>{'Mobile wallets let you send and receive. Phones do not mine.' if wallet else 'Have your SWARM payout address ready. You can get one from SWARM Wallet.'}</p>
+      <p>{aside1}</p>
+      <p>{aside2}</p>
       <a class="textlink" href="/support">Need a hand? Get support →</a>
       <div class="download-aside__other"><p>{'Want to mine?' if wallet else 'Need a wallet?'}</p><a class="textlink" href="/ecosystem/{other}">Explore SWARM {other.title()} →</a></div>
       </aside></div><div class="wrap"><p class="ecosystem-note">Every build includes a SHA-256 checksum. Check it before you install, and only ever download from this site or the release repository.</p></div></section>'''
@@ -193,18 +210,18 @@ def outputs():
                           'Until it opens, your own node is the authority. The public testnet explorer, '
                           '<a class="textlink" href="https://testnet.explore.swarm.green/">testnet.explore.swarm.green</a>, '
                           'is already running — it shows SwarmTestnet, not mainnet.</p>')
-    overview = hero('Find your place in the swarm.', 'A wallet for your coins. A node for the network. Choose what you want to do.')
+    overview = hero('Find your place in the swarm.', 'A wallet for your coins. A node for the network. A messenger for private conversations. Choose what you want to do.')
     overview += '<section class="band band--cream"><div class="wrap">' + cards()
     overview += f'''<div class="ecosystem-more"><div><p class="eyebrow">EXPLORE</p><h2>Follow what we’re building.</h2></div>
       <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p>{explorer_link}</div>
       <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
-      <p class="ecosystem-note">SWARM mainnet is live. SWARM Node and SWARM Wallet are available for Windows, Linux and
-      macOS today, each with its SHA-256. Both Mac apps are signed and notarized. SWARM Node and SWARM Wallet each offer one
+      <p class="ecosystem-note">SWARM mainnet is live. SWARM Node, SWARM Wallet and SWARM Messenger are available for Windows, Linux and
+      macOS today, each with its SHA-256. SWARM Messenger is a first, unsigned desktop release: sign in with your 24 words, no phone number. Both Mac apps are signed and notarized. SWARM Node and SWARM Wallet each offer one
       Mac download for Apple silicon and Intel. The Android wallet is a direct APK with its own
       SHA-256: you install it by hand while the Google Play listing is pending. The public testnet builds are still
       published, in the Testnet section of each app page.</p></div></section>'''
-    yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet and SWARM Node. Choose your app and platform.', '/ecosystem', overview)
-    for key in ['wallet', 'node']:
+    yield 'ecosystem/index.html', page('Ecosystem', 'Explore SWARM Wallet, SWARM Node and SWARM Messenger. Choose your app and platform.', '/ecosystem', overview)
+    for key in ['wallet', 'node', 'messenger']:
         yield f'ecosystem/{key}/index.html', product(key)
 
 

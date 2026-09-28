@@ -13,7 +13,8 @@
       "text": "Version 0.1.0-mainnet.9 preserves the last loaded transfer history after a failed read, keeps the original error in Technical details, and explains when the wallet needs restarting. Fully quit SWARM Wallet before installing, then reopen it. If a payment was in progress, check its status after reopening before sending it again.",
       "url": "https://github.com/Swarm-Official/swarm-releases/releases/tag/swarm-wallet-0.1.0-mainnet.9",
       "label": "Read the release notes"
-    }
+    },
+    "messengerNotice": "Unsigned first release — Windows SmartScreen and macOS Gatekeeper will warn. Check the SHA-256. Sign in with a new or existing 24-word phrase; there is no phone number."
   },
   "products": [
     {
@@ -32,6 +33,15 @@
       "tagline": "Full node and mining",
       "detail": "Run a full node and mine with one click.",
       "platformLine": "Windows, Linux and macOS on Apple silicon and Intel.",
+      "glyph": "desktop"
+    },
+    {
+      "key": "messenger",
+      "kind": "app",
+      "name": "SWARM Messenger",
+      "tagline": "Private messaging",
+      "detail": "End-to-end encrypted chat between SWARM wallets, with your wallet and payments inside.",
+      "platformLine": "Windows, Linux and macOS on Apple silicon. Desktop first; no phone app yet.",
       "glyph": "desktop"
     },
     {
@@ -598,6 +608,77 @@
       "notes": "Public testnet build. It connects to SwarmTestnet; its coins have no value.",
       "label": "Portable zip (178 MB)",
       "channel": "testnet"
+    },
+    {
+      "product": "messenger",
+      "platform": "Windows",
+      "status": "available",
+      "variant": "Installer",
+      "version": "0.1.0",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-messenger-0.1.0/swarm-messenger-win-x64-0.1.0.exe",
+      "sha256": "ada7a5edc776eb32faeebb8e22971196df4a2640452355f723eca0ce75d52654",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-messenger-0.1.0/SHA256SUMS.txt",
+      "role": "primary",
+      "sizeShort": "191 MB",
+      "sizeBytes": 200496100,
+      "notes": "Unsigned first release: Windows SmartScreen will warn (More info, then Run anyway). Check the SHA-256 first."
+    },
+    {
+      "product": "messenger",
+      "platform": "Linux",
+      "status": "available",
+      "variant": "Installer (.deb)",
+      "version": "0.1.0",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-messenger-0.1.0/swarm-messenger_0.1.0_amd64.deb",
+      "sha256": "c109bceb96b6e2546ce105271de3388821435b98dca54d74796dc6eb3168e412",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-messenger-0.1.0/SHA256SUMS.txt",
+      "role": "primary",
+      "sizeShort": "172 MB",
+      "sizeBytes": 180339876,
+      "notes": ""
+    },
+    {
+      "product": "messenger",
+      "platform": "Linux",
+      "status": "available",
+      "variant": "Portable AppImage",
+      "version": "0.1.0",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-messenger-0.1.0/swarm-messenger_0.1.0_x86_64.AppImage",
+      "sha256": "9e9d04b9366e2603295a3d7d237c01b35c3c92a53bf9788147b8a89c420b5d68",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-messenger-0.1.0/SHA256SUMS.txt",
+      "role": "alt",
+      "sizeShort": "195 MB",
+      "sizeBytes": 204386141,
+      "notes": ""
+    },
+    {
+      "product": "messenger",
+      "platform": "macOS (Apple silicon)",
+      "status": "available",
+      "variant": "Installer",
+      "version": "0.1.0",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-messenger-0.1.0/swarm-messenger-mac-arm64-0.1.0.dmg",
+      "sha256": "8788b9d114a32e246f5ec8ae056e59df7b34e8937cef8b6582ca0a01e240d8fb",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-messenger-0.1.0/SHA256SUMS.txt",
+      "role": "primary",
+      "sizeShort": "204 MB",
+      "sizeBytes": 213508695,
+      "notes": "Not signed by Apple: after dragging the app to Applications run once in Terminal: xattr -dr com.apple.quarantine \"/Applications/SWARM Messenger.app\". No Intel build yet."
+    },
+    {
+      "product": "messenger",
+      "platform": "macOS (Apple silicon)",
+      "status": "available",
+      "variant": "ZIP archive",
+      "version": "0.1.0",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-messenger-0.1.0/swarm-messenger-mac-arm64-0.1.0.zip",
+      "sha256": "ee28cfc8be74607c0137c1d3336fa2344cc8b71986d4b2a40df1dbd0e70831d1",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-messenger-0.1.0/SHA256SUMS.txt",
+      "role": "alt",
+      "sizeShort": "199 MB",
+      "sizeBytes": 209127281,
+      "notes": "",
+      "label": "ZIP archive"
     }
   ]
 }
