@@ -7,7 +7,7 @@
     "releasesUrl": "https://github.com/Swarm-Official/swarm-releases",
     "releasesLabel": "All mainnet downloads and checksums: github.com/Swarm-Official/swarm-releases",
     "unsignedNotice": "Unsigned build — your system will warn. Check the SHA-256.",
-    "macosNotice": "SWARM Wallet and SWARM Node for macOS are signed and notarized. The wallet is one app for Apple silicon and Intel."
+    "macosNotice": "SWARM Wallet and SWARM Node for macOS are signed and notarized. Each is one app for Apple silicon and Intel."
   },
   "products": [
     {
@@ -130,61 +130,33 @@
     },
     {
       "product": "node",
-      "platform": "macOS (Apple silicon)",
+      "platform": "macOS",
+      "architecture": "universal",
       "status": "available",
-      "variant": "Disk image",
       "version": "0.2.0-mainnet.5",
-      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-arm64.dmg",
-      "sha256": "fc293c476945c2ffa51e2faa8398f64e0dc1c94b1201d479d254cfbf929ea62b",
-      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SHA256SUMS-mac-arm64",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5-macos/SHA256SUMS-mac-universal",
+      "variant": "Installer",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5-macos/SWARM-Node-0.2.0-mainnet.5-mac-universal.dmg",
+      "sha256": "3ffb7c442683d566e7696b4eb58b1ce464989a3be8aaf14ace1f0a3ccf5926a3",
       "role": "primary",
-      "sizeShort": "163 MB",
-      "sizeBytes": 170680740,
-      "notes": "Signed and notarized for macOS. Open the disk image, drag SWARM Node to Applications, then open it there. macOS may ask you to confirm the first launch."
+      "sizeShort": "310 MB",
+      "sizeBytes": 325529522,
+      "notes": "One app for Apple silicon and Intel. Signed with Developer ID and notarized by Apple. Open the disk image and drag SWARM Node to Applications."
     },
     {
       "product": "node",
-      "platform": "macOS (Apple silicon)",
+      "platform": "macOS",
+      "architecture": "universal",
       "status": "available",
+      "version": "0.2.0-mainnet.5",
+      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5-macos/SHA256SUMS-mac-universal",
       "variant": "Portable zip",
-      "version": "0.2.0-mainnet.5",
-      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-arm64.zip",
-      "sha256": "940981f60e572cdc077084013a7343e6079aee4c5560b041bc23a191c78e15d7",
-      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SHA256SUMS-mac-arm64",
+      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5-macos/SWARM-Node-0.2.0-mainnet.5-mac-universal.zip",
+      "sha256": "d3312130cd3b11f266df8261bbf0a98d81e4e7499bc9bc21f73236e63a3d880b",
       "role": "alt",
-      "sizeShort": "163 MB",
-      "sizeBytes": 170568462,
-      "notes": "Signed and notarized for macOS. Extract the zip, move SWARM Node to Applications, then open it there. macOS may ask you to confirm the first launch.",
-      "label": "Portable zip (163 MB)"
-    },
-    {
-      "product": "node",
-      "platform": "macOS (Intel)",
-      "status": "available",
-      "variant": "Disk image",
-      "version": "0.2.0-mainnet.5",
-      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-x64.dmg",
-      "sha256": "c4715f04e83010f1ac2e8acb70fbe371cf6ea1cbc119bba926a34692db4f78a6",
-      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SHA256SUMS-mac-x64",
-      "role": "primary",
-      "sizeShort": "170 MB",
-      "sizeBytes": 178423490,
-      "notes": "Signed and notarized for macOS. Open the disk image, drag SWARM Node to Applications, then open it there. macOS may ask you to confirm the first launch."
-    },
-    {
-      "product": "node",
-      "platform": "macOS (Intel)",
-      "status": "available",
-      "variant": "Portable zip",
-      "version": "0.2.0-mainnet.5",
-      "url": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SWARM-Node-0.2.0-mainnet.5-mac-x64.zip",
-      "sha256": "dac21fb7a256a94e1d567c41d5dd4bf5ecbe0859da90a46ac80e3269c440d17e",
-      "checksums": "https://github.com/Swarm-Official/swarm-releases/releases/download/swarm-node-0.2.0-mainnet.5/SHA256SUMS-mac-x64",
-      "role": "alt",
-      "sizeShort": "170 MB",
-      "sizeBytes": 178510323,
-      "notes": "Signed and notarized for macOS. Extract the zip, move SWARM Node to Applications, then open it there. macOS may ask you to confirm the first launch.",
-      "label": "Portable zip (170 MB)"
+      "sizeShort": "310 MB",
+      "sizeBytes": 325483841,
+      "notes": "The same universal app in a ZIP. Signed with Developer ID and notarized by Apple. Extract the ZIP and move SWARM Node to Applications."
     },
     {
       "product": "wallet",

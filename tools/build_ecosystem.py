@@ -117,10 +117,8 @@ def product(key):
                    (wallet and slug == 'iphone' and e['product'] == 'mobile-ios'))]
         tips = {
             'windows': 'For Windows on Intel or AMD (64-bit). Windows may show a SmartScreen notice for a new publisher; check the SHA-256 below before you install.',
-            'macos': ('Apple silicon and Intel downloads. Check Apple menu → About This Mac to see which processor you have. '
-                      f'These builds are not signed yet, so macOS blocks the first open: right-click {name} in Applications '
-                      f'and choose Open, or run xattr -d com.apple.quarantine "/Applications/{name}.app" in Terminal. '
-                      'A signed build follows.'),
+            'macos': ('Mac downloads and their checksums appear below. Follow the installation instructions '
+                      'and signing information for the selected release.'),
             'linux': 'For Intel or AMD (64-bit). Choose .deb for Debian / Ubuntu, or AppImage for a portable download.',
             'android': ('A direct APK you install yourself; Android will ask you to allow it, and Play Protect warns that '
                         'the app is unknown because this build has never been through Play review. The Google Play '
@@ -128,8 +126,8 @@ def product(key):
             'iphone': 'The iPhone wallet is on its way to the App Store. A public download is not available yet.'}
         paused_mac = slug == 'macos' and entries and all(e['status'] != 'available' for e in entries)
         if slug == 'macos' and key == 'node' and not paused_mac:
-            tips[slug] = ('Apple silicon and Intel downloads. Check Apple menu → About This Mac to see which processor you have. '
-                          'These SWARM Node builds are signed and notarized by Apple. Open the disk image, drag SWARM Node '
+            tips[slug] = ('One Mac app for Apple silicon and Intel. Your Mac automatically runs the right version. '
+                          'Signed with Developer ID and notarized by Apple. Open the disk image, drag SWARM Node '
                           'to Applications, then open it there. macOS may ask you to confirm the first launch.')
         if slug == 'macos' and wallet and any(e.get('architecture') == 'universal' for e in entries):
             tips[slug] = ('One Mac app for Apple silicon and Intel, for macOS 12 or later. Your Mac automatically runs the right version. '
@@ -196,7 +194,7 @@ def outputs():
       <div><h3>Block explorer</h3><p>Browse blocks and network activity.</p>{explorer_link}</div>
       <div><h3>Open source</h3><p>Find releases, checksums and component links.</p><a class="textlink" href="https://github.com/Swarm-Official/swarm-releases">Explore on GitHub →</a></div></div>
       <p class="ecosystem-note">SWARM mainnet is live. SWARM Node and SWARM Wallet are available for Windows, Linux and
-      macOS today, each with its SHA-256. Both Mac apps are signed and notarized. SWARM Wallet offers one
+      macOS today, each with its SHA-256. Both Mac apps are signed and notarized. SWARM Node and SWARM Wallet each offer one
       Mac download for Apple silicon and Intel. The Android wallet is a direct APK with its own
       SHA-256: you install it by hand while the Google Play listing is pending. The public testnet builds are still
       published, in the Testnet section of each app page.</p></div></section>'''

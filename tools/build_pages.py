@@ -895,8 +895,8 @@ mining = head(
           <div class="step__n" aria-hidden="true">1</div>
           <p class="step__app">SWARM Node</p>
           <h3>Download it</h3>
-          <p>Windows installer or portable zip; Debian/Ubuntu <span class="mono">.deb</span> or portable AppImage for Linux; signed disk image or zip for Apple silicon and Intel Macs. Check the SHA-256 on the download page before you install.</p>
-          <p class="mt-s">No build is code-signed yet. Windows SmartScreen will warn you: <em>More info</em> &rarr; <em>Run anyway</em>. macOS blocks the first open: right-click the app in Applications and choose <em>Open</em>. Both are expected, and the SHA-256 is what actually tells you the file is the published one.</p>
+          <p>Windows installer or portable zip; Debian/Ubuntu <span class="mono">.deb</span> or portable AppImage for Linux; one signed Mac disk image for Apple silicon and Intel. Check the SHA-256 on the download page before you install.</p>
+          <p class="mt-s">The Windows installer is unsigned, so SmartScreen may warn you: <em>More info</em> &rarr; <em>Run anyway</em>. The Mac app is signed and notarized. Open its disk image and drag the app into Applications.</p>
           <a class="btn btn--primary" href="/ecosystem/node">Get SWARM Node</a>
         </article>
 
@@ -1029,8 +1029,8 @@ mining = head(
         </article>
         <article class="card">
           <h3>macOS</h3>
-          <p>Disk image or portable zip, for Apple silicon and for Intel, each with its SHA-256. <strong>Both builds are signed and notarized.</strong> Open the disk image, drag <em>SWARM Node</em> into Applications, and open it there.</p>
-          <p class="mt-s">macOS may ask you to confirm the first launch. The signed builds and their checksums are on the <a href="/ecosystem/node">SWARM Node download page</a>.</p>
+          <p>One universal SWARM Node app runs natively on Apple silicon and Intel. Its disk image and optional ZIP each have a SHA-256 checksum. <strong>The app is signed and notarized.</strong> Open the disk image, drag <em>SWARM Node</em> into Applications, and open it there.</p>
+          <p class="mt-s">macOS may ask you to confirm the first launch. The download and checksums are on the <a href="/ecosystem/node">SWARM Node download page</a>.</p>
         </article>
       </div>
 
