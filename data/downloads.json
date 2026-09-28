@@ -6,6 +6,8 @@
     "note": "Download metadata for the Ecosystem block on the home page, the /ecosystem hub and the app pages. Mainnet builds are the downloads; testnet builds are kept under \"channel\": \"testnet\" and rendered in their own labelled section. After updating entries, run python tools/build_ecosystem.py and verify with --check. Every available entry must have a working URL, version, SHA-256 and byte size.",
     "windowsNotice": "Unsigned build — Windows SmartScreen will warn. Check the SHA-256.",
     "mobileNotice": "Mobile apps are wallets only — phones do not mine.",
+    "sourceUrl": "https://github.com/louisinthesubway",
+    "sourceNote": "Owner rule 2026-09-28: downloads are served from SWARM's own server (lwd-main.swarm.green/downloads/<tag>/<file>); github.com is never linked for a download. sourceUrl is the code; releasesUrl is only a record.",
     "releasesUrl": "https://github.com/louisinthesubway/swarm-releases",
     "releasesLabel": "All mainnet downloads and checksums: github.com/louisinthesubway/swarm-releases",
     "unsignedNotice": "Unsigned build — your system will warn. Check the SHA-256.",
@@ -13,7 +15,7 @@
     "walletUpdate": {
       "title": "Windows and Linux wallet update",
       "text": "Version 0.1.0-mainnet.9 preserves the last loaded transfer history after a failed read, keeps the original error in Technical details, and explains when the wallet needs restarting. Fully quit SWARM Wallet before installing, then reopen it. If a payment was in progress, check its status after reopening before sending it again.",
-      "url": "https://github.com/louisinthesubway/swarm-releases/releases/tag/swarm-wallet-0.1.0-mainnet.9",
+      "url": "",
       "label": "Read the release notes"
     },
     "messengerNotice": "Unsigned first release — Windows SmartScreen and macOS Gatekeeper will warn. Check the SHA-256. Sign in with a new or existing 24-word phrase; there is no phone number."

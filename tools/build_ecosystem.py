@@ -10,6 +10,8 @@ Outputs:
 Downloads live in the Ecosystem and nowhere else: no other page carries a
 download link, only links to /ecosystem. Rows whose URL sits on a host listed in
 meta.unavailableHosts render as "being re-published" instead of a dead button.
+Owner rule 2026-09-28: files are served from SWARM's own server; github.com is
+never linked for a download (meta.sourceUrl is the code, not the files).
 """
 import html
 import json
@@ -226,7 +228,7 @@ def more_links(hub):
     return f'''<div class="ecosystem-more">
       <div><p class="eyebrow">EXPLORE</p><h2>Follow what we’re building.</h2><p class="mt-s">{all_link}</p></div>
       <div><h3>Block explorer (mainnet)</h3><p>Browse blocks and network activity on SWARM mainnet.</p>{explorer_link()}</div>
-      <div><h3>Release repository</h3><p>Every release with its notes and SHA256SUMS.</p><a class="textlink" href="{esc(META['releasesUrl'])}" target="_blank" rel="noopener noreferrer">github.com/{esc(META['releasesUrl'].split('github.com/', 1)[-1])}<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></div>
+      <div><h3>Our own server</h3><p>Every file is served from SWARM’s own infrastructure, with its SHA256SUMS beside it. No third party in between.</p><a class="textlink" href="{esc(META['sourceUrl'])}" target="_blank" rel="noopener noreferrer">Source code<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></div>
     </div>'''
 
 
@@ -320,9 +322,11 @@ def product(key):
     body = hero(name, intro, True)
     if wallet and META.get('walletUpdate'):
         update = META['walletUpdate']
+        link = (f'<a class="textlink" href="{esc(update["url"])}">{esc(update["label"])} →</a>'
+                if update.get('url') else '')
         body += (f'<section class="band band--cream" aria-labelledby="wallet-update-title"><div class="wrap">'
                  f'<h2 id="wallet-update-title">{esc(update["title"])}</h2><p>{esc(update["text"])}</p>'
-                 f'<a class="textlink" href="{esc(update["url"])}">{esc(update["label"])} →</a></div></section>')
+                 f'{link}</div></section>')
     groups = GROUPS[key]
     body += '<section class="band band--cream"><div class="wrap download-layout"><div class="download-main"><h2>Choose your platform</h2><p class="download-intro">Find the right download for your device.</p><div class="platform-picker" data-platform-picker hidden><span class="vh" id="platform-label">Platform</span><div class="platform-options" role="group" aria-labelledby="platform-label">'
     for slug, label in groups:
@@ -376,7 +380,7 @@ def product(key):
       <a class="textlink" href="/support">Need a hand? Get support →</a>
       <div class="download-aside__other"><p>{'Want to mine?' if wallet else 'Need a wallet?'}</p><a class="textlink" href="/ecosystem/{other}">Explore SWARM {other.title()} →</a></div>
       <div class="download-aside__other"><p>Looking for another app?</p><a class="textlink" href="/ecosystem#downloads">Every SWARM download →</a></div>
-      </aside></div><div class="wrap"><p class="ecosystem-note">Every build includes a SHA-256 checksum. Check it before you install, and only ever download from this site or the release repository.</p></div></section>'''
+      </aside></div><div class="wrap"><p class="ecosystem-note">Every build includes a SHA-256 checksum. Check it before you install, and only ever download from this site.</p></div></section>'''
     body += testnet_section([key], name)
     return page(name, intro, '/ecosystem/' + key, body)
 
@@ -470,7 +474,7 @@ def hub():
     <div class="sec-head"><p class="eyebrow">EVERY DOWNLOAD</p><h2>Every file, with its checksum.</h2>
       <p>All mainnet builds of every SWARM app, for every platform, in one list. Open <em>Verify download</em> for the SHA-256 of a file and the release’s SHA256SUMS. The app pages add install notes and a platform picker.</p></div>
     <div class="dl-all">{every_download()}</div>
-    <p class="ecosystem-note">Every build includes a SHA-256 checksum. Check it before you install, and only ever download from this site or the <a class="textlink" href="{esc(META['releasesUrl'])}">release repository</a>.</p>
+    <p class="ecosystem-note">Every build includes a SHA-256 checksum. Check it before you install, and only ever download from this site.</p>
   </div>
 </section>'''
     body += testnet_section(['wallet', 'node'], 'SWARM Wallet and SWARM Node')
