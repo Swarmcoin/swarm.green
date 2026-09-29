@@ -1,7 +1,9 @@
 {
   "meta": {
-    "updated": "2026-09-28",
-    "unavailableHosts": ["https://github.com/Swarm-Official/"],
+    "updated": "2026-09-29",
+    "unavailableHosts": [
+      "https://github.com/Swarm-Official/"
+    ],
     "unavailableNote": "Rows whose url starts with one of unavailableHosts were published on a host that no longer answers (the Swarm-Official organisation is suspended). The pages render them as being re-published instead of a dead button, and tools/check_downloads.mjs lists them as paused. Repoint url and checksums to louisinthesubway/swarm-releases as each file is uploaded again; the SHA-256 stays the same.",
     "note": "Download metadata for the Ecosystem block on the home page, the /ecosystem hub and the app pages. Mainnet builds are the downloads; testnet builds are kept under \"channel\": \"testnet\" and rendered in their own labelled section. After updating entries, run python tools/build_ecosystem.py and verify with --check. Every available entry must have a working URL, version, SHA-256 and byte size.",
     "windowsNotice": "Unsigned build — Windows SmartScreen will warn. Check the SHA-256.",
@@ -18,7 +20,7 @@
       "url": "",
       "label": "Read the release notes"
     },
-    "messengerNotice": "Unsigned first release — Windows SmartScreen and macOS Gatekeeper will warn. Check the SHA-256. Sign in with a new or existing 24-word phrase; there is no phone number."
+    "messengerNotice": "Unsigned build (0.1.1) — Windows SmartScreen and macOS Gatekeeper will warn. Check the SHA-256. Sign in with a new or existing 24-word phrase; there is no phone number."
   },
   "products": [
     {
@@ -618,27 +620,27 @@
       "platform": "Windows",
       "status": "available",
       "variant": "Installer",
-      "version": "0.1.0",
-      "url": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.0/swarm-messenger-win-x64-0.1.0.exe",
-      "sha256": "6ede0c96e8fb54b4b17d7f9d567dfb9944db265c4119195ea9e590eaec8ddf08",
-      "checksums": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.0/SHA256SUMS.txt",
+      "version": "0.1.1",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.1/swarm-messenger-win-x64-0.1.1.exe",
+      "sha256": "01a466d9b36f037a1c2f1eaa2de8796d76b2a4161a69eb7c364623f9206fc2a4",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.1/SHA256SUMS.txt",
       "role": "primary",
       "sizeShort": "191 MB",
-      "sizeBytes": 200495683,
-      "notes": "Unsigned first release: Windows SmartScreen will warn (More info, then Run anyway). Check the SHA-256 first."
+      "sizeBytes": 200496158,
+      "notes": "Unsigned build: Windows SmartScreen will warn (More info, then Run anyway). Check the SHA-256 first."
     },
     {
       "product": "messenger",
       "platform": "Linux",
       "status": "available",
       "variant": "Installer (.deb)",
-      "version": "0.1.0",
-      "url": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.0/swarm-messenger_0.1.0_amd64.deb",
-      "sha256": "050babfc017fccb91300304ff6ff83f9be61f5004f6812e01f4a3b26d591fd7b",
-      "checksums": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.0/SHA256SUMS.txt",
+      "version": "0.1.1",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.1/swarm-messenger_0.1.1_amd64.deb",
+      "sha256": "757d0cd5fa81ce9735838f3bf0e2ce43a47806b9717b6fd2637572f8e354c564",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.1/SHA256SUMS.txt",
       "role": "primary",
       "sizeShort": "172 MB",
-      "sizeBytes": 180339916,
+      "sizeBytes": 180339956,
       "notes": ""
     },
     {
@@ -646,13 +648,13 @@
       "platform": "Linux",
       "status": "available",
       "variant": "Portable AppImage",
-      "version": "0.1.0",
-      "url": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.0/swarm-messenger_0.1.0_x86_64.AppImage",
-      "sha256": "dca852b37f3c68a7d9387b8b27191f42170927f6fc8c7db228522ef414347ed5",
-      "checksums": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.0/SHA256SUMS.txt",
+      "version": "0.1.1",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.1/swarm-messenger_0.1.1_x86_64.AppImage",
+      "sha256": "832675716f8f4fbfa0ac84f40ff9b85e37e097633160ead84a21cf16b5508afb",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.1/SHA256SUMS.txt",
       "role": "alt",
       "sizeShort": "195 MB",
-      "sizeBytes": 204390068,
+      "sizeBytes": 204389637,
       "notes": ""
     },
     {
@@ -660,13 +662,13 @@
       "platform": "macOS (Apple silicon)",
       "status": "available",
       "variant": "Installer",
-      "version": "0.1.0",
-      "url": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.0/swarm-messenger-mac-arm64-0.1.0.dmg",
-      "sha256": "b6f74ca89781898ea4b192aaf62d2a844d67c3f4eb8ab5f3fd5027b5f9fe2646",
-      "checksums": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.0/SHA256SUMS.txt",
+      "version": "0.1.1",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.1/swarm-messenger-mac-arm64-0.1.1.dmg",
+      "sha256": "b7f788ee45cc7fc31a03331f0c2935cd0eeb49a78cb2b0387fecf0c638c9fb91",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.1/SHA256SUMS.txt",
       "role": "primary",
       "sizeShort": "204 MB",
-      "sizeBytes": 213509839,
+      "sizeBytes": 213517086,
       "notes": "Not signed by Apple: after dragging the app to Applications run once in Terminal: xattr -dr com.apple.quarantine \"/Applications/SWARM Messenger.app\". No Intel build yet."
     },
     {
@@ -674,13 +676,13 @@
       "platform": "macOS (Apple silicon)",
       "status": "available",
       "variant": "ZIP archive",
-      "version": "0.1.0",
-      "url": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.0/swarm-messenger-mac-arm64-0.1.0.zip",
-      "sha256": "99906ed0f83c5f45e54a9cfb34969f1fb57963ca38004e79b9d03ae5525e8ed0",
-      "checksums": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.0/SHA256SUMS.txt",
+      "version": "0.1.1",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.1/swarm-messenger-mac-arm64-0.1.1.zip",
+      "sha256": "6879ac635a8a8de39130f251b6f1c8332ade097b6f614c6e70e1014c08730506",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-messenger-0.1.1/SHA256SUMS.txt",
       "role": "alt",
       "sizeShort": "199 MB",
-      "sizeBytes": 209129191,
+      "sizeBytes": 209129344,
       "notes": "",
       "label": "ZIP archive"
     }
