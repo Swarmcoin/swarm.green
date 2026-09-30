@@ -40,6 +40,7 @@
   <url><loc>https://swarm.green/ecosystem/wallet</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://swarm.green/ecosystem/node</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://swarm.green/ecosystem/messenger</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://swarm.green/ecosystem/browser</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://swarm.green/mining</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://swarm.green/verify</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
 </urlset>

@@ -92,11 +92,11 @@ PHASES = """      <ol class="phases" data-reveal>
           </div>
         </li>
         <li class="phase">
-          <span class="phase__chip">Then</span>
+          <span class="phase__chip phase__chip--now">Pre-release</span>
           <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-browser"/></svg></span></span>
           <div class="phase__card">
             <h3>Privacy browser</h3>
-            <p>A browser with the SWARM wallet built in. Paying a site is one click with the same confirmation screen as the wallet; trackers are blocked, fingerprinting is reduced, nothing phones home, and each site gets only the permissions you give it.</p>
+            <p>The goal: a browser with the SWARM wallet built in, where paying a site is one click with the same confirmation screen as the wallet, trackers are blocked, fingerprinting is reduced, nothing phones home, and each site gets only the permissions you give it. <strong>The first SWARM Browser pre-release for Windows is available now</strong>: Google&rsquo;s services removed, privacy defaults switched on and the wallet in the toolbar. Paying sites, tracker blocking, phishing protection, rewards that pay and builds for macOS and Linux are not in it yet. <a class="textlink" href="/ecosystem/browser">Download SWARM Browser →</a></p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>pay from the address bar</span></li>
@@ -1340,9 +1340,10 @@ roadmap = head(
   <section class="band band--dark2">
     <div class="wrap">
       <div class="sec-head" data-reveal>
-        <p class="eyebrow">Then</p>
+        <p class="eyebrow">Pre-release &middot; Windows</p>
         <h2>A privacy browser.</h2>
         <p>A browser with the SWARM wallet built in, so paying a site is one click and no site sees more of you than it must.</p>
+        <p>The first pre-release for Windows is out, with the wallet in the toolbar and Google&rsquo;s services removed. Paying sites and tracker blocking are not in it yet; the cards below say where it is going. <a class="textlink" href="/ecosystem/browser">Download SWARM Browser →</a></p>
       </div>
       <div class="cards" data-reveal>
         <article class="card">

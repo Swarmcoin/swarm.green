@@ -389,6 +389,12 @@
         "detail": "The first public desktop release, 0.1.0: end-to-end encrypted messaging between SWARM wallets on SWARM’s own server, sign-in with the 24 words instead of a phone number, usernames, photos and files, the wallet inside the app and payments inside a chat. Unsigned builds; a first release."
       },
       {
+        "state": "live",
+        "when": "30 September 2026",
+        "name": "SWARM Browser for Windows, pre-release",
+        "detail": "The first public build, 153.0.8010.52-2: a Windows browser built on Chromium 153 from the ungoogled-chromium code base, with Google’s services removed, privacy defaults switched on and the SWARM wallet built in. Unsigned; no automatic updates yet."
+      },
+      {
         "state": "in-development",
         "when": null,
         "name": "Mobile wallets in the app stores",
@@ -439,8 +445,8 @@
       {
         "state": "planned",
         "when": null,
-        "name": "Privacy browser",
-        "detail": "A browser with the SWARM wallet built in: pay from the address bar, trackers blocked, nothing phoning home, and each site given only the permissions you grant it."
+        "name": "The rest of the privacy browser",
+        "detail": "What the Windows pre-release does not do yet: pay a site from the address bar, block ads and trackers, warn about phishing sites, and run on macOS and Linux. Its rewards page pays nothing, and nothing about rewards is promised."
       },
       {
         "state": "planned",
