@@ -317,7 +317,7 @@ def product(key):
     messenger = key == 'messenger'
     name = NAMES[key]
     intro = ('Your wallet, wherever you are. Choose your platform to get started.' if wallet
-             else 'SWARM Messenger 0.1.2 pre-release. Private messages between SWARM wallets, with payments inside the chat. Choose your platform.' if messenger
+             else 'SWARM Messenger 0.1.3 pre-release. Private messages between SWARM wallets, with payments inside the chat. Choose your platform.' if messenger
              else 'Verify the chain. Support the network. Choose your platform to start mining.')
     body = hero(name, intro, True)
     if wallet and META.get('walletUpdate'):
