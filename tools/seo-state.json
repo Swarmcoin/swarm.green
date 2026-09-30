@@ -1,6 +1,6 @@
 {
  "/": {
-  "sha256": "d1b1b6946e605c307ca4cb5849462dd1151adc4c40d8e0df9708d20b97306d8e",
+  "sha256": "afcaaf33e051561a3febbbcdd602e37cd54993d953b28c7f8a1b2ccf62710a83",
   "lastmod": "2026-09-30"
  },
  "/what-is-swarm": {
@@ -24,7 +24,7 @@
   "lastmod": "2026-09-30"
  },
  "/ecosystem": {
-  "sha256": "7c7b47849458903888e96c8565898c09c788c29a4aeb3e6a99c678c94adf1a5d",
+  "sha256": "27649d90e0c76e6ce419111205fc7187ca0d634125b5047271eace0f570ff358",
   "lastmod": "2026-09-30"
  },
  "/ecosystem/wallet": {
@@ -40,11 +40,11 @@
   "lastmod": "2026-09-30"
  },
  "/ecosystem/browser": {
-  "sha256": "d48033a36b29e85a884f718216e9d6ad6fcd333d692a3ab3189a857052f4df46",
+  "sha256": "d6433f1718da4b4996ae07358ee2cd69c6150248db75bf42047df0c07474da70",
   "lastmod": "2026-09-30"
  },
  "/roadmap": {
-  "sha256": "68360d158214fa479dd1076293fcca23071ea852d67703f03965df3b2840d933",
+  "sha256": "915e2bb04e5b94d786cbd3ef3d113699cf2c369b4f9a38f304150e50f4fc4872",
   "lastmod": "2026-09-30"
  },
  "/support": {
