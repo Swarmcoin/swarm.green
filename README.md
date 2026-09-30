@@ -65,6 +65,9 @@ Fonts and Google Analytics, nothing else.
 │   ├── og.svg                 Source for the social preview image
 │   └── og.png                 1200×630 social preview, rendered from og.svg
 ├── favicon.svg                The mark on a hive-black plate, tuned for 16px
+├── favicon.ico, favicon-96.png, apple-touch-icon.png, icon-192.png, icon-512.png
+│                              The same mark as raster, rendered from favicon.svg (Google Search
+│                              does not read SVG favicons; verified 2026-09-30)
 │
 ├── site.webmanifest
 ├── robots.txt
