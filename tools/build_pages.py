@@ -1660,9 +1660,8 @@ notfound = head(
 ).replace('<link rel="canonical" href="https://swarm.green/404">', '<meta name="robots" content="noindex, follow">'
 # A 404 page makes no calls to outside services (Bing's 404 guidance, read
 # 2026-09-30): the analytics tag stays off it; the page keeps its own CSS and JS.
-).replace('<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>
-<script src="/js/analytics.js?v=1"></script>
-', '') + """
+).replace('<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>\n'
+          '<script src="/js/analytics.js?v=1"></script>\n', '') + """
   <section class="band band--dark band--comb page-head">
     <div class="wrap wrap--narrow center">
       <p class="pill">Error 404</p>
