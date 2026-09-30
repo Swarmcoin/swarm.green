@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy — SWARM</title>
-<meta name="description" content="swarm.green sets no cookies, runs no analytics and collects no personal data. There are no forms and no third-party scripts.">
+<meta name="description" content="swarm.green counts visits with Google Analytics, which sets two cookies. There are no forms and no accounts, and nothing else is collected.">
 <link rel="canonical" href="https://swarm.green/privacy">
 <meta name="theme-color" content="#0E1116">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SWARM">
 <meta property="og:locale" content="en">
 <meta property="og:title" content="SWARM — Privacy">
-<meta property="og:description" content="No cookies, no analytics, no personal data, no forms, no third-party scripts.">
+<meta property="og:description" content="Visits are counted with Google Analytics. No forms, no accounts, nothing else collected.">
 <meta property="og:url" content="https://swarm.green/privacy">
 <meta property="og:image" content="https://swarm.green/assets/og.png?v=2">
 <meta property="og:image:type" content="image/png">
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@swarm_coin">
 <meta name="twitter:title" content="SWARM — Privacy">
-<meta name="twitter:description" content="No cookies, no analytics, no personal data, no forms, no third-party scripts.">
+<meta name="twitter:description" content="Visits are counted with Google Analytics. No forms, no accounts, nothing else collected.">
 <meta name="twitter:image" content="https://swarm.green/assets/og.png?v=2">
 <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
 <link rel="mask-icon" href="/assets/logo-mono-dark.svg?v=2" color="#F5A623">
@@ -32,6 +32,8 @@
 <link rel="stylesheet" href="/css/site.css?v=6">
 <script src="/js/boot.js?v=4"></script>
 <script src="/js/site.js?v=15" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>
+<script src="/js/analytics.js?v=1"></script>
 </head>
 <body>
 <!-- The SWARM icon set. One 32-grid symbol per concept, drawn once and used
@@ -121,18 +123,28 @@
     <div class="wrap">
       <p class="crumbs"><a href="/">Home</a><span aria-hidden="true">/</span>Privacy</p>
       
-      <h1>No cookies. No analytics. No data.</h1>
-      <p class="page-head__lead">This is the shortest page on the site, because there is very little to say.</p>
+      <h1>Visits are counted. Nothing else is collected.</h1>
+      <p class="page-head__lead">What this site measures, which cookies it sets, and how to switch that off.</p>
     </div>
   </section>
 
   <section class="band band--cream">
     <div class="wrap wrap--narrow prose" data-reveal>
       <h2>What this site collects</h2>
-      <p>Nothing. This site sets no cookies, runs no analytics, uses no tracking pixels and collects no personal data. There is no contact form, no newsletter sign-up and no account to create — there is nowhere on this site to type your email address, because we did not build one.</p>
+      <p>This site uses Google Analytics to count visits. When you open a page, your browser loads a script from Google and sends Google the address of that page, the page you came from, your browser, device type, screen size and language, and an approximate location (country and city) that Google works out from your IP address. We see the totals: how many people visited, which pages they opened and where they came from.</p>
+      <p>There is no contact form, no newsletter sign-up and no account to create — there is nowhere on this site to type your email address, because we did not build one.</p>
+
+      <h2>Cookies</h2>
+      <p>Google Analytics sets two cookies on swarm.green, <span class="mono">_ga</span> and <span class="mono">_ga_3MDDZNCW6P</span>. They hold a random number that tells one browser from another, and they are kept for up to two years. The site sets no other cookie.</p>
+
+      <h2>How to switch it off</h2>
+      <p>The site works the same without Google Analytics. Any content blocker stops it. So does blocking <span class="mono">googletagmanager.com</span> and <span class="mono">google-analytics.com</span> in your browser, or Google&rsquo;s own <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">opt-out add-on</a>. You can delete the two cookies at any time in your browser&rsquo;s settings.</p>
+
+      <h2>Pages that are not measured</h2>
+      <p>The pages that open a SWARM Messenger link — <span class="mono">/call</span>, <span class="mono">/u</span>, <span class="mono">/g</span> and <span class="mono">/stickers</span> — do not load Google Analytics, and their Content-Security-Policy does not allow it. The part of such a link after <span class="mono">#</span> is a key or an invitation: it stays in your browser and is handed only to SWARM Messenger.</p>
 
       <h2>Third parties</h2>
-      <p>The only thing loaded from another origin is the web fonts, served by Google Fonts from <span class="mono">fonts.googleapis.com</span> and <span class="mono">fonts.gstatic.com</span>. Requesting a font file sends your IP address and user agent to Google, as any request to any server does. No other third-party script, frame, pixel or embed is used anywhere on this site, and the site&rsquo;s Content-Security-Policy blocks them.</p>
+      <p>Two things are loaded from another origin, both from Google: the Google Analytics script described above, from <span class="mono">googletagmanager.com</span>, and the web fonts, served by Google Fonts from <span class="mono">fonts.googleapis.com</span> and <span class="mono">fonts.gstatic.com</span>. Requesting either sends your IP address and user agent to Google, as any request to any server does, and Google handles that data under its own <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>. No other third-party script, frame, pixel or embed is used anywhere on this site, and the site&rsquo;s Content-Security-Policy blocks them.</p>
       <p>If you would rather not contact Google at all, the site is fully readable without the web fonts — it falls back to the fonts already on your computer.</p>
 
       <h2>Server logs</h2>
@@ -147,7 +159,7 @@
       <p>Separately, when you run node or wallet software on your own computer, that software talks to peers over the internet and your own network connection is visible to them in the usual way. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs — that is about what is written to the chain, and it is not a claim about your network connection or your computer.</p>
 
       <h2>Changes</h2>
-      <p>If any of this ever changes, this page changes with it.</p>
+      <p>If any of this ever changes, this page changes with it. Last change: 30 September 2026, when Google Analytics was added. Before that day the site set no cookies and ran no analytics.</p>
     </div>
   </section>
 </main>

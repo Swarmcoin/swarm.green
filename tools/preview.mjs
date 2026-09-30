@@ -21,21 +21,34 @@ import { fileURLToPath } from "node:url";
 const ROOT = resolve(fileURLToPath(new URL("../", import.meta.url)));
 const PORT = Number(process.argv[2] || 4173);
 
-// The site-wide headers from vercel.json (the "/(.*)" rule). Over plain http
-// the browser ignores Strict-Transport-Security, and upgrade-insecure-requests
-// is dropped so that http://localhost is not upgraded to https.
-const SITE_HEADERS = {};
+// The header rules from vercel.json. Every rule whose source matches the
+// request path applies, in order, as on Vercel; the sources used there are
+// valid regular expressions once anchored. Two of them carry the
+// Content-Security-Policy: the strict one for the four Messenger link pages,
+// and the one that also allows Google Analytics for every other path. Over
+// plain http the browser ignores Strict-Transport-Security, and
+// upgrade-insecure-requests is dropped so that http://localhost is not
+// upgraded to https.
+const HEADER_RULES = [];
 try {
   const vercel = JSON.parse(await readFile(join(ROOT, "vercel.json"), "utf8"));
   for (const rule of vercel.headers || []) {
-    if (rule.source !== "/(.*)") continue;
+    HEADER_RULES.push({ match: new RegExp(`^${rule.source}$`), headers: rule.headers });
+  }
+} catch { /* no vercel.json: serve without the extra headers */ }
+
+function siteHeaders(pathname) {
+  const out = {};
+  for (const rule of HEADER_RULES) {
+    if (!rule.match.test(pathname)) continue;
     for (const { key, value } of rule.headers) {
-      SITE_HEADERS[key] = key.toLowerCase() === "content-security-policy"
+      out[key] = key.toLowerCase() === "content-security-policy"
         ? value.replace(/;\s*upgrade-insecure-requests/, "")
         : value;
     }
   }
-} catch { /* no vercel.json: serve without the extra headers */ }
+  return out;
+}
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -79,7 +92,7 @@ const server = createServer(async (req, res) => {
       // Same upstream as the vercel.json rewrite: the mainnet census on lwd-main.
       const upstream = await fetch("https://lwd-main.swarm.green/swarm-map-live.json", { signal: AbortSignal.timeout(12000) });
       const body = await upstream.text();
-      res.writeHead(upstream.status, { ...SITE_HEADERS, "Content-Type": "application/json", "Cache-Control": "no-store" });
+      res.writeHead(upstream.status, { ...siteHeaders(pathname), "Content-Type": "application/json", "Cache-Control": "no-store" });
       res.end(body);
     } catch {
       res.writeHead(502, { "Cache-Control": "no-store" }).end("Live map unavailable");
@@ -114,7 +127,7 @@ const server = createServer(async (req, res) => {
   try {
     const body = await readFile(file);
     res.writeHead(status, {
-      ...SITE_HEADERS,
+      ...siteHeaders(pathname),
       "Content-Type": TYPES[extname(file).toLowerCase()] || "application/octet-stream",
       "Content-Length": body.length,
       "Cache-Control": "no-store"

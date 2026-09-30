@@ -30,8 +30,13 @@ Plain HTML, CSS and vanilla JavaScript. No build step, no bundler, no npm
 dependencies, no framework. What is in the repository is exactly what gets
 served. Deployed as a static site on Vercel.
 
-There is no analytics, no cookie banner, no tracking pixel and no form that
-collects anything. The only third-party origin used anywhere is Google Fonts.
+Visits are counted with Google Analytics 4 (measurement id `G-3MDDZNCW6P`, since
+30 September 2026): the tag is two lines in every page's `<head>` and
+`js/analytics.js`. The four Messenger link pages (`/call`, `/u`, `/g`,
+`/stickers`) carry keys after `#` and never load it; `vercel.json` keeps the
+strict Content-Security-Policy on them. `/privacy` says what is collected.
+There is no form that collects anything. The third-party origins are Google
+Fonts and Google Analytics, nothing else.
 
 ## File tree
 
