@@ -624,17 +624,20 @@ def llms_full(home):
 # crawler may do (the first group already allows all of it) and states in the
 # file itself that answering questions from these pages is welcome.
 # ---------------------------------------------------------------------------
+# Tokens read at each vendor's own crawler page on 2026-09-30. Brave's crawler
+# has no token of its own and follows the Googlebot rules.
 AI_AGENTS = [
-    ('OpenAI (ChatGPT)', ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User']),
+    ('OpenAI (ChatGPT)', ['OAI-SearchBot', 'GPTBot', 'ChatGPT-User']),
     ('Anthropic (Claude)', ['ClaudeBot', 'Claude-SearchBot', 'Claude-User']),
     ('Perplexity', ['PerplexityBot', 'Perplexity-User']),
     ('Google (Search, Gemini)', ['Googlebot', 'Google-Extended']),
     ('Microsoft (Bing, Copilot)', ['bingbot']),
     ('Apple', ['Applebot', 'Applebot-Extended']),
-    ('Meta', ['meta-externalagent', 'meta-externalfetcher']),
-    ('Amazon', ['Amazonbot']),
+    ('Meta', ['meta-externalagent', 'meta-webindexer', 'meta-externalfetcher']),
+    ('Amazon', ['Amazonbot', 'Amzn-SearchBot']),
     ('DuckDuckGo', ['DuckDuckBot', 'DuckAssistBot']),
-    ('Mistral', ['MistralAI-User']),
+    ('Mistral', ['MistralAI-Index', 'MistralAI-User']),
+    ('You.com', ['YouBot']),
     ('Common Crawl', ['CCBot']),
 ]
 
