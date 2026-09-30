@@ -20,6 +20,8 @@ from pathlib import Path
 import re
 import sys
 
+import seo
+
 ROOT = Path(__file__).resolve().parent.parent
 DATA = json.loads((ROOT / 'data/downloads.json').read_text(encoding='utf-8'))
 META = DATA['meta']
@@ -593,6 +595,7 @@ def outputs():
 if __name__ == '__main__':
     stale = []
     for path, content in outputs():
+        content = seo.decorate(path, content)  # search title, description, structured data
         target = ROOT / path
         if '--check' in sys.argv:
             if not target.exists() or target.read_text(encoding='utf-8') != content:

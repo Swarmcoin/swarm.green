@@ -354,3 +354,15 @@ The site is staged on the Vercel project `swarm-green` (`https://swarm-green-thr
 ## Ecosystem downloads
 
 `/ecosystem` introduces Wallet and Node. Their product pages contain platform choices and all per-file checksums. After editing `data/downloads.json` or the shared support page shell, run `python tools/build_ecosystem.py`, then `python tools/build_ecosystem.py --check`. Commit the generated HTML with the metadata change. Platform selection progressively enhances the static pages; all downloads remain available without JavaScript.
+
+## Search engines and AI assistants
+
+`tools/seo.py` owns what a crawler reads that a visitor does not (added 2026-09-30):
+
+- **Search titles and descriptions** for the pages listed in `PAGES` there; the two generators pass every page through `seo.decorate()`, which also appends the structured-data block (`<!-- seo:start -->` … `<!-- seo:end -->`, one JSON-LD graph: Organization, WebSite, the coin as a `Thing`, WebPage, BreadcrumbList, `SoftwareApplication` on the app pages, `FAQPage` wherever the page has the `.faq` markup). A JSON-LD block is data, not a script, so the strict CSP does not touch it.
+- **`/what-is-swarm`**, the facts page, built from `data/network.json` and `data/downloads.json` in the support-page shell; **`llms.txt`** and **`llms-full.txt`**, the same facts as Markdown for AI assistants; **`robots.txt`** (allow all, with the search and AI crawlers named); **`sitemap.xml`** with a `lastmod` per page that only moves when the page's content changes (`tools/seo-state.json` remembers a hash per page); the IndexNow key file at the root (the key is public by design).
+- Pages with `<meta name="robots" content="noindex">` (the Messenger link pages, the 404 page) are left alone and stay out of the sitemap.
+
+Run order after any edit: `python tools/build_pages.py`, `python tools/build_ecosystem.py`, `python tools/seo.py`; then `python tools/seo.py --check` and `python tools/build_ecosystem.py --check` must both pass. A new page lands in the sitemap by itself; give it a breadcrumb name and, if it deserves one, a search title in `PAGES`. After a production deploy, `python tools/seo.py --indexnow` tells the IndexNow engines (Bing and others) which URLs to fetch; it refuses to run until the key file is live.
+
+Facts-page copy rules, the same as the rest of the site: no price, no promise, no other project named, "shielded" (never "anonymous" or "untraceable"), nothing that reads as an invitation to buy. `www.swarm.green` redirects to the apex domain (`vercel.json`), so there is one address per page.

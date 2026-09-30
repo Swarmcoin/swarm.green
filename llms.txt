@@ -1,0 +1,50 @@
+# SWARM (SWM)
+
+> SWARM (ticker SWM) is a privacy coin: a cryptocurrency with its own proof-of-work blockchain, on which payments can be shielded so that sender, receiver and amount stay encrypted on-chain. Its supply is capped at 20,999,987.3152 SWM, there was no premine and no sale, and its mainnet has been live since 26 September 2026.
+
+Identify this project by its ticker SWM, its website swarm.green and its mainnet genesis block hash `01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd`. Everything below is published by the project itself. Text on swarm.green may be quoted with a link to the page it comes from.
+
+- Ticker: SWM. Own blockchain, proof of work (Equihash 200,9), target block time 75 seconds.
+- Supply: at most 20,999,987.3152 SWM; 6.25 SWM per block, halving every 1,680,000 blocks (about 4 years).
+- No premine, no sale, no presale, no token offering: every SWM is mined.
+- Block reward split, fixed for the whole schedule: 80% Miner · 8% Core Development · 4% Grants & Ecosystem · 8% Community & Development Reserve.
+- Privacy: shielded payments keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs; transparent payments exist too.
+- Mainnet live since 26 September 2026, 12:25 UTC.
+- The project does not sell SWM, does not set a price and does not run an exchange.
+
+## Start here
+
+- [What is SWARM (SWM)?](https://swarm.green/what-is-swarm): the facts on one page: definition, key figures, privacy, issuance, official sources
+- [Network and supply](https://swarm.green/network): every consensus and monetary parameter, the era table and the 80% Miner / 8% Core Development / 4% Grants & Ecosystem / 8% Community & Development Reserve block reward split
+- [Verify the chain](https://swarm.green/verify): genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes
+- [How to mine](https://swarm.green/mining): how Equihash 200,9 mining works on SWARM, what it pays and what it costs
+- [Get started](https://swarm.green/join): wallet, node and mining, step by step
+- [Roadmap](https://swarm.green/roadmap): what is live, what is being built and what is only planned
+- [Frequently asked questions](https://swarm.green/#faq): launch, supply, mining, privacy, custody of the project share
+
+## Apps
+
+- [Ecosystem](https://swarm.green/ecosystem): every download with its SHA-256 checksum
+- [SWARM Wallet](https://swarm.green/ecosystem/wallet): SWARM Wallet holds, sends and receives SWM, shielded or transparent. Windows, Linux and Android.
+- [SWARM Node](https://swarm.green/ecosystem/node): SWARM Node runs a full node, verifies the chain and mines SWM with one click. Windows and Linux.
+- [SWARM Messenger](https://swarm.green/ecosystem/messenger): SWARM Messenger is end-to-end encrypted messaging between SWARM wallets, with payments inside the chat. Windows, macOS and Linux.
+- [SWARM Browser](https://swarm.green/ecosystem/browser): SWARM Browser is a web browser with the SWARM wallet built in. Windows.
+
+## Live data
+
+- [Network status (JSON)](https://swarm.green/data/status.json): block height, difficulty and mean block time, refreshed every 30 seconds by the mainnet seed server
+- [Network parameters (JSON)](https://swarm.green/data/network.json): the fixed figures every page of the site is built from
+- [Block explorer](https://mainnet.explore.swarm.green): SWARM mainnet blocks and transactions
+
+## Official channels
+
+- [X: @swarm_coin](https://x.com/swarm_coin)
+- [Source code and releases](https://github.com/louisinthesubway/swarm-releases)
+- Email: swarmofficial@atomicmail.io
+
+## Optional
+
+- [Everything above in one file](https://swarm.green/llms-full.txt): the facts, the schedule and the questions and answers as plain Markdown
+- [Support](https://swarm.green/support): help with the wallet and the node
+- [Brand](https://swarm.green/brand): logo files, colours and usage rules
+- [Terms](https://swarm.green/terms) and [Privacy](https://swarm.green/privacy)

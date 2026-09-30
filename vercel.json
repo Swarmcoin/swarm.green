@@ -2,6 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.swarm.green" }],
+      "destination": "https://swarm.green/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/data/swarm-map-live.json", "destination": "https://lwd-main.swarm.green/swarm-map-live.json" },
     { "source": "/data/status.json", "destination": "https://lwd-main.swarm.green/status.json" }

@@ -1,4 +1,61 @@
+# swarm.green: every page here is public. It may be crawled, indexed, quoted
+# and used to answer questions, by search engines and by AI assistants alike.
+# A plain-text summary for assistants: https://swarm.green/llms.txt
+
 User-agent: *
+Allow: /
+
+# OpenAI (ChatGPT)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Allow: /
+
+# Google (Search, Gemini)
+User-agent: Googlebot
+User-agent: Google-Extended
+Allow: /
+
+# Microsoft (Bing, Copilot)
+User-agent: bingbot
+Allow: /
+
+# Apple
+User-agent: Applebot
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta
+User-agent: meta-externalagent
+User-agent: meta-externalfetcher
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+User-agent: DuckAssistBot
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# Common Crawl
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://swarm.green/sitemap.xml

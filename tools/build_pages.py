@@ -5,6 +5,8 @@ import html
 import json
 import pathlib
 
+import seo
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent  # repository root
 # Addresses and hashes must not exist in two places, so they are read from the
 # data file, which is copied from the published network manifest. The
@@ -282,6 +284,7 @@ FOOTER = f"""</main>
       <nav aria-labelledby="ft-get">
         <h2 id="ft-get">Get started</h2>
         <ul>
+          <li><a href="/what-is-swarm">What is SWARM?</a></li>
           <li><a href="/join">Get SWARM</a></li>
           <li><a href="/mining">How to mine</a></li>
           <li><a href="/ecosystem">Ecosystem</a></li>
@@ -343,7 +346,8 @@ def page_head(here, h1, lead, pill=None):
 def write(path, body):
     p = ROOT / path
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(body, encoding="utf-8")
+    # Search title, description and structured data live in tools/seo.py.
+    p.write_text(seo.decorate(path, body), encoding="utf-8")
     print("wrote", path)
 
 

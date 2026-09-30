@@ -1,0 +1,82 @@
+{
+ "/": {
+  "sha256": "640235e4eed03c258badfbeb7c4433653037997f979ff56db1028a2640b16d58",
+  "lastmod": "2026-09-30"
+ },
+ "/what-is-swarm": {
+  "sha256": "775e1d1e3d037c625c59f51c0b139e1dfe13ce956f9d8da55ae61a1ff7f8f47e",
+  "lastmod": "2026-09-30"
+ },
+ "/network": {
+  "sha256": "a10f91109dffd99c53624e78921df2c72278ef1afd35be73ce592de88c6a25bd",
+  "lastmod": "2026-09-30"
+ },
+ "/verify": {
+  "sha256": "a1dc3825f6d6e7e157e87d4711f555fbb8308a04538fa33977c6d6ea5a6346f2",
+  "lastmod": "2026-09-30"
+ },
+ "/mining": {
+  "sha256": "55b636da4221e53adf4042cacb593adc211d7f6e2d4b6a76757a35ef9ced3bb6",
+  "lastmod": "2026-09-30"
+ },
+ "/join": {
+  "sha256": "92e8d53cb401e8e060f927caf32842e5e2a89568369eb94bfff7346500067458",
+  "lastmod": "2026-09-30"
+ },
+ "/ecosystem": {
+  "sha256": "5b4f5fe9447d3ca05e1012bce0607ec83b60eaea46a72af23ecab5506ea5615b",
+  "lastmod": "2026-09-30"
+ },
+ "/ecosystem/wallet": {
+  "sha256": "4db4b7fdac6c6dd53f8e06e700e9417f75295efcdc80672ce25f76c9aef08b72",
+  "lastmod": "2026-09-30"
+ },
+ "/ecosystem/node": {
+  "sha256": "30dac5ce4eeaaae4bd60d247ffe796923fb9eaa53961dce02ad5532294863d42",
+  "lastmod": "2026-09-30"
+ },
+ "/ecosystem/messenger": {
+  "sha256": "e01e40dc36f6239ee0ede1498475729a2e9ef207edd8a67a5b109d6bcb7ae98c",
+  "lastmod": "2026-09-30"
+ },
+ "/ecosystem/browser": {
+  "sha256": "d6f3d9f636ff2457b7e2cc43d91e3b1e126d9c717e4456495d449360f67e5638",
+  "lastmod": "2026-09-30"
+ },
+ "/roadmap": {
+  "sha256": "df9a0680ad9cbf49e6f2fa75414b8cb828154ae9526c0b01671cae801f7a8286",
+  "lastmod": "2026-09-30"
+ },
+ "/support": {
+  "sha256": "058548ae3af880592ad67931ea7488b32501b545847dc1e8375a0bca949ba6d3",
+  "lastmod": "2026-09-30"
+ },
+ "/brand": {
+  "sha256": "318829914093532cda9cea5888e2d2bc3e83f6ce5d0187620ad738f23b27e0b8",
+  "lastmod": "2026-09-30"
+ },
+ "/terms": {
+  "sha256": "8590435165ea1efbf558f1a4b749d5125b8458f4968fb29383a2ccc893b29632",
+  "lastmod": "2026-09-30"
+ },
+ "/privacy": {
+  "sha256": "69368cf8775b71cf85e9b4c83c89f10e1b585555182c2f9a2b0be8d1e0b7b052",
+  "lastmod": "2026-09-30"
+ },
+ "/wallet/notices": {
+  "sha256": "083cf55ddd3f975419f78334b2a18c5d5ae5fcf7bcc1e1cdca981ab5218fca64",
+  "lastmod": "2026-09-30"
+ },
+ "/wallet/privacy": {
+  "sha256": "3ff6fdba645b1322e7a45126cbd9ea57b482e5d2e3f0bfd21172e8c2d1b72640",
+  "lastmod": "2026-09-30"
+ },
+ "/wallet/risks": {
+  "sha256": "7c2bb9aa3fa4ceee6d2eb76b86228ffe8b8d48ad397e0d1767d2a2e54624529a",
+  "lastmod": "2026-09-30"
+ },
+ "/wallet/terms": {
+  "sha256": "18990d859910d263ce81f586543ebac5de8c6ce449a2c27f44687581bb1d49df",
+  "lastmod": "2026-09-30"
+ }
+}
