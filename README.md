@@ -1,9 +1,13 @@
 # swarm.green
 
-The marketing site for **SWARM** — an independent, community-run, proof-of-work
-cryptocurrency network with optional shielded transactions, built by forking
-open-source Zcash software (the Zebra full node, the Zaino indexer and the Zingo
-desktop wallet) with consensus rules and cryptography left unmodified.
+The website of **SWARM (ticker SWM)**, a privacy coin: a cryptocurrency with its
+own proof-of-work blockchain, on which payments can be shielded so that sender,
+receiver and amount stay encrypted on-chain. Its supply is capped at
+20,999,987.3152 SWM, there was no premine and no sale, and its mainnet has been
+live since 26 September 2026. SWARM is built on open-source foundations with
+consensus rules and cryptography left unmodified; the components and what each
+is based on are listed in the release repository README
+(github.com/louisinthesubway/swarm-releases).
 
 **SWARM mainnet went live on 2026-09-26 at 12:25 UTC**, genesis
 `01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd`. Every page
