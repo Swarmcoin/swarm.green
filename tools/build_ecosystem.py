@@ -351,7 +351,8 @@ def browser_sections():
                                                                   'services, so nothing warns you about a dangerous site. '
                                                                   'Be careful with links, most of all near your wallet.'),
         ('Search.', 'The default search engine has not been chosen for SWARM yet: it is the default of the code base the '
-                    'browser is built on. You can change it in Settings.'),
+                    'browser is built on, which searches nothing until you pick one. Choose it in Settings; the search box on '
+                    'SWARM Start and the address bar then use it.'),
         ('Rewards.', 'A rewards page is included, but it pays nothing yet.'),
         ('Paying websites.', 'Websites cannot reach the wallet in this pre-release, so paying a site from the browser is not '
                              'part of it.'),
@@ -367,14 +368,15 @@ def browser_sections():
              '<p class="mt-s"><strong>Portable zip:</strong> unpack it to a folder of your own and start <code>chrome.exe</code> '
              'inside it; the file keeps the name it has in Chromium. The wallet host comes inside the folder.</p>'),
         step(3, 'SWARM Wallet', 'Open your wallet',
-             '<p>Find SWARM Wallet under the puzzle-piece icon in the toolbar and pin it. Create a new wallet, or restore '
-             'one from its 24-word recovery phrase.</p><p class="mt-s">Write the words down on paper and keep them offline. '
+             '<p>The SWARM Wallet button is pinned beside the address bar (if it is not, pin it from the puzzle-piece icon). '
+             'Create a new wallet, or restore one from its 24-word recovery phrase.</p><p class="mt-s">Write the words down on paper and keep them offline. '
              'Anyone who has them has the coins.</p>'),
     ])
     return f'''<section class="band band--dark2" aria-labelledby="browser-what">
   <div class="wrap">
     <div class="sec-head" data-reveal><p class="eyebrow">WHAT IT IS</p><h2 id="browser-what">A browser with the SWARM wallet built in.</h2>
-      <p>SWARM Browser is a web browser for Windows in SWARM’s colours. The wallet inside it connects to SWARM mainnet.</p></div>
+      <p>SWARM Browser is a web browser for Windows in SWARM’s colours. The wallet inside it connects to SWARM mainnet.</p>
+      <p class="mt-s"><strong>New in build 153.0.8010.52-3:</strong> a SWARM welcome page on the first start; SWARM Start on every new tab, with a search box, the SWARM shortcuts and tiles that ask no server anything until you switch the network tile on; the SWARM Navigator, a side panel opened from the SWARM mark beside the address bar; and SWARM’s own icons, colours and names throughout the settings and the internal pages.</p></div>
     <div class="cards" data-reveal>{what}</div>
   </div>
 </section>
