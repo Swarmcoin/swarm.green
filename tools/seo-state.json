@@ -1,22 +1,22 @@
 {
  "/": {
-  "sha256": "7e118eb7d35bbf38e9dc9fd191e55ca3cf8b83fcd4657335eb3b774bb5104d82",
+  "sha256": "d1b1b6946e605c307ca4cb5849462dd1151adc4c40d8e0df9708d20b97306d8e",
   "lastmod": "2026-09-30"
  },
  "/what-is-swarm": {
-  "sha256": "11e11769cbee6169a74ac66d179a39c7d61dd9da4d7bc32dadd34352f4458984",
+  "sha256": "317d884f3d79b6f00fe62fa86f326fc541333d50ee3444791b3885b341d4975e",
   "lastmod": "2026-09-30"
  },
  "/network": {
-  "sha256": "efc23bd29283ca785ca3918aa3ffd01e26f4a62281ec2938709bc1d6b381427a",
+  "sha256": "366b5758da5c0a80338bcb111c3643ed93c0a45173b51b2a854e05c99e655114",
   "lastmod": "2026-09-30"
  },
  "/verify": {
-  "sha256": "f9bf8d7c7fcd085a3faf97df24cbdf75ce494670fc624f92b7d69fcf5374dd7e",
+  "sha256": "696f6fe09ef3d36889fbdfbfb4634431adbfbdec838e1f097fe3e194151ac88f",
   "lastmod": "2026-09-30"
  },
  "/mining": {
-  "sha256": "8c75d4d9845a4f9ec442ea21951cf36a7307b21c6cf8d5b6483817f0338e96a4",
+  "sha256": "7456bfba65e66ae0aa3e4b0cc1863dc40f27a4af97b3a7e8172a8fde306e9221",
   "lastmod": "2026-09-30"
  },
  "/join": {
@@ -44,7 +44,7 @@
   "lastmod": "2026-09-30"
  },
  "/roadmap": {
-  "sha256": "d25eefb6cbdf1c256bab44d4bdaf21d4934f4ff860aa89209bb45550619bda1e",
+  "sha256": "68360d158214fa479dd1076293fcca23071ea852d67703f03965df3b2840d933",
   "lastmod": "2026-09-30"
  },
  "/support": {
@@ -56,7 +56,7 @@
   "lastmod": "2026-09-30"
  },
  "/terms": {
-  "sha256": "c9db150140861ce280618ad14de4a730e6ff51f92ee8d6057ce28adc9be1d6ec",
+  "sha256": "61b7e7a76d4fe169c6d270a8d4819a1d787351b60e81cf7e7068a78096bdf56b",
   "lastmod": "2026-09-30"
  },
  "/privacy": {

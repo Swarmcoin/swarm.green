@@ -153,13 +153,14 @@ PAGES = {
     '/': {
         'name': 'SWARM',
         'title': 'SWARM (SWM) — Privacy coin: private, proof-of-work money run by its community',
-        'desc': ('SWARM (SWM) is a privacy coin: proof-of-work money with shielded payments that keep sender, '
-                 'receiver and amount encrypted on-chain. About 21 million SWM at most, no premine, no sale. '
-                 'Mainnet is live.')},
-    '/what-is-swarm': {'name': 'What is SWARM?'},
-    '/network': {'name': 'Network & supply', 'title': 'SWM supply, halving schedule and network rules — SWARM'},
-    '/verify': {'name': 'Verify', 'title': 'Verify the SWARM mainnet: genesis hash, endpoints, addresses — SWARM'},
-    '/mining': {'name': 'How to mine', 'title': f'How to mine SWARM (SWM): {POW} mining guide — SWARM'},
+        'desc': 'SWARM (SWM) is a privacy coin: proof-of-work money with shielded payments that keep sender, receiver and amount encrypted. 21 million cap, no premine, no sale.'},
+    '/what-is-swarm': {'name': 'What is SWARM?', 'desc': 'SWARM (SWM) in plain facts: a proof-of-work privacy coin with shielded payments, a 21 million cap, no premine and no sale. Mainnet live since 26 September 2026.'},
+    '/network': {'name': 'Network & supply', 'title': 'SWM supply, halving schedule and network rules — SWARM',
+                 'desc': 'Every SWARM (SWM) parameter: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a 20,999,987.3152 SWM cap, no premine, the 80/8/4/8 split.'},
+    '/verify': {'name': 'Verify', 'title': 'Verify the SWARM mainnet: genesis hash, endpoints, addresses — SWARM',
+                'desc': 'Check you are on the real SWARM chain: the genesis hash, the launch time, the public endpoints, the three published fund addresses and the address prefixes.'},
+    '/mining': {'name': 'How to mine', 'title': f'How to mine SWARM (SWM): {POW} mining guide — SWARM',
+                'desc': 'How to mine SWARM (SWM): Equihash 200,9 in SWARM Node, no pool, a block every 75 seconds, 5 SWM plus fees to whoever finds it. Paste an address, press Start.'},
     '/join': {'name': 'Get SWARM', 'title': 'Get started with SWARM (SWM): wallet, node and mining — SWARM'},
     '/ecosystem': {'name': 'Ecosystem', 'title': 'Download the SWARM apps: every file with its checksum — SWARM'},
     '/ecosystem/wallet': {
@@ -176,10 +177,11 @@ PAGES = {
     '/ecosystem/browser': {
         'name': 'SWARM Browser',
         'title': 'SWARM Browser: a web browser with the SWM wallet built in'},
-    '/roadmap': {'name': 'Roadmap', 'title': 'SWARM (SWM) roadmap: what is live and what comes next — SWARM'},
+    '/roadmap': {'name': 'Roadmap', 'title': 'SWARM (SWM) roadmap: what is live and what comes next — SWARM',
+                 'desc': 'SWARM (SWM) roadmap: what is live today, what is being built and what is only planned, from the mainnet and the apps to SWARM Market.'},
     '/support': {'name': 'Support', 'title': 'SWARM support: help with the wallet, the node and downloads'},
     '/brand': {'name': 'Brand'},
-    '/terms': {'name': 'Terms'},
+    '/terms': {'name': 'Terms', 'desc': 'Terms for swarm.green, an information site about open-source software and the SWARM network. Nothing here is an offer, a solicitation or financial advice.'},
     '/privacy': {'name': 'Privacy'},
 }
 
