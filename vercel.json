@@ -8,7 +8,10 @@
       "has": [{ "type": "host", "value": "www.swarm.green" }],
       "destination": "https://swarm.green/:path*",
       "permanent": true
-    }
+    },
+    { "source": "/sitemap", "destination": "/sitemap.xml", "permanent": true },
+    { "source": "/sitemap_index.xml", "destination": "/sitemap.xml", "permanent": true },
+    { "source": "/Sitemap.xml", "destination": "/sitemap.xml", "permanent": true }
   ],
   "rewrites": [
     { "source": "/data/swarm-map-live.json", "destination": "https://lwd-main.swarm.green/swarm-map-live.json" },
