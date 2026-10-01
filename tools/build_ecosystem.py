@@ -244,7 +244,7 @@ def more_links(hub):
 
 def signing_note():
     return ('<p class="note mt-m" data-reveal><strong>Check the SHA-256 before you install.</strong> The Windows and Linux builds are not '
-            'code-signed, so Windows SmartScreen will warn: <em>More info</em> &rarr; <em>Run anyway</em>. The Mac builds of SWARM Wallet and SWARM Messenger are '
+            'code-signed, so Windows SmartScreen will warn: <em>More info</em> &rarr; <em>Run anyway</em>. The Mac builds of SWARM Wallet, SWARM Node and SWARM Messenger are '
             'not signed with an Apple Developer ID: macOS asks you to allow them once under <em>System Settings</em> &rarr; '
             '<em>Privacy &amp; Security</em> &rarr; <em>Open Anyway</em>. SWARM Messenger is a first, unsigned release on every '
             'platform. SWARM Browser is an unsigned pre-release for Windows only. <strong>Android is a direct APK</strong>, debug-signed and installed by hand while the Google Play listing is '
@@ -443,7 +443,7 @@ def product(key):
                         'listing is pending. The APK is debug-signed, so a later Play build cannot upgrade over it.'),
             'iphone': 'The iPhone wallet is on its way to the App Store. A public download is not available yet.'}
         paused_mac = slug == 'macos' and entries and not any(available(e) for e in entries)
-        if slug == 'macos' and key == 'node' and not paused_mac:
+        if slug == 'macos' and key == 'node' and not paused_mac and any(e.get('architecture') == 'universal' for e in entries):
             tips[slug] = ('One Mac app for Apple silicon and Intel. Your Mac automatically runs the right version. '
                           'Signed with Developer ID and notarized by Apple. Open the disk image, drag SWARM Node '
                           'to Applications, then open it there. macOS may ask you to confirm the first launch.')
@@ -451,9 +451,9 @@ def product(key):
             tips[slug] = ('One Mac app for Apple silicon and Intel, for macOS 12 or later. Your Mac automatically runs the right version. '
                           'Signed with Developer ID and notarized by Apple. Open the disk image, drag SWARM Wallet '
                           'to Applications, then open it there. macOS may ask you to confirm the first launch.')
-        if slug == 'macos' and wallet and not paused_mac and not any(e.get('architecture') == 'universal' for e in entries):
-            tips[slug] = ('For macOS 12 or later. Choose Apple silicon (M1 and later) or Intel. These builds are not signed with an '
-                          'Apple Developer ID and not notarized: open the disk image, drag SWARM Wallet to Applications and open it '
+        if slug == 'macos' and (wallet or key == 'node') and not paused_mac and not any(e.get('architecture') == 'universal' for e in entries):
+            tips[slug] = (('For macOS 12 or later. ' if wallet else '') + 'Choose Apple silicon (M1 and later) or Intel. These builds are not signed with an '
+                          f'Apple Developer ID and not notarized: open the disk image, drag {name} to Applications and open it '
                           'once; macOS refuses, then allow it under System Settings → Privacy & Security → Open Anyway. '
                           'Check the SHA-256 first.')
         if paused_mac:
