@@ -165,12 +165,18 @@ def home_row(key, slug, label, entries):
     if primary:
         alts = [e for e in live if e is not primary]
         flavour = mac_flavour(primary) if slug == 'macos' else ''
+        # A Mac group with one build per architecture: the row offers the first
+        # architecture's disk image and names the other one; the ZIPs are on the app's page.
+        per_arch = slug == 'macos' and len({mac_flavour(e) for e in live if mac_flavour(e)}) > 1
+        if per_arch:
+            alts = [e for e in alts if e.get('role') != 'alt']
         meta = ' · '.join(x for x in [short_variant(primary, slug), flavour, primary.get('version', ''), primary.get('sizeShort', '')] if x)
         get = (f'<a class="btn btn--primary btn--sm" href="{esc(primary["url"])}">Download'
                f'<span class="vh"> {esc(name)} {esc(primary.get("version", ""))} for {esc(label)}, {esc(short_variant(primary, slug))}, {esc(primary.get("sizeShort", ""))}</span>'
                f'<span aria-hidden="true"> ↓</span></a>')
         for alt in alts:
-            get += (f'<a class="textlink" href="{esc(alt["url"])}">{esc(short_variant(alt, slug))}'
+            alt_text = f'{mac_flavour(alt)} (.dmg)' if per_arch else short_variant(alt, slug)
+            get += (f'<a class="textlink" href="{esc(alt["url"])}">{esc(alt_text)}'
                     f'<span class="vh"> for {esc(label)}, {esc(alt.get("sizeShort", ""))}</span></a>')
         return (f'<li class="dl-row"><span class="dl-row__os">{esc(label)}</span>'
                 f'<span class="dl-row__get">{get}</span><span class="dl-row__meta">{esc(meta)}</span></li>')
@@ -238,8 +244,9 @@ def more_links(hub):
 
 def signing_note():
     return ('<p class="note mt-m" data-reveal><strong>Check the SHA-256 before you install.</strong> The Windows and Linux builds are not '
-            'code-signed, so Windows SmartScreen will warn: <em>More info</em> &rarr; <em>Run anyway</em>. SWARM Node and SWARM Wallet '
-            'for Mac are signed and notarized, one app for Apple silicon and Intel. SWARM Messenger is a first, unsigned release on every '
+            'code-signed, so Windows SmartScreen will warn: <em>More info</em> &rarr; <em>Run anyway</em>. The Mac builds of SWARM Wallet and SWARM Messenger are '
+            'not signed with an Apple Developer ID: macOS asks you to allow them once under <em>System Settings</em> &rarr; '
+            '<em>Privacy &amp; Security</em> &rarr; <em>Open Anyway</em>. SWARM Messenger is a first, unsigned release on every '
             'platform. SWARM Browser is an unsigned pre-release for Windows only. <strong>Android is a direct APK</strong>, debug-signed and installed by hand while the Google Play listing is '
             'pending; phones do not mine.</p>')
 
@@ -444,6 +451,11 @@ def product(key):
             tips[slug] = ('One Mac app for Apple silicon and Intel, for macOS 12 or later. Your Mac automatically runs the right version. '
                           'Signed with Developer ID and notarized by Apple. Open the disk image, drag SWARM Wallet '
                           'to Applications, then open it there. macOS may ask you to confirm the first launch.')
+        if slug == 'macos' and wallet and not paused_mac and not any(e.get('architecture') == 'universal' for e in entries):
+            tips[slug] = ('For macOS 12 or later. Choose Apple silicon (M1 and later) or Intel. These builds are not signed with an '
+                          'Apple Developer ID and not notarized: open the disk image, drag SWARM Wallet to Applications and open it '
+                          'once; macOS refuses, then allow it under System Settings → Privacy & Security → Open Anyway. '
+                          'Check the SHA-256 first.')
         if paused_mac:
             tips[slug] = (f'The signed Mac build of {name} (one app for Apple silicon and Intel) is being moved to the new '
                           'release repository. It returns here, with the same SHA-256, as soon as it is uploaded.'
