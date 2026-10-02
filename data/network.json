@@ -8,7 +8,7 @@
   "status": {
     "phase": "mainnet",
     "short": "Mainnet · live",
-    "ribbon": "SWARM mainnet is live · run a node, mine a block, send a shielded payment.",
+    "ribbon": "SWARM mainnet is live · send a shielded payment.",
     "detail": "SWARM mainnet went live on 26 September 2026 at 12:25 UTC. There was no sale, no presale and no token offering; every SWM is mined.",
     "launchedUtc": "2026-09-26T12:25:00Z",
     "launchedLabel": "26 September 2026, 12:25 UTC"
@@ -243,13 +243,6 @@
       "state": "available"
     },
     {
-      "key": "node",
-      "name": "SWARM Node",
-      "tagline": "Full node + one-click mining",
-      "detail": "One app runs a full node and lets you start or stop CPU mining with one click. Consent-first — nothing runs hidden.",
-      "state": "available"
-    },
-    {
       "key": "explorer",
       "name": "SWARM Explorer",
       "tagline": "Block explorer",
@@ -262,7 +255,7 @@
       "stage": 1,
       "name": "SWARM mainnet",
       "state": "live",
-      "detail": "The coin, the chain, SWARM Node with one-click mining, SWARM Wallet on desktop and Android, the block explorer."
+      "detail": "The coin, the chain, SWARM Wallet on desktop and Android, the block explorer."
     },
     {
       "stage": 2,
@@ -297,14 +290,9 @@
     "explorerTestnet": "https://testnet.explore.swarm.green/"
   },
   "endpoints": {
-    "note": "The public addresses of the live mainnet. seed-main is a peer address, not a web address: never open it as https://.",
-    "seed": "seed-main.swarm.green:28233",
-    "seedLabel": "Seed node (P2P)",
+    "note": "The public addresses of the live mainnet.",
     "lightWallet": "lwd-main.swarm.green:8443",
     "lightWalletLabel": "Light-wallet server (TLS)",
-    "p2pPort": 28233,
-    "rpcPort": 28232,
-    "rpcNote": "Loopback only. The node RPC is never exposed publicly.",
     "explorerMainnet": "https://mainnet.explore.swarm.green",
     "explorerTestnet": "https://testnet.explore.swarm.green/"
   },
@@ -357,12 +345,6 @@
         "when": "26 September 2026",
         "name": "Mainnet block explorer",
         "detail": "mainnet.explore.swarm.green, showing SwarmMainnet. The testnet explorer keeps running alongside it."
-      },
-      {
-        "state": "live",
-        "when": "26 September 2026",
-        "name": "SWARM Node for Windows, Linux and macOS",
-        "detail": "A full node and a one-click CPU miner in one app: installer and portable zip for Windows, .deb and AppImage for Linux, signed and notarized disk image and zip for macOS, each with its SHA-256."
       },
       {
         "state": "live",

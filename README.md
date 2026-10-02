@@ -360,7 +360,7 @@ The site is staged on the Vercel project `swarm-green` (`https://swarm-green-thr
 
 ## Ecosystem downloads
 
-`/ecosystem` introduces Wallet and Node. Their product pages contain platform choices and all per-file checksums. After editing `data/downloads.json` or the shared support page shell, run `python tools/build_ecosystem.py`, then `python tools/build_ecosystem.py --check`. Commit the generated HTML with the metadata change. Platform selection progressively enhances the static pages; all downloads remain available without JavaScript.
+`/ecosystem` introduces Wallet, Messenger and Browser. Since 2026-10-02 (owner) the site offers no node software and no mining guide: `/ecosystem/node` and `/mining` redirect to `/ecosystem` (`vercel.json`). Their product pages contain platform choices and all per-file checksums. After editing `data/downloads.json` or the shared support page shell, run `python tools/build_ecosystem.py`, then `python tools/build_ecosystem.py --check`. Commit the generated HTML with the metadata change. Platform selection progressively enhances the static pages; all downloads remain available without JavaScript.
 
 ## Search engines and AI assistants
 

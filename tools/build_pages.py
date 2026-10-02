@@ -58,7 +58,6 @@ PHASES = """      <ol class="phases" data-reveal>
             <p>Public testnet <b>21 September 2026</b>; mainnet <b>26 September 2026</b>. The coin, the chain and the apps to run them. Block 1 was mined in public from a genesis block that holds nothing; every SWM since has been mined.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>mine with one click in SWARM Node</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>check the genesis hash and every block for yourself &mdash; the node verifies, it never trusts</span></li>
             </ul>
@@ -72,8 +71,6 @@ PHASES = """      <ol class="phases" data-reveal>
             <p>More bees, more cities, more ways in. In development: signed macOS builds, the Android and iOS mainnet wallets, a second seed node in another failure domain, custody tooling for the three published funds, and an independent security review of the code as it was launched.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>run a node and light up your city on the map</span></li>
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>mine on the computer you already own</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>browse the chain in the mainnet block explorer</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>tell us what breaks</span></li>
             </ul>
@@ -210,7 +207,7 @@ def head(title, desc, path, og_title, og_desc):
 
 <a class="skip" href="#main">Skip to content</a>
 
-<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · run a node, mine a block, send a shielded payment.</p>
+<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · send a shielded payment.</p>
 
 <header class="nav">
   <div class="wrap nav__bar">
@@ -221,7 +218,6 @@ def head(title, desc, path, og_title, og_desc):
     </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="/#mainnet">Mainnet</a>
-      <a href="/mining">Mine</a>
       <a href="/#hive">The Hive</a>
       <a href="/#honey">Honey</a>
       <a href="/ecosystem">Ecosystem</a>
@@ -239,7 +235,6 @@ def head(title, desc, path, og_title, og_desc):
     <nav aria-label="Primary, compact">
       <ul>
         <li><a href="/#mainnet">Mainnet</a></li>
-        <li><a href="/mining">Mine</a></li>
         <li><a href="/#hive">The Hive</a></li>
         <li><a href="/#honey">Honey</a></li>
         <li><a href="/#swarm">The Swarm</a></li>
@@ -289,7 +284,6 @@ FOOTER = f"""</main>
         <ul>
           <li><a href="/what-is-swarm">What is SWARM?</a></li>
           <li><a href="/join">Get SWARM</a></li>
-          <li><a href="/mining">How to mine</a></li>
           <li><a href="/ecosystem">Ecosystem</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a></li>
@@ -433,16 +427,13 @@ genesis_rows = "\n".join(
         ("Launched", esc(STATUS["launchedLabel"]), "mono"),
     ])
 
-# The public addresses of the live network. seed-main is a peer address on the
-# P2P port, not a web address: linking it as https:// reaches a web server that
-# holds no certificate for it, and an audit has read that failure as a fault
-# once already. It is printed, never linked.
+# The public addresses of the live network that the published apps use. Since
+# 2026-10-02 (owner) the site offers no node software, so it lists no peer
+# address and no node port.
 endpoint_rows = "\n".join(
     f'          <tr><th scope="row">{k}</th><td class="{cls}">{v}</td></tr>'
     for k, v, cls in [
-        ("Mainnet seed node (P2P)", esc(ENDPOINTS["seed"]), "mono"),
         ("Mainnet light server (TLS)", esc(ENDPOINTS["lightWallet"]), "mono"),
-        ("Mainnet node RPC", esc(ENDPOINTS["rpcPort"]) + " \u2014 " + esc(ENDPOINTS["rpcNote"]), ""),
         ("Mainnet block explorer",
             f'<a href="{ENDPOINTS["explorerMainnet"]}" target="_blank" rel="noopener noreferrer">'
             f'mainnet.explore.swarm.green{EXT}</a> \u2014 live, showing SwarmMainnet', ""),
@@ -608,8 +599,8 @@ network = head(
     <div class="wrap wrap--narrow">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Next</p>
-        <h2>Now run it.</h2>
-        <p>Every number on this page is enforced by every node on the network. Run one and check for yourself.</p>
+        <h2>Now use it.</h2>
+        <p>Every number on this page is enforced by every node on the network.</p>
       </div>
       <div class="cta-row mt-l" data-reveal>
         <a class="btn btn--primary" href="/join">Get SWARM</a>
@@ -669,7 +660,7 @@ verify = head(
 ) + page_head(
     "Verify",
     "Check you are on the real chain.",
-    "A chain is identified by its genesis block. SWARM Node compares the genesis it loads against the one below before it syncs anything &mdash; and so can you. Nothing on this page needs to be taken on trust: every value is published, and every one of them is something your own node will report back to you.",
+    "A chain is identified by its genesis block. You can check it against the one below. Nothing on this page needs to be taken on trust: every value is published, and every one of them is something your own node will report back to you.",
     pill="Mainnet · live",
 ) + f"""
   <section class="band band--cream">
@@ -689,13 +680,7 @@ verify = head(
         </table>
       </div>
 
-      <div class="cards mt-l" data-reveal>
-        <article class="card">
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-node"/></svg></div>
-          <h3>In SWARM Node</h3>
-          <p>Open <em>Settings &rarr; Network</em>. It prints the chain, the genesis hash and the ports the app is using. If the genesis hash there is not the one above, you are not on SWARM mainnet.</p>
-          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="/ecosystem/node">Get SWARM Node{ARROW}</a></p>
-        </article>
+      <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-explorer"/></svg></div>
           <h3>In the block explorer</h3>
@@ -705,7 +690,7 @@ verify = head(
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
           <h3>From the source</h3>
-          <p>The launch manifest, the source at the launch commit and every release with its SHA-256 are in the release repository. Build the node yourself and it will derive the same genesis.</p>
+          <p>The launch manifest, the source at the launch commit and every release with its SHA-256 are in the release repository.</p>
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">Release repository{EXT}</a></p>
         </article>
       </div>
@@ -717,7 +702,6 @@ verify = head(
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Where the apps connect</p>
         <h2>The public addresses of the live network.</h2>
-        <p>The mainnet seed <code>seed-main.swarm.green</code> is a <strong>peer address on the P2P port</strong>, not a web address. Opening it as <code>https://</code> reaches a web server that holds no certificate for it; that refusal is correct behaviour, not a fault.</p>
       </div>
 
       <div class="tablewrap" data-reveal>
@@ -729,7 +713,7 @@ verify = head(
         </table>
       </div>
 
-      <p class="note mt-m" data-reveal>You do not have to use any of them. A node with no seed configured will still find peers, and a node you build yourself connects to whichever peers you point it at. These are the addresses the published apps use by default. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
+      <p class="note mt-m" data-reveal>These are the addresses the published apps use by default. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
     </div>
   </section>
 
@@ -812,316 +796,24 @@ verify = head(
 write("verify/index.html", verify)
 
 
-# ----------------------------------------------------------------- /mining
-# How to mine, written against the shipped app rather than against the spec:
-# every screen name, button label, engine name and caution below is the wording
-# SWARM Node 0.2.0-mainnet.5 itself uses, so a reader can follow this page with
-# the app open beside it. The live figures come from the seed's own status.json
-# through the /data/status.json rewrite in vercel.json (the strict CSP allows
-# same-origin fetches only), and the static markup is the no-JavaScript state.
-mining = head(
-    "How to mine SWARM — SWARM",
-    "Mine SWARM on an ordinary computer: Equihash 200,9 on your CPU, no pool, a block every 75 seconds and 5 SWM plus fees to whoever finds it. Download SWARM Node, paste a payout address, press Start.",
-    "/mining",
-    "How to mine SWARM",
-    "CPU mining, no pool, one button. 5 SWM plus fees to whoever finds the block.",
-) + page_head(
-    "Mining",
-    "Mine on the computer you already own.",
-    "SWARM&rsquo;s proof of work is <strong>Equihash 200,9</strong>, inherited unchanged, and the chain started at minimum difficulty. There is no pool and no account: your machine looks for blocks, and the protocol pays whoever finds one straight to an address you chose. One app does all of it, and it only ever runs while you have pressed Start.",
-    pill="Mainnet · live",
-) + f"""
-  <section class="band band--cream">
-    <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">How it works</p>
-        <h2>Find a block, keep the reward.</h2>
-        <p>Mining is a race to find a valid next block. Every machine on the network is working on the same problem; the first to solve it publishes the block, everyone else verifies it and starts on the next one. Nothing is shared out and nothing is owed to you &mdash; the reward belongs to the block you found.</p>
-      </div>
-
-      <div class="cards" data-reveal>
-        <article class="card">
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-mining"/></svg></div>
-          <h3>Equihash 200,9, on your CPU</h3>
-          <p>The proof of work is inherited unchanged. The chain started at minimum difficulty, so an ordinary computer can find blocks from the first one. Nothing in the rules keeps larger miners out later, and we do not pretend otherwise.</p>
-        </article>
-        <article class="card">
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-coin"/></svg></div>
-          <h3>5 SWM plus fees, not 6.25</h3>
-          <p>A block pays <strong>6.25 SWM</strong> in the first era, and the miner&rsquo;s share is <strong>80%</strong>. So a block you find pays you <strong>5.00 SWM</strong> plus that block&rsquo;s transaction fees. The other 20% goes to the three project funds, block by block, in public.</p>
-        </article>
-        <article class="card">
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-honey"/></svg></div>
-          <h3>100 blocks before you can spend it</h3>
-          <p>A transparent mining reward needs <strong>100 confirmations</strong> &mdash; about two hours at target spacing &mdash; before it can be spent. That rule is inherited and it applies to every miner equally. Shielded rewards have no coinbase maturity countdown; your wallet tells you what is spendable.</p>
-        </article>
-        <article class="card">
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-layers"/></svg></div>
-          <h3>Difficulty moves every block</h3>
-          <p>The target is a block every <strong>75 seconds</strong>. Difficulty is recomputed at every block from a 17-block mean and 11-block median times, damped and bounded to roughly +16% / &minus;32% per block, so it follows the hash power on the network instead of waiting for a fortnightly reset.</p>
-        </article>
-      </div>
-
-      <div class="panel mt-l" data-reveal>
-        <h3>You mine alone &mdash; there is no pool.</h3>
-        <p>Whichever machine finds the next valid block first gets that block&rsquo;s full reward, paid by the protocol straight to your payout address. A machine that just started can win several blocks in a row &mdash; that is luck on a small number of blocks, not a preference. Over time every miner earns in proportion to its share of the network&rsquo;s total hash power.</p>
-        <p class="mt-s">That is the same sentence SWARM Node prints on its own Mining screen. There is no pool protocol yet, no payout smoothing and no minimum withdrawal, because there is nothing to withdraw: the protocol pays the address you pasted.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="band band--dark2">
-    <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">The network right now</p>
-        <h2>What you would be mining against.</h2>
-        <p>Read live from the seed server&rsquo;s public status file. These are the only network-wide figures the project publishes, and they are the same ones your own node will report once it has caught up.</p>
-      </div>
-
-      <div class="stats" data-netstatus>
-        <div class="stat"><div class="stat__in"><div class="stat__v" data-net="height">&mdash;</div><div class="stat__l">Block height</div></div></div>
-        <div class="stat"><div class="stat__in"><div class="stat__v" data-net="difficulty">&mdash;</div><div class="stat__l">Difficulty</div></div></div>
-        <div class="stat"><div class="stat__in"><div class="stat__v" data-net="interval">&mdash;</div><div class="stat__l">Mean block time, last 100</div></div></div>
-        <div class="stat"><div class="stat__in"><div class="stat__v">75<small>s</small></div><div class="stat__l">Target block time</div></div></div>
-      </div>
-
-      <p class="note mt-l" data-reveal><span data-net="foot">Live figures load from the seed server. With JavaScript off, or if the seed cannot be reached, the dashes stay &mdash; the page never guesses a number.</span></p>
-
-      <p class="note mt-m" data-reveal><strong>No projections, here or in the app.</strong> We do not publish an expected-earnings calculator, a per-day figure or a fiat value, because any such number would be an invention: it depends on hash power that changes block by block. What you can check is the arithmetic &mdash; your share of the network&rsquo;s hash power is your expected share of the blocks. SWARM Node&rsquo;s <em>Node</em> screen shows <strong>Network hash rate</strong> and <strong>Difficulty</strong> as measured by your own node, with the caveat the app prints itself: a dash means it has not measured that yet, and the hash rate needs a few blocks before it means anything.</p>
-    </div>
-  </section>
-
-  <section class="band band--cream">
-    <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">Step by step</p>
-        <h2>From download to first block.</h2>
-        <p>One app is all of it: SWARM Node is a full node and a miner together. It never mines without you pressing the button, and closing the window stops everything.</p>
-      </div>
-
-      <div class="steps" data-reveal>
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">1</div>
-          <p class="step__app">SWARM Node</p>
-          <h3>Download it</h3>
-          <p>Windows installer or portable zip; Debian/Ubuntu <span class="mono">.deb</span> or portable AppImage for Linux; one signed Mac disk image for Apple silicon and Intel. Check the SHA-256 on the download page before you install.</p>
-          <p class="mt-s">The Windows installer is unsigned, so SmartScreen may warn you: <em>More info</em> &rarr; <em>Run anyway</em>. The Mac app is signed and notarized. Open its disk image and drag the app into Applications.</p>
-          <a class="btn btn--primary" href="/ecosystem/node">Get SWARM Node</a>
-        </article>
-
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">2</div>
-          <p class="step__app">First run</p>
-          <h3>Agree to what will run</h3>
-          <p>On first run the app asks you to tick, one line at a time, exactly what it is about to do: run a full node, use your CPU <em>only</em> while you have pressed Start, store nothing about you but a payout address, and stop completely when you close it.</p>
-          <p class="mt-s">It then checks this machine and prints what it found: processor, memory, free disk, and whether port <span class="mono">28233</span> is free. It never uploads any of that.</p>
-        </article>
-
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">3</div>
-          <p class="step__app">Payout</p>
-          <h3>Paste a payout address</h3>
-          <p>Open SWARM Wallet, copy a receive address, paste it in. The app checks the format offline and then asks your own node to confirm it. The protocol pays rewards straight to that address &mdash; SWARM Node never holds your coins, so there is nothing to withdraw later.</p>
-          <p class="mt-s">Which address you paste decides how you mine. That is the next section.</p>
-          <a class="btn btn--ghost btn--sm" href="/ecosystem/wallet">Get SWARM Wallet{ARROW}</a>
-        </article>
-
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">4</div>
-          <p class="step__app">Mining</p>
-          <h3>Press Start mining</h3>
-          <p>One button. It starts your node, waits for it to catch up, and begins mining on its own. The line under the button says where it has got to, and the same button stops it again.</p>
-          <p class="mt-s">It will hold back until your node has at least one peer and is level with the network &mdash; mining on a node that cannot see the network builds a private fork that everybody else throws away. Press it and walk away; mining begins by itself.</p>
-        </article>
-
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">5</div>
-          <p class="step__app">Honey</p>
-          <h3>Watch the Honey page</h3>
-          <p>Every block this machine finds appears there the moment the network accepts it, with its height, whether it was paid transparently or shielded, and how many confirmations it still needs.</p>
-          <p class="mt-s">There is nothing to claim. Open your wallet to spend it.</p>
-        </article>
-      </div>
-
-      <p class="note mt-l" data-reveal>The installer for SWARM mainnet starts on <strong>SWARM Mainnet</strong> by itself, on a fresh machine or over an old testnet install. The band across the top of every screen says which chain you are on: <span class="mono">SwarmMainnet &middot; SWARM mainnet &middot; chain swarm-mainnet &middot; genesis 01c34428&hellip;</span> &mdash; and <em>Settings &rarr; Network</em> has the full genesis, the ports and the switcher. If that band ever says anything else, stop and check <a href="/verify">Verify</a>.</p>
-    </div>
-  </section>
-
-  <section class="band band--dark2">
-    <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">The one real choice</p>
-        <h2>Shielded on one core, or transparent on many.</h2>
-        <p>SWARM Node has two mining engines, and the address you paste decides which one you get. Both pay you directly; neither is a pool. The app states the trade-off on the Mining screen under <em>How you mine</em>, and it is worth understanding before you paste.</p>
-      </div>
-
-      <div class="cards cards--2" data-reveal>
-        <article class="card">
-          <p class="pill">Shielded &middot; 1 core</p>
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-shield"/></svg></div>
-          <h3>Paste a <span class="mono">swm1&hellip;</span> address</h3>
-          <p>A unified address. <strong>Rewards paid to it are private.</strong> It works with shielded mining, which runs on one core inside the node and pays into your unified address where nobody can see the amount.</p>
-          <p class="mt-s">Slower, because it is one core. There is no coinbase maturity countdown on a shielded reward, and the app cannot read the amount either &mdash; your wallet is what tells you the balance.</p>
-        </article>
-        <article class="card">
-          <p class="pill">Standard &middot; many cores</p>
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-desktop"/></svg></div>
-          <h3>Paste an <span class="mono">s1&hellip;</span> address</h3>
-          <p>A transparent address. <strong>Rewards paid to it are visible on the explorer.</strong> It works with standard mining, which uses as many processor cores as you choose.</p>
-          <p class="mt-s">Faster, because it is every core you allow. Anyone can see what that address has been paid, and a transparent reward needs 100 confirmations before it can be spent.</p>
-        </article>
-      </div>
-
-      <p class="note mt-m" data-reveal>You cannot have both at once, and the app will not pretend you can: it greys out whichever engine your address does not fit and says why. Change your mind by pasting the other kind of address in <em>Settings</em>. Switching shielded mining on or off restarts the node, because that is the only moment the node reads that setting. Mainnet payout addresses start <span class="mono">s1&hellip;</span> or <span class="mono">swm1&hellip;</span>; a testnet address, or an upstream Zcash address, is refused before your node is even asked. See <a href="/verify">the address prefixes</a>.</p>
-    </div>
-  </section>
-
-  <section class="band band--cream">
-    <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">What the screens show</p>
-        <h2>Four numbers, and what each one is not.</h2>
-        <p>Every figure on the Mining screen comes from the chain, from the miner&rsquo;s own output, or from this machine. Anything unknown renders as a dash rather than a zero.</p>
-      </div>
-
-      <div class="tablewrap" data-reveal>
-        <table>
-          <caption>The Mining screen, tile by tile.</caption>
-          <thead>
-            <tr><th scope="col">Tile</th><th scope="col">What it is</th><th scope="col">What it is not</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Hash rate</th><td>Solutions per second from your own machine, in <span class="mono">Sol/s</span>, measured by the solver that is actually running.</td><td>Not the network&rsquo;s rate, and not an estimate. A dash means nothing has reported a rate yet.</td></tr>
-            <tr><th scope="row">Blocks found</th><td>Blocks <em>this machine</em> found and the network accepted, split into transparent and shielded once both exist.</td><td>Not your wallet history, and not blocks found by your other machines.</td></tr>
-            <tr><th scope="row">Mature rewards</th><td>Mining income past 100 confirmations. On a shielded payout the tile is called <em>Shielded subsidy</em> instead.</td><td>Not your wallet balance. The app never holds coins and cannot see what else is in your wallet.</td></tr>
-            <tr><th scope="row">Honey maturing</th><td>Rewards still counting down, with the number of blocks until the next one unlocks.</td><td>Not applicable to shielded rewards, which have no coinbase maturity rule.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="note mt-m" data-reveal>The <em>Node</em> screen adds the chain-wide view: block height, newest block, peers, disk used, and &mdash; once your node has measured them &mdash; <strong>Network hash rate</strong> and <strong>Difficulty</strong>. The <em>Log</em> screen shows every line tagged <strong>node</strong>, <strong>miner</strong> or <strong>app</strong>, so you can see which part of the system said what.</p>
-    </div>
-  </section>
-
-  <section class="band band--dark2">
-    <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">Living with it</p>
-        <h2>Keeping the machine usable.</h2>
-      </div>
-
-      <div class="cards" data-reveal>
-        <article class="card">
-          <h3>Leave yourself a core</h3>
-          <p>The core slider reads <em>How many cores to use</em>, and the maximum it offers is one fewer than your machine has: <strong>one core is always left free so the machine stays usable</strong>. Turn it down further any time; it takes effect without a restart.</p>
-        </article>
-        <article class="card">
-          <h3>Pause while you are at the keyboard</h3>
-          <p>There is a switch labelled <em>Pause while I am using this machine (starts again after two minutes of no keyboard or mouse)</em>. With it on, the miner steps aside the moment you touch the machine and picks up again two minutes after you stop.</p>
-        </article>
-        <article class="card">
-          <h3>Heat, fans and electricity</h3>
-          <p>Mining runs your processor at full load for as long as it is on. That means heat, fan noise and a real electricity bill. On a laptop, expect it to get hot and to drain on battery. Nothing about SWARM makes that cheaper, and we will not tell you it pays for itself.</p>
-        </article>
-        <article class="card">
-          <h3>More than one machine</h3>
-          <p>Run SWARM Node on as many machines as you like, each with its own full node, and point them all at the same payout address if you want the rewards in one place. They do not need to know about each other &mdash; they are simply more of the swarm.</p>
-          <p class="mt-s">Each machine keeps its own copy of the chain, so budget the disk on each of them.</p>
-        </article>
-      </div>
-
-      <div class="cards cards--2 mt-l" data-reveal>
-        <article class="card">
-          <h3>Linux</h3>
-          <p>The <span class="mono">.deb</span> installs on Debian and Ubuntu; the AppImage runs anywhere without installing &mdash; mark it executable and run it. Both are built from the same commit as the Windows package and carry their own SHA-256.</p>
-          <p class="mt-s"><strong>Stated plainly:</strong> the Linux packages have not been run on a Linux machine by the project. Same source, same pipeline as Windows; nothing more is claimed.</p>
-        </article>
-        <article class="card">
-          <h3>macOS</h3>
-          <p>One universal SWARM Node app runs natively on Apple silicon and Intel. Its disk image and optional ZIP each have a SHA-256 checksum. <strong>The app is signed and notarized.</strong> Open the disk image, drag <em>SWARM Node</em> into Applications, and open it there.</p>
-          <p class="mt-s">macOS may ask you to confirm the first launch. The download and checksums are on the <a href="/ecosystem/node">SWARM Node download page</a>.</p>
-        </article>
-      </div>
-
-      <div class="note mt-l" data-reveal>
-        <strong>What the machine check looks for.</strong> These are the app&rsquo;s own thresholds, measured locally and never uploaded.
-        <ul class="note__list">
-          <li><strong>2 CPU cores or more.</strong></li>
-          <li><strong>4 GB of memory or more.</strong></li>
-          <li><strong>10 GB of free disk</strong> where the chain is stored. Mainnet started on 26 September 2026, so the chain is still small &mdash; leave room for it to grow.</li>
-          <li><strong>64-bit Windows 10 or newer</strong>, Linux, or macOS on Apple silicon or Intel.</li>
-          <li><strong>Port 28233 free</strong> on this machine. Whether your router lets other nodes in cannot be tested from here, and mining works either way.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="band band--cream">
-    <div class="wrap wrap--narrow">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">Questions</p>
-        <h2>The ones that actually come up.</h2>
-      </div>
-
-      <div class="faq" data-reveal>
-        <details>
-          <summary>Why do blocks come in bursts, then nothing for ages?<span class="ind" aria-hidden="true"></span></summary>
-          <div class="answer"><p>Because finding a block is a lottery draw, not a queue. Every attempt is independent, so the gaps between blocks follow a random distribution around the 75-second target: several in a minute, then a long quiet stretch, is exactly what that looks like. It is not a fault and it is not the network favouring anyone.</p><p>Difficulty only recalculates when a block arrives, and it is bounded to roughly +16% / &minus;32% per block. So when a large miner leaves, the first blocks at the raised difficulty genuinely do take a long time, and recovery is measured in slow blocks rather than in minutes.</p></div>
-        </details>
-        <details>
-          <summary>Why do rewards have to mature?<span class="ind" aria-hidden="true"></span></summary>
-          <div class="answer"><p>Because a block at the tip of the chain can still be replaced. If a competing chain turns out to have more work behind it, the block you found &mdash; and its reward &mdash; goes away with it. The 100-block wait means a coinbase reward cannot be spent until it is buried deep enough that reversing it is impractical, which protects whoever you would have paid with it.</p><p>It is an inherited rule and it applies to every miner equally. Shielded rewards have no coinbase maturity countdown; your wallet shows what is spendable.</p></div>
-        </details>
-        <details>
-          <summary>Why is there no pool?<span class="ind" aria-hidden="true"></span></summary>
-          <div class="answer"><p>Because nobody has built one for SWARM yet. A pool needs a protocol for handing out work, a way of measuring each miner&rsquo;s contribution and an operator who takes custody of rewards before paying them out &mdash; and that last part is exactly the kind of thing we want reviewed before it exists, not bolted on.</p><p>A pool protocol is on the <a href="/roadmap">roadmap</a> as planned, with no date. Until then every miner is solo: whoever finds the block keeps it, and the protocol pays your address directly.</p></div>
-        </details>
-        <details>
-          <summary>The network is small. Is that good or bad for me?<span class="ind" aria-hidden="true"></span></summary>
-          <div class="answer"><p>Both, honestly. A small network means your machine is a large share of the total hash power, so you find blocks far more often than you would on an established chain. It also means the chain has less accumulated work behind it, fewer nodes checking it, and a single large miner arriving would change your share overnight.</p><p>Equihash hardware already exists and hash power for it can be rented. A single current-generation ASIC out-hashes thousands of home PCs, so from the moment one joins, home mining stops being competitive at the difficulty it sets. That is a consequence of keeping the rules open rather than inventing a hardware gate, and we would rather write it here than let you discover it.</p></div>
-        </details>
-        <details>
-          <summary>What will I earn?<span class="ind" aria-hidden="true"></span></summary>
-          <div class="answer"><p>Your share of the network&rsquo;s hash power is your expected share of the blocks, and each block you find pays 5.00 SWM plus that block&rsquo;s fees. We will not turn that into a number for you: it depends on hash power that changes block by block, on your electricity price, and on a market price that SWARM does not set, promise or have any say in.</p><p>SWM can lose value, including all of it. Mine because you want to run a piece of the network, not because a website told you what it pays.</p></div>
-        </details>
-        <details>
-          <summary>Why will it not start mining?<span class="ind" aria-hidden="true"></span></summary>
-          <div class="answer"><p>The app tells you, in one line under the button. The usual reasons: your node is still downloading the chain; it has no peers yet, so it cannot tell whether it is on the real chain; or there is no payout address saved. In every case the button stays pressable &mdash; press it and mining starts by itself the moment the node is ready.</p><p>If it has been waiting far longer than it should, the app offers <em>Start anyway</em> beside the main button and explains the risk: your node may not be on the network&rsquo;s best chain, and blocks you find could be discarded.</p></div>
-        </details>
-        <details>
-          <summary>Does it mine when I am not looking?<span class="ind" aria-hidden="true"></span></summary>
-          <div class="answer"><p>No. Mining starts when you press Start and stops when you press Stop, when you close the window, or when the node loses the network. There is no silent mode, no background service and no setting that starts it at boot. Closing the window stops the node and the miner too.</p></div>
-        </details>
-      </div>
-
-      <div class="cta-row mt-l" data-reveal>
-        <a class="btn btn--primary" href="/ecosystem/node">Get SWARM Node</a>
-        <a class="btn btn--ghost" href="/verify">Check you are on the real chain</a>
-      </div>
-    </div>
-  </section>
-""" + FOOTER
-write("mining/index.html", mining)
-
-
 # ------------------------------------------------------------------- /join
 join = head(
     "Get SWARM — SWARM",
-    "How to run SWARM: get the wallet, run a full node, and start CPU mining with one click. Nothing runs without your consent.",
+    "How to get started with SWARM: choose a wallet for your computer or phone and back up your recovery phrase.",
     "/join",
     "Get SWARM",
-    "Get the wallet, run a node, start foraging.",
+    "Get the wallet and join the swarm.",
 ) + page_head(
     "Get SWARM",
     "Join the swarm.",
-    "Choose a wallet, run a node, and join the network. Nothing runs without you pressing the button.",
+    "Choose a wallet and join the network.",
     pill="Mainnet · live",
 ) + f"""
   <section class="band band--cream">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Step by step</p>
-        <h2>Three steps. Every bee counts.</h2>
+        <h2>Start with a wallet. Every bee counts.</h2>
       </div>
 
       <div class="steps" data-reveal>
@@ -1133,27 +825,9 @@ join = head(
           <p class="mt-s">On first run it will show you a recovery phrase. Write it down on paper and keep it offline. It is the only way to restore your wallet.</p>
           <a class="btn btn--primary" href="/ecosystem/wallet">Choose your wallet</a>
         </article>
-
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">2</div>
-          <p class="step__app">SWARM Node</p>
-          <h3>Run a node</h3>
-          <p>One app that runs a full node: it downloads the chain, checks every block against the rules itself, and relays to its peers.</p>
-          <p class="mt-s">Running a node is what makes you part of the hive. You are not trusting anyone&rsquo;s word about what the chain says — you are checking it.</p>
-          <a class="btn btn--primary" href="/ecosystem/node">Get SWARM Node</a>
-        </article>
-
-        <article class="card step">
-          <div class="step__n" aria-hidden="true">3</div>
-          <p class="step__app">SWARM Node</p>
-          <h3>Start foraging</h3>
-          <p>The same app has a mining switch. Press <strong>Start</strong> and your CPU begins looking for blocks; press <strong>Stop</strong> and it stops. That is the whole interface.</p>
-          <p class="mt-s">The proof of work is Equihash and the chain started at minimum difficulty, so an ordinary computer can take part. As the network grows and difficulty rises, specialised miners can join too — nothing in the rules keeps anyone out.</p>
-          <a class="btn btn--primary" href="/mining">How to mine</a>
-        </article>
       </div>
 
-      <p class="note mt-l" data-reveal>Mining has a page of its own: <a href="/mining">how mining works on SWARM</a>, which engine your payout address picks, what each number on the screen means, and what it costs you in heat and electricity. Every app, the block explorer and the source code are listed together in <a href="/ecosystem">Ecosystem</a>.</p>
+      <p class="note mt-l" data-reveal>Every app, the block explorer and the source code are listed together in <a href="/ecosystem">Ecosystem</a>.</p>
 
       <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
@@ -1162,8 +836,8 @@ join = head(
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="/ecosystem">See the ecosystem{ARROW}</a></p>
         </article>
         <article class="card">
-          <h3>Build it yourself</h3>
-          <p>You do not have to wait for a download. The node, the indexer and the wallet are open source — read the code, build it, and check that it does what this site says it does.</p>
+          <h3>Read the source</h3>
+          <p>The node, the indexer and the wallet are open source — read the code and check that it does what this site says it does.</p>
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="{GH}" target="_blank" rel="noopener noreferrer">Browse the source{EXT}</a></p>
         </article>
       </div>
@@ -1174,7 +848,7 @@ join = head(
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Before you start</p>
-        <h2>Two things that matter.</h2>
+        <h2>One thing that matters.</h2>
       </div>
 
       <div class="cards cards--2" data-reveal>
@@ -1186,26 +860,6 @@ join = head(
           <p>Write the phrase down on paper and store it somewhere safe. Do not photograph it, do not put it in a password manager you do not control, and do not type it into anything that asks you to &ldquo;verify&rdquo; it on a website.</p>
           <p class="mt-s">Anyone who has the phrase has the coins. If you lose it, nobody — including us — can recover your wallet for you.</p>
         </article>
-        <article class="card">
-          <div class="hexicon" aria-hidden="true">
-            <svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-mining"/></svg>
-          </div>
-          <h3>Mining only runs when you say so</h3>
-          <p>Mining starts when you press <strong>Start</strong> and stops when you press <strong>Stop</strong>. It never starts by itself, it never runs hidden in the background, and there is no &ldquo;silent&rdquo; mode.</p>
-          <p class="mt-s">Mining uses your processor and your electricity. What you earn is SWM, paid to the payout address you choose, once each reward has matured for 100 blocks.</p>
-        </article>
-      </div>
-
-      <div class="note mt-l" data-reveal>
-        <strong>What you need.</strong> These are the figures the mining app&rsquo;s own machine check looks for.
-        <ul class="note__list">
-          <li><strong>Windows 10 or 11, Linux or macOS, 64-bit.</strong> See <a href="/ecosystem/node">SWARM Node</a> for the builds available today.</li>
-          <li><strong>2 CPU cores or more.</strong></li>
-          <li><strong>4 GB of memory or more.</strong></li>
-          <li><strong>10 GB of free disk</strong> for the chain. Mainnet started on 26 September 2026, so the chain is still small; leave room for it to grow.</li>
-          <li><strong>An internet connection.</strong></li>
-          <li><strong>Port 28233 open &mdash; only if you want other nodes to be able to connect to you.</strong> Mining and syncing work without it.</li>
-        </ul>
       </div>
     </div>
   </section>
@@ -1308,7 +962,7 @@ roadmap = head(
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Verify it</p>
         <h2>Check you are on SWARM.</h2>
-        <p>A chain is identified by its genesis block: <span class="mono">{GENESIS["hash"][:8]}&hellip;{GENESIS["hash"][-4:]}</span>. SWARM Node compares the genesis it loads with that one before it syncs anything, and you can do the same by hand. The launch facts, the public endpoints, the three published fund addresses and the address prefixes are all on one page.</p>
+        <p>A chain is identified by its genesis block: <span class="mono">{GENESIS["hash"][:8]}&hellip;{GENESIS["hash"][-4:]}</span>. You can check it by hand. The launch facts, the public endpoints, the three published fund addresses and the address prefixes are all on one page.</p>
       </div>
       <div class="cta-row" data-reveal>
         <a class="btn btn--primary" href="/verify">Verify the chain</a>

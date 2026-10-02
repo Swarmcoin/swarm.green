@@ -11,7 +11,9 @@
     },
     { "source": "/sitemap", "destination": "/sitemap.xml", "permanent": true },
     { "source": "/sitemap_index.xml", "destination": "/sitemap.xml", "permanent": true },
-    { "source": "/Sitemap.xml", "destination": "/sitemap.xml", "permanent": true }
+    { "source": "/Sitemap.xml", "destination": "/sitemap.xml", "permanent": true },
+    { "source": "/ecosystem/node", "destination": "/ecosystem", "permanent": true },
+    { "source": "/mining", "destination": "/ecosystem", "permanent": true }
   ],
   "rewrites": [
     { "source": "/data/swarm-map-live.json", "destination": "https://lwd-main.swarm.green/swarm-map-live.json" },

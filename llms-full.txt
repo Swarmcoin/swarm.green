@@ -21,7 +21,7 @@ Source: https://swarm.green/what-is-swarm and the pages linked below. Published 
 | Block reward split | 80% Miner · 8% Core Development · 4% Grants & Ecosystem · 8% Community & Development Reserve. Fixed in the genesis rules for the whole emission schedule. |
 | Privacy | Shielded payments keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs. Transparent payments exist too. |
 | Mainnet addresses | `swm1…` shielded, `s1…` transparent, `s3…` transparent (script) |
-| Apps | [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, Linux and Android); [SWARM Node](https://swarm.green/ecosystem/node) (Windows and Linux); [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux); [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). |
+| Apps | [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS, Linux and Android); [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux); [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). |
 | Block explorer | [mainnet.explore.swarm.green](https://mainnet.explore.swarm.green) |
 | Source code | Open source: [github.com/louisinthesubway/swarm-releases](https://github.com/louisinthesubway/swarm-releases) |
 | Official channels | [swarm.green](https://swarm.green/), [@swarm_coin on X](https://x.com/swarm_coin), swarmofficial@atomicmail.io |
@@ -40,7 +40,7 @@ Every block reward is split the same way for the whole schedule: 80% to the mine
 
 ## Proof of work
 
-SWARM is secured by proof of work, Equihash 200,9, left unchanged from the open-source code it builds on. SWARM Node includes a miner that runs only while you have pressed Start. Specialised hardware for this proof of work exists and nothing in the rules keeps larger miners out; the [mining guide](https://swarm.green/mining) states the trade-offs.
+SWARM is secured by proof of work, Equihash 200,9, left unchanged from the open-source code it builds on. Specialised hardware for this proof of work exists and nothing in the rules keeps larger miners out.
 
 ## What it is built on
 
@@ -48,7 +48,7 @@ SWARM is built on proven, open-source code that has secured real money for years
 
 ## The software
 
-Everything you need is published with its SHA-256 checksum in the [Ecosystem](https://swarm.green/ecosystem): [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, Linux and Android), [SWARM Node](https://swarm.green/ecosystem/node) (Windows and Linux), [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux) and [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). The mainnet block explorer is at [mainnet.explore.swarm.green](https://mainnet.explore.swarm.green). The [roadmap](https://swarm.green/roadmap) separates what is live from what is only planned.
+Everything you need is published with its SHA-256 checksum in the [Ecosystem](https://swarm.green/ecosystem): [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS, Linux and Android), [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux) and [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). The mainnet block explorer is at [mainnet.explore.swarm.green](https://mainnet.explore.swarm.green). The [roadmap](https://swarm.green/roadmap) separates what is live from what is only planned.
 
 ## Emission schedule
 
@@ -79,7 +79,6 @@ Custody of the three project addresses: Pay-to-script-hash, 2-of-3 multisig (s3�
 
 ## Network endpoints
 
-- Seed node (P2P, not a web address): `seed-main.swarm.green:28233`
 - Light-wallet server (TLS): `lwd-main.swarm.green:8443`
 - Block explorer: https://mainnet.explore.swarm.green
 - Network name: `SwarmMainnet`; light-wallet chain label: `swarm-mainnet`
@@ -93,8 +92,7 @@ Custody of the three project addresses: Pay-to-script-hash, 2-of-3 multisig (s3�
 
 ## Apps
 
-- SWARM Wallet holds, sends and receives SWM, shielded or transparent. Published for Windows, Linux and Android. Download page: https://swarm.green/ecosystem/wallet
-- SWARM Node runs a full node, verifies the chain and mines SWM with one click. Published for Windows and Linux. Download page: https://swarm.green/ecosystem/node
+- SWARM Wallet holds, sends and receives SWM, shielded or transparent. Published for Windows, macOS, Linux and Android. Download page: https://swarm.green/ecosystem/wallet
 - SWARM Messenger is end-to-end encrypted messaging between SWARM wallets, with payments inside the chat. Published for Windows, macOS and Linux. Download page: https://swarm.green/ecosystem/messenger
 - SWARM Browser is a web browser with the SWARM wallet built in. Published for Windows. Download page: https://swarm.green/ecosystem/browser
 - Every file and its SHA-256 checksum: https://swarm.green/ecosystem
@@ -127,7 +125,7 @@ No. Privacy is a choice you make per payment: shielded payments are encrypted on
 
 ### How do I get SWM?
 
-SWM is issued only by mining, so you either mine it with SWARM Node or receive it from someone who already has it. The project does not sell SWM, does not set a price and does not run an exchange. SWM has no guaranteed value and can lose value, including all of it.
+SWM is issued only by mining; you can receive it from someone who already has it. The project does not sell SWM, does not set a price and does not run an exchange. SWM has no guaranteed value and can lose value, including all of it.
 
 ### Where do block rewards go?
 
@@ -139,7 +137,7 @@ A founding team builds the software in the open. The network itself is run by wh
 
 ### How do I check that I am on the real SWARM chain?
 
-A chain is identified by its genesis block. SWARM mainnet’s genesis hash is `01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd`, and SWARM Node compares it before it syncs anything. The [verify page](https://swarm.green/verify) lists the launch facts, the public endpoints and the published addresses.
+A chain is identified by its genesis block. SWARM mainnet’s genesis hash is `01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd`. The [verify page](https://swarm.green/verify) lists the launch facts, the public endpoints and the published addresses.
 
 ### Which sources are official?
 
@@ -147,7 +145,7 @@ This site, [@swarm_coin on X](https://x.com/swarm_coin), the email address swarm
 
 ### Is SWARM live?
 
-Yes. SWARM mainnet is running. You can download the wallet and the node today, mine blocks and send shielded payments. The genesis hash, the launch manifest and the three destination addresses are on the network page, so you can check that the chain you join is the one that was announced. There was no sale, no presale and no token offering. Every SWM in existence was mined.
+Yes. SWARM mainnet is running. You can download the wallet today and send shielded payments. The genesis hash, the launch manifest and the three destination addresses are on the network page, so you can check that the chain you join is the one that was announced. There was no sale, no presale and no token offering. Every SWM in existence was mined.
 
 ### What is SWM worth?
 
@@ -155,7 +153,7 @@ Whatever people agree it is worth. SWARM does not set a price, promise one, or r
 
 ### Can I mine with a normal PC?
 
-Yes. The proof of work is Equihash and the chain started at minimum difficulty, so SWARM is open to ordinary computers from the first block. There is no promise that home computers stay competitive forever. As the network grows and difficulty rises, professional and specialised miners can join — and nothing in the rules keeps anyone out, at either end. Equihash hardware already exists, so that moment can come early. It is a consequence of keeping the rules open, and we say so rather than pretend otherwise. SWARM Node lets you start and stop mining with one click. It only ever runs when you press Start, and it stops when you press Stop.
+Yes. The proof of work is Equihash and the chain started at minimum difficulty, so SWARM is open to ordinary computers from the first block. There is no promise that home computers stay competitive forever. As the network grows and difficulty rises, professional and specialised miners can join — and nothing in the rules keeps anyone out, at either end. Equihash hardware already exists, so that moment can come early. It is a consequence of keeping the rules open, and we say so rather than pretend otherwise.
 
 ### Is there a premine?
 
@@ -186,8 +184,7 @@ Write to swarmofficial@atomicmail.io or follow @swarm_coin on X. Together with t
 - [What is SWARM (SWM)?](https://swarm.green/what-is-swarm): the facts on one page: definition, key figures, privacy, issuance, official sources
 - [Network and supply](https://swarm.green/network): every consensus and monetary parameter, the era table and the 80% Miner / 8% Core Development / 4% Grants & Ecosystem / 8% Community & Development Reserve block reward split
 - [Verify the chain](https://swarm.green/verify): genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes
-- [How to mine](https://swarm.green/mining): how Equihash 200,9 mining works on SWARM, what it pays and what it costs
-- [Get started](https://swarm.green/join): wallet, node and mining, step by step
+- [Get started](https://swarm.green/join): choosing a wallet, step by step
 - [Roadmap](https://swarm.green/roadmap): what is live, what is being built and what is only planned
 - [Frequently asked questions](https://swarm.green/#faq): launch, supply, mining, privacy, custody of the project share
 

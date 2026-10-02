@@ -123,9 +123,6 @@ APPS = {
     '/ecosystem/wallet': {
         'name': 'SWARM Wallet', 'products': ('wallet', 'mobile-android'), 'category': 'FinanceApplication',
         'what': 'holds, sends and receives SWM, shielded or transparent'},
-    '/ecosystem/node': {
-        'name': 'SWARM Node', 'products': ('node',), 'category': 'UtilitiesApplication',
-        'what': 'runs a full node, verifies the chain and mines SWM with one click'},
     '/ecosystem/messenger': {
         'name': 'SWARM Messenger', 'products': ('messenger',), 'category': 'CommunicationApplication',
         'what': 'is end-to-end encrypted messaging between SWARM wallets, with payments inside the chat'},
@@ -159,18 +156,12 @@ PAGES = {
                  'desc': 'Every SWARM (SWM) parameter: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a 20,999,987.3152 SWM cap, no premine, the 80/8/4/8 split.'},
     '/verify': {'name': 'Verify', 'title': 'Verify the SWARM mainnet: genesis hash, endpoints, addresses — SWARM',
                 'desc': 'Check you are on the real SWARM chain: the genesis hash, the launch time, the public endpoints, the three published fund addresses and the address prefixes.'},
-    '/mining': {'name': 'How to mine', 'title': f'How to mine SWARM (SWM): {POW} mining guide — SWARM',
-                'desc': 'How to mine SWARM (SWM): Equihash 200,9 in SWARM Node, no pool, a block every 75 seconds, 5 SWM plus fees to whoever finds it. Paste an address, press Start.'},
-    '/join': {'name': 'Get SWARM', 'title': 'Get started with SWARM (SWM): wallet, node and mining — SWARM'},
+    '/join': {'name': 'Get SWARM', 'title': 'Get started with SWARM (SWM): choose a wallet — SWARM'},
     '/ecosystem': {'name': 'Ecosystem', 'title': 'Download the SWARM apps: every file with its checksum — SWARM'},
     '/ecosystem/wallet': {
         'name': 'SWARM Wallet',
         'title': f'SWARM Wallet: SWM wallet for {listing(APPS["/ecosystem/wallet"]["platforms"])}',
         'desc': app_line('/ecosystem/wallet')},
-    '/ecosystem/node': {
-        'name': 'SWARM Node',
-        'title': f'SWARM Node: full node and one-click SWM miner for {listing(APPS["/ecosystem/node"]["platforms"])}',
-        'desc': app_line('/ecosystem/node')},
     '/ecosystem/messenger': {
         'name': 'SWARM Messenger',
         'title': 'SWARM Messenger: private messaging with a built-in SWM wallet'},
@@ -179,7 +170,7 @@ PAGES = {
         'title': 'SWARM Browser: a web browser with the SWM wallet built in'},
     '/roadmap': {'name': 'Roadmap', 'title': 'SWARM (SWM) roadmap: what is live and what comes next — SWARM',
                  'desc': 'SWARM (SWM) roadmap: what is live today, what is being built and what is only planned, from the mainnet and the apps to SWARM Market.'},
-    '/support': {'name': 'Support', 'title': 'SWARM support: help with the wallet, the node and downloads'},
+    '/support': {'name': 'Support', 'title': 'SWARM support: help with the wallet and downloads'},
     '/brand': {'name': 'Brand'},
     '/terms': {'name': 'Terms', 'desc': 'Terms for swarm.green, an information site about open-source software and the SWARM network. Nothing here is an offer, a solicitation or financial advice.'},
     '/privacy': {'name': 'Privacy'},
@@ -379,9 +370,7 @@ SECTIONS = [
     ]),
     ('Proof of work', [
         f'SWARM is secured by proof of work, {POW}, left unchanged from the open-source code it builds on. '
-        'SWARM Node includes a miner that runs only while you have pressed Start. Specialised hardware for this '
-        'proof of work exists and nothing in the rules keeps larger miners out; the '
-        f'{link("/mining", "mining guide")} states the trade-offs.',
+        'Specialised hardware for this proof of work exists and nothing in the rules keeps larger miners out.',
     ]),
     ('What it is built on', [
         'SWARM is built on proven, open-source code that has secured real money for years. The consensus rules '
@@ -416,8 +405,7 @@ QUESTIONS = [
      ['No. Privacy is a choice you make per payment: shielded payments are encrypted on-chain, transparent '
       'payments are public, and the wallet tells you which kind you are about to make.']),
     ('How do I get SWM?',
-     ['SWM is issued only by mining, so you either mine it with SWARM Node or receive it from someone who '
-      'already has it. The project does not sell SWM, does not set a price and does not run an exchange. '
+     ['SWM is issued only by mining; you can receive it from someone who already has it. The project does not sell SWM, does not set a price and does not run an exchange. '
       'SWM has no guaranteed value and can lose value, including all of it.']),
     ('Where do block rewards go?',
      [f'{SPLIT}. The split is fixed in the genesis rules for the whole emission schedule and is visible in every '
@@ -427,7 +415,7 @@ QUESTIONS = [
       'mines blocks: there is no company server, no admin key and no account to apply for.']),
     ('How do I check that I am on the real SWARM chain?',
      [f'A chain is identified by its genesis block. SWARM mainnet&rsquo;s genesis hash is '
-      f'<code>{GENESIS["hash"]}</code>, and SWARM Node compares it before it syncs anything. '
+      f'<code>{GENESIS["hash"]}</code>. '
       f'The {link("/verify", "verify page")} lists the launch facts, the public endpoints and the published '
       'addresses.']),
     ('Which sources are official?',
@@ -526,8 +514,7 @@ def page_links():
         ('What is SWARM (SWM)?', '/what-is-swarm', 'the facts on one page: definition, key figures, privacy, issuance, official sources'),
         ('Network and supply', '/network', f'every consensus and monetary parameter, the era table and the {SPLIT.replace(" · ", " / ")} block reward split'),
         ('Verify the chain', '/verify', 'genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes'),
-        ('How to mine', '/mining', f'how {POW} mining works on SWARM, what it pays and what it costs'),
-        ('Get started', '/join', 'wallet, node and mining, step by step'),
+        ('Get started', '/join', 'choosing a wallet, step by step'),
         ('Roadmap', '/roadmap', 'what is live, what is being built and what is only planned'),
         ('Frequently asked questions', '/#faq', 'launch, supply, mining, privacy, custody of the project share'),
     ]
@@ -561,7 +548,7 @@ def llms_txt():
               f'- Email: {EMAIL}',
               '', '## Optional', '',
               f'- [Everything above in one file]({SITE}/llms-full.txt): the facts, the schedule and the questions and answers as plain Markdown',
-              f'- [Support]({SITE}/support): help with the wallet and the node',
+              f'- [Support]({SITE}/support): help with the wallet',
               f'- [Brand]({SITE}/brand): logo files, colours and usage rules',
               f'- [Terms]({SITE}/terms) and [Privacy]({SITE}/privacy)', '']
     return '\n'.join(lines)
@@ -593,7 +580,6 @@ def llms_full(home):
             for s in SHARES]
     out += ['', f'Custody of the three project addresses: {GENESIS["addressType"]} {GENESIS["custody"]}', '',
             '## Network endpoints', '',
-            f'- Seed node (P2P, not a web address): `{ENDPOINTS["seed"]}`',
             f'- Light-wallet server (TLS): `{ENDPOINTS["lightWallet"]}`',
             f'- Block explorer: {EXPLORER}',
             f'- Network name: `{GENESIS["network"]}`; light-wallet chain label: `{CHAIN["lightWalletChainLabel"]}`',

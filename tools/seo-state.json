@@ -1,67 +1,59 @@
 {
  "/": {
-  "sha256": "afcaaf33e051561a3febbbcdd602e37cd54993d953b28c7f8a1b2ccf62710a83",
-  "lastmod": "2026-09-30"
+  "sha256": "64ed8f60dc887dcf0275ae3c2a0795c20a21c3b90008543ca7f12045f286dd76",
+  "lastmod": "2026-10-02"
  },
  "/what-is-swarm": {
-  "sha256": "317d884f3d79b6f00fe62fa86f326fc541333d50ee3444791b3885b341d4975e",
-  "lastmod": "2026-09-30"
+  "sha256": "edabc5e6297cea9edc02d9cb7c326847c130612eebefc95743bd433ca7a47925",
+  "lastmod": "2026-10-02"
  },
  "/network": {
-  "sha256": "366b5758da5c0a80338bcb111c3643ed93c0a45173b51b2a854e05c99e655114",
-  "lastmod": "2026-09-30"
+  "sha256": "dd04b5f887a7b892e014f4bfccb5611d7cdd049b61d58b29139ba344fad9d80b",
+  "lastmod": "2026-10-02"
  },
  "/verify": {
-  "sha256": "696f6fe09ef3d36889fbdfbfb4634431adbfbdec838e1f097fe3e194151ac88f",
-  "lastmod": "2026-09-30"
- },
- "/mining": {
-  "sha256": "7456bfba65e66ae0aa3e4b0cc1863dc40f27a4af97b3a7e8172a8fde306e9221",
-  "lastmod": "2026-09-30"
+  "sha256": "4bb0c8005016082608267a4b52c311640e8f96c1aabe933eb623f0e189ea06ee",
+  "lastmod": "2026-10-02"
  },
  "/join": {
-  "sha256": "817c64b659d5f48b4422be3181e07373afaa37370c20815ec71bf5719df5cbbc",
-  "lastmod": "2026-09-30"
+  "sha256": "18d70020de7613d0ca0d6289ed784ea8c2b7395c2e83a53ced14e44c3a3880e4",
+  "lastmod": "2026-10-02"
  },
  "/ecosystem": {
-  "sha256": "27649d90e0c76e6ce419111205fc7187ca0d634125b5047271eace0f570ff358",
-  "lastmod": "2026-09-30"
+  "sha256": "1e3a8dc4e22a408a64fc4d86cab90c05e5d7b57218592cfd4e4d11212a1d70e6",
+  "lastmod": "2026-10-02"
  },
  "/ecosystem/wallet": {
-  "sha256": "13cf7678c1039c228afbcc855f01513c3b3a3e255e67e7455c0711f74d11ae8c",
-  "lastmod": "2026-09-30"
- },
- "/ecosystem/node": {
-  "sha256": "d4b419bf766a063c6fdbb8d96ac26b18646facdc7b09c62d29554fbc3572c343",
-  "lastmod": "2026-09-30"
+  "sha256": "2111e3c125dfac8c8498adfb0f740fc4673fb2893df6db3562057520a03e74b1",
+  "lastmod": "2026-10-02"
  },
  "/ecosystem/messenger": {
-  "sha256": "c7f3001923f4f3ff066b64f27bd42a9a320f77a6e5ab4701c606293d08044327",
-  "lastmod": "2026-09-30"
+  "sha256": "74cde817455a7fd8cec1c7cd4310b9c2c59a41433bad4bbe8fb88b8e0a745a3c",
+  "lastmod": "2026-10-02"
  },
  "/ecosystem/browser": {
-  "sha256": "d6433f1718da4b4996ae07358ee2cd69c6150248db75bf42047df0c07474da70",
-  "lastmod": "2026-09-30"
+  "sha256": "51114d146dc28690b92755790c9b243965e061b9f1c1cf4eb2a4d04de3135edb",
+  "lastmod": "2026-10-02"
  },
  "/roadmap": {
-  "sha256": "915e2bb04e5b94d786cbd3ef3d113699cf2c369b4f9a38f304150e50f4fc4872",
-  "lastmod": "2026-09-30"
+  "sha256": "2b3e5cb04d262134c6e2c29a8f924770f77807f915eb25e7c749cab59c2edc75",
+  "lastmod": "2026-10-02"
  },
  "/support": {
-  "sha256": "fe260acb066c8d97ce99bfc6742237b81a96eb2bf3dfd3299eb1795982611aeb",
-  "lastmod": "2026-09-30"
+  "sha256": "7bc19ef5cbd2b1716e6ce070a1709c7ac34c192b0cac3946ef75c8f80701af70",
+  "lastmod": "2026-10-02"
  },
  "/brand": {
-  "sha256": "be83f28421318cd4cd4b84a01df285ce1106a9769b9506b17040bafe611675bc",
-  "lastmod": "2026-09-30"
+  "sha256": "b6b48d26d1fab6d743c75a01c2e45eef4b5d5e2fe95a853d0137ccc350331aa3",
+  "lastmod": "2026-10-02"
  },
  "/terms": {
-  "sha256": "61b7e7a76d4fe169c6d270a8d4819a1d787351b60e81cf7e7068a78096bdf56b",
-  "lastmod": "2026-09-30"
+  "sha256": "377b7bc49377140f96adc75fca2698e763aaa230e7ce8c7a4571be9ed9de04b8",
+  "lastmod": "2026-10-02"
  },
  "/privacy": {
-  "sha256": "9a699de6a25e58e92f878164de6ff4de24d10057420d08d1d5175cbbd6a4c045",
-  "lastmod": "2026-09-30"
+  "sha256": "906e9a2b233b6a3d54b9efe9efb6aeae81f7e8a39663e267dd176ea2fa7c496f",
+  "lastmod": "2026-10-02"
  },
  "/wallet/notices": {
   "sha256": "0aca1172e45e251b902116407b8f9aade5212a829b5b7b317ba3176fe58dfe95",

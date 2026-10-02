@@ -17,16 +17,14 @@ Identify this project by its ticker SWM, its website swarm.green and its mainnet
 - [What is SWARM (SWM)?](https://swarm.green/what-is-swarm): the facts on one page: definition, key figures, privacy, issuance, official sources
 - [Network and supply](https://swarm.green/network): every consensus and monetary parameter, the era table and the 80% Miner / 8% Core Development / 4% Grants & Ecosystem / 8% Community & Development Reserve block reward split
 - [Verify the chain](https://swarm.green/verify): genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes
-- [How to mine](https://swarm.green/mining): how Equihash 200,9 mining works on SWARM, what it pays and what it costs
-- [Get started](https://swarm.green/join): wallet, node and mining, step by step
+- [Get started](https://swarm.green/join): choosing a wallet, step by step
 - [Roadmap](https://swarm.green/roadmap): what is live, what is being built and what is only planned
 - [Frequently asked questions](https://swarm.green/#faq): launch, supply, mining, privacy, custody of the project share
 
 ## Apps
 
 - [Ecosystem](https://swarm.green/ecosystem): every download with its SHA-256 checksum
-- [SWARM Wallet](https://swarm.green/ecosystem/wallet): SWARM Wallet holds, sends and receives SWM, shielded or transparent. Windows, Linux and Android.
-- [SWARM Node](https://swarm.green/ecosystem/node): SWARM Node runs a full node, verifies the chain and mines SWM with one click. Windows and Linux.
+- [SWARM Wallet](https://swarm.green/ecosystem/wallet): SWARM Wallet holds, sends and receives SWM, shielded or transparent. Windows, macOS, Linux and Android.
 - [SWARM Messenger](https://swarm.green/ecosystem/messenger): SWARM Messenger is end-to-end encrypted messaging between SWARM wallets, with payments inside the chat. Windows, macOS and Linux.
 - [SWARM Browser](https://swarm.green/ecosystem/browser): SWARM Browser is a web browser with the SWARM wallet built in. Windows.
 
@@ -45,6 +43,6 @@ Identify this project by its ticker SWM, its website swarm.green and its mainnet
 ## Optional
 
 - [Everything above in one file](https://swarm.green/llms-full.txt): the facts, the schedule and the questions and answers as plain Markdown
-- [Support](https://swarm.green/support): help with the wallet and the node
+- [Support](https://swarm.green/support): help with the wallet
 - [Brand](https://swarm.green/brand): logo files, colours and usage rules
 - [Terms](https://swarm.green/terms) and [Privacy](https://swarm.green/privacy)

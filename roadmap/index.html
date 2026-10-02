@@ -79,7 +79,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · run a node, mine a block, send a shielded payment.</p>
+<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · send a shielded payment.</p>
 
 <header class="nav">
   <div class="wrap nav__bar">
@@ -90,7 +90,6 @@
     </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="/#mainnet">Mainnet</a>
-      <a href="/mining">Mine</a>
       <a href="/#hive">The Hive</a>
       <a href="/#honey">Honey</a>
       <a href="/ecosystem">Ecosystem</a>
@@ -108,7 +107,6 @@
     <nav aria-label="Primary, compact">
       <ul>
         <li><a href="/#mainnet">Mainnet</a></li>
-        <li><a href="/mining">Mine</a></li>
         <li><a href="/#hive">The Hive</a></li>
         <li><a href="/#honey">Honey</a></li>
         <li><a href="/#swarm">The Swarm</a></li>
@@ -150,7 +148,6 @@
             <p>Public testnet <b>21 September 2026</b>; mainnet <b>26 September 2026</b>. The coin, the chain and the apps to run them. Block 1 was mined in public from a genesis block that holds nothing; every SWM since has been mined.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>mine with one click in SWARM Node</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>check the genesis hash and every block for yourself &mdash; the node verifies, it never trusts</span></li>
             </ul>
@@ -164,8 +161,6 @@
             <p>More bees, more cities, more ways in. In development: signed macOS builds, the Android and iOS mainnet wallets, a second seed node in another failure domain, custody tooling for the three published funds, and an independent security review of the code as it was launched.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>run a node and light up your city on the map</span></li>
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>mine on the computer you already own</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>browse the chain in the mainnet block explorer</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>tell us what breaks</span></li>
             </ul>
@@ -233,7 +228,6 @@
           <tr><th scope="row">Public testnet</th><td class="mono">21 September 2026</td><td>The first public SWARM chain, mined in the open. It is still running, still published, and its coins have no value.</td></tr>
           <tr><th scope="row">SWARM mainnet</th><td class="mono">26 September 2026</td><td>Block 1 mined in public at 12:25 UTC from a genesis block holding nothing. No sale, no presale, no premine.</td></tr>
           <tr><th scope="row">Mainnet block explorer</th><td class="mono">26 September 2026</td><td>mainnet.explore.swarm.green, showing SwarmMainnet. The testnet explorer keeps running alongside it.</td></tr>
-          <tr><th scope="row">SWARM Node for Windows, Linux and macOS</th><td class="mono">26 September 2026</td><td>A full node and a one-click CPU miner in one app: installer and portable zip for Windows, .deb and AppImage for Linux, signed and notarized disk image and zip for macOS, each with its SHA-256.</td></tr>
           <tr><th scope="row">SWARM Wallet for Windows, Linux and macOS</th><td class="mono">26 September 2026</td><td>Hold, send and receive SWM, shielded or transparent. It checks the chain label and the genesis before it syncs or sends anything. The Mac wallet is signed and notarized, with one app for Apple silicon and Intel.</td></tr>
           <tr><th scope="row">Wallet SDK, swarm-sdk-mainnet-1</th><td class="mono">26 September 2026</td><td>The light-wallet SDK carrying the SWARM mainnet network definition, published so other wallets can be built against the same chain.</td></tr>
           <tr><th scope="row">One signed SWARM Wallet for Mac</th><td class="mono">28 September 2026</td><td>One universal Mac app for Apple silicon and Intel. Signed with Developer ID, notarized by Apple and available as a disk image or ZIP archive.</td></tr>
@@ -283,7 +277,7 @@
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Verify it</p>
         <h2>Check you are on SWARM.</h2>
-        <p>A chain is identified by its genesis block: <span class="mono">01c34428&hellip;afdd</span>. SWARM Node compares the genesis it loads with that one before it syncs anything, and you can do the same by hand. The launch facts, the public endpoints, the three published fund addresses and the address prefixes are all on one page.</p>
+        <p>A chain is identified by its genesis block: <span class="mono">01c34428&hellip;afdd</span>. You can check it by hand. The launch facts, the public endpoints, the three published fund addresses and the address prefixes are all on one page.</p>
       </div>
       <div class="cta-row" data-reveal>
         <a class="btn btn--primary" href="/verify">Verify the chain</a>
@@ -419,7 +413,6 @@
         <ul>
           <li><a href="/what-is-swarm">What is SWARM?</a></li>
           <li><a href="/join">Get SWARM</a></li>
-          <li><a href="/mining">How to mine</a></li>
           <li><a href="/ecosystem">Ecosystem</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="https://github.com/louisinthesubway/swarm-releases" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></li>

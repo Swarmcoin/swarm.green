@@ -79,7 +79,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · run a node, mine a block, send a shielded payment.</p>
+<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · send a shielded payment.</p>
 
 <header class="nav">
   <div class="wrap nav__bar">
@@ -90,7 +90,6 @@
     </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="/#mainnet">Mainnet</a>
-      <a href="/mining">Mine</a>
       <a href="/#hive">The Hive</a>
       <a href="/#honey">Honey</a>
       <a href="/ecosystem">Ecosystem</a>
@@ -108,7 +107,6 @@
     <nav aria-label="Primary, compact">
       <ul>
         <li><a href="/#mainnet">Mainnet</a></li>
-        <li><a href="/mining">Mine</a></li>
         <li><a href="/#hive">The Hive</a></li>
         <li><a href="/#honey">Honey</a></li>
         <li><a href="/#swarm">The Swarm</a></li>
@@ -130,7 +128,7 @@
       <p class="crumbs"><a href="/">Home</a><span aria-hidden="true">/</span>Verify</p>
       <p class="pill">Mainnet · live</p>
       <h1>Check you are on the real chain.</h1>
-      <p class="page-head__lead">A chain is identified by its genesis block. SWARM Node compares the genesis it loads against the one below before it syncs anything &mdash; and so can you. Nothing on this page needs to be taken on trust: every value is published, and every one of them is something your own node will report back to you.</p>
+      <p class="page-head__lead">A chain is identified by its genesis block. You can check it against the one below. Nothing on this page needs to be taken on trust: every value is published, and every one of them is something your own node will report back to you.</p>
     </div>
   </section>
 
@@ -158,13 +156,7 @@
         </table>
       </div>
 
-      <div class="cards mt-l" data-reveal>
-        <article class="card">
-          <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-node"/></svg></div>
-          <h3>In SWARM Node</h3>
-          <p>Open <em>Settings &rarr; Network</em>. It prints the chain, the genesis hash and the ports the app is using. If the genesis hash there is not the one above, you are not on SWARM mainnet.</p>
-          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="/ecosystem/node">Get SWARM Node<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></p>
-        </article>
+      <div class="cards cards--2 mt-l" data-reveal>
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-explorer"/></svg></div>
           <h3>In the block explorer</h3>
@@ -174,7 +166,7 @@
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
           <h3>From the source</h3>
-          <p>The launch manifest, the source at the launch commit and every release with its SHA-256 are in the release repository. Build the node yourself and it will derive the same genesis.</p>
+          <p>The launch manifest, the source at the launch commit and every release with its SHA-256 are in the release repository.</p>
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="https://github.com/louisinthesubway/swarm-releases" target="_blank" rel="noopener noreferrer">Release repository<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></p>
         </article>
       </div>
@@ -186,23 +178,20 @@
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Where the apps connect</p>
         <h2>The public addresses of the live network.</h2>
-        <p>The mainnet seed <code>seed-main.swarm.green</code> is a <strong>peer address on the P2P port</strong>, not a web address. Opening it as <code>https://</code> reaches a web server that holds no certificate for it; that refusal is correct behaviour, not a fault.</p>
       </div>
 
       <div class="tablewrap" data-reveal>
         <table>
           <caption>SWARM mainnet endpoints.</caption>
           <tbody>
-          <tr><th scope="row">Mainnet seed node (P2P)</th><td class="mono">seed-main.swarm.green:28233</td></tr>
           <tr><th scope="row">Mainnet light server (TLS)</th><td class="mono">lwd-main.swarm.green:8443</td></tr>
-          <tr><th scope="row">Mainnet node RPC</th><td class="">28232 — Loopback only. The node RPC is never exposed publicly.</td></tr>
           <tr><th scope="row">Mainnet block explorer</th><td class=""><a href="https://mainnet.explore.swarm.green" target="_blank" rel="noopener noreferrer">mainnet.explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> — live, showing SwarmMainnet</td></tr>
           <tr><th scope="row">Testnet block explorer</th><td class=""><a href="https://testnet.explore.swarm.green/" target="_blank" rel="noopener noreferrer">testnet.explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> — the public testnet, whose coins have no value</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p class="note mt-m" data-reveal>You do not have to use any of them. A node with no seed configured will still find peers, and a node you build yourself connects to whichever peers you point it at. These are the addresses the published apps use by default. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
+      <p class="note mt-m" data-reveal>These are the addresses the published apps use by default. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
     </div>
   </section>
 
@@ -316,7 +305,6 @@
         <ul>
           <li><a href="/what-is-swarm">What is SWARM?</a></li>
           <li><a href="/join">Get SWARM</a></li>
-          <li><a href="/mining">How to mine</a></li>
           <li><a href="/ecosystem">Ecosystem</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="https://github.com/louisinthesubway/swarm-releases" target="_blank" rel="noopener noreferrer">GitHub<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></li>
