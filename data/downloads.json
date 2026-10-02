@@ -20,7 +20,7 @@
     "macosNotice": "SWARM Wallet for macOS is signed and notarized. It is one app for Apple silicon and Intel.",
     "walletUpdate": {
       "title": "SWARM mainnet was restarted on 2 October 2026",
-      "text": "Every published SWARM Wallet build (desktop 0.1.0-mainnet.9 for Windows, Linux and macOS; Android 0.2.0-mainnet.4) was made for the first chain and cannot connect to the restarted network. A new version for the restarted network is being published on this page. Your addresses and recovery phrase stay valid; on the new chain they start at zero, because the coins of the first chain do not exist on it.",
+      "text": "SWARM Wallet 0.1.0-mainnet.10 for Windows is the version for the restarted network; Linux and macOS follow, and Android after them. Earlier builds (desktop 0.1.0-mainnet.9, Android 0.2.0-mainnet.4) were made for the first chain and cannot connect. Install the new version over the old one: your addresses and recovery phrase stay the same, the wallet keeps a backup copy of its file and starts again from the new chain, where balances begin at zero because the coins of the first chain do not exist on it.",
       "url": "",
       "label": "Read the release notes"
     },
@@ -97,6 +97,35 @@
     }
   ],
   "entries": [
+    {
+      "product": "wallet",
+      "platform": "Windows",
+      "status": "available",
+      "variant": "Installer",
+      "version": "0.1.0-mainnet.10",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10/SWARM-Wallet-0.1.0-mainnet.10-win-x64-setup.exe",
+      "sha256": "fe51ca1114f9a25d3d6f5b34b0187f1c52efee3d7a226d43dfb48c7d9eaae019",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10/SHA256SUMS",
+      "role": "primary",
+      "sizeShort": "167 MB",
+      "sizeBytes": 175166525,
+      "notes": ""
+    },
+    {
+      "product": "wallet",
+      "platform": "Windows",
+      "status": "available",
+      "variant": "Portable zip",
+      "version": "0.1.0-mainnet.10",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10/SWARM-Wallet-0.1.0-mainnet.10-x64.zip",
+      "sha256": "8538381561c01fc5d8b9d4737e0f9e5eb92cf9cd7f4f2a6a0362549f8a60e59a",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10/SHA256SUMS",
+      "role": "alt",
+      "sizeShort": "212 MB",
+      "sizeBytes": 222415877,
+      "notes": "",
+      "label": "Portable zip"
+    },
     {
       "product": "wallet",
       "platform": "Windows",

@@ -1,10 +1,10 @@
 {
  "/": {
-  "sha256": "8f6f7459b3459d7db405e5cef05a09a04b19c756e1237b9f9a6841db4edd6dae",
+  "sha256": "edc129a28728799e6ead3ad094f9a788c26d3ac99f141c20dcf6c3491f0eba1c",
   "lastmod": "2026-10-02"
  },
  "/what-is-swarm": {
-  "sha256": "847da74d087b3bcb1cf49029f7fbc667cc9ced5ff0507a3f6e5d827c94e9c589",
+  "sha256": "fc10acfd11cd8891a32aae67c7cdb7245deae29c2a237ac831842fcd252ad021",
   "lastmod": "2026-10-02"
  },
  "/network": {
@@ -20,11 +20,11 @@
   "lastmod": "2026-10-02"
  },
  "/ecosystem": {
-  "sha256": "59f83c9ad7e61630b14cab8993559a10446db7de500decbbd0c5cd36727a2d20",
+  "sha256": "6be7b425d78e04f8f6d9cfb798cab6bd9db0c495a4ae7e2e1a92e6e2392f4876",
   "lastmod": "2026-10-02"
  },
  "/ecosystem/wallet": {
-  "sha256": "c02992dffada359d204726693b2a9102d3df3274eda42b1217d25f36af755adc",
+  "sha256": "9040e4f846a882cbd7ebf3370b60e5b61142a783bb5887fd8267196615cdf5a2",
   "lastmod": "2026-10-02"
  },
  "/ecosystem/messenger": {
