@@ -2,16 +2,30 @@
   "meta": {
     "name": "SWARM",
     "domain": "swarm.green",
-    "updated": "2026-09-26",
-    "note": "Single source of truth for every number shown on the site. Values come from the published SWARM mainnet launch manifest (rendered 2026-09-26T12:23:33Z). Edit here, then mirror the same values in the static HTML fallbacks (see README.md)."
+    "updated": "2026-10-02",
+    "note": "Single source of truth for every number shown on the site. Values come from the SWARM mainnet relaunch manifest (rendered 2026-10-02T15:42:42Z). Edit here, then mirror the same values in the static HTML fallbacks (see README.md)."
   },
   "status": {
     "phase": "mainnet",
     "short": "Mainnet · live",
-    "ribbon": "SWARM mainnet is live · send a shielded payment.",
-    "detail": "SWARM mainnet went live on 26 September 2026 at 12:25 UTC. There was no sale, no presale and no token offering; every SWM is mined.",
-    "launchedUtc": "2026-09-26T12:25:00Z",
-    "launchedLabel": "26 September 2026, 12:25 UTC"
+    "ribbon": "SWARM mainnet is live · public mining opens 23 October 2026.",
+    "detail": "SWARM mainnet was restarted on 2 October 2026 at 15:42 UTC from a new genesis block that holds no coins. There was no sale, no presale and no token offering; every SWM is mined. Until 23 October 2026, 15:42 UTC only the project's own machines mine; from that moment mining is open to everyone.",
+    "launchedUtc": "2026-10-02T15:42:00Z",
+    "launchedLabel": "2 October 2026, 15:42 UTC"
+  },
+  "closedStart": {
+    "note": "The first three weeks of the restarted chain. Figures from 21 days at the 75-second target: 24,192 blocks x 6.25 SWM = 151,200 SWM.",
+    "untilUtc": "2026-10-23T15:42:00Z",
+    "untilLabel": "23 October 2026, 15:42 UTC",
+    "blocks": "about 24,000",
+    "coins": "about 151,000 SWM",
+    "split": "80% to the project's mining wallet, 20% to the three funds",
+    "capShare": "about 0.72%",
+    "summary": "Until 23 October 2026, 15:42 UTC only the project's own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site."
+  },
+  "history": {
+    "firstChainAbandonedAtHeight": 6793,
+    "sentence": "The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain. Addresses and recovery phrases stay valid and start at zero."
   },
   "chain": {
     "blockTimeSeconds": 75,
@@ -19,7 +33,7 @@
     "halvingIntervalBlocks": 1680000,
     "halvingApproxYears": 4,
     "maxSupply": 20999987.3152,
-    "premine": 0,
+    "genesisCoins": 0,
     "coinbaseMaturityBlocks": 100,
     "proofOfWork": "Equihash 200,9",
     "cpuMineableOnTestnet": true,
@@ -30,10 +44,12 @@
     "lightWalletChainLabel": "swarm-mainnet"
   },
   "genesis": {
-    "note": "Read from the published mainnet launch manifest (network/swarm-mainnet/manifest.json, sha256 c5ee6cf83985a529a46d32366eae82d939c23c2b38ffb85541b74c1e96f76d25). The baseline-miner payout address is operational, not consensus, and is deliberately not listed.",
+    "note": "Read from the SWARM mainnet relaunch manifest of 2 October 2026 (manifest.json sha256 40794956b04e958cdfef2a18fdda628355287767c3f8dc6eb20c1e7ecb387325). The baseline-miner payout address is operational, not consensus, and is deliberately not listed.",
     "network": "SwarmMainnet",
-    "hash": "01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd",
-    "headerTimeUtc": "2026-09-26T12:19:57Z",
+    "hash": "01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2",
+    "headerTimeUtc": "2026-10-02T15:41:37Z",
+    "block1Utc": "2026-10-02 15:43 UTC",
+    "hexSha256": "137e2e962c749e8bad49ad7cff72eb1e35feaf91dc717c36313d660d08d87f8f",
     "spendableOutputs": 0,
     "addressType": "Pay-to-script-hash, 2-of-3 multisig (s3…).",
     "custody": "Each script is controlled by three key shares generated offline at the launch key ceremony and held under the custody policy published with the launch manifest; two of the three are needed to spend.",
@@ -83,10 +99,10 @@
       "note": "1,680,000 blocks"
     },
     {
-      "key": "premine",
+      "key": "genesisCoins",
       "value": "0",
       "unit": "",
-      "label": "Premine"
+      "label": "Coins in genesis"
     }
   ],
   "rewardSplit": {
@@ -290,11 +306,12 @@
     "explorerTestnet": "https://testnet.explore.swarm.green/"
   },
   "endpoints": {
-    "note": "The public addresses of the live mainnet.",
-    "lightWallet": "lwd-main.swarm.green:8443",
+    "note": "The public addresses of the live mainnet (restarted 2 October 2026).",
+    "lightWallet": "lwd-main.swarm.green:443",
     "lightWalletLabel": "Light-wallet server (TLS)",
     "explorerMainnet": "https://mainnet.explore.swarm.green",
-    "explorerTestnet": "https://testnet.explore.swarm.green/"
+    "explorerTestnet": "https://testnet.explore.swarm.green/",
+    "statusFeed": "https://lwd-main.swarm.green/status.json"
   },
   "addressFormats": {
     "note": "What a SWARM address looks like, so you can tell at a glance which network you are on.",
@@ -336,33 +353,21 @@
       },
       {
         "state": "live",
-        "when": "26 September 2026",
-        "name": "SWARM mainnet",
-        "detail": "Block 1 mined in public at 12:25 UTC from a genesis block holding nothing. No sale, no presale, no premine."
+        "when": "2 October 2026",
+        "name": "SWARM mainnet, restarted",
+        "detail": "Restarted at 15:42 UTC from a new genesis block that holds no coins. No sale, no presale. Closed start until 23 October 2026, 15:42 UTC: only the project's own machines mine, about 24,000 blocks and about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds). The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain."
       },
       {
         "state": "live",
         "when": "26 September 2026",
         "name": "Mainnet block explorer",
-        "detail": "mainnet.explore.swarm.green, showing SwarmMainnet. The testnet explorer keeps running alongside it."
-      },
-      {
-        "state": "live",
-        "when": "26 September 2026",
-        "name": "SWARM Wallet for Windows, Linux and macOS",
-        "detail": "Hold, send and receive SWM, shielded or transparent. It checks the chain label and the genesis before it syncs or sends anything. The Mac wallet is signed and notarized, with one app for Apple silicon and Intel."
+        "detail": "explore.swarm.green (also mainnet.explore.swarm.green), showing SwarmMainnet; since 2 October 2026 the restarted chain."
       },
       {
         "state": "live",
         "when": "26 September 2026",
         "name": "Wallet SDK, swarm-sdk-mainnet-1",
         "detail": "The light-wallet SDK carrying the SWARM mainnet network definition, published so other wallets can be built against the same chain."
-      },
-      {
-        "state": "live",
-        "when": "28 September 2026",
-        "name": "One signed SWARM Wallet for Mac",
-        "detail": "One universal Mac app for Apple silicon and Intel. Signed with Developer ID, notarized by Apple and available as a disk image or ZIP archive."
       },
       {
         "state": "live",
@@ -374,13 +379,19 @@
         "state": "live",
         "when": "30 September 2026",
         "name": "SWARM Browser for Windows, pre-release",
-        "detail": "Build 153.0.8010.52-4 (three builds on the first day): a Windows browser built on Chromium 153 from the ungoogled-chromium code base, with Google’s services removed, privacy defaults switched on and the SWARM wallet built in; a SWARM welcome page, SWARM Start on every new tab, the SWARM Navigator side panel, SWARM’s own icons and colours, DuckDuckGo as the default search. Unsigned; no automatic updates yet."
+        "detail": "Build 153.0.8010.52-4 (three builds on the first day): a Windows browser built on Chromium 153 from the ungoogled-chromium code base, with Google’s services removed, privacy defaults switched on and the SWARM wallet built in; a SWARM welcome page, SWARM Start on every new tab, the SWARM Navigator side panel, SWARM’s own icons and colours, DuckDuckGo as the default search. Unsigned; no automatic updates yet. Its built-in wallet was made for the first chain and cannot connect to the restarted network until the next build; the browser itself works."
+      },
+      {
+        "state": "in-development",
+        "when": null,
+        "name": "SWARM Wallet for the restarted network",
+        "detail": "Every published SWARM Wallet build (desktop 0.1.0-mainnet.9 for Windows, Linux and macOS; Android 0.2.0-mainnet.4) was made for the first chain and cannot connect to the restarted network. A new version is being published."
       },
       {
         "state": "in-development",
         "when": null,
         "name": "Mobile wallets in the app stores",
-        "detail": "The Android mainnet wallet is published as a direct APK you install yourself. The Google Play listing and the iPhone build are being prepared."
+        "detail": "The Android wallet is a direct APK you install yourself; the published APK (0.2.0-mainnet.4) was made for the first chain and cannot connect to the restarted network. The Google Play listing and the iPhone build are being prepared."
       },
       {
         "state": "in-development",

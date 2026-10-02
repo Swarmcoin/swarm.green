@@ -28,11 +28,15 @@ const products = new Map((data.products || []).map((p) => [p.key, p]));
 const unavailable = (data.meta && data.meta.unavailableHosts) || [];
 const targets = [];
 const paused = [];
+// Rows flagged "paused" in the data (meta.pauseReasons) are published files the
+// pages deliberately do not offer, e.g. wallet builds made for the first chain.
+const held = [];
 for (const e of data.entries || []) {
   if (e.status !== "available" || !e.url) continue;
   const name = (products.get(e.product) || {}).name || e.product;
   const what = e.variant ? `${e.platform} · ${e.variant}` : e.platform;
   if (unavailable.some((h) => e.url.startsWith(h))) { paused.push(`${name} — ${what}`); continue; }
+  if (e.paused) { held.push(`${name} — ${what} ${e.version || ""}`.trim()); continue; }
   targets.push({ label: `${name} — ${what}`, url: e.url, kind: "download" });
   if (e.checksums) targets.push({ label: `${name} — ${what} SHA256SUMS`, url: e.checksums, kind: "checksums" });
 }
@@ -65,6 +69,11 @@ for (const t of targets) {
 if (paused.length) {
   console.log(`\n${paused.length} rows sit on an unavailable host and render as "being re-published":`);
   for (const p of paused) console.log(`       ${p}`);
+}
+if (held.length) {
+  console.log(`
+${held.length} rows are paused in the data and render as "being published" (not checked):`);
+  for (const p of held) console.log(`       ${p}`);
 }
 console.log(bad
   ? `\n${bad} of ${targets.length} URLs did not resolve — do not deploy.`

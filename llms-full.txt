@@ -1,6 +1,6 @@
 # SWARM (SWM)
 
-> SWARM (ticker SWM) is a privacy coin: a cryptocurrency with its own proof-of-work blockchain, on which payments can be shielded so that sender, receiver and amount stay encrypted on-chain. Its supply is capped at 20,999,987.3152 SWM, there was no premine and no sale, and its mainnet has been live since 26 September 2026.
+> SWARM (ticker SWM) is a privacy coin: a cryptocurrency with its own proof-of-work blockchain, on which payments can be shielded so that sender, receiver and amount stay encrypted on-chain. Its supply is capped at 20,999,987.3152 SWM and there was no sale. Its mainnet was restarted from a new genesis block on 2 October 2026; until 23 October 2026, 15:42 UTC only the project’s own machines mine, and from then on mining is open to everyone.
 
 Source: https://swarm.green/what-is-swarm and the pages linked below. Published by the SWARM project. Fixed rules and published facts only; for live figures read https://swarm.green/data/status.json or the block explorer at https://mainnet.explore.swarm.green.
 
@@ -11,17 +11,19 @@ Source: https://swarm.green/what-is-swarm and the pages linked below. Published 
 | Name | SWARM |
 | Ticker | SWM |
 | What it is | A privacy coin: a cryptocurrency with its own proof-of-work blockchain and shielded payments. |
-| Status | Mainnet live since 26 September 2026, 12:25 UTC. |
-| Genesis block hash | `01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd` |
+| Status | Mainnet live; restarted from a new genesis block on 2 October 2026, 15:42 UTC. |
+| Genesis block hash | `01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2` |
 | Consensus | Proof of work, Equihash 200,9. |
 | Target block time | 75 seconds |
 | Block reward | 6.25 SWM, halving every 1,680,000 blocks (about 4 years). |
 | Maximum supply | 20,999,987.3152 SWM |
-| Premine and sale | None. The genesis block holds no spendable coins, and there was no sale, no presale and no token offering. Every SWM is mined. |
+| Genesis and sale | The genesis block holds no spendable coins, and there was no sale, no presale and no token offering. Every SWM is mined. |
+| Closed start | Until 23 October 2026, 15:42 UTC only the project's own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site. |
+| First chain | The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain. Addresses and recovery phrases stay valid and start at zero. |
 | Block reward split | 80% Miner · 8% Core Development · 4% Grants & Ecosystem · 8% Community & Development Reserve. Fixed in the genesis rules for the whole emission schedule. |
 | Privacy | Shielded payments keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs. Transparent payments exist too. |
 | Mainnet addresses | `swm1…` shielded, `s1…` transparent, `s3…` transparent (script) |
-| Apps | [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS, Linux and Android); [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux); [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). |
+| Apps | [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS, Linux and Android; a new version for the restarted network is being published); [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux); [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). |
 | Block explorer | [mainnet.explore.swarm.green](https://mainnet.explore.swarm.green) |
 | Source code | Open source: [github.com/louisinthesubway/swarm-releases](https://github.com/louisinthesubway/swarm-releases) |
 | Official channels | [swarm.green](https://swarm.green/), [@swarm_coin on X](https://x.com/swarm_coin), swarmofficial@atomicmail.io |
@@ -34,7 +36,7 @@ SWARM Wallet gives you a shielded address by default and tells you which kind of
 
 ## How SWM is issued
 
-SWM is issued only by mining. A block is found about every 75 seconds and pays 6.25 SWM; the reward halves every 1,680,000 blocks, about every 4 years, so the supply approaches 20,999,987.3152 SWM and never exceeds it. The genesis block holds no spendable coins: there was no premine, no sale and no head start.
+SWM is issued only by mining. A block is found about every 75 seconds and pays 6.25 SWM; the reward halves every 1,680,000 blocks, about every 4 years, so the supply approaches 20,999,987.3152 SWM and never exceeds it. The genesis block holds no spendable coins and there was no sale. The first three weeks are a closed start. Until 23 October 2026, 15:42 UTC only the project's own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site.
 
 Every block reward is split the same way for the whole schedule: 80% to the miner who found the block and 20% to three published project addresses (8% Core Development, 4% Grants & Ecosystem and 8% Community & Development Reserve). Those shares are paid block by block, in public, and the percentages cannot be changed. The full schedule is on the [network page](https://swarm.green/network); the three addresses and how their keys are held are on the [verify page](https://swarm.green/verify).
 
@@ -48,7 +50,7 @@ SWARM is built on proven, open-source code that has secured real money for years
 
 ## The software
 
-Everything you need is published with its SHA-256 checksum in the [Ecosystem](https://swarm.green/ecosystem): [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS, Linux and Android), [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux) and [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). The mainnet block explorer is at [mainnet.explore.swarm.green](https://mainnet.explore.swarm.green). The [roadmap](https://swarm.green/roadmap) separates what is live from what is only planned.
+Everything you need is published with its SHA-256 checksum in the [Ecosystem](https://swarm.green/ecosystem): [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS, Linux and Android; a new version for the restarted network is being published), [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux) and [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). The mainnet block explorer is at [mainnet.explore.swarm.green](https://mainnet.explore.swarm.green). The [roadmap](https://swarm.green/roadmap) separates what is live from what is only planned.
 
 ## Emission schedule
 
@@ -79,7 +81,7 @@ Custody of the three project addresses: Pay-to-script-hash, 2-of-3 multisig (s3�
 
 ## Network endpoints
 
-- Light-wallet server (TLS): `lwd-main.swarm.green:8443`
+- Light-wallet server (TLS): `lwd-main.swarm.green:443`
 - Block explorer: https://mainnet.explore.swarm.green
 - Network name: `SwarmMainnet`; light-wallet chain label: `swarm-mainnet`
 
@@ -92,7 +94,7 @@ Custody of the three project addresses: Pay-to-script-hash, 2-of-3 multisig (s3�
 
 ## Apps
 
-- SWARM Wallet holds, sends and receives SWM, shielded or transparent. Published for Windows, macOS, Linux and Android. Download page: https://swarm.green/ecosystem/wallet
+- SWARM Wallet holds, sends and receives SWM, shielded or transparent. For Windows, macOS, Linux and Android; a new version for the restarted network is being published. Download page: https://swarm.green/ecosystem/wallet
 - SWARM Messenger is end-to-end encrypted messaging between SWARM wallets, with payments inside the chat. Published for Windows, macOS and Linux. Download page: https://swarm.green/ecosystem/messenger
 - SWARM Browser is a web browser with the SWARM wallet built in. Published for Windows. Download page: https://swarm.green/ecosystem/browser
 - Every file and its SHA-256 checksum: https://swarm.green/ecosystem
@@ -105,7 +107,7 @@ Yes. SWARM is a cryptocurrency whose payments can be shielded: sender, receiver 
 
 ### When did SWARM launch?
 
-SWARM mainnet went live on 26 September 2026, 12:25 UTC. Block 1 was mined in public from a genesis block that holds no spendable coins.
+SWARM mainnet was restarted on 2 October 2026, 15:42 UTC from a new genesis block that holds no spendable coins. The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain. Addresses and recovery phrases stay valid and start at zero. Until 23 October 2026, 15:42 UTC only the project's own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site.
 
 ### How many SWM will there be?
 
@@ -113,7 +115,7 @@ At most 20,999,987.3152 SWM. Each block pays 6.25 SWM, and the reward halves eve
 
 ### Was there a premine, a sale or an airdrop?
 
-No. Every SWM in existence was mined. There was no premine, no sale, no presale and no token offering. Anything claiming to be a SWARM sale, presale or airdrop is not the project.
+There was no sale, no presale and no token offering, and the genesis block holds no spendable coins; every SWM in existence was mined. There is a closed start. Until 23 October 2026, 15:42 UTC only the project's own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site. Anything claiming to be a SWARM sale, presale or airdrop is not the project.
 
 ### What does a shielded payment hide?
 
@@ -125,7 +127,7 @@ No. Privacy is a choice you make per payment: shielded payments are encrypted on
 
 ### How do I get SWM?
 
-SWM is issued only by mining; you can receive it from someone who already has it. The project does not sell SWM, does not set a price and does not run an exchange. SWM has no guaranteed value and can lose value, including all of it.
+SWM is issued only by mining, and until 23 October 2026, 15:42 UTC only the project’s own machines mine; you can receive it from someone who already has it. The project does not sell SWM, does not set a price and does not run an exchange. SWM has no guaranteed value and can lose value, including all of it.
 
 ### Where do block rewards go?
 
@@ -133,11 +135,11 @@ SWM is issued only by mining; you can receive it from someone who already has it
 
 ### Who runs SWARM?
 
-A founding team builds the software in the open. The network itself is run by whoever runs a node and mines blocks: there is no company server, no admin key and no account to apply for.
+A founding team builds the software in the open. Until 23 October 2026, 15:42 UTC the project alone mines (the closed start); from then on anyone can run a node and mine, with no account to apply for. There is no admin key, and the rules every node enforces are the same for the founders as for anyone else.
 
 ### How do I check that I am on the real SWARM chain?
 
-A chain is identified by its genesis block. SWARM mainnet’s genesis hash is `01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd`. The [verify page](https://swarm.green/verify) lists the launch facts, the public endpoints and the published addresses.
+A chain is identified by its genesis block. SWARM mainnet’s genesis hash is `01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2`. The [verify page](https://swarm.green/verify) lists the launch facts, the public endpoints and the published addresses.
 
 ### Which sources are official?
 
@@ -145,23 +147,23 @@ This site, [@swarm_coin on X](https://x.com/swarm_coin), the email address swarm
 
 ### Is SWARM live?
 
-Yes. SWARM mainnet is running. You can download the wallet today and send shielded payments. The genesis hash, the launch manifest and the three destination addresses are on the network page, so you can check that the chain you join is the one that was announced. There was no sale, no presale and no token offering. Every SWM in existence was mined.
+Yes. SWARM mainnet is running; it was restarted on 2 October 2026 from a new genesis block. The wallet builds published before the restart were made for the first chain and cannot connect to it; a new version for the restarted network is being published in the Ecosystem. The genesis hash and the three destination addresses are on the network page, so you can check that the chain you join is the one that was announced. There was no sale, no presale and no token offering. Every SWM in existence was mined.
 
 ### What is SWM worth?
 
 Whatever people agree it is worth. SWARM does not set a price, promise one, or run an exchange. Like any cryptocurrency, SWM can lose value, including all of it. Nothing on this site is financial advice.
 
-### Can I mine with a normal PC?
+### Can I mine SWARM?
 
-Yes. The proof of work is Equihash and the chain started at minimum difficulty, so SWARM is open to ordinary computers from the first block. There is no promise that home computers stay competitive forever. As the network grows and difficulty rises, professional and specialised miners can join — and nothing in the rules keeps anyone out, at either end. Equihash hardware already exists, so that moment can come early. It is a consequence of keeping the rules open, and we say so rather than pretend otherwise.
+Not yet. Until 23 October 2026, 15:42 UTC the restarted chain is in a closed start and only the project’s own machines mine. From that moment mining is open to everyone, and the node software will be published on this site. The proof of work is Equihash 200,9. There is no promise that home computers stay competitive forever. As the network grows and difficulty rises, professional and specialised miners can join — and nothing in the rules keeps anyone out, at either end. Equihash hardware already exists, so that moment can come early. It is a consequence of keeping the rules open, and we say so rather than pretend otherwise.
 
-### Is there a premine?
+### Is there a premine or a head start?
 
-No. The genesis block contains no spendable coins. Every coin has to be mined, and mining rewards mature after 100 blocks before they can be spent.
+The genesis block contains no spendable coins, and nothing was sold before launch. But the start is not open to everyone: Until 23 October 2026, 15:42 UTC the start is closed: only the project’s own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project’s mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site. Every coin, those included, has to be mined, and mining rewards mature after 100 blocks before they can be spent.
 
-### How was the launch kept fair?
+### How did the restarted chain start?
 
-Three ways, all checkable. The genesis block contains no spendable coins, so nobody started with a balance. The genesis was derived from a public, unpredictable input fixed only at launch, so nobody could mine blocks in private beforehand. And the rules, the three destination addresses and the launch manifest were published before block 1, so anyone can verify that the chain they are syncing is the one that was announced. The 20% of each block reward that goes to the three project destinations is not a premine and not hidden: it is paid block by block, in public, for the whole life of the chain, and the percentages cannot be changed.
+SWARM mainnet was restarted on 2 October 2026 from a new genesis block (header time 15:41:37 UTC); block 1 followed at 15:43 UTC. The genesis block contains no spendable coins, so nobody started with a balance. The first three weeks are a closed start in which only the project mines; from 23 October 2026, 15:42 UTC mining is open to everyone. The genesis hash and the three destination addresses are published on the verify page, so anyone can check that the chain they are syncing is the one that was announced. The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain. Addresses and recovery phrases stay valid and start at zero. The 20% of each block reward that goes to the three project destinations is not a premine and not hidden: it is paid block by block, in public, for the whole life of the chain, and the percentages cannot be changed.
 
 ### Who controls the three project destinations?
 

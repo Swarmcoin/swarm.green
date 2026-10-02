@@ -1,10 +1,14 @@
 {
   "meta": {
-    "updated": "2026-10-01",
+    "updated": "2026-10-02",
     "unavailableHosts": [
       "https://github.com/Swarm-Official/"
     ],
     "unavailableNote": "Rows whose url starts with one of unavailableHosts were published on a host that no longer answers (the Swarm-Official organisation is suspended). The pages render them as being re-published instead of a dead button, and tools/check_downloads.mjs lists them as paused. Repoint url and checksums to louisinthesubway/swarm-releases as each file is uploaded again; the SHA-256 stays the same.",
+    "pauseReasons": {
+      "restart-2026-10-02": "was built for the first SWARM chain and cannot connect to the mainnet restarted on 2 October 2026."
+    },
+    "pauseNote": "An entry with \"paused\": \"<key of pauseReasons>\" (or a plain reason) is published but must not be offered: the pages draw \"New version for the restarted network is being published\" instead of its buttons and checksum, and tools/check_downloads.mjs lists it as paused. A platform that also has an available entry without the flag shows that entry and hides the paused one, so adding the new rows is enough; delete the old rows (or the flag) when they go.",
     "note": "Download metadata for the Ecosystem block on the home page, the /ecosystem hub and the app pages. Mainnet builds are the downloads; testnet builds are kept under \"channel\": \"testnet\" and rendered in their own labelled section. After updating entries, run python tools/build_ecosystem.py and verify with --check. Every available entry must have a working URL, version, SHA-256 and byte size.",
     "windowsNotice": "Unsigned build — Windows SmartScreen will warn. Check the SHA-256.",
     "mobileNotice": "Mobile apps are wallets only — phones do not mine.",
@@ -15,8 +19,8 @@
     "unsignedNotice": "Unsigned build — your system will warn. Check the SHA-256.",
     "macosNotice": "SWARM Wallet for macOS is signed and notarized. It is one app for Apple silicon and Intel.",
     "walletUpdate": {
-      "title": "SWARM Wallet 0.1.0-mainnet.9",
-      "text": "Version 0.1.0-mainnet.9 preserves the last loaded transfer history after a failed read, keeps the original error in Technical details, and explains when the wallet needs restarting. Fully quit SWARM Wallet before installing, then reopen it. If a payment was in progress, check its status after reopening before sending it again.",
+      "title": "SWARM mainnet was restarted on 2 October 2026",
+      "text": "Every published SWARM Wallet build (desktop 0.1.0-mainnet.9 for Windows, Linux and macOS; Android 0.2.0-mainnet.4) was made for the first chain and cannot connect to the restarted network. A new version for the restarted network is being published on this page. Your addresses and recovery phrase stay valid; on the new chain they start at zero, because the coins of the first chain do not exist on it.",
       "url": "",
       "label": "Read the release notes"
     },
@@ -105,7 +109,8 @@
       "role": "primary",
       "sizeShort": "167 MB",
       "sizeBytes": 175096029,
-      "notes": ""
+      "notes": "",
+      "paused": "restart-2026-10-02"
     },
     {
       "product": "wallet",
@@ -120,7 +125,8 @@
       "sizeShort": "212 MB",
       "sizeBytes": 222385720,
       "notes": "",
-      "label": "Portable zip"
+      "label": "Portable zip",
+      "paused": "restart-2026-10-02"
     },
     {
       "product": "wallet",
@@ -134,7 +140,8 @@
       "role": "primary",
       "sizeShort": "162 MB",
       "sizeBytes": 169846036,
-      "notes": ""
+      "notes": "",
+      "paused": "restart-2026-10-02"
     },
     {
       "product": "wallet",
@@ -149,7 +156,8 @@
       "sizeShort": "200 MB",
       "sizeBytes": 209684790,
       "notes": "",
-      "label": "Portable AppImage"
+      "label": "Portable AppImage",
+      "paused": "restart-2026-10-02"
     },
     {
       "product": "wallet",
@@ -163,7 +171,8 @@
       "role": "primary",
       "sizeShort": "193 MB",
       "sizeBytes": 202409161,
-      "notes": "Not signed with an Apple Developer ID and not notarized. Open the disk image, drag SWARM Wallet to Applications and open it once; then allow it under System Settings → Privacy & Security → Open Anyway."
+      "notes": "Not signed with an Apple Developer ID and not notarized. Open the disk image, drag SWARM Wallet to Applications and open it once; then allow it under System Settings → Privacy & Security → Open Anyway.",
+      "paused": "restart-2026-10-02"
     },
     {
       "product": "wallet",
@@ -177,7 +186,8 @@
       "role": "alt",
       "sizeShort": "188 MB",
       "sizeBytes": 197310692,
-      "notes": "The same app in a ZIP. Not signed with an Apple Developer ID and not notarized: allow it once under System Settings → Privacy & Security → Open Anyway."
+      "notes": "The same app in a ZIP. Not signed with an Apple Developer ID and not notarized: allow it once under System Settings → Privacy & Security → Open Anyway.",
+      "paused": "restart-2026-10-02"
     },
     {
       "product": "wallet",
@@ -191,7 +201,8 @@
       "role": "primary",
       "sizeShort": "201 MB",
       "sizeBytes": 210377093,
-      "notes": "Not signed with an Apple Developer ID and not notarized. Open the disk image, drag SWARM Wallet to Applications and open it once; then allow it under System Settings → Privacy & Security → Open Anyway."
+      "notes": "Not signed with an Apple Developer ID and not notarized. Open the disk image, drag SWARM Wallet to Applications and open it once; then allow it under System Settings → Privacy & Security → Open Anyway.",
+      "paused": "restart-2026-10-02"
     },
     {
       "product": "wallet",
@@ -205,7 +216,8 @@
       "role": "alt",
       "sizeShort": "196 MB",
       "sizeBytes": 205150110,
-      "notes": "The same app in a ZIP. Not signed with an Apple Developer ID and not notarized: allow it once under System Settings → Privacy & Security → Open Anyway."
+      "notes": "The same app in a ZIP. Not signed with an Apple Developer ID and not notarized: allow it once under System Settings → Privacy & Security → Open Anyway.",
+      "paused": "restart-2026-10-02"
     },
     {
       "product": "mobile-android",
@@ -219,7 +231,8 @@
       "role": "primary",
       "sizeShort": "227 MB",
       "sizeBytes": 237648880,
-      "notes": "Sideload — the Play listing is still pending."
+      "notes": "Sideload — the Play listing is still pending.",
+      "paused": "restart-2026-10-02"
     },
     {
       "product": "mobile-android",
@@ -233,7 +246,7 @@
       "role": "primary",
       "sizeShort": "",
       "sizeBytes": 0,
-      "notes": "The Google Play listing is pending. Until it opens, the direct APK is the Android download."
+      "notes": "The Google Play listing is pending."
     },
     {
       "product": "mobile-ios",

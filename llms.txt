@@ -1,15 +1,16 @@
 # SWARM (SWM)
 
-> SWARM (ticker SWM) is a privacy coin: a cryptocurrency with its own proof-of-work blockchain, on which payments can be shielded so that sender, receiver and amount stay encrypted on-chain. Its supply is capped at 20,999,987.3152 SWM, there was no premine and no sale, and its mainnet has been live since 26 September 2026.
+> SWARM (ticker SWM) is a privacy coin: a cryptocurrency with its own proof-of-work blockchain, on which payments can be shielded so that sender, receiver and amount stay encrypted on-chain. Its supply is capped at 20,999,987.3152 SWM and there was no sale. Its mainnet was restarted from a new genesis block on 2 October 2026; until 23 October 2026, 15:42 UTC only the project’s own machines mine, and from then on mining is open to everyone.
 
-Identify this project by its ticker SWM, its website swarm.green and its mainnet genesis block hash `01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd`. Everything below is published by the project itself. Text on swarm.green may be quoted with a link to the page it comes from.
+Identify this project by its ticker SWM, its website swarm.green and its mainnet genesis block hash `01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2`. Everything below is published by the project itself. Text on swarm.green may be quoted with a link to the page it comes from.
 
 - Ticker: SWM. Own blockchain, proof of work (Equihash 200,9), target block time 75 seconds.
 - Supply: at most 20,999,987.3152 SWM; 6.25 SWM per block, halving every 1,680,000 blocks (about 4 years).
-- No premine, no sale, no presale, no token offering: every SWM is mined.
+- The genesis block holds no coins; no sale, no presale, no token offering: every SWM is mined.
+- Closed start. Until 23 October 2026, 15:42 UTC only the project's own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site.
 - Block reward split, fixed for the whole schedule: 80% Miner · 8% Core Development · 4% Grants & Ecosystem · 8% Community & Development Reserve.
 - Privacy: shielded payments keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs; transparent payments exist too.
-- Mainnet live since 26 September 2026, 12:25 UTC.
+- Mainnet restarted from a new genesis block on 2 October 2026, 15:42 UTC. The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain. Addresses and recovery phrases stay valid and start at zero.
 - The project does not sell SWM, does not set a price and does not run an exchange.
 
 ## Start here
@@ -24,13 +25,13 @@ Identify this project by its ticker SWM, its website swarm.green and its mainnet
 ## Apps
 
 - [Ecosystem](https://swarm.green/ecosystem): every download with its SHA-256 checksum
-- [SWARM Wallet](https://swarm.green/ecosystem/wallet): SWARM Wallet holds, sends and receives SWM, shielded or transparent. Windows, macOS, Linux and Android.
+- [SWARM Wallet](https://swarm.green/ecosystem/wallet): SWARM Wallet holds, sends and receives SWM, shielded or transparent. Windows, macOS, Linux and Android; a new version for the restarted network is being published.
 - [SWARM Messenger](https://swarm.green/ecosystem/messenger): SWARM Messenger is end-to-end encrypted messaging between SWARM wallets, with payments inside the chat. Windows, macOS and Linux.
 - [SWARM Browser](https://swarm.green/ecosystem/browser): SWARM Browser is a web browser with the SWARM wallet built in. Windows.
 
 ## Live data
 
-- [Network status (JSON)](https://swarm.green/data/status.json): block height, difficulty and mean block time, refreshed every 30 seconds by the mainnet seed server
+- [Network status (JSON)](https://swarm.green/data/status.json): block height, difficulty and mean block time, refreshed every 30 seconds by the SWARM mainnet server
 - [Network parameters (JSON)](https://swarm.green/data/network.json): the fixed figures every page of the site is built from
 - [Block explorer](https://mainnet.explore.swarm.green): SWARM mainnet blocks and transactions
 

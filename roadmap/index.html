@@ -32,9 +32,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=6">
+<link rel="stylesheet" href="/css/site.css?v=7">
 <script src="/js/boot.js?v=4"></script>
-<script src="/js/site.js?v=15" defer></script>
+<script src="/js/site.js?v=16" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>
 <script src="/js/analytics.js?v=1"></script>
 <!-- seo:start -->
@@ -79,7 +79,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · send a shielded payment.</p>
+<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · public mining opens 23 October 2026.</p>
 
 <header class="nav">
   <div class="wrap nav__bar">
@@ -145,10 +145,10 @@
           <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-coin"/></svg></span></span>
           <div class="phase__card">
             <h3>SWARM mainnet</h3>
-            <p>Public testnet <b>21 September 2026</b>; mainnet <b>26 September 2026</b>. The coin, the chain and the apps to run them. Block 1 was mined in public from a genesis block that holds nothing; every SWM since has been mined.</p>
+            <p>Public testnet <b>21 September 2026</b>; mainnet restarted from a new genesis block on <b>2 October 2026</b>. The coin, the chain and the apps to run them. The genesis block holds no coins; after a three-week closed start, public mining opens on <b>23 October 2026, 15:42&nbsp;UTC</b>.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet (the version for the restarted network is being published)</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>check the genesis hash and every block for yourself &mdash; the node verifies, it never trusts</span></li>
             </ul>
           </div>
@@ -226,13 +226,11 @@
           </thead>
           <tbody>
           <tr><th scope="row">Public testnet</th><td class="mono">21 September 2026</td><td>The first public SWARM chain, mined in the open. It is still running, still published, and its coins have no value.</td></tr>
-          <tr><th scope="row">SWARM mainnet</th><td class="mono">26 September 2026</td><td>Block 1 mined in public at 12:25 UTC from a genesis block holding nothing. No sale, no presale, no premine.</td></tr>
-          <tr><th scope="row">Mainnet block explorer</th><td class="mono">26 September 2026</td><td>mainnet.explore.swarm.green, showing SwarmMainnet. The testnet explorer keeps running alongside it.</td></tr>
-          <tr><th scope="row">SWARM Wallet for Windows, Linux and macOS</th><td class="mono">26 September 2026</td><td>Hold, send and receive SWM, shielded or transparent. It checks the chain label and the genesis before it syncs or sends anything. The Mac wallet is signed and notarized, with one app for Apple silicon and Intel.</td></tr>
+          <tr><th scope="row">SWARM mainnet, restarted</th><td class="mono">2 October 2026</td><td>Restarted at 15:42 UTC from a new genesis block that holds no coins. No sale, no presale. Closed start until 23 October 2026, 15:42 UTC: only the project's own machines mine, about 24,000 blocks and about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds). The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain.</td></tr>
+          <tr><th scope="row">Mainnet block explorer</th><td class="mono">26 September 2026</td><td>explore.swarm.green (also mainnet.explore.swarm.green), showing SwarmMainnet; since 2 October 2026 the restarted chain.</td></tr>
           <tr><th scope="row">Wallet SDK, swarm-sdk-mainnet-1</th><td class="mono">26 September 2026</td><td>The light-wallet SDK carrying the SWARM mainnet network definition, published so other wallets can be built against the same chain.</td></tr>
-          <tr><th scope="row">One signed SWARM Wallet for Mac</th><td class="mono">28 September 2026</td><td>One universal Mac app for Apple silicon and Intel. Signed with Developer ID, notarized by Apple and available as a disk image or ZIP archive.</td></tr>
           <tr><th scope="row">SWARM Messenger for Windows, Linux and macOS</th><td class="mono">28 September 2026</td><td>The first public desktop release, 0.1.0: end-to-end encrypted messaging between SWARM wallets on SWARM’s own server, sign-in with the 24 words instead of a phone number, usernames, photos and files, the wallet inside the app and payments inside a chat. Unsigned builds; a first release.</td></tr>
-          <tr><th scope="row">SWARM Browser for Windows, pre-release</th><td class="mono">30 September 2026</td><td>Build 153.0.8010.52-4 (three builds on the first day): a Windows browser built on Chromium 153 from the ungoogled-chromium code base, with Google’s services removed, privacy defaults switched on and the SWARM wallet built in; a SWARM welcome page, SWARM Start on every new tab, the SWARM Navigator side panel, SWARM’s own icons and colours, DuckDuckGo as the default search. Unsigned; no automatic updates yet.</td></tr>
+          <tr><th scope="row">SWARM Browser for Windows, pre-release</th><td class="mono">30 September 2026</td><td>Build 153.0.8010.52-4 (three builds on the first day): a Windows browser built on Chromium 153 from the ungoogled-chromium code base, with Google’s services removed, privacy defaults switched on and the SWARM wallet built in; a SWARM welcome page, SWARM Start on every new tab, the SWARM Navigator side panel, SWARM’s own icons and colours, DuckDuckGo as the default search. Unsigned; no automatic updates yet. Its built-in wallet was made for the first chain and cannot connect to the restarted network until the next build; the browser itself works.</td></tr>
           </tbody>
         </table>
       </div>
@@ -244,7 +242,8 @@
             <tr><th scope="col">What</th><th scope="col">Since</th><th scope="col">Detail</th></tr>
           </thead>
           <tbody>
-          <tr><th scope="row">Mobile wallets in the app stores</th><td class="mono">&mdash;</td><td>The Android mainnet wallet is published as a direct APK you install yourself. The Google Play listing and the iPhone build are being prepared.</td></tr>
+          <tr><th scope="row">SWARM Wallet for the restarted network</th><td class="mono">&mdash;</td><td>Every published SWARM Wallet build (desktop 0.1.0-mainnet.9 for Windows, Linux and macOS; Android 0.2.0-mainnet.4) was made for the first chain and cannot connect to the restarted network. A new version is being published.</td></tr>
+          <tr><th scope="row">Mobile wallets in the app stores</th><td class="mono">&mdash;</td><td>The Android wallet is a direct APK you install yourself; the published APK (0.2.0-mainnet.4) was made for the first chain and cannot connect to the restarted network. The Google Play listing and the iPhone build are being prepared.</td></tr>
           <tr><th scope="row">SWARM Market</th><td class="mono">&mdash;</td><td>A marketplace where merchants list what they sell and buyers pay in SWM, shielded by default and without custody. Non-custodial invoices come first; escrow, multisignature and dispute handling need their own protocol and operational review before any of it ships.</td></tr>
           <tr><th scope="row">A wider operator network</th><td class="mono">&mdash;</td><td>More full nodes in more places, starting with machines the project runs itself and opening out from there. The Swarm map shows the cities whose operators asked to be listed.</td></tr>
           <tr><th scope="row">A second seed node</th><td class="mono">&mdash;</td><td>One seed node is one failure domain. A second seed in a different network and a different provider removes the single point that new nodes currently bootstrap from.</td></tr>
@@ -277,7 +276,7 @@
       <div class="sec-head" data-reveal>
         <p class="eyebrow">Verify it</p>
         <h2>Check you are on SWARM.</h2>
-        <p>A chain is identified by its genesis block: <span class="mono">01c34428&hellip;afdd</span>. You can check it by hand. The launch facts, the public endpoints, the three published fund addresses and the address prefixes are all on one page.</p>
+        <p>A chain is identified by its genesis block: <span class="mono">01b76d8a&hellip;eff2</span>. You can check it by hand. The launch facts, the public endpoints, the three published fund addresses and the address prefixes are all on one page.</p>
       </div>
       <div class="cta-row" data-reveal>
         <a class="btn btn--primary" href="/verify">Verify the chain</a>
@@ -375,7 +374,7 @@
         <h2>What will never change.</h2>
       </div>
       <div class="prose" data-reveal>
-        <p>No sale, presale or token offering: every SWM is mined. No premine and no hidden treasury: the 80 / 8 / 4 / 8 split is fixed in the rules and visible in every block. No promise of a price, ever. No product that takes custody of your coins behind a decentralisation claim. Nothing that runs on your machine without you pressing the button. And if this site and the code ever disagree, the code is right and the site gets fixed.</p>
+        <p>No sale, presale or token offering: every SWM is mined. No coins in the genesis block and no hidden treasury: the 80 / 8 / 4 / 8 split is fixed in the rules and visible in every block. No promise of a price, ever. No product that takes custody of your coins behind a decentralisation claim. Nothing that runs on your machine without you pressing the button. And if this site and the code ever disagree, the code is right and the site gets fixed.</p>
       </div>
       <div class="cta-row mt-l" data-reveal>
         <a class="btn btn--primary" href="/join">Get SWARM</a>

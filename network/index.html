@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SWM supply, halving schedule and network rules — SWARM</title>
-<meta name="description" content="Every SWARM (SWM) parameter: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a 20,999,987.3152 SWM cap, no premine, the 80/8/4/8 split.">
+<meta name="description" content="Every SWARM (SWM) parameter: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a 20,999,987.3152 SWM cap, the three-week closed start, the 80/8/4/8 split.">
 <link rel="canonical" href="https://swarm.green/network">
 <meta name="theme-color" content="#0E1116">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SWARM">
 <meta property="og:locale" content="en">
 <meta property="og:title" content="SWARM — Network &amp; supply">
-<meta property="og:description" content="75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and no premine.">
+<meta property="og:description" content="75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and a genesis block that holds no coins.">
 <meta property="og:url" content="https://swarm.green/network">
 <meta property="og:image" content="https://swarm.green/assets/og.png?v=2">
 <meta property="og:image:type" content="image/png">
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@swarm_coin">
 <meta name="twitter:title" content="SWARM — Network &amp; supply">
-<meta name="twitter:description" content="75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and no premine.">
+<meta name="twitter:description" content="75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and a genesis block that holds no coins.">
 <meta name="twitter:image" content="https://swarm.green/assets/og.png?v=2">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
@@ -32,13 +32,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=6">
+<link rel="stylesheet" href="/css/site.css?v=7">
 <script src="/js/boot.js?v=4"></script>
-<script src="/js/site.js?v=15" defer></script>
+<script src="/js/site.js?v=16" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>
 <script src="/js/analytics.js?v=1"></script>
 <!-- seo:start -->
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://swarm.green/#organization","name":"SWARM","url":"https://swarm.green/","logo":"https://swarm.green/assets/logo-mark.svg"},{"@type":"WebSite","@id":"https://swarm.green/#website","url":"https://swarm.green/","name":"SWARM","publisher":{"@id":"https://swarm.green/#organization"}},{"@type":"Thing","@id":"https://swarm.green/#swm","name":"SWARM (SWM)"},{"@type":"WebPage","@id":"https://swarm.green/network","url":"https://swarm.green/network","name":"SWM supply, halving schedule and network rules — SWARM","description":"Every SWARM (SWM) parameter: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a 20,999,987.3152 SWM cap, no premine, the 80/8/4/8 split.","inLanguage":"en","isPartOf":{"@id":"https://swarm.green/#website"},"about":{"@id":"https://swarm.green/#swm"},"breadcrumb":{"@id":"https://swarm.green/network#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://swarm.green/network#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://swarm.green/"},{"@type":"ListItem","position":2,"name":"Network & supply","item":"https://swarm.green/network"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://swarm.green/#organization","name":"SWARM","url":"https://swarm.green/","logo":"https://swarm.green/assets/logo-mark.svg"},{"@type":"WebSite","@id":"https://swarm.green/#website","url":"https://swarm.green/","name":"SWARM","publisher":{"@id":"https://swarm.green/#organization"}},{"@type":"Thing","@id":"https://swarm.green/#swm","name":"SWARM (SWM)"},{"@type":"WebPage","@id":"https://swarm.green/network","url":"https://swarm.green/network","name":"SWM supply, halving schedule and network rules — SWARM","description":"Every SWARM (SWM) parameter: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a 20,999,987.3152 SWM cap, the three-week closed start, the 80/8/4/8 split.","inLanguage":"en","isPartOf":{"@id":"https://swarm.green/#website"},"about":{"@id":"https://swarm.green/#swm"},"breadcrumb":{"@id":"https://swarm.green/network#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://swarm.green/network#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://swarm.green/"},{"@type":"ListItem","position":2,"name":"Network & supply","item":"https://swarm.green/network"}]}]}</script>
 <!-- seo:end -->
 </head>
 <body>
@@ -79,7 +79,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · send a shielded payment.</p>
+<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · public mining opens 23 October 2026.</p>
 
 <header class="nav">
   <div class="wrap nav__bar">
@@ -129,6 +129,7 @@
       <p class="pill">Mainnet · live</p>
       <h1>Every number, in one place.</h1>
       <p class="page-head__lead">The monetary base is fixed in the code. Nothing on this page is a projection — it is arithmetic you can check yourself against the source, and against the chain with your own node.</p>
+      <p class="countdown" data-countdown="2026-10-23T15:42:00Z" role="timer"><span class="countdown__lead">Public mining</span> <span class="countdown__left" data-countdown-left>opens on</span> <time datetime="2026-10-23T15:42:00Z">23 October 2026,&nbsp;15:42&nbsp;UTC</time></p>
     </div>
   </section>
 
@@ -146,13 +147,13 @@
           <tr><th scope="row">Block reward (era 0)</th><td>6.25 coins</td></tr>
           <tr><th scope="row">Halving interval</th><td>1,680,000 blocks — about 4 years</td></tr>
           <tr><th scope="row">Maximum supply</th><td>20,999,987.3152 coins</td></tr>
-          <tr><th scope="row">Premine</th><td>None. The genesis block contains no spendable coins.</td></tr>
+          <tr><th scope="row">Closed start</th><td>Until 23 October 2026, 15:42 UTC only the project's own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site. The genesis block itself holds no coins.</td></tr>
           <tr><th scope="row">Coinbase maturity</th><td>100 blocks</td></tr>
-          <tr><th scope="row">Proof of work</th><td>Equihash 200,9, inherited unchanged. The chain starts at minimum difficulty, so it is CPU-mineable from the first block; nothing in the rules keeps larger miners out later.</td></tr>
+          <tr><th scope="row">Proof of work</th><td>Equihash 200,9, inherited unchanged. Once mining is open to everyone, nothing in the rules keeps larger miners out.</td></tr>
           <tr><th scope="row">Privacy</th><td>Optional. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs.</td></tr>
           <tr><th scope="row">Code</th><td>Proven open-source code, with consensus rules and cryptography left unmodified. Read it, build it, check it.</td></tr>
           <tr><th scope="row">Ticker</th><td>SWM</td></tr>
-          <tr><th scope="row">Status</th><td>Mainnet, live.</td></tr>
+          <tr><th scope="row">Status</th><td>Mainnet, live. Restarted from a new genesis block on 2 October 2026, 15:42 UTC. The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain. Addresses and recovery phrases stay valid and start at zero.</td></tr>
           </tbody>
         </table>
       </div>
@@ -181,7 +182,7 @@
           </tbody>
         </table>
       </div>
-      <p class="note mt-m" data-reveal>Mining rewards mature after <strong>100 blocks</strong> before they can be spent. There is no premine: the genesis block contains no spendable coins, so every coin in the table above has to be mined.</p>
+      <p class="note mt-m" data-reveal>Mining rewards mature after <strong>100 blocks</strong> before they can be spent. The genesis block contains no spendable coins, so every coin in the table above has to be mined.</p>
     </div>
   </section>
 
@@ -192,7 +193,7 @@
         <h2>Where every block reward goes.</h2>
         <p>Every block reward is split four ways, in the same proportions, for the whole emission schedule. Each halving reduces all four amounts together — the 80 / 8 / 4 / 8 structure never changes, all the way down to the block where the reward reaches zero. In the last eras integer rounding retires the small streams first: Grants &amp; Ecosystem rounds to zero from era 25, Core Development and the Reserve from era 26, and the miner keeps the remainder.</p>
         <p class="mt-s">The percentages are hard-coded in the genesis rules. Each allocation is paid automatically to its predefined destination address. Destinations can only be changed through a formal protocol upgrade; the percentages themselves cannot be changed. The three destinations are script addresses held by the project, and they are published together with the genesis rules.</p>
-        <p class="mt-s">No premine, no hidden treasury — every allocation is visible in every block.</p>
+        <p class="mt-s">No coins in the genesis block, no hidden treasury — every allocation is visible in every block.</p>
       </div>
 
       <p class="rule-tag" data-reveal><b>Fixed in the genesis rules</b> for the whole emission schedule. Paid block by block as part of each block reward — not a premine.</p>
@@ -274,10 +275,10 @@
           <caption>The genesis block these rules are fixed in.</caption>
           <tbody>
           <tr><th scope="row">Network</th><td class="">SwarmMainnet</td></tr>
-          <tr><th scope="row">Genesis block hash</th><td class="addr">01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd</td></tr>
-          <tr><th scope="row">Genesis header time</th><td class="mono">2026-09-26T12:19:57Z</td></tr>
-          <tr><th scope="row">Spendable outputs in the genesis block</th><td class="">0 — there is no premine</td></tr>
-          <tr><th scope="row">Launched</th><td class="mono">26 September 2026, 12:25 UTC</td></tr>
+          <tr><th scope="row">Genesis block hash</th><td class="addr">01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2</td></tr>
+          <tr><th scope="row">Genesis header time</th><td class="mono">2026-10-02T15:41:37Z</td></tr>
+          <tr><th scope="row">Spendable outputs in the genesis block</th><td class="">0</td></tr>
+          <tr><th scope="row">Restarted</th><td class="mono">2 October 2026, 15:42 UTC</td></tr>
           </tbody>
         </table>
       </div>

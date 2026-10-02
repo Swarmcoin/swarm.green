@@ -11,7 +11,7 @@
 <meta property="og:site_name" content="SWARM">
 <meta property="og:locale" content="en">
 <meta property="og:title" content="SWARM — Verify the chain">
-<meta property="og:description" content="Genesis 01c34428…afdd. Check the chain you joined is the one that was announced.">
+<meta property="og:description" content="Genesis 01b76d8a…eff2. Check the chain you joined is the one that was announced.">
 <meta property="og:url" content="https://swarm.green/verify">
 <meta property="og:image" content="https://swarm.green/assets/og.png?v=2">
 <meta property="og:image:type" content="image/png">
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@swarm_coin">
 <meta name="twitter:title" content="SWARM — Verify the chain">
-<meta name="twitter:description" content="Genesis 01c34428…afdd. Check the chain you joined is the one that was announced.">
+<meta name="twitter:description" content="Genesis 01b76d8a…eff2. Check the chain you joined is the one that was announced.">
 <meta name="twitter:image" content="https://swarm.green/assets/og.png?v=2">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
@@ -32,9 +32,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=6">
+<link rel="stylesheet" href="/css/site.css?v=7">
 <script src="/js/boot.js?v=4"></script>
-<script src="/js/site.js?v=15" defer></script>
+<script src="/js/site.js?v=16" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>
 <script src="/js/analytics.js?v=1"></script>
 <!-- seo:start -->
@@ -79,7 +79,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · send a shielded payment.</p>
+<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · public mining opens 23 October 2026.</p>
 
 <header class="nav">
   <div class="wrap nav__bar">
@@ -136,8 +136,9 @@
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">The launch</p>
-        <h2>One block, published in advance.</h2>
-        <p>SWARM mainnet started on <strong>26 September 2026, 12:25 UTC</strong>. The rules, the genesis block and the three destination addresses were published before block 1 was mined, so there was no window in which anyone could mine in private. The genesis block holds no spendable coins: there is no premine, no sale and no head start.</p>
+        <h2>A new genesis block, and a closed start.</h2>
+        <p>SWARM mainnet was restarted on <strong>2 October 2026, 15:42 UTC</strong> from a new genesis block. The genesis block holds no spendable coins, and there was no sale. The first three weeks are a closed start. Until 23 October 2026, 15:42 UTC only the project's own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site.</p>
+        <p class="mt-s">The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain. Addresses and recovery phrases stay valid and start at zero.</p>
       </div>
 
       <div class="tablewrap" data-reveal>
@@ -145,10 +146,13 @@
           <caption>The SWARM mainnet launch, as published in the launch manifest.</caption>
           <tbody>
           <tr><th scope="row">Network</th><td><span class="mono">SwarmMainnet</span></td></tr>
-          <tr><th scope="row">Launched</th><td><span class="mono">26 September 2026, 12:25 UTC</span></td></tr>
-          <tr><th scope="row">Genesis block hash</th><td><span class="copyrow"><code class="mono">01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd</code><button class="btn btn--ghost btn--sm" type="button" data-copy="01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd">Copy<span class="vh"> the genesis block hash</span></button></span></td></tr>
-          <tr><th scope="row">Genesis header time</th><td><span class="mono">2026-09-26T12:19:57Z</span></td></tr>
-          <tr><th scope="row">Spendable outputs in the genesis block</th><td>0 &mdash; there is no premine</td></tr>
+          <tr><th scope="row">Restarted</th><td><span class="mono">2 October 2026, 15:42 UTC</span></td></tr>
+          <tr><th scope="row">Genesis block hash</th><td><span class="copyrow"><code class="mono">01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2</code><button class="btn btn--ghost btn--sm" type="button" data-copy="01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2">Copy<span class="vh"> the genesis block hash</span></button></span></td></tr>
+          <tr><th scope="row">Genesis header time</th><td><span class="mono">2026-10-02T15:41:37Z</span></td></tr>
+          <tr><th scope="row">Block 1</th><td><span class="mono">2026-10-02 15:43 UTC</span></td></tr>
+          <tr><th scope="row">SHA-256 of genesis.hex</th><td><span class="copyrow"><code class="mono">137e2e962c749e8bad49ad7cff72eb1e35feaf91dc717c36313d660d08d87f8f</code><button class="btn btn--ghost btn--sm" type="button" data-copy="137e2e962c749e8bad49ad7cff72eb1e35feaf91dc717c36313d660d08d87f8f">Copy<span class="vh"> the SHA-256 of genesis.hex</span></button></span></td></tr>
+          <tr><th scope="row">Spendable outputs in the genesis block</th><td>0</td></tr>
+          <tr><th scope="row">Closed start</th><td>Until 23 October 2026, 15:42 UTC only the project's own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site.</td></tr>
           <tr><th scope="row">Proof of work</th><td>Equihash 200,9</td></tr>
           <tr><th scope="row">Ticker</th><td>SWM</td></tr>
           <tr><th scope="row">Target block time</th><td>75 seconds</td></tr>
@@ -184,14 +188,14 @@
         <table>
           <caption>SWARM mainnet endpoints.</caption>
           <tbody>
-          <tr><th scope="row">Mainnet light server (TLS)</th><td class="mono">lwd-main.swarm.green:8443</td></tr>
+          <tr><th scope="row">Mainnet light server (TLS)</th><td class="mono">lwd-main.swarm.green:443</td></tr>
           <tr><th scope="row">Mainnet block explorer</th><td class=""><a href="https://mainnet.explore.swarm.green" target="_blank" rel="noopener noreferrer">mainnet.explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> — live, showing SwarmMainnet</td></tr>
           <tr><th scope="row">Testnet block explorer</th><td class=""><a href="https://testnet.explore.swarm.green/" target="_blank" rel="noopener noreferrer">testnet.explore.swarm.green<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a> — the public testnet, whose coins have no value</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p class="note mt-m" data-reveal>These are the addresses the published apps use by default. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
+      <p class="note mt-m" data-reveal>These are the public addresses of the restarted network. The wallet builds published before 2 October 2026 were made for the first chain and cannot connect to it; the new version is being published in the <a href="/ecosystem/wallet">Ecosystem</a>. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
     </div>
   </section>
 
@@ -227,7 +231,7 @@
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-eye-off"/></svg></div>
           <h3>What is deliberately not here</h3>
-          <p>The project also mines, like anyone else. That payout goes to an ordinary private wallet, and it is <strong>not</strong> published: publishing it would hand everyone a permanent view of a wallet that has no governance role.</p>
+          <p>The project also mines; during the closed start it is the only miner. That payout goes to the project&rsquo;s own mining wallet, and its address is <strong>not</strong> published: publishing it would hand everyone a permanent view of a wallet that has no governance role.</p>
           <p class="mt-s">The three addresses above are the ones with a claim on the block reward, so those are the three that are published.</p>
         </article>
       </div>

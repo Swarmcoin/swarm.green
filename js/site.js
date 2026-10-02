@@ -2,7 +2,8 @@
    SWARM — swarm.green
    Vanilla JS, no dependencies, no inline handlers (strict CSP friendly).
    Sections: 1 nav · 2 reveal · 3 hero swarm canvas · 4 data-driven charts
-             5 downloads · 6 pointer tilt for the 3D hex cells
+             5 downloads · 5b live network figures · 5c public mining countdown
+             6 pointer tilt for the 3D hex cells
    ========================================================================== */
 (function () {
   "use strict";
@@ -666,10 +667,10 @@
     card.appendChild(el("h3", null, product.name));
     card.appendChild(el("p", "dl__desc", product.detail));
 
-    var available = entries.filter(function (e) { return e.status === "available" && e.url; });
+    var available = entries.filter(function (e) { return e.status === "available" && e.url && !e.paused; });
     var primary = available.filter(function (e) { return e.role !== "alt"; })[0];
     var alts = available.filter(function (e) { return e !== primary; });
-    var waiting = entries.filter(function (e) { return e.status !== "available" || !e.url; });
+    var waiting = entries.filter(function (e) { return e.status !== "available" || !e.url || e.paused; });
 
     var build = el("div", "dl__build");
 
@@ -817,7 +818,7 @@
 
   /* ------------------------------------------------------------------ */
   /* 5b. Live network figures                                            */
-  /* The seed server publishes a read-only status file every 30 s. The    */
+  /* The mainnet server publishes a read-only status file every 30 s. The */
   /* strict CSP allows same-origin connections only, so vercel.json       */
   /* rewrites /data/status.json to lwd-main.swarm.green/status.json, the  */
   /* same pattern the Swarm map census already uses.                      */
@@ -852,9 +853,9 @@
        untrue to almost everyone who read it. The Swarm map is where the
        network's reach belongs. */
     var when = typeof data.server_time_utc === "string" ? data.server_time_utc : null;
-    var parts = ["Live from the SWARM mainnet seed server"];
+    var parts = ["Live from the SWARM mainnet status file"];
     if (when) parts.push("read " + when.replace("T", " ").replace("Z", " UTC"));
-    netSet("foot", parts.join(" · ") + ". It refreshes every 30 seconds, and your own node is still the authority.");
+    netSet("foot", parts.join(" · ") + ". It refreshes every 30 seconds.");
     return true;
   }
 
@@ -867,9 +868,45 @@
       })
       .catch(function () {
         /* Leave every dash exactly where the markup put it. */
-        netSet("foot", "The seed server could not be reached just now, so no figures are shown. "
-          + "Your own node reports all of them on its Node screen.");
+        netSet("foot", "The mainnet status file could not be reached just now, so no figures are shown. "
+          + "The block explorer shows the same chain.");
       });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* 5c. Public mining countdown                                         */
+  /* <p data-countdown="2026-10-23T15:42:00Z"> reads "Public mining opens */
+  /* on <date>" in the markup. This writes the time left into its         */
+  /* [data-countdown-left] span once a second: "opens in DD days          */
+  /* HH:MM:SS ·", and at zero "is opening ·" (never a claim that mining   */
+  /* is open). Text only, nothing animates; the span's width is reserved  */
+  /* in css/site.css (section 22), so nothing around it moves.            */
+  /* ------------------------------------------------------------------ */
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+
+  function initCountdown() {
+    $$("[data-countdown]").forEach(function (box) {
+      var end = Date.parse(box.getAttribute("data-countdown"));
+      var left = $("[data-countdown-left]", box);
+      if (!left || !isFinite(end)) return;
+      function tick() {
+        var ms = end - Date.now();
+        if (ms <= 0) {
+          left.textContent = "is opening ·";
+          box.classList.add("is-due");
+          return;
+        }
+        var s = Math.floor(ms / 1000);
+        var d = Math.floor(s / 86400); s -= d * 86400;
+        var h = Math.floor(s / 3600); s -= h * 3600;
+        var m = Math.floor(s / 60); s -= m * 60;
+        left.textContent = "opens in " + pad2(d) + (d === 1 ? " day " : " days ")
+          + pad2(h) + ":" + pad2(m) + ":" + pad2(s) + " ·";
+        // next whole second, so the display never skips or repeats one
+        window.setTimeout(tick, 1000 - (ms % 1000) + 20);
+      }
+      tick();
+    });
   }
 
   /* ------------------------------------------------------------------ */
@@ -942,6 +979,7 @@
     initCopy();
     initDownloads();
     initNetStatus();
+    initCountdown();
     initTilt();
   }
 

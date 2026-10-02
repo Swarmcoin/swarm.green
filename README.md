@@ -3,16 +3,24 @@
 The website of **SWARM (ticker SWM)**, a privacy coin: a cryptocurrency with its
 own proof-of-work blockchain, on which payments can be shielded so that sender,
 receiver and amount stay encrypted on-chain. Its supply is capped at
-20,999,987.3152 SWM, there was no premine and no sale, and its mainnet has been
-live since 26 September 2026. SWARM is built on open-source foundations with
+20,999,987.3152 SWM and there was no sale. Its mainnet was restarted from a new
+genesis block on 2 October 2026; until 23 October 2026, 15:42 UTC only the
+project's own machines mine (the closed start), and from then on mining is open
+to everyone. SWARM is built on open-source foundations with
 consensus rules and cryptography left unmodified; the components and what each
 is based on are listed in the release repository README
 (github.com/louisinthesubway/swarm-releases).
 
-**SWARM mainnet went live on 2026-09-26 at 12:25 UTC**, genesis
-`01c34428b9e67cdd8345e0b365aaa37dd8d2d65d3869e0e5d77d567f2c39afdd`. Every page
-says so, and the numbers on them come from `data/network.json`, which is copied
-from the published launch manifest. Two guards keep that honest:
+**SWARM mainnet was restarted on 2026-10-02 at 15:42 UTC**, genesis
+`01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2`. The first
+chain (26 September to 2 October 2026) was replaced; its coins are not valid on
+the new chain. Every page says so, and the numbers on them come from
+`data/network.json` (`status`, `closedStart`, `history`, `genesis`), which is
+copied from the relaunch manifest. The countdown to public mining (home hero and
+`/network`) is `js/site.js` section 5c and `css/site.css` section 22. Wallet
+builds made for the first chain stay in `data/downloads.json` with
+`"paused": "restart-2026-10-02"` and render as "being published" until new rows
+replace them. Two guards keep that honest:
 
 - `tools/build_pages.py` refuses to build while `data/network.json` does not
   carry the `SwarmMainnet` genesis;

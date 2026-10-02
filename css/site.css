@@ -2156,3 +2156,25 @@ tbody th { font-weight: 500; white-space: nowrap; }
   .phases__note { font-size: .88rem; }
   .page-head { padding-block: 42px 28px; }
 }
+
+/* --------------------------------------------------------------------------
+   22. Public mining countdown  (added 2026-10-02; home hero and /network)
+   One line. Without JavaScript it reads "Public mining opens on <date>";
+   js/site.js (section 5c) writes the time left into .countdown__left. Under
+   .js that span keeps a fixed width from the first paint, so the ticking
+   digits never move the date or the lines below. Nothing animates.
+   -------------------------------------------------------------------------- */
+.countdown {
+  margin: 1rem auto 0;
+  color: var(--pollen);
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+  font-variant-numeric: tabular-nums;
+}
+.countdown__left { color: var(--comb); }
+.countdown time { white-space: nowrap; color: var(--ink-dim); }
+.js .countdown__left { display: inline-block; min-width: 27ch; text-align: left; }
+.js .countdown.is-due .countdown__left { min-width: 0; }
+.page-head .countdown { margin: 1.1rem 0 0; }

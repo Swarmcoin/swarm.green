@@ -18,6 +18,9 @@ GENESIS = NETWORK["genesis"]
 ENDPOINTS = NETWORK["endpoints"]
 ADDRESS_FORMATS = NETWORK["addressFormats"]["formats"]
 STATUS = NETWORK["status"]
+# The restart of 2 October 2026: the closed start and one sentence of history.
+CLOSED = NETWORK["closedStart"]
+HISTORY = NETWORK["history"]["sentence"]
 # Launch-day site: every page states that mainnet is live, so it must never be
 # built (and therefore never deployed) with the testnet genesis in the data
 # file. Local previews before launch set SWARM_ALLOW_PRELAUNCH_BUILD=1.
@@ -31,6 +34,16 @@ if GENESIS.get("network") != "SwarmMainnet" and not os.environ.get("SWARM_ALLOW_
 
 def esc(value):
     return html.escape(str(value), quote=False)
+
+
+# "Public mining opens in DD days HH:MM:SS", counting to the end of the closed
+# start. The markup reads correctly without JavaScript ("opens on <date>");
+# js/site.js (section 5c) fills in the time left. The same element is written by
+# hand into index.html.
+COUNTDOWN = (f'<p class="countdown" data-countdown="{CLOSED["untilUtc"]}" role="timer">'
+             f'<span class="countdown__lead">Public mining</span> '
+             f'<span class="countdown__left" data-countdown-left>opens on</span> '
+             f'<time datetime="{CLOSED["untilUtc"]}">{esc(CLOSED["untilLabel"]).replace(", ", ",&nbsp;").replace(" UTC", "&nbsp;UTC")}</time></p>')
 EXT = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" '
        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
        '<path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span>')
@@ -55,10 +68,10 @@ PHASES = """      <ol class="phases" data-reveal>
           <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-coin"/></svg></span></span>
           <div class="phase__card">
             <h3>SWARM mainnet</h3>
-            <p>Public testnet <b>21 September 2026</b>; mainnet <b>26 September 2026</b>. The coin, the chain and the apps to run them. Block 1 was mined in public from a genesis block that holds nothing; every SWM since has been mined.</p>
+            <p>Public testnet <b>21 September 2026</b>; mainnet restarted from a new genesis block on <b>2 October 2026</b>. The coin, the chain and the apps to run them. The genesis block holds no coins; after a three-week closed start, public mining opens on <b>23 October 2026, 15:42&nbsp;UTC</b>.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet (the version for the restarted network is being published)</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>check the genesis hash and every block for yourself &mdash; the node verifies, it never trusts</span></li>
             </ul>
           </div>
@@ -196,9 +209,9 @@ def head(title, desc, path, og_title, og_desc):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=6">
+<link rel="stylesheet" href="/css/site.css?v=7">
 <script src="/js/boot.js?v=4"></script>
-<script src="/js/site.js?v=15" defer></script>
+<script src="/js/site.js?v=16" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>
 <script src="/js/analytics.js?v=1"></script>
 </head>
@@ -207,7 +220,7 @@ def head(title, desc, path, og_title, og_desc):
 
 <a class="skip" href="#main">Skip to content</a>
 
-<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · send a shielded payment.</p>
+<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · public mining opens 23 October 2026.</p>
 
 <header class="nav">
   <div class="wrap nav__bar">
@@ -327,14 +340,15 @@ def crumbs(here):
     return f'<p class="crumbs"><a href="/">Home</a><span aria-hidden="true">/</span>{here}</p>'
 
 
-def page_head(here, h1, lead, pill=None):
+def page_head(here, h1, lead, pill=None, extra=""):
     tag = f'<p class="pill">{pill}</p>' if pill else ""
+    more = f"\n      {extra}" if extra else ""
     return f"""  <section class="band band--dark band--comb page-head">
     <div class="wrap">
       {crumbs(here)}
       {tag}
       <h1>{h1}</h1>
-      <p class="page-head__lead">{lead}</p>
+      <p class="page-head__lead">{lead}</p>{more}
     </div>
   </section>
 """
@@ -366,13 +380,13 @@ params = [
     ("Block reward (era 0)", "6.25 coins"),
     ("Halving interval", "1,680,000 blocks — about 4 years"),
     ("Maximum supply", "20,999,987.3152 coins"),
-    ("Premine", "None. The genesis block contains no spendable coins."),
+    ("Closed start", esc(CLOSED["summary"]) + " The genesis block itself holds no coins."),
     ("Coinbase maturity", "100 blocks"),
-    ("Proof of work", "Equihash 200,9, inherited unchanged. The chain starts at minimum difficulty, so it is CPU-mineable from the first block; nothing in the rules keeps larger miners out later."),
+    ("Proof of work", "Equihash 200,9, inherited unchanged. Once mining is open to everyone, nothing in the rules keeps larger miners out."),
     ("Privacy", "Optional. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs."),
     ("Code", "Proven open-source code, with consensus rules and cryptography left unmodified. Read it, build it, check it."),
     ("Ticker", "SWM"),
-    ("Status", "Mainnet, live."),
+    ("Status", "Mainnet, live. Restarted from a new genesis block on " + esc(STATUS["launchedLabel"]) + ". " + esc(HISTORY)),
 ]
 param_rows = "\n".join(
     f'          <tr><th scope="row">{k}</th><td>{v}</td></tr>' for k, v in params)
@@ -422,9 +436,8 @@ genesis_rows = "\n".join(
         ("Network", esc(GENESIS["network"]), ""),
         ("Genesis block hash", esc(GENESIS["hash"]), "addr"),
         ("Genesis header time", esc(GENESIS["headerTimeUtc"]), "mono"),
-        ("Spendable outputs in the genesis block",
-            esc(GENESIS["spendableOutputs"]) + " \u2014 there is no premine", ""),
-        ("Launched", esc(STATUS["launchedLabel"]), "mono"),
+        ("Spendable outputs in the genesis block", esc(GENESIS["spendableOutputs"]), ""),
+        ("Restarted", esc(STATUS["launchedLabel"]), "mono"),
     ])
 
 # The public addresses of the live network that the published apps use. Since
@@ -449,15 +462,16 @@ address_rows = "\n".join(
 
 network = head(
     "Network &amp; supply — SWARM",
-    "Every SWARM parameter in one place: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM, no premine, the four-way block reward split fixed for the whole emission schedule, and the genesis block it is all fixed in.",
+    "Every SWARM parameter in one place: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM, the three-week closed start, the four-way block reward split fixed for the whole emission schedule, and the genesis block it is all fixed in.",
     "/network",
     "SWARM — Network &amp; supply",
-    "75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and no premine.",
+    "75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and a genesis block that holds no coins.",
 ) + page_head(
     "Network &amp; supply",
     "Every number, in one place.",
     "The monetary base is fixed in the code. Nothing on this page is a projection — it is arithmetic you can check yourself against the source, and against the chain with your own node.",
     pill="Mainnet · live",
+    extra=COUNTDOWN,
 ) + f"""
   <section class="band band--cream">
     <div class="wrap">
@@ -494,7 +508,7 @@ network = head(
           </tbody>
         </table>
       </div>
-      <p class="note mt-m" data-reveal>Mining rewards mature after <strong>100 blocks</strong> before they can be spent. There is no premine: the genesis block contains no spendable coins, so every coin in the table above has to be mined.</p>
+      <p class="note mt-m" data-reveal>Mining rewards mature after <strong>100 blocks</strong> before they can be spent. The genesis block contains no spendable coins, so every coin in the table above has to be mined.</p>
     </div>
   </section>
 
@@ -505,7 +519,7 @@ network = head(
         <h2>Where every block reward goes.</h2>
         <p>Every block reward is split four ways, in the same proportions, for the whole emission schedule. Each halving reduces all four amounts together — the 80 / 8 / 4 / 8 structure never changes, all the way down to the block where the reward reaches zero. In the last eras integer rounding retires the small streams first: Grants &amp; Ecosystem rounds to zero from era 25, Core Development and the Reserve from era 26, and the miner keeps the remainder.</p>
         <p class="mt-s">The percentages are hard-coded in the genesis rules. Each allocation is paid automatically to its predefined destination address. Destinations can only be changed through a formal protocol upgrade; the percentages themselves cannot be changed. The three destinations are script addresses held by the project, and they are published together with the genesis rules.</p>
-        <p class="mt-s">No premine, no hidden treasury — every allocation is visible in every block.</p>
+        <p class="mt-s">No coins in the genesis block, no hidden treasury — every allocation is visible in every block.</p>
       </div>
 
       <p class="rule-tag" data-reveal><b>Fixed in the genesis rules</b> for the whole emission schedule. Paid block by block as part of each block reward — not a premine.</p>
@@ -635,11 +649,13 @@ launch_rows = "\n".join(
     f'          <tr><th scope="row">{k}</th><td>{v}</td></tr>'
     for k, v in [
         ("Network", f'<span class="mono">{esc(GENESIS["network"])}</span>'),
-        ("Launched", f'<span class="mono">{esc(STATUS["launchedLabel"])}</span>'),
+        ("Restarted", f'<span class="mono">{esc(STATUS["launchedLabel"])}</span>'),
         ("Genesis block hash", copyline(GENESIS["hash"], "the genesis block hash")),
         ("Genesis header time", f'<span class="mono">{esc(GENESIS["headerTimeUtc"])}</span>'),
-        ("Spendable outputs in the genesis block",
-            f'{esc(GENESIS["spendableOutputs"])} &mdash; there is no premine'),
+        ("Block 1", f'<span class="mono">{esc(GENESIS["block1Utc"])}</span>'),
+        ("SHA-256 of genesis.hex", copyline(GENESIS["hexSha256"], "the SHA-256 of genesis.hex")),
+        ("Spendable outputs in the genesis block", esc(GENESIS["spendableOutputs"])),
+        ("Closed start", esc(CLOSED["summary"])),
         ("Proof of work", esc(NETWORK["chain"]["proofOfWork"])),
         ("Ticker", esc(NETWORK["chain"]["ticker"])),
         ("Target block time", f'{esc(NETWORK["chain"]["blockTimeSeconds"])} seconds'),
@@ -656,7 +672,7 @@ verify = head(
     "Check you are on the real SWARM chain: the genesis hash, the launch time, the public endpoints, the three published fund addresses and the address prefixes that tell mainnet from testnet.",
     "/verify",
     "SWARM — Verify the chain",
-    "Genesis 01c34428…afdd. Check the chain you joined is the one that was announced.",
+    f"Genesis {GENESIS['hash'][:8]}…{GENESIS['hash'][-4:]}. Check the chain you joined is the one that was announced.",
 ) + page_head(
     "Verify",
     "Check you are on the real chain.",
@@ -667,8 +683,9 @@ verify = head(
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">The launch</p>
-        <h2>One block, published in advance.</h2>
-        <p>SWARM mainnet started on <strong>{esc(STATUS["launchedLabel"])}</strong>. The rules, the genesis block and the three destination addresses were published before block 1 was mined, so there was no window in which anyone could mine in private. The genesis block holds no spendable coins: there is no premine, no sale and no head start.</p>
+        <h2>A new genesis block, and a closed start.</h2>
+        <p>SWARM mainnet was restarted on <strong>{esc(STATUS["launchedLabel"])}</strong> from a new genesis block. The genesis block holds no spendable coins, and there was no sale. The first three weeks are a closed start. {esc(CLOSED["summary"])}</p>
+        <p class="mt-s">{esc(HISTORY)}</p>
       </div>
 
       <div class="tablewrap" data-reveal>
@@ -713,7 +730,7 @@ verify = head(
         </table>
       </div>
 
-      <p class="note mt-m" data-reveal>These are the addresses the published apps use by default. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
+      <p class="note mt-m" data-reveal>These are the public addresses of the restarted network. The wallet builds published before {esc(STATUS["launchedLabel"].split(",")[0])} were made for the first chain and cannot connect to it; the new version is being published in the <a href="/ecosystem/wallet">Ecosystem</a>. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
     </div>
   </section>
 
@@ -747,7 +764,7 @@ verify = head(
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-eye-off"/></svg></div>
           <h3>What is deliberately not here</h3>
-          <p>The project also mines, like anyone else. That payout goes to an ordinary private wallet, and it is <strong>not</strong> published: publishing it would hand everyone a permanent view of a wallet that has no governance role.</p>
+          <p>The project also mines; during the closed start it is the only miner. That payout goes to the project&rsquo;s own mining wallet, and its address is <strong>not</strong> published: publishing it would hand everyone a permanent view of a wallet that has no governance role.</p>
           <p class="mt-s">The three addresses above are the ones with a claim on the block reward, so those are the three that are published.</p>
         </article>
       </div>
@@ -821,7 +838,7 @@ join = head(
           <div class="step__n" aria-hidden="true">1</div>
           <p class="step__app">SWARM Wallet</p>
           <h3>Get a wallet</h3>
-          <p>A desktop wallet that holds your coins and sends payments — transparent or shielded, your choice on every payment.</p>
+          <p>A desktop wallet that holds your coins and sends payments — transparent or shielded, your choice on every payment. The version for the network restarted on 2 October 2026 is being published.</p>
           <p class="mt-s">On first run it will show you a recovery phrase. Write it down on paper and keep it offline. It is the only way to restore your wallet.</p>
           <a class="btn btn--primary" href="/ecosystem/wallet">Choose your wallet</a>
         </article>
@@ -1060,7 +1077,7 @@ roadmap = head(
         <h2>What will never change.</h2>
       </div>
       <div class="prose" data-reveal>
-        <p>No sale, presale or token offering: every SWM is mined. No premine and no hidden treasury: the 80 / 8 / 4 / 8 split is fixed in the rules and visible in every block. No promise of a price, ever. No product that takes custody of your coins behind a decentralisation claim. Nothing that runs on your machine without you pressing the button. And if this site and the code ever disagree, the code is right and the site gets fixed.</p>
+        <p>No sale, presale or token offering: every SWM is mined. No coins in the genesis block and no hidden treasury: the 80 / 8 / 4 / 8 split is fixed in the rules and visible in every block. No promise of a price, ever. No product that takes custody of your coins behind a decentralisation claim. Nothing that runs on your machine without you pressing the button. And if this site and the code ever disagree, the code is right and the site gets fixed.</p>
       </div>
       <div class="cta-row mt-l" data-reveal>
         <a class="btn btn--primary" href="/join">Get SWARM</a>
@@ -1164,7 +1181,7 @@ brand = head(
           <p class="meta">Sora — 600 / 700 / 800 — headlines, the wordmark, card titles</p>
         </div>
         <div>
-          <p class="sample sample--body">One bee is small. A swarm is unstoppable. Every computer that joins makes the hive stronger.</p>
+          <p class="sample sample--body">One bee is small. A swarm is unstoppable. A hive is just a lot of small jobs, done honestly.</p>
           <p class="meta">Inter — 400 / 500 / 600 — body copy, navigation, buttons</p>
         </div>
         <div>
