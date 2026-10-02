@@ -20,7 +20,7 @@
     "macosNotice": "SWARM Wallet for macOS is signed and notarized. It is one app for Apple silicon and Intel.",
     "walletUpdate": {
       "title": "SWARM mainnet was restarted on 2 October 2026",
-      "text": "SWARM Wallet 0.1.0-mainnet.10 for Windows is the version for the restarted network; Linux and macOS follow, and Android after them. Earlier builds (desktop 0.1.0-mainnet.9, Android 0.2.0-mainnet.4) were made for the first chain and cannot connect. Install the new version over the old one: your addresses and recovery phrase stay the same, the wallet keeps a backup copy of its file and starts again from the new chain, where balances begin at zero because the coins of the first chain do not exist on it.",
+      "text": "SWARM Wallet 0.1.0-mainnet.10 for Windows and macOS (Apple silicon and Intel) is the version for the restarted network; Linux follows, and Android after it. Earlier builds (desktop 0.1.0-mainnet.9, Android 0.2.0-mainnet.4) were made for the first chain and cannot connect. Install the new version over the old one: your addresses and recovery phrase stay the same, the wallet keeps a backup copy of its file and starts again from the new chain, where balances begin at zero because the coins of the first chain do not exist on it.",
       "url": "",
       "label": "Read the release notes"
     },
@@ -193,6 +193,20 @@
       "platform": "macOS (Apple silicon)",
       "status": "available",
       "variant": "Installer",
+      "version": "0.1.0-mainnet.10",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10-macos/SWARM-Wallet-0.1.0-mainnet.10-mac-arm64.dmg",
+      "sha256": "6d2cddd6976ab4aed48201adc39a814f1ab4d8ece4a80e60b636dbbc6096bc01",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10-macos/SHA256SUMS-mac",
+      "role": "primary",
+      "sizeShort": "193 MB",
+      "sizeBytes": 202419993,
+      "notes": "Not signed with an Apple Developer ID and not notarized. Open the disk image, drag SWARM Wallet to Applications and open it once; then allow it under System Settings → Privacy & Security → Open Anyway."
+    },
+    {
+      "product": "wallet",
+      "platform": "macOS (Apple silicon)",
+      "status": "available",
+      "variant": "Installer",
       "version": "0.1.0-mainnet.9",
       "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.9-macos/SWARM-Wallet-0.1.0-mainnet.9-mac-arm64.dmg",
       "sha256": "78a6b3f8c6f05f142955756187544f1cdc3278d93a9edb2e8cd45810fe61c751",
@@ -202,6 +216,20 @@
       "sizeBytes": 202409161,
       "notes": "Not signed with an Apple Developer ID and not notarized. Open the disk image, drag SWARM Wallet to Applications and open it once; then allow it under System Settings → Privacy & Security → Open Anyway.",
       "paused": "restart-2026-10-02"
+    },
+    {
+      "product": "wallet",
+      "platform": "macOS (Apple silicon)",
+      "status": "available",
+      "variant": "Portable zip",
+      "version": "0.1.0-mainnet.10",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10-macos/SWARM-Wallet-0.1.0-mainnet.10-mac-arm64.zip",
+      "sha256": "31fdd3732febe529c0e424ed7083b59eb360f708fd1adb7c47ed1dc10ba21a91",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10-macos/SHA256SUMS-mac",
+      "role": "alt",
+      "sizeShort": "188 MB",
+      "sizeBytes": 197331187,
+      "notes": "The same app in a ZIP. Not signed with an Apple Developer ID and not notarized: allow it once under System Settings → Privacy & Security → Open Anyway."
     },
     {
       "product": "wallet",
@@ -223,6 +251,20 @@
       "platform": "macOS (Intel)",
       "status": "available",
       "variant": "Installer",
+      "version": "0.1.0-mainnet.10",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10-macos/SWARM-Wallet-0.1.0-mainnet.10-mac-x64.dmg",
+      "sha256": "b00cee0267acb52c52b9005e7bbb04a009c810b65d2cc9ba72e9564337c7129b",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10-macos/SHA256SUMS-mac",
+      "role": "primary",
+      "sizeShort": "201 MB",
+      "sizeBytes": 210396132,
+      "notes": "Not signed with an Apple Developer ID and not notarized. Open the disk image, drag SWARM Wallet to Applications and open it once; then allow it under System Settings → Privacy & Security → Open Anyway."
+    },
+    {
+      "product": "wallet",
+      "platform": "macOS (Intel)",
+      "status": "available",
+      "variant": "Installer",
       "version": "0.1.0-mainnet.9",
       "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.9-macos/SWARM-Wallet-0.1.0-mainnet.9-mac-x64.dmg",
       "sha256": "36122d3d0ba34cb17e74002008cc7fe72ae4908401f2ac0ed1310daf5e35a44c",
@@ -232,6 +274,20 @@
       "sizeBytes": 210377093,
       "notes": "Not signed with an Apple Developer ID and not notarized. Open the disk image, drag SWARM Wallet to Applications and open it once; then allow it under System Settings → Privacy & Security → Open Anyway.",
       "paused": "restart-2026-10-02"
+    },
+    {
+      "product": "wallet",
+      "platform": "macOS (Intel)",
+      "status": "available",
+      "variant": "Portable zip",
+      "version": "0.1.0-mainnet.10",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10-macos/SWARM-Wallet-0.1.0-mainnet.10-mac-x64.zip",
+      "sha256": "898de55989868409e6a0ff42c3b75c04780ffb754355a2701fb94dcbdd2b38d5",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10-macos/SHA256SUMS-mac",
+      "role": "alt",
+      "sizeShort": "196 MB",
+      "sizeBytes": 205189492,
+      "notes": "The same app in a ZIP. Not signed with an Apple Developer ID and not notarized: allow it once under System Settings → Privacy & Security → Open Anyway."
     },
     {
       "product": "wallet",
