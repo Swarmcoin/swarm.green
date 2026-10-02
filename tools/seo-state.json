@@ -12,7 +12,7 @@
   "lastmod": "2026-10-02"
  },
  "/verify": {
-  "sha256": "0fe59abf22812f56fcbd53635a6a8a2aa95fab41c8fc68d41bd68c68814e4bbd",
+  "sha256": "d4cf7d20409da049e59de7c3fe514cdf6847ac6af24263a5a17004332fed170f",
   "lastmod": "2026-10-02"
  },
  "/join": {
@@ -60,8 +60,8 @@
   "lastmod": "2026-09-30"
  },
  "/wallet/privacy": {
-  "sha256": "3598f2bd1a2f050f854a4ab9b0b2c46b42cd5092c4d02fa432eec3e7f6729100",
-  "lastmod": "2026-09-30"
+  "sha256": "37358481ab6e8728c02a0ce330317b625578556643dd7ac585090d8e378a8128",
+  "lastmod": "2026-10-02"
  },
  "/wallet/risks": {
   "sha256": "1819dfd73bd8ddaa9a99e4e710190842c97cb6482c7c2ea40af15312b8809a2b",

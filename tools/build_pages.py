@@ -707,7 +707,7 @@ verify = head(
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
           <h3>From the source</h3>
-          <p>The launch manifest, the source at the launch commit and every release with its SHA-256 are in the release repository.</p>
+          <p>Every published release is listed with its SHA-256 in the release repository. The manifest of the restarted chain and the node software are published when public mining opens on 23 October 2026.</p>
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">Release repository{EXT}</a></p>
         </article>
       </div>
