@@ -20,7 +20,7 @@
     "macosNotice": "SWARM Wallet for macOS is signed and notarized. It is one app for Apple silicon and Intel.",
     "walletUpdate": {
       "title": "SWARM mainnet was restarted on 2 October 2026",
-      "text": "SWARM Wallet 0.1.0-mainnet.10 for Windows and macOS (Apple silicon and Intel) is the version for the restarted network; Linux follows, and Android after it. Earlier builds (desktop 0.1.0-mainnet.9, Android 0.2.0-mainnet.4) were made for the first chain and cannot connect. Install the new version over the old one: your addresses and recovery phrase stay the same, the wallet keeps a backup copy of its file and starts again from the new chain, where balances begin at zero because the coins of the first chain do not exist on it.",
+      "text": "SWARM Wallet 0.1.0-mainnet.10 for Windows, macOS (Apple silicon and Intel) and Linux is the version for the restarted network; Android follows. Earlier builds (desktop 0.1.0-mainnet.9, Android 0.2.0-mainnet.4) were made for the first chain and cannot connect. Install the new version over the old one: your addresses and recovery phrase stay the same, the wallet keeps a backup copy of its file and starts again from the new chain, where balances begin at zero because the coins of the first chain do not exist on it.",
       "url": "",
       "label": "Read the release notes"
     },
@@ -162,6 +162,20 @@
       "platform": "Linux",
       "status": "available",
       "variant": "Installer",
+      "version": "0.1.0-mainnet.10",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10/SWARM-Wallet-0.1.0-mainnet.10-amd64.deb",
+      "sha256": "3f87237731459d2fc3c52bedc60fbe25b210226398da743c0bcc116f6779f9aa",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10/SHA256SUMS",
+      "role": "primary",
+      "sizeShort": "162 MB",
+      "sizeBytes": 169863388,
+      "notes": ""
+    },
+    {
+      "product": "wallet",
+      "platform": "Linux",
+      "status": "available",
+      "variant": "Installer",
       "version": "0.1.0-mainnet.9",
       "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.9/SWARM-Wallet-0.1.0-mainnet.9-amd64.deb",
       "sha256": "968d6976904f1a123d872cf9af3747ebd27cf42b9c9b82c420d844bdf315f4c0",
@@ -171,6 +185,21 @@
       "sizeBytes": 169846036,
       "notes": "",
       "paused": "restart-2026-10-02"
+    },
+    {
+      "product": "wallet",
+      "platform": "Linux",
+      "status": "available",
+      "variant": "Portable AppImage",
+      "version": "0.1.0-mainnet.10",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10/SWARM-Wallet-0.1.0-mainnet.10-x86_64.AppImage",
+      "sha256": "a3fd0b2c2ed510361fe1d5358a076554cef929f1a4ff7718df96fe84c2d1d5a8",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-wallet-0.1.0-mainnet.10/SHA256SUMS",
+      "role": "alt",
+      "sizeShort": "200 MB",
+      "sizeBytes": 209742738,
+      "notes": "",
+      "label": "Portable AppImage"
     },
     {
       "product": "wallet",
