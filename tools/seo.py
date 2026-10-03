@@ -83,10 +83,12 @@ POW = CHAIN['proofOfWork']
 MATURITY = CHAIN['coinbaseMaturityBlocks']
 LAUNCHED = STATUS['launchedLabel']
 LAUNCH_DAY = LAUNCHED.split(',')[0]
-# The restart of 2 October 2026: 30 days in which only the project mines,
-# and one sentence of history about the first chain.
+# The restart of 2 October 2026: a 30-day closed start (29 days in which only
+# the project mines, then 24 hours for the waiting list), and one sentence of
+# history about the first chain.
 CLOSED = NETWORK['closedStart']
 OPENS = CLOSED['untilLabel']
+PROJECT_ONLY = CLOSED['projectOnlyUntilLabel']
 HISTORY = NETWORK['history']['sentence']
 SPLIT = ' · '.join(f'{s["percent"]} {s["name"]}' for s in SHARES)
 PROJECT_SHARE = number(100 * sum(s['share'] for s in SHARES if s['key'] != 'miner'))
@@ -98,8 +100,9 @@ MINER_SHARE = next(s['percent'] for s in SHARES if s['key'] == 'miner')
 DEFINITION = (f'SWARM (ticker SWM) is a privacy coin: a cryptocurrency with its own proof-of-work blockchain, '
               f'on which payments can be shielded so that sender, receiver and amount stay encrypted on-chain. '
               f'Its supply is capped at {MAX_SUPPLY} SWM and there was no sale. Its mainnet was restarted from a new '
-              f'genesis block on {LAUNCH_DAY}; until {OPENS} only the project’s own machines mine, and from then on '
-              f'mining is open to everyone.')
+              f'genesis block on {LAUNCH_DAY}; until {PROJECT_ONLY} only the project’s own machines mine, for the '
+              f'next 24 hours the people on its waiting list can mine too, and from {OPENS} mining is open to '
+              f'everyone.')
 
 
 # ---------------------------------------------------------------------------
@@ -176,7 +179,7 @@ PAGES = {
                 'desc': 'Check you are on the real SWARM chain: the genesis hash, the launch time, the public endpoints, the three published fund addresses and the address prefixes.'},
     '/join': {'name': 'Get SWARM', 'title': 'Get started with SWARM (SWM): choose a wallet — SWARM'},
     '/waitlist': {'name': 'Waiting list', 'title': 'Waiting list for SWARM (SWM) public mining — SWARM',
-                  'desc': 'Join the waiting list for SWARM (SWM) public mining, which opens on 1 November 2026, 15:42 UTC: early access to the node download, in leaderboard order. No coins are promised.'},
+                  'desc': 'Join the waiting list for SWARM (SWM) public mining: the node download from 31 October 2026, 15:42 UTC, 24 hours before mining opens to everyone, in leaderboard order. No coins are promised.'},
     '/ecosystem': {'name': 'Ecosystem', 'title': 'Download the SWARM apps: every file with its checksum — SWARM'},
     '/ecosystem/wallet': {
         'name': 'SWARM Wallet',
@@ -429,14 +432,15 @@ QUESTIONS = [
      ['No. Privacy is a choice you make per payment: shielded payments are encrypted on-chain, transparent '
       'payments are public, and the wallet tells you which kind you are about to make.']),
     ('How do I get SWM?',
-     [f'SWM is issued only by mining, and until {OPENS} only the project’s own machines mine; you can receive it from someone who already has it. The project does not sell SWM, does not set a price and does not run an exchange. '
+     [f'SWM is issued only by mining; until {PROJECT_ONLY} only the project’s own machines mine, and public mining opens on {OPENS}. You can receive it from someone who already has it. The project does not sell SWM, does not set a price and does not run an exchange. '
       'SWM has no guaranteed value and can lose value, including all of it.']),
     ('Where do block rewards go?',
      [f'{SPLIT}. The split is fixed in the genesis rules for the whole emission schedule and is visible in every '
       'block.']),
     ('Who runs SWARM?',
-     ['A founding team builds the software in the open. Until ' + OPENS + ' the project alone mines (the closed '
-      'start); from then on anyone can run a node and mine, with no account to apply for. There is no admin key, '
+     ['A founding team builds the software in the open. Until ' + PROJECT_ONLY + ' the project alone mines; the '
+      'people on the waiting list follow 24 hours before public mining opens on ' + OPENS + ', and from then on '
+      'anyone can run a node and mine, with no account to apply for. There is no admin key, '
       'and the rules every node enforces are the same for the founders as for anyone else.']),
     ('How do I check that I am on the real SWARM chain?',
      [f'A chain is identified by its genesis block. SWARM mainnet&rsquo;s genesis hash is '
@@ -540,7 +544,7 @@ def page_links():
         ('Network and supply', '/network', f'every consensus and monetary parameter, the era table and the {SPLIT.replace(" · ", " / ")} block reward split'),
         ('Verify the chain', '/verify', 'genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes'),
         ('Get started', '/join', 'choosing a wallet, step by step'),
-        ('Waiting list for public mining', '/waitlist', 'join the list for early access to the node download when public mining opens on 1 November 2026; one level of invites decides the order; no coins are promised'),
+        ('Waiting list for public mining', '/waitlist', 'join the list to get the node download from 31 October 2026, 15:42 UTC, 24 hours before public mining opens on 1 November 2026; one level of invites decides the order; no coins are promised'),
         ('Roadmap', '/roadmap', 'what is live, what is being built and what is only planned'),
         ('Frequently asked questions', '/#faq', 'launch, supply, mining, privacy, custody of the project share'),
     ]

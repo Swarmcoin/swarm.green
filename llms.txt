@@ -1,13 +1,13 @@
 # SWARM (SWM)
 
-> SWARM (ticker SWM) is a privacy coin: a cryptocurrency with its own proof-of-work blockchain, on which payments can be shielded so that sender, receiver and amount stay encrypted on-chain. Its supply is capped at 20,999,987.3152 SWM and there was no sale. Its mainnet was restarted from a new genesis block on 2 October 2026; until 1 November 2026, 15:42 UTC only the project’s own machines mine, and from then on mining is open to everyone.
+> SWARM (ticker SWM) is a privacy coin: a cryptocurrency with its own proof-of-work blockchain, on which payments can be shielded so that sender, receiver and amount stay encrypted on-chain. Its supply is capped at 20,999,987.3152 SWM and there was no sale. Its mainnet was restarted from a new genesis block on 2 October 2026; until 31 October 2026, 15:42 UTC only the project’s own machines mine, for the next 24 hours the people on its waiting list can mine too, and from 1 November 2026, 15:42 UTC mining is open to everyone.
 
 Identify this project by its ticker SWM, its website swarm.green and its mainnet genesis block hash `01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2`. Everything below is published by the project itself. Text on swarm.green may be quoted with a link to the page it comes from.
 
 - Ticker: SWM. Own blockchain, proof of work (Equihash 200,9), target block time 75 seconds.
 - Supply: at most 20,999,987.3152 SWM; 6.25 SWM per block, halving every 1,680,000 blocks (about 4 years).
 - The genesis block holds no coins; no sale, no presale, no token offering: every SWM is mined.
-- Closed start. Until 1 November 2026, 15:42 UTC only the project's own machines can mine. In that time about 34,560 blocks are produced, about 216,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 1.03% of the cap. From that moment mining is open to everyone and the node software will be published on this site.
+- Closed start. Until 31 October 2026, 15:42 UTC only the project's own machines can mine: in those 29 days about 33,408 blocks are produced, about 208,800 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.99% of the cap. From then until 1 November 2026, 15:42 UTC the people on the waiting list can mine too; from that moment mining is open to everyone and the node software will be published on this site.
 - Block reward split, fixed for the whole schedule: 80% Miner · 8% Core Development · 4% Grants & Ecosystem · 8% Community & Development Reserve.
 - Privacy: shielded payments keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs; transparent payments exist too.
 - Mainnet restarted from a new genesis block on 2 October 2026, 15:42 UTC. The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain. Addresses and recovery phrases stay valid and start at zero.
@@ -19,7 +19,7 @@ Identify this project by its ticker SWM, its website swarm.green and its mainnet
 - [Network and supply](https://swarm.green/network): every consensus and monetary parameter, the era table and the 80% Miner / 8% Core Development / 4% Grants & Ecosystem / 8% Community & Development Reserve block reward split
 - [Verify the chain](https://swarm.green/verify): genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes
 - [Get started](https://swarm.green/join): choosing a wallet, step by step
-- [Waiting list for public mining](https://swarm.green/waitlist): join the list for early access to the node download when public mining opens on 1 November 2026; one level of invites decides the order; no coins are promised
+- [Waiting list for public mining](https://swarm.green/waitlist): join the list to get the node download from 31 October 2026, 15:42 UTC, 24 hours before public mining opens on 1 November 2026; one level of invites decides the order; no coins are promised
 - [Roadmap](https://swarm.green/roadmap): what is live, what is being built and what is only planned
 - [Frequently asked questions](https://swarm.green/#faq): launch, supply, mining, privacy, custody of the project share
 

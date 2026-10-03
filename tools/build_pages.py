@@ -1243,13 +1243,15 @@ write("brand/index.html", brand)
 #   true   the node download link instead of the form. Allowed only when
 #          data/downloads.json has an available mainnet "node" row.
 # What a place on the list is, in one sentence, used on the page and in /terms.
-WL_IS = ("A place on the list gives early access: when public mining opens, people on the list get "
-         "the node download a short time before everyone else, in leaderboard order.")
+EARLY = CLOSED["projectOnlyUntilLabel"]
+OPENS = CLOSED["untilLabel"]
+WL_IS = (f"A place on the list gives early access: people on the list get the node download from {EARLY}, "
+         f"in leaderboard order during that day, 24 hours before everyone else; mining opens to everyone on {OPENS}.")
 WL_IS_NOT = ("It is not a promise of coins, earnings or a price, and nothing is sold: "
              "the list is free.")
 WL_RULE = ("The leaderboard counts the people who join with your invite link, each of them once, and "
            "only them: the people they invite count for them, never for you. A higher place gets the "
-           "node download earlier; no coins are promised.")
+           "node download earlier in that day; no coins are promised.")
 
 WL_OPEN = bool(CLOSED.get("opened"))
 if WL_OPEN:
@@ -1260,7 +1262,9 @@ if WL_OPEN:
                          "available mainnet node row. Add the node download first, or keep opened false.")
 
 WL_COUNT = ('<p class="wl-count js-only" data-wl-count><span class="wl-count__n" data-wl-total>&mdash;</span> '
-            '<span data-wl-noun="computer|computers">computers</span> on the waiting list</p>')
+            '<span data-wl-noun="sign-up|sign-ups">sign-ups</span> on the waiting list</p>')
+WL_EARLY = (f'<p class="wl-early">Early access for the waiting list: '
+            f'<time datetime="{CLOSED["projectOnlyUntilUtc"]}">{esc(EARLY).replace(", ", ",&nbsp;").replace(" UTC", "&nbsp;UTC")}</time></p>')
 
 WL_FORM = f"""        <form class="wl-form" data-wl-form novalidate aria-labelledby="wl-form-title">
           <h2 class="wl-card__title" id="wl-form-title">Join the waiting list</h2>
@@ -1283,12 +1287,17 @@ WL_FORM = f"""        <form class="wl-form" data-wl-form novalidate aria-labelle
           </div>
           <div class="field field--check">
             <input id="wl-consent" name="consent" type="checkbox" required aria-describedby="wl-consent-err">
-            <label for="wl-consent">I agree that SWARM stores my email address and SWARM address for this waiting list, as the <a href="/privacy#waiting-list">privacy page</a> describes. I can remove myself at any time.</label>
+            <label for="wl-consent">Put me on the waiting list and tell me by email when my early access starts.</label>
             <p class="field__err" id="wl-consent-err" data-wl-err="consent" hidden></p>
           </div>
+          <div class="field field--check">
+            <input id="wl-news" name="news" type="checkbox">
+            <label for="wl-news">Also send me SWARM project news by email. I can unsubscribe at any time. <span class="field__opt">(optional)</span></label>
+          </div>
+          <p class="field__hint wl-privacy-hint">What we store, and for how long, is on the <a href="/privacy#waiting-list">privacy page</a>. You can remove yourself at any time.</p>
           <div class="hp" aria-hidden="true">
-            <label for="wl-website">Leave this field empty</label>
-            <input id="wl-website" name="website" type="text" tabindex="-1" autocomplete="off">
+            <label for="wl-trap">Do not fill this in</label>
+            <input id="wl-trap" name="trap" type="text" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore>
           </div>
           <div class="wl-actions">
             <button class="btn btn--primary" type="submit" data-wl-submit>Join the waiting list</button>
@@ -1306,6 +1315,8 @@ WL_ME = f"""        <div class="wl-me" data-wl-me hidden>
           <p class="wl-me__label">Your invite link</p>
           <span class="copyrow"><code class="mono" data-wl-link>&mdash;</code><button class="btn btn--ghost btn--sm" type="button" data-copy="" data-wl-copy>Copy<span class="vh"> your invite link</span></button></span>
           <p class="wl-me__rule">{WL_RULE}</p>
+          <p class="wl-me__note" data-wl-news-state></p>
+          <p><button class="btn btn--ghost btn--sm" type="button" data-wl-news-stop hidden>Stop project news</button></p>
           <p class="wl-status" role="status" aria-live="polite" data-wl-me-status></p>
           <div class="wl-remove">
             <button class="btn btn--ghost btn--sm" type="button" data-wl-remove aria-expanded="false" aria-controls="wl-remove-confirm">Remove me from the list</button>
@@ -1327,23 +1338,24 @@ WL_DOWNLOAD = f"""        <div class="wl-open">
 
 waitlist = head(
     "Waiting list for public mining — SWARM",
-    "Join the waiting list for SWARM public mining, which opens on 1 November 2026, 15:42 UTC. People on the list get the node download a short time before everyone else, in leaderboard order. No coins are promised.",
+    "Join the waiting list for SWARM public mining. People on the list get the node download from 31 October 2026, 15:42 UTC, 24 hours before mining opens to everyone on 1 November 2026, 15:42 UTC. No coins are promised.",
     "/waitlist",
     "SWARM — Waiting list for public mining",
-    "Public mining opens on 1 November 2026, 15:42 UTC. Join the list for early access to the node download.",
+    "Public mining opens on 1 November 2026, 15:42 UTC. People on the waiting list get the node download 24 hours earlier.",
 ) + page_head(
     "Waiting list",
     "Waiting list for public mining.",
     ("Public mining is open. People on the waiting list were given the node download first."
      if WL_OPEN else
-     f"SWARM is in its closed start: until {esc(CLOSED['untilLabel'])} only the project&rsquo;s own machines mine. "
-     "Put your name down now, and when public mining opens you get the node download a short time before everyone else."),
+     f"SWARM is in its closed start: until {esc(EARLY)} only the project&rsquo;s own machines mine. "
+     f"Put your name down now: people on the waiting list get the node download from {esc(EARLY)}, "
+     f"24 hours before mining opens to everyone on {esc(OPENS)}."),
     pill="Mainnet · live" if WL_OPEN else "Closed start",
-    extra=("" if WL_OPEN else COUNTDOWN + "\n      " + WL_COUNT),
+    extra=("" if WL_OPEN else COUNTDOWN + "\n      " + WL_EARLY + "\n      " + WL_COUNT),
 ) + f"""
   <section class="band band--cream" data-waitlist>
     <div class="wrap">
-      <p class="note wl-due"><strong>Public mining is opening.</strong> The node download appears on this page as soon as it is published, for the people on the list first. Until then the list stays open.</p>
+      <p class="note wl-due"><strong>Public mining is opening.</strong> The node download appears on this page as soon as it is published. Until then the list stays open.</p>
       <div class="wl-grid">
         <div class="card wl-card" data-reveal>
           <p class="wl-notice" role="status" aria-live="polite" data-wl-notice hidden></p>
@@ -1359,7 +1371,7 @@ waitlist = head(
           <p>{WL_RULE}</p>
           <p>Ties go to whoever joined first. One entry per person: one email address and one SWARM address. Someone who joins from the same internet connection as the person who invited them does not count as an invite.</p>
           <h2>Your email address</h2>
-          <p>We send nothing yet. We will ask you to confirm your email before opening, with one message that also holds a link to remove yourself. What is stored, where and for how long is on the <a href="/privacy#waiting-list">privacy page</a>.</p>
+          <p>We send nothing yet. We will ask you to confirm your email before opening, and we will tell you when your early access starts; every message holds a link to remove yourself. Project news comes only if you tick the second box. What is stored, where and for how long is on the <a href="/privacy#waiting-list">privacy page</a>.</p>
         </div>
       </div>
     </div>
@@ -1442,7 +1454,7 @@ terms = head(
       <p>To the fullest extent allowed by law, the SWARM contributors are not liable for any loss or damage arising from the use of this site or the software it describes.</p>
 
       <h2>The waiting list</h2>
-      <p>A place on the <a href="/waitlist">waiting list for public mining</a> gives early access to the node download and nothing else. It is not a promise of coins, earnings or a price, it is not a purchase, and it gives no claim against anyone. We may remove entries that break the list&rsquo;s rules, such as several entries for one person.</p>
+      <p>A place on the <a href="/waitlist">waiting list for public mining</a> gives early access to the node download, 24 hours before everyone else, and nothing else. It is not a promise of coins, earnings or a price, it is not a purchase, and it gives no claim against anyone. We may remove entries that break the list&rsquo;s rules, such as several entries for one person.</p>
 
       <h2>Your own responsibility</h2>
       <p>Running a node, mining, and holding or paying with SWM use your own computer, your own electricity, your own bandwidth and your own money. Whether that is lawful, taxable and sensible where you live is yours to work out.</p>
@@ -1483,10 +1495,12 @@ privacy = head(
       <p>The site works the same without Google Analytics. Any content blocker stops it. So does blocking <span class="mono">googletagmanager.com</span> and <span class="mono">google-analytics.com</span> in your browser, or Google&rsquo;s own <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">opt-out add-on</a>. You can delete the two cookies at any time in your browser&rsquo;s settings.</p>
 
       <h2 id="waiting-list">The waiting list for public mining</h2>
-      <p>If you join the <a href="/waitlist">waiting list</a>, we store the email address and the SWARM address you type in, the time you joined and agreed to this page, the invite code you used (if any) and whose code it was, your own invite code, and a salted hash of your IP address. The hash is a one-way fingerprint made with a secret key that exists only on our server; we keep it so that one connection cannot fill the list or invite itself. The IP address itself is not stored.</p>
-      <p>We use these details for one thing: running the list. Your invite count and the time you joined decide the order in which the node download goes out when public mining opens, and your email address is how we will reach you then. The public leaderboard shows only the first 8 and last 4 characters of your SWARM address and your invite count, never your email address. You give these details by ticking the consent box; you can take that back at any time by removing yourself.</p>
+      <p>If you join the <a href="/waitlist">waiting list</a>, we store the email address and the SWARM address you type in, the time you joined and agreed to be on the list, the invite code you used (if any) and whose code it was, your own invite code, and a salted hash of your IP address. The hash is a one-way fingerprint made with a secret key that exists only on our server; we keep it so that one connection cannot fill the list or invite itself. The IP address itself is not stored.</p>
+      <p>The form has two boxes, and they are separate. The first is needed to join: with it you agree that we keep these details to run the list and write to you when your early access starts. The second is optional and not ticked unless you tick it: with it you also agree to get SWARM project news by email; we store that choice, and the time you made it, on its own.</p>
+      <p>Your invite count and the time you joined decide the order in which the node download goes out from 31 October 2026, 15:42 UTC. The public leaderboard shows only the first 8 and last 4 characters of your SWARM address and your invite count, never your email address.</p>
       <p>The list is kept on the project&rsquo;s own server, not at Google and not with a mailing service. Your request reaches that server through the site&rsquo;s hosting provider, as every request to this site does (see Server logs below). We do not sell, rent or share the list with anyone. Google Analytics counts a visit to the waiting-list page like a visit to any other page, without the invite code in the page address and without anything you type into the form.</p>
-      <p>To leave, press &ldquo;Remove me from the list&rdquo; on the waiting-list page in the browser you joined with, or write to <a href="mailto:{EMAIL}">{EMAIL}</a> from the email address you joined with. Removal deletes your entry at once: email address, SWARM address, invite code and IP hash. If someone joined with your invite and later removes themselves, your invite count keeps that one as a number and nothing else about them. Backups of the list are kept for 14 days, so a removed entry is gone from them after 14 days at the latest. We delete the whole list once public mining has opened and the early access is over; this page will say when.</p>
+      <p>How long we keep it: if you did not ask for project news, your entry is deleted within 14 days after public mining has opened on 1 November 2026. If you did, we keep your email address and your entry for project news until you remove yourself.</p>
+      <p>To leave, press &ldquo;Remove me from the list&rdquo; on the waiting-list page in the browser you joined with, use the link in any email we send you, or write to <a href="mailto:{EMAIL}">{EMAIL}</a> from the email address you joined with. Your entry is removed from the list at once: email address, SWARM address, invite code and IP hash. Our backups keep it for up to 14 days. If you were counted as someone&rsquo;s invite, that invite no longer counts for them. To stop only the project news, press &ldquo;Stop project news&rdquo; on the same page.</p>
       <p>At the moment we send no email at all. Before public mining opens we will ask you to confirm your email address with a single message, which also holds a link to remove yourself.</p>
 
       <h2>Pages that are not measured</h2>

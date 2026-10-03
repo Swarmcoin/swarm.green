@@ -4,9 +4,10 @@ The website of **SWARM (ticker SWM)**, a privacy coin: a cryptocurrency with its
 own proof-of-work blockchain, on which payments can be shielded so that sender,
 receiver and amount stay encrypted on-chain. Its supply is capped at
 20,999,987.3152 SWM and there was no sale. Its mainnet was restarted from a new
-genesis block on 2 October 2026; until 1 November 2026, 15:42 UTC only the
-project's own machines mine (the closed start), and from then on mining is open
-to everyone. SWARM is built on open-source foundations with
+genesis block on 2 October 2026; until 31 October 2026, 15:42 UTC only the
+project's own machines mine, for the next 24 hours the people on the waiting
+list can mine too (together the 30-day closed start), and from 1 November 2026,
+15:42 UTC mining is open to everyone. SWARM is built on open-source foundations with
 consensus rules and cryptography left unmodified; the components and what each
 is based on are listed in the release repository README
 (github.com/louisinthesubway/swarm-releases).
@@ -389,11 +390,13 @@ its form, counter, leaderboard and "remove me" are `js/site.js` section 5d and
 `css/site.css` section 23, and the home hero carries one link to it with the
 live counter (`index.html`, `.wl-cta`). The data lives in a small service on the
 project's own server, `server/waitlist/` (Python standard library, SQLite; not
-deployed to Vercel, see `.vercelignore`), reached through the same-origin rewrite
-`/api/waitlist/*` in `vercel.json`. `server/waitlist/DEPLOY.md` has the server
+deployed to Vercel, see `.vercelignore`), reached only through the Vercel function `api/waitlist/[...path].js`
+(same origin, shared secret `WAITLIST_PROXY_SECRET`, client address from
+Vercel's own `x-forwarded-for`). `server/waitlist/DEPLOY.md` has the server
 steps and every setting.
 
-- Wording: a place on the list is early access to the node download, in
+- Wording: a place on the list is early access to the node download, from
+  31 October 2026, 15:42 UTC (24 hours before public mining opens), in
   leaderboard order, and nothing else. Never write or imply coins, earnings or a
   price. Invites count one level only (owner rule: no multilevel).
 - `data/network.json` `closedStart.opened` switches the page from the form to the
@@ -401,7 +404,11 @@ steps and every setting.
   `data/downloads.json`. Until then, at zero the countdown says "is opening".
 - Analytics never sees the form: `js/analytics.js` drops the query (`?i=` is an
   invite code) on `/waitlist`, and the page removes it from the address bar.
+- Two consents, never bundled: the required one for the list, an optional one
+  for project news (stored with its own time). Entries without news consent are
+  deleted within 14 days after public mining opens (`purge` CLI, DEPLOY.md).
 - Local test: run the service (DEPLOY.md, "Local development"), then
-  `node tools/preview.mjs 4173 --waitlist=http://127.0.0.1:18080`
+  `WAITLIST_PROXY_SECRET=<same as the service> node tools/preview.mjs 4173 --waitlist=http://127.0.0.1:18080`
+  (the preview runs the real function file)
   (`--waitlist-fake-ips` gives each browser its own made-up address so invites
   between two local browsers count).

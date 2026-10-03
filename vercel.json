@@ -17,8 +17,7 @@
   ],
   "rewrites": [
     { "source": "/data/swarm-map-live.json", "destination": "https://lwd-main.swarm.green/swarm-map-live.json" },
-    { "source": "/data/status.json", "destination": "https://lwd-main.swarm.green/status.json" },
-    { "source": "/api/waitlist/:path*", "destination": "https://lwd-main.swarm.green/waitlist/api/:path*" }
+    { "source": "/data/status.json", "destination": "https://lwd-main.swarm.green/status.json" }
   ],
   "headers": [
     {

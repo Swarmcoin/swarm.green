@@ -13,18 +13,21 @@
  *
  * Usage:  node tools/preview.mjs [port]      (default 4173)
  *
- * Optional, off by default: --waitlist=http://127.0.0.1:8080 forwards
- * /api/waitlist/* to a waiting-list service running locally (server/waitlist),
- * the way the vercel.json rewrite forwards it to the server in production
- * (/api/waitlist/X -> <upstream>/waitlist/api/X), with the browser's address
- * in X-Forwarded-For. --waitlist-fake-ips gives every browser (by User-Agent)
- * its own made-up public address instead, so invites between two local
- * browsers can be tested; never use it for anything but a local test.
+ * Optional, off by default: --waitlist=http://127.0.0.1:8080 runs the
+ * production Vercel function api/waitlist/[...path].js for /api/waitlist/*,
+ * pointed at a waiting-list service running locally (server/waitlist). Like
+ * Vercel, it first replaces X-Forwarded-For with the browser's address. The
+ * shared secret comes from the environment variable WAITLIST_PROXY_SECRET, as
+ * on Vercel (never on the command line). --waitlist-fake-ips gives every
+ * browser (by User-Agent) its own made-up public address instead, so invites
+ * between two local browsers can be tested; never use it for anything but a
+ * local test.
  */
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import { extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 
 const ROOT = resolve(fileURLToPath(new URL("../", import.meta.url)));
 const ARGS = process.argv.slice(2);
@@ -38,35 +41,22 @@ function fakeIp(ua) {
   return `45.${(h >>> 16) & 255}.${(h >>> 8) & 255}.${(h & 255) || 1}`;
 }
 
-async function proxyWaitlist(req, res, pathname, search) {
-  const chunks = [];
-  let size = 0;
-  for await (const chunk of req) {
-    size += chunk.length;
-    if (size > 65536) { res.writeHead(413).end(); return; }
-    chunks.push(chunk);
-  }
-  const headers = { "X-Forwarded-For": FAKE_IPS ? fakeIp(req.headers["user-agent"]) : req.socket.remoteAddress };
-  for (const name of ["content-type", "accept", "origin"]) {
-    if (req.headers[name]) headers[name] = req.headers[name];
-  }
+let waitlistFunction = null;
+if (WAITLIST) {
+  process.env.WAITLIST_UPSTREAM = `${WAITLIST}/waitlist/api/`;
+  waitlistFunction = createRequire(import.meta.url)("../api/waitlist/[...path].js");
+}
+
+async function proxyWaitlist(req, res, pathname) {
+  // What Vercel does before the function runs: X-Forwarded-For becomes the
+  // address Vercel itself saw. Whatever the browser sent is dropped.
+  req.headers["x-forwarded-for"] = FAKE_IPS ? fakeIp(req.headers["user-agent"]) : req.socket.remoteAddress;
+  for (const [key, value] of Object.entries(siteHeaders(pathname))) res.setHeader(key, value);
   try {
-    const upstream = await fetch(`${WAITLIST}/waitlist/api/${pathname.slice("/api/waitlist/".length)}${search}`, {
-      method: req.method,
-      headers,
-      body: ["GET", "HEAD"].includes(req.method) ? undefined : Buffer.concat(chunks),
-      signal: AbortSignal.timeout(12000)
-    });
-    const body = Buffer.from(await upstream.arrayBuffer());
-    res.writeHead(upstream.status, {
-      ...siteHeaders(pathname),
-      "Content-Type": upstream.headers.get("content-type") || "application/json",
-      "Cache-Control": upstream.headers.get("cache-control") || "no-store"
-    });
-    res.end(body);
+    await waitlistFunction(req, res);
   } catch {
-    res.writeHead(502, { "Content-Type": "application/json", "Cache-Control": "no-store" });
-    res.end(JSON.stringify({ error: "The local waiting-list service is not reachable." }));
+    if (!res.headersSent) res.writeHead(502, { "Content-Type": "application/json", "Cache-Control": "no-store" });
+    res.end(JSON.stringify({ error: "The local waiting-list function failed." }));
   }
 }
 
@@ -136,7 +126,7 @@ const server = createServer(async (req, res) => {
   }
 
   if (WAITLIST && pathname.startsWith("/api/waitlist/")) {
-    await proxyWaitlist(req, res, pathname, new URL(req.url, "http://localhost").search);
+    await proxyWaitlist(req, res, pathname);
     return;
   }
 
@@ -194,5 +184,6 @@ const server = createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`swarm.green preview -> http://localhost:${PORT}`);
-  if (WAITLIST) console.log(`/api/waitlist/* -> ${WAITLIST}/waitlist/api/*${FAKE_IPS ? " (made-up client addresses)" : ""}`);
+  if (WAITLIST) console.log(`/api/waitlist/* -> api/waitlist/[...path].js -> ${WAITLIST}/waitlist/api/*`
+    + `${FAKE_IPS ? " (made-up client addresses)" : ""}${process.env.WAITLIST_PROXY_SECRET ? "" : " (WAITLIST_PROXY_SECRET is not set: the function answers 503)"}`);
 });

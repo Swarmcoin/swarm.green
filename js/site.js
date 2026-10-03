@@ -1028,6 +1028,7 @@
     var submit = $("[data-wl-submit]", form);
     var removeBtn = $("[data-wl-remove]", me);
     var removeBox = $("[data-wl-remove-confirm]", me);
+    var newsBtn = $("[data-wl-news-stop]", me);
     var current = null; // { key } while an entry is shown
 
     function say(node, text, isError) {
@@ -1091,6 +1092,10 @@
         : data.mail === "on"
           ? "We have sent you an email. Open the link in it to confirm your address; until then you do not count as anyone's invite."
           : "We will ask you to confirm your email before opening.";
+      newsBtn.hidden = !(current && data.news);
+      $("[data-wl-news-state]", me).textContent = data.news
+        ? "You also asked for SWARM project news by email."
+        : "You get no project news; we will write to you about your early access only.";
       removeBtn.hidden = !current;
       removeBox.hidden = true;
       removeBtn.setAttribute("aria-expanded", "false");
@@ -1127,7 +1132,7 @@
       }
       if (!address) { fieldError("address", "Enter your SWARM address."); first = first || "address"; }
       if (!form.elements.consent.checked) {
-        fieldError("consent", "Tick the box to agree that we store your email and SWARM address for the waiting list.");
+        fieldError("consent", "Tick the first box to join the waiting list.");
         first = first || "consent";
       }
       if (first) { form.elements[first].focus(); return; }
@@ -1139,28 +1144,35 @@
         address: address,
         invite: form.elements.invite.value.trim() || undefined,
         consent: true,
-        website: form.elements.website.value
+        news: form.elements.news.checked,
+        trap: form.elements.trap.value
       }).then(function (res) {
         submit.disabled = false;
         say(status, "");
-        if (res.key) wlStore(WL_KEY, { key: res.key });
-        showMe(res, res.created ? res.key : null, true);
-        if (res.created) {
-          say(meStatus, inviteNote(res.invite));
-        } else {
-          // The key is only ever handed out once. If this browser holds the
-          // key of this very entry, "Remove me" works here too.
-          say(meStatus, "You were already on the list with these details. To remove yourself, use the browser you joined with, or write to us by email.");
+        if (res.alreadyJoined) {
+          // The service tells someone who types the same details again only
+          // the place. If this browser holds the key of that very entry, show
+          // the entry; otherwise say where the rest can be found.
+          var place = isCount(res.position) ? nf.format(res.position) : "\u2014";
           var saved = wlStore(WL_KEY);
+          var told = "You are already on the list, at place " + place + ". Your invite link and the \u201cRemove me\u201d button are in the browser you joined with.";
           if (saved && typeof saved.key === "string") {
             wlPost("me", { key: saved.key }).then(function (d) {
-              if (d.inviteCode !== res.inviteCode) return;
-              current = { key: saved.key };
-              removeBtn.hidden = false;
-              say(meStatus, "You were already on the list with these details.");
-            }, function () { /* not this entry */ });
+              if (d.position === res.position) {
+                showMe(d, saved.key, true);
+                say(meStatus, "You are already on the list.");
+              } else {
+                say(status, told);
+              }
+            }, function () { say(status, told); });
+          } else {
+            say(status, told);
           }
+          return;
         }
+        if (res.key) wlStore(WL_KEY, { key: res.key });
+        showMe(res, res.key || null, true);
+        say(meStatus, inviteNote(res.invite));
         wlCount(true);
         wlBoard(true);
       }, function (err) {
@@ -1175,6 +1187,17 @@
           if (firstBad) { form.elements[firstBad].focus(); return; }
         }
         say(status, err.status ? err.message : "The waiting list could not be reached just now. Please try again in a moment.", true);
+      });
+    });
+
+    newsBtn.addEventListener("click", function () {
+      if (!current) return;
+      wlPost("news", { key: current.key, news: false }).then(function () {
+        newsBtn.hidden = true;
+        $("[data-wl-news-state]", me).textContent = "You get no project news; we will write to you about your early access only.";
+        say(meStatus, "Project news stopped. You stay on the waiting list.");
+      }, function () {
+        say(meStatus, "That did not work just now. Please try again in a moment.", true);
       });
     });
 

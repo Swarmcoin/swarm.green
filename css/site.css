@@ -2202,6 +2202,9 @@ html:not(.js) .wl-me { display: none !important; }
   font-variant-numeric: tabular-nums;
 }
 .wl-count__n { color: var(--comb); }
+.wl-early { margin: .45rem 0 0; font-family: var(--font-mono); font-size: .82rem; font-weight: 500; color: var(--pollen); }
+.wl-early time { color: var(--comb); white-space: nowrap; }
+.wl-card .wl-privacy-hint { margin-top: 1rem; }
 
 .wl-due { display: none; margin-bottom: clamp(1.4rem, 3vw, 2rem); }
 .is-mining-due .wl-due { display: block; }

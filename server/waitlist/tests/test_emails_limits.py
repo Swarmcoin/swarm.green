@@ -30,44 +30,15 @@ class Emails(unittest.TestCase):
         self.assertEqual(emails.canonical("+x@example.com"), "+x@example.com")
 
 
-TRUSTED = limits.parse_networks(["private_ranges"])
-
-
 class ClientIp(unittest.TestCase):
-    def test_untrusted_peer_header_is_ignored(self):
-        self.assertEqual(limits.client_ip("8.8.4.4", "1.1.1.1", TRUSTED), "8.8.4.4")
+    def test_parse_one_address(self):
+        self.assertEqual(limits.parse_client_ip("93.184.216.34"), "93.184.216.34")
+        self.assertEqual(limits.parse_client_ip(" 2a00:1450::1 "), "2a00:1450::1")
+        self.assertEqual(limits.parse_client_ip("::ffff:8.8.8.8"), "8.8.8.8")
 
-    def test_trusted_peer_leftmost_public(self):
-        # Vercel puts the visitor first; each Caddy hop appends its peer.
-        self.assertEqual(limits.client_ip("172.18.0.5", "93.184.216.34, 76.76.21.21, 172.19.0.2", TRUSTED),
-                         "93.184.216.34")
-
-    def test_leftmost_skips_private_and_junk(self):
-        self.assertEqual(limits.client_ip("10.0.0.2", "unknown, 192.168.1.4, 2a00:1450:4001::1, 8.8.8.8", TRUSTED),
-                         "2a00:1450:4001::1")
-
-    def test_no_public_entry_falls_back_to_peer(self):
-        self.assertEqual(limits.client_ip("10.0.0.2", "192.168.1.4", TRUSTED), "10.0.0.2")
-
-    def test_rightmost_untrusted(self):
-        self.assertEqual(limits.client_ip("10.0.0.2", "1.2.3.4, 93.184.216.34, 10.0.0.9", TRUSTED,
-                                          "rightmost-untrusted"), "93.184.216.34")
-
-    def test_peer_mode(self):
-        self.assertEqual(limits.client_ip("10.0.0.2", "8.8.8.8", TRUSTED, "peer"), "10.0.0.2")
-
-    def test_ports_brackets_and_mapped(self):
-        self.assertEqual(limits.client_ip("::ffff:10.0.0.2", "[2a00:1450::1]:443", TRUSTED), "2a00:1450::1")
-        self.assertEqual(limits.client_ip("127.0.0.1", "8.8.8.8:5555", TRUSTED), "8.8.8.8")
-
-    def test_custom_trusted_list(self):
-        nets = limits.parse_networks(["203.0.113.0/24"])
-        self.assertEqual(limits.client_ip("203.0.113.9", "8.8.8.8", nets), "8.8.8.8")
-        self.assertEqual(limits.client_ip("10.0.0.1", "8.8.8.8", nets), "10.0.0.1")
-
-    def test_forwarded_info_reveals_no_address(self):
-        info = limits.forwarded_info("10.0.0.2", "8.8.8.8, 10.0.0.3", TRUSTED)
-        self.assertEqual(info, {"forwardedHeaderUsed": True, "forwardedEntries": 2, "publicEntries": 1})
+    def test_lists_ports_and_junk_are_refused(self):
+        for bad in (None, "", "1.1.1.1, 8.8.8.8", "8.8.8.8:443", "[2a00::1]:443", "unknown", "x" * 100, 5):
+            self.assertIsNone(limits.parse_client_ip(bad))
 
 
 class IpHash(unittest.TestCase):
@@ -106,6 +77,23 @@ class Limiter(unittest.TestCase):
 
     def test_zero_disables_a_rule(self):
         self.assertTrue(all(self.rl.hit([("k", 0, 60)]) for _ in range(100)))
+
+    def test_peek_records_nothing_and_record_counts(self):
+        rule = [("g", 1, 60)]
+        self.assertIsNone(self.rl.peek(rule))
+        self.assertIsNone(self.rl.peek(rule))
+        self.rl.record(rule)
+        self.assertEqual(self.rl.peek(rule), "g")
+
+    def test_table_is_bounded_and_evicts_the_oldest(self):
+        rl = limits.RateLimiter(clock=lambda: self.t, max_keys=3)
+        for k in ("a", "b", "c"):
+            rl.hit([(k, 1, 60)])
+        self.assertFalse(rl.hit([("a", 1, 60)]))   # a is used again: now the newest
+        rl.hit([("d", 1, 60)])                      # evicts b, the least recently used
+        self.assertEqual(len(rl), 3)
+        self.assertTrue(rl.hit([("b", 1, 60)]))     # b was forgotten
+        self.assertFalse(rl.hit([("d", 1, 60)]))
 
     def test_keys_are_separate(self):
         self.assertTrue(self.rl.hit([("a", 1, 60)]))

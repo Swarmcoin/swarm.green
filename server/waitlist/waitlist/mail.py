@@ -28,11 +28,13 @@ To remove yourself from the list, with your email and SWARM address, open this l
 {remove_url}
 
 If you did not ask for this, use the second link or ignore this message. An
-entry that is not confirmed does not count on the leaderboard.
+entry that is not confirmed does not count on the leaderboard. If several
+entries were made with this email address, the first one confirmed keeps it
+and the others are removed.
 
-A place on the list means early access: the node download a short time before
-everyone else, in leaderboard order. It is not a promise of coins, earnings or
-a price.
+A place on the list means early access: the node download from
+31 October 2026, 15:42 UTC, in leaderboard order during that day, 24 hours
+before everyone else. It is not a promise of coins, earnings or a price.
 
 SWARM
 https://swarm.green

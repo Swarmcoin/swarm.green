@@ -1,26 +1,13 @@
-"""Client address behind proxies, salted IP hashing and in-memory rate limits.
+"""The client address, salted IP hashing and in-memory rate limits.
 
 The client address
 ------------------
-Production path: browser -> Vercel (rewrite) -> the server's Caddy (two hops)
--> this container. Only a request whose direct peer is a trusted proxy
-(WAITLIST_TRUSTED_PROXIES, CIDRs or the keyword ``private_ranges``) has its
-X-Forwarded-For read at all; anything else is identified by its peer address.
-
-WAITLIST_CLIENT_IP chooses how the header is read:
-
-``leftmost-public`` (default)
-    The left-most entry that is a valid public address. Vercel replaces
-    X-Forwarded-For with the address it saw, and each Caddy hop appends, so
-    the left-most public entry is the visitor. A request that bypasses Vercel
-    and talks to Caddy directly can put anything there, so per-IP limits are
-    a speed bump, not a wall; the global limit still holds.
-``rightmost-untrusted``
-    Walk from the right and take the first entry that is not itself a trusted
-    proxy: the classic spoof-resistant reading, correct only when every hop
-    (including Vercel) is listed as trusted.
-``peer``
-    Ignore the header.
+The service is reached only through the Vercel function
+api/waitlist/[...path].js on swarm.green. That function sends the visitor's
+address, as Vercel itself determined it, in X-Waitlist-Client-Ip, together with
+the shared secret X-Waitlist-Proxy-Secret. web.py believes the address only
+when the secret matched; X-Forwarded-For is never read. A request without a
+usable address falls into one shared "unknown" bucket.
 
 IPv6 addresses are reduced to their /64 network before hashing, because one
 household or phone usually holds a whole /64.
@@ -34,68 +21,21 @@ import ipaddress
 import threading
 import time
 
-PRIVATE_RANGES = ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16",
-                  "169.254.0.0/16", "100.64.0.0/10", "::1/128", "fc00::/7", "fe80::/10"]
 
-
-def parse_networks(items):
-    nets = []
-    for item in items:
-        if item == "private_ranges":
-            nets.extend(ipaddress.ip_network(n) for n in PRIVATE_RANGES)
-        else:
-            nets.append(ipaddress.ip_network(item, strict=False))
-    return nets
-
-
-def _ip(text):
-    text = (text or "").strip().strip('"')
-    if text.startswith("[") and "]" in text:          # [v6]:port
-        text = text[1:text.index("]")]
-    elif text.count(":") == 1 and "." in text:          # v4:port
-        text = text.split(":", 1)[0]
+def parse_client_ip(text):
+    """One IP address (v4 or v6; an IPv4-mapped v6 becomes v4) or None."""
+    if not isinstance(text, str):
+        return None
+    text = text.strip()
+    if not text or len(text) > 64:
+        return None
     try:
         ip = ipaddress.ip_address(text)
     except ValueError:
         return None
     if isinstance(ip, ipaddress.IPv6Address) and ip.ipv4_mapped:
         ip = ip.ipv4_mapped
-    return ip
-
-
-def _in(ip, nets):
-    return any(ip.version == n.version and ip in n for n in nets)
-
-
-def client_ip(peer, xff, trusted, mode="leftmost-public"):
-    """The client's address as a string, following the rules above."""
-    peer_ip = _ip(peer)
-    if peer_ip is None:
-        return None
-    if mode == "peer" or not xff or not _in(peer_ip, trusted):
-        return str(peer_ip)
-    chain = [_ip(p) for p in xff.split(",")]
-    if mode == "leftmost-public":
-        for ip in chain:
-            if ip is not None and ip.is_global:
-                return str(ip)
-        return str(peer_ip)
-    # rightmost-untrusted
-    for ip in reversed(chain):
-        if ip is None:
-            return str(peer_ip)
-        if not _in(ip, trusted):
-            return str(ip)
-    return str(peer_ip)
-
-
-def forwarded_info(peer, xff, trusted):
-    """Non-identifying facts for /healthz: was the header used, and how long it is."""
-    peer_ip = _ip(peer)
-    used = bool(xff) and peer_ip is not None and _in(peer_ip, trusted)
-    entries = [p for p in (xff or "").split(",") if p.strip()]
-    public = sum(1 for p in entries if (_ip(p) is not None and _ip(p).is_global))
-    return {"forwardedHeaderUsed": used, "forwardedEntries": len(entries), "publicEntries": public}
+    return str(ip)
 
 
 def ip_hash(ip, salt):
@@ -112,43 +52,60 @@ def ip_hash(ip, salt):
 
 class RateLimiter:
     """Sliding windows kept in memory: a restart forgets them, which is fine
-    for a waiting list. ``hit`` records the attempt only when it is allowed."""
+    for a waiting list. The table holds at most ``max_keys`` keys; when full,
+    the key used least recently is dropped first."""
 
-    def __init__(self, clock=time.monotonic):
+    def __init__(self, clock=time.monotonic, max_keys=50000):
         self._clock = clock
         self._lock = threading.Lock()
-        self._hits = collections.defaultdict(collections.deque)
-        self._last_sweep = clock()
+        self._hits = collections.OrderedDict()
+        self.max_keys = max_keys
 
-    def hit(self, rules):
-        """rules: [(key, limit, window_seconds)]. True when every rule allows."""
-        return self.check(rules) is None
+    def _queue(self, key, window, now):
+        k = (key, window)
+        q = self._hits.get(k)
+        if q is None:
+            q = collections.deque()
+            self._hits[k] = q
+            while len(self._hits) > self.max_keys:
+                self._hits.popitem(last=False)
+        else:
+            self._hits.move_to_end(k)
+        while q and q[0] <= now - window:
+            q.popleft()
+        return q
 
-    def check(self, rules):
-        """None when every rule allows (and the attempt is recorded under all
-        of them), otherwise the key of the first rule that refuses."""
+    def peek(self, rules):
+        """The key of the first rule that would refuse, or None. Records nothing."""
         now = self._clock()
         with self._lock:
-            self._sweep(now)
             for key, limit, window in rules:
-                if limit <= 0:
-                    continue
-                q = self._hits[(key, window)]
-                while q and q[0] <= now - window:
-                    q.popleft()
-                if len(q) >= limit:
+                if limit > 0 and len(self._queue(key, window, now)) >= limit:
+                    return key
+            return None
+
+    def record(self, rules):
+        now = self._clock()
+        with self._lock:
+            for key, limit, window in rules:
+                if limit > 0:
+                    self._queue(key, window, now).append(now)
+
+    def check(self, rules):
+        """None when every rule allows (and the attempt is then recorded under
+        all of them), otherwise the key of the first rule that refuses."""
+        now = self._clock()
+        with self._lock:
+            for key, limit, window in rules:
+                if limit > 0 and len(self._queue(key, window, now)) >= limit:
                     return key
             for key, limit, window in rules:
                 if limit > 0:
-                    self._hits[(key, window)].append(now)
+                    self._queue(key, window, now).append(now)
             return None
 
-    def _sweep(self, now):
-        if now - self._last_sweep < 300:
-            return
-        self._last_sweep = now
-        for (key, window), q in list(self._hits.items()):
-            while q and q[0] <= now - window:
-                q.popleft()
-            if not q:
-                del self._hits[(key, window)]
+    def hit(self, rules):
+        return self.check(rules) is None
+
+    def __len__(self):
+        return len(self._hits)

@@ -1,18 +1,18 @@
 {
  "/": {
-  "sha256": "534a7df39da1a466daa8f26d0f6af0c6a333218e15e7dc0061fa22899562981e",
+  "sha256": "45e024321d440fda66cbbb3fd7a07d049bb1cab551b0f2c2e580bd774f858928",
   "lastmod": "2026-10-03"
  },
  "/what-is-swarm": {
-  "sha256": "820df3e02cb0d0b888358edab3c250987920dbd8a24acc65a211bd210837490f",
+  "sha256": "6ec42a7b336b430af432a3ad3a177c44f54c6ec74193cc897178956a55a1315c",
   "lastmod": "2026-10-03"
  },
  "/network": {
-  "sha256": "a38b41afaa015548341cb41401cf8bf6770bcb99272e260fda82adf1d997a4d2",
+  "sha256": "0386a279a41e787ab6a65ef7c5bf3102a794e8910f9339c897a6976e6bd11992",
   "lastmod": "2026-10-03"
  },
  "/verify": {
-  "sha256": "a03944ffe8020097e097cee157b3f584e8702ec3f69323ecd975378c4f2401e7",
+  "sha256": "3d1a1e077764899c286f254b993d2903a531c88a243be8a6fe45f0d653facf58",
   "lastmod": "2026-10-03"
  },
  "/join": {
@@ -20,7 +20,7 @@
   "lastmod": "2026-10-03"
  },
  "/waitlist": {
-  "sha256": "61b90aff8d71f6c6d2bdc72d87a9de7fdda7f816f79c2780fbe64765ea61106a",
+  "sha256": "6e414140350ed7bd237fc7677ebfdd25f6c67d48c5f2ba342d7299a9bde8ffd5",
   "lastmod": "2026-10-03"
  },
  "/ecosystem": {
@@ -40,7 +40,7 @@
   "lastmod": "2026-10-03"
  },
  "/roadmap": {
-  "sha256": "c036b8995dcbfc928322f3b1c0d34dfd85d2b46ba951fb48415b638d515c0baa",
+  "sha256": "e3ff5d3fb501025f42bfd5d54f572a3c2eda440dfbfdb13d245ede3b90655e3d",
   "lastmod": "2026-10-03"
  },
  "/support": {
@@ -52,11 +52,11 @@
   "lastmod": "2026-10-03"
  },
  "/terms": {
-  "sha256": "17cef4f17363e5553313aa5fa2939d49ec639d4f419250548c79fd92587ffbb6",
+  "sha256": "a4b9c7f6ce479b651a49dad40131f202aa0fae28f7266d75c910aea74d663444",
   "lastmod": "2026-10-03"
  },
  "/privacy": {
-  "sha256": "581bbae5998dc6df5dfb3b7a75fcbb04eafab39b3390f82ba3a3070ea809c5c0",
+  "sha256": "b4bd96c20bf14a04b8b139ec6b538b29b3c640aa9795ee82e64b06cdd197b0a6",
   "lastmod": "2026-10-03"
  },
  "/wallet/notices": {

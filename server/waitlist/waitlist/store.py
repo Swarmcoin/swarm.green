@@ -1,5 +1,5 @@
-"""SQLite storage: migrations, the join/confirm/delete rules, ranking, backup
-and export. Standard library only.
+"""SQLite storage: migrations, the join/confirm/delete rules, ranking, purge,
+backup and export. Standard library only.
 
 Ranking: position = order by (invites desc, joined asc, id asc).
 
@@ -7,9 +7,15 @@ Invites, one level only: an entry counts for the entry whose invite code it
 used (its direct inviter) and for nobody else; invites of invites are never
 counted. It counts exactly once, and never for the inviter itself: an entry
 with the inviter's email mailbox, address or IP hash does not count. While
-mail confirmation is on, only confirmed entries count. A counted entry that
-later removes itself stays in its inviter's count as a bare number
-(invite_departed); nothing else of it is kept.
+mail confirmation is on, only confirmed entries count. An invite that is
+removed from the list no longer counts: the count is always the number of
+live, eligible invitees.
+
+Email ownership: with mail off, the first entry for a mailbox owns it. With
+mail on, an unconfirmed entry does not own its email: another entry may be
+created with the same email (and its own address), and the first of them to
+confirm keeps the email; the other unconfirmed holders are then removed,
+together with the invites they had collected.
 """
 from __future__ import annotations
 
@@ -19,12 +25,14 @@ import glob
 import hashlib
 import hmac
 import os
+import re
 import secrets
 import sqlite3
 import threading
 
 CODE_ALPHABET = "23456789ABCDEFGHJKMNPQRSTUVWXYZ"  # no 0/O, 1/I/L
 CODE_LEN = 10
+_SECRET_RE = re.compile(r"^[A-Za-z0-9_-]{16,64}$")
 
 
 class Conflict(Exception):
@@ -36,7 +44,11 @@ def now_utc():
 
 
 def sha256_hex(text):
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return hashlib.sha256(text.encode("ascii")).hexdigest()
+
+
+def well_formed_secret(value):
+    return isinstance(value, str) and bool(_SECRET_RE.match(value))
 
 
 def new_key():
@@ -66,7 +78,7 @@ WITH counted AS (
 ),
 ranked AS (
     SELECT e.id, e.address, e.joined_utc, e.invite_code, e.confirmed_utc,
-           e.invite_departed + COALESCE(c.n, 0) AS invites
+           COALESCE(c.n, 0) AS invites
       FROM entries e LEFT JOIN counted c ON c.id = e.id
 )
 SELECT id, address, joined_utc, invite_code, confirmed_utc, invites,
@@ -88,18 +100,19 @@ class Store:
         conn.row_factory = sqlite3.Row
         conn.execute("PRAGMA foreign_keys = ON")
         conn.execute("PRAGMA busy_timeout = 10000")
+        conn.execute("PRAGMA secure_delete = ON")
         return conn
 
     def migrate(self):
         """Applies every migrations/NNNN_*.sql not applied yet, in order."""
         os.makedirs(os.path.dirname(os.path.abspath(self.path)), exist_ok=True)
         conn = self.connect()
+        applied = []
         try:
             conn.execute("PRAGMA journal_mode = WAL")
             conn.execute("CREATE TABLE IF NOT EXISTS schema_migrations "
                          "(version TEXT PRIMARY KEY, applied_utc TEXT NOT NULL)")
             done = {r[0] for r in conn.execute("SELECT version FROM schema_migrations")}
-            applied = []
             for file in sorted(glob.glob(os.path.join(self.migrations_dir, "*.sql"))):
                 version = os.path.basename(file).split("_", 1)[0]
                 if version in done:
@@ -127,6 +140,17 @@ class Store:
 
     def _params(self):
         return {"mail_on": 1 if self.mail_on else 0}
+
+    def _tx(self, conn, fn):
+        with self._write:
+            conn.execute("BEGIN IMMEDIATE")
+            try:
+                result = fn()
+                conn.execute("COMMIT")
+                return result
+            except BaseException:
+                conn.execute("ROLLBACK")
+                raise
 
     # ------------------------------------------------------------ reads
     def total(self, conn=None):
@@ -160,7 +184,7 @@ class Store:
         return self.ranking(limit=size)
 
     def _by_key(self, conn, key):
-        if not isinstance(key, str) or not 16 <= len(key) <= 64:
+        if not well_formed_secret(key):
             return None
         want = sha256_hex(key)
         row = conn.execute("SELECT * FROM entries WHERE key_hash = ?", (want,)).fetchone()
@@ -178,42 +202,39 @@ class Store:
             return {"position": ranked["position"], "invites": ranked["invites"],
                     "inviteCode": row["invite_code"], "joinedUtc": row["joined_utc"][:10],
                     "confirmed": row["confirmed_utc"] is not None,
+                    "news": row["news_consent_utc"] is not None,
                     "total": self.total(conn)}
         finally:
             conn.close()
 
     # ------------------------------------------------------------ writes
-    def join(self, email, email_canon, address, invite_code, ip_hash):
-        """Adds a person, or returns their existing entry when the same email
+    def join(self, email, email_canon, address, invite_code, ip_hash, news=False):
+        """Adds a person, or reports their existing entry when the same email
         mailbox and address come again. Raises Conflict when either is already
-        used with a different partner."""
+        used with a different partner (see the module notes on ownership)."""
         code = normalise_code(invite_code) if invite_code else None
         conn = self.connect()
         try:
-            with self._write:
-                conn.execute("BEGIN IMMEDIATE")
-                try:
-                    result = self._join(conn, email, email_canon, address, code,
-                                        bool(invite_code), ip_hash)
-                    conn.execute("COMMIT")
-                except BaseException:
-                    conn.execute("ROLLBACK")
-                    raise
+            result = self._tx(conn, lambda: self._join(conn, email, email_canon, address, code,
+                                                       bool(invite_code), ip_hash, bool(news)))
             ranked = self._ranked_one(conn, result["id"])
-            result.update(position=ranked["position"], invites=ranked["invites"],
-                          total=self.total(conn))
+            result.update(position=ranked["position"], invites=ranked["invites"], total=self.total(conn))
             return result
         finally:
             conn.close()
 
-    def _join(self, conn, email, email_canon, address, code, code_given, ip_hash):
-        by_mail = conn.execute("SELECT * FROM entries WHERE email_canon = ?", (email_canon,)).fetchone()
+    def _join(self, conn, email, email_canon, address, code, code_given, ip_hash, news):
         by_addr = conn.execute("SELECT * FROM entries WHERE address = ?", (address,)).fetchone()
-        if by_mail is not None or by_addr is not None:
-            if by_mail is not None and by_addr is not None and by_mail["id"] == by_addr["id"]:
-                return {"id": by_mail["id"], "created": False, "inviteCode": by_mail["invite_code"],
-                        "invite": "unchanged", "confirmed": by_mail["confirmed_utc"] is not None}
+        if by_addr is not None:
+            if by_addr["email_canon"] == email_canon:
+                return {"id": by_addr["id"], "created": False}
             raise Conflict()
+        holders = conn.execute("SELECT confirmed_utc FROM entries WHERE email_canon = ?", (email_canon,)).fetchall()
+        if holders:
+            # Mail off: the first entry owns the mailbox. Mail on: only a
+            # confirmed entry owns it; unconfirmed ones wait for confirmation.
+            if not self.mail_on or any(h["confirmed_utc"] is not None for h in holders):
+                raise Conflict()
 
         inviter = None
         if code:
@@ -238,53 +259,90 @@ class Store:
             raise RuntimeError("could not find a free invite code")
         cur = conn.execute(
             "INSERT INTO entries (email, email_canon, address, key_hash, invite_code, invited_by, "
-            "invite_eligible, ip_hash, joined_utc, consent_utc, confirm_token_hash) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "invite_eligible, ip_hash, joined_utc, consent_utc, news_consent_utc, confirm_token_hash) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (email, email_canon, address, sha256_hex(key), mine,
              inviter["id"] if inviter is not None else None, eligible, ip_hash, stamp, stamp,
-             sha256_hex(token) if token else None))
+             stamp if news else None, sha256_hex(token) if token else None))
         return {"id": cur.lastrowid, "created": True, "inviteCode": mine, "key": key,
-                "confirmToken": token, "invite": invite_state, "confirmed": False}
+                "confirmToken": token, "invite": invite_state, "confirmed": False, "news": news}
 
     def confirm(self, token):
-        if not isinstance(token, str) or not 16 <= len(token) <= 64:
-            return False
+        """Marks the entry confirmed. Other UNCONFIRMED entries with the same
+        mailbox are removed (with their invites). Returns the number of entries
+        removed that way, or None for an unknown token."""
+        if not well_formed_secret(token):
+            return None
         want = sha256_hex(token)
         conn = self.connect()
+
+        def work():
+            row = conn.execute("SELECT id, email_canon, confirm_token_hash FROM entries "
+                               "WHERE confirm_token_hash = ?", (want,)).fetchone()
+            if row is None or not hmac.compare_digest(row["confirm_token_hash"], want):
+                return None
+            conn.execute("UPDATE entries SET confirmed_utc = ?, confirm_token_hash = NULL WHERE id = ?",
+                         (now_utc(), row["id"]))
+            cur = conn.execute("DELETE FROM entries WHERE email_canon = ? AND id != ? AND confirmed_utc IS NULL",
+                               (row["email_canon"], row["id"]))
+            return cur.rowcount
+
         try:
-            with self._write:
-                conn.execute("BEGIN IMMEDIATE")
-                row = conn.execute("SELECT id, confirm_token_hash FROM entries WHERE confirm_token_hash = ?",
-                                   (want,)).fetchone()
-                if row is None or not hmac.compare_digest(row["confirm_token_hash"], want):
-                    conn.execute("ROLLBACK")
-                    return False
-                conn.execute("UPDATE entries SET confirmed_utc = ?, confirm_token_hash = NULL WHERE id = ?",
-                             (now_utc(), row["id"]))
-                conn.execute("COMMIT")
-                return True
+            return self._tx(conn, work)
         finally:
             conn.close()
 
     def delete(self, key):
-        """Removes the entry and everything personal in it. If it was counted
-        for its inviter, the inviter keeps that one as a number."""
+        """Removes the entry and everything personal in it. An invite it was
+        counted as stops counting."""
         conn = self.connect()
+
+        def work():
+            row = self._by_key(conn, key)
+            if row is None:
+                return False
+            conn.execute("DELETE FROM entries WHERE id = ?", (row["id"],))
+            return True
+
         try:
-            with self._write:
-                conn.execute("BEGIN IMMEDIATE")
-                row = self._by_key(conn, key)
-                if row is None:
-                    conn.execute("ROLLBACK")
-                    return False
-                counted = (row["invited_by"] is not None and row["invite_eligible"] == 1
-                           and (not self.mail_on or row["confirmed_utc"] is not None))
-                if counted:
-                    conn.execute("UPDATE entries SET invite_departed = invite_departed + 1 WHERE id = ?",
-                                 (row["invited_by"],))
-                conn.execute("DELETE FROM entries WHERE id = ?", (row["id"],))
-                conn.execute("COMMIT")
-                return True
+            return self._tx(conn, work)
+        finally:
+            conn.close()
+
+    def stop_news(self, key):
+        """Withdraws the optional consent to project news; the entry stays."""
+        conn = self.connect()
+
+        def work():
+            row = self._by_key(conn, key)
+            if row is None:
+                return False
+            conn.execute("UPDATE entries SET news_consent_utc = NULL WHERE id = ?", (row["id"],))
+            return True
+
+        try:
+            return self._tx(conn, work)
+        finally:
+            conn.close()
+
+    def purge_without_news_consent(self, before_utc, dry_run=True):
+        """Entries without news consent that joined before ``before_utc``
+        (ISO date or timestamp): counted, and deleted unless dry_run."""
+        conn = self.connect()
+
+        def work():
+            n = conn.execute("SELECT COUNT(*) FROM entries WHERE news_consent_utc IS NULL AND joined_utc < ?",
+                             (before_utc,)).fetchone()[0]
+            if not dry_run and n:
+                conn.execute("DELETE FROM entries WHERE news_consent_utc IS NULL AND joined_utc < ?",
+                             (before_utc,))
+            return n
+
+        try:
+            n = self._tx(conn, work)
+            if not dry_run and n:
+                conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+            return n
         finally:
             conn.close()
 
@@ -292,7 +350,7 @@ class Store:
     def backup(self, dest_dir, keep=14):
         """A consistent copy through SQLite's online backup API, then rotation."""
         os.makedirs(dest_dir, mode=0o700, exist_ok=True)
-        stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
         target = os.path.join(dest_dir, f"waitlist-{stamp}.sqlite3")
         src = self.connect()
         fd = os.open(target, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
@@ -304,36 +362,42 @@ class Store:
             dst.close()
             src.close()
         os.chmod(target, 0o600)
-        files = sorted(glob.glob(os.path.join(dest_dir, "waitlist-*.sqlite3")))
-        removed = files[:-keep] if keep > 0 else []
-        for old in removed:
-            os.remove(old)
-        return target, removed
+        return target, _rotate(dest_dir, "waitlist-*.sqlite3", keep)
 
-    def export(self, dest_dir):
-        """CSV for the operator: email, address, joined, confirmed, invites,
-        position. Mode 0600. Cells that a spreadsheet would run as a formula
-        are prefixed with a quote."""
+    def export(self, dest_dir, keep=5):
+        """CSV for the operator: email, address, joined, confirmed,
+        news_consent, invites, position. Mode 0600, newest ``keep`` kept.
+        Cells a spreadsheet would run as a formula get a leading quote."""
         os.makedirs(dest_dir, mode=0o700, exist_ok=True)
-        stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
         target = os.path.join(dest_dir, f"waitlist-{stamp}.csv")
         conn = self.connect()
         try:
             ranked = {r["id"]: r for r in self.ranking(conn)}
-            rows = conn.execute("SELECT id, email, address, joined_utc, confirmed_utc FROM entries").fetchall()
+            rows = conn.execute("SELECT id, email, address, joined_utc, confirmed_utc, news_consent_utc "
+                                "FROM entries").fetchall()
         finally:
             conn.close()
         rows = sorted(rows, key=lambda r: ranked[r["id"]]["position"])
         fd = os.open(target, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
         with os.fdopen(fd, "w", encoding="utf-8", newline="") as fh:
             out = csv.writer(fh)
-            out.writerow(["email", "address", "joined", "confirmed", "invites", "position"])
+            out.writerow(["email", "address", "joined", "confirmed", "news_consent", "invites", "position"])
             for r in rows:
                 rk = ranked[r["id"]]
                 out.writerow([_cell(r["email"]), _cell(r["address"]), r["joined_utc"],
-                              r["confirmed_utc"] or "", rk["invites"], rk["position"]])
+                              r["confirmed_utc"] or "", r["news_consent_utc"] or "",
+                              rk["invites"], rk["position"]])
         os.chmod(target, 0o600)
-        return target, len(rows)
+        return target, len(rows), _rotate(dest_dir, "waitlist-*.csv", keep)
+
+
+def _rotate(folder, pattern, keep):
+    files = sorted(glob.glob(os.path.join(folder, pattern)))
+    removed = files[:-keep] if keep > 0 else []
+    for old in removed:
+        os.remove(old)
+    return removed
 
 
 def _cell(value):

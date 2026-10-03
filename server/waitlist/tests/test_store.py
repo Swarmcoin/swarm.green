@@ -29,8 +29,8 @@ class Base(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.dir, ignore_errors=True)
 
-    def join(self, email, invite=None, ip="ip-" + "0" * 8, address=None):
-        return self.store.join(email, canonical(email), address or ua(), invite, ip)
+    def join(self, email, invite=None, ip="ip-" + "0" * 8, address=None, news=False):
+        return self.store.join(email, canonical(email), address or ua(), invite, ip, news=news)
 
     def invites_of(self, entry):
         return {r["id"]: r for r in self.store.ranking()}[entry["id"]]["invites"]
@@ -71,8 +71,8 @@ class Joining(Base):
         again = self.join("A@Example.com".lower(), address=addr)
         self.assertFalse(again["created"])
         self.assertNotIn("key", again)
-        self.assertEqual(again["inviteCode"], first["inviteCode"])
-        self.assertEqual(again["total"], 1)
+        self.assertNotIn("inviteCode", again)
+        self.assertEqual((again["position"], again["total"]), (1, 1))
 
     def test_plus_tag_is_the_same_person(self):
         addr = ua()
@@ -137,7 +137,7 @@ class OneLevel(Base):
         addr = ua()
         self.join("b@example.com", invite=a["inviteCode"], ip="ib", address=addr)
         again = self.join("b@example.com", invite=a["inviteCode"], ip="ib", address=addr)
-        self.assertEqual(again["invite"], "unchanged")
+        self.assertFalse(again["created"])
         self.assertEqual(self.invites_of(a), 1)
 
     def test_same_network_as_inviter_does_not_count(self):
@@ -156,12 +156,13 @@ class OneLevel(Base):
 
 
 class Deleting(Base):
-    def test_delete_removes_personal_data_and_keeps_the_count(self):
+    def test_delete_removes_personal_data_and_the_invite(self):
         a = self.join("a@example.com", ip="ia")
         b = self.join("bee@example.com", invite=a["inviteCode"], ip="ib")
+        self.assertEqual(self.invites_of(a), 1)
         self.assertTrue(self.store.delete(b["key"]))
         self.assertEqual(self.store.total(), 1)
-        self.assertEqual(self.invites_of(a), 1)
+        self.assertEqual(self.invites_of(a), 0)          # an invite that left no longer counts
         conn = sqlite3.connect(self.store.path)
         conn.execute("PRAGMA wal_checkpoint(FULL)")
         dump = "\n".join(conn.iterdump())
@@ -198,10 +199,10 @@ class MailOn(Base):
         self.assertEqual(b["invite"], "after-confirmation")
         self.assertTrue(b["confirmToken"])
         self.assertEqual(self.invites_of(a), 0)
-        self.assertFalse(self.store.confirm("x" * 22))
-        self.assertTrue(self.store.confirm(b["confirmToken"]))
+        self.assertIsNone(self.store.confirm("x" * 22))
+        self.assertEqual(self.store.confirm(b["confirmToken"]), 0)
         self.assertEqual(self.invites_of(a), 1)
-        self.assertFalse(self.store.confirm(b["confirmToken"]))  # used once
+        self.assertIsNone(self.store.confirm(b["confirmToken"]))  # used once
         self.assertTrue(self.store.me(b["key"])["confirmed"])
 
     def test_unconfirmed_invitee_leaving_adds_nothing(self):
@@ -210,12 +211,44 @@ class MailOn(Base):
         self.store.delete(b["key"])
         self.assertEqual(self.invites_of(a), 0)
 
-    def test_confirmed_invitee_leaving_keeps_the_count(self):
+    def test_confirmed_invitee_leaving_takes_the_invite_along(self):
         a = self.join("a@example.com", ip="ia")
         b = self.join("b@example.com", invite=a["inviteCode"], ip="ib")
         self.store.confirm(b["confirmToken"])
-        self.store.delete(b["key"])
         self.assertEqual(self.invites_of(a), 1)
+        self.store.delete(b["key"])
+        self.assertEqual(self.invites_of(a), 0)
+
+    def test_unconfirmed_entry_does_not_own_its_email(self):
+        squatter = self.join("victim@example.com", ip="is")
+        helper = self.join("h@example.com", invite=squatter["inviteCode"], ip="ih")
+        self.store.confirm(helper["confirmToken"])
+        self.assertEqual(self.invites_of(squatter), 1)
+        owner = self.join("victim@example.com", ip="io")       # allowed: the squatter is unconfirmed
+        self.assertTrue(owner["created"])
+        self.assertEqual(self.store.confirm(owner["confirmToken"]), 1)   # the squatter is removed
+        self.assertIsNone(self.store.me(squatter["key"]))
+        self.assertTrue(self.store.me(owner["key"])["confirmed"])
+        self.assertEqual(self.store.total(), 2)
+        # Once confirmed, the email is owned: a further entry with it is refused.
+        with self.assertRaises(Conflict):
+            self.join("victim@example.com", ip="ix")
+
+    def test_squatter_invites_are_dropped(self):
+        squatter = self.join("v2@example.com", ip="is")
+        helper = self.join("h2@example.com", invite=squatter["inviteCode"], ip="ih")
+        self.store.confirm(helper["confirmToken"])
+        owner = self.join("v2@example.com", ip="io")
+        self.store.confirm(owner["confirmToken"])
+        ranked = {r["id"]: r for r in self.store.ranking()}
+        self.assertNotIn(squatter["id"], ranked)
+        self.assertTrue(all(r["invites"] == 0 for r in ranked.values()))
+
+    def test_unconfirmed_holder_cannot_confirm_after_the_owner(self):
+        squatter = self.join("v@example.com", ip="is")
+        owner = self.join("v@example.com", ip="io")
+        self.store.confirm(owner["confirmToken"])
+        self.assertIsNone(self.store.confirm(squatter["confirmToken"]))
 
     def test_token_stored_only_as_hash(self):
         b = self.join("b@example.com")
@@ -225,7 +258,51 @@ class MailOn(Base):
         self.assertNotIn(b["confirmToken"], dump)
 
 
+class MailOffOwnership(Base):
+    def test_first_entry_owns_the_email_while_mail_is_off(self):
+        self.join("a@example.com")
+        with self.assertRaises(Conflict):
+            self.join("a@example.com")
+
+
+class News(Base):
+    def test_news_consent_is_separate_and_optional(self):
+        a = self.join("a@example.com", ip="ia")
+        b = self.join("b@example.com", ip="ib", news=True)
+        self.assertFalse(self.store.me(a["key"])["news"])
+        self.assertTrue(self.store.me(b["key"])["news"])
+        conn = sqlite3.connect(self.store.path)
+        stamps = dict(conn.execute("SELECT email, news_consent_utc FROM entries").fetchall())
+        conn.close()
+        self.assertIsNone(stamps["a@example.com"])
+        self.assertTrue(stamps["b@example.com"].endswith("Z"))
+
+    def test_stop_news(self):
+        b = self.join("b@example.com", news=True)
+        self.assertTrue(self.store.stop_news(b["key"]))
+        self.assertFalse(self.store.me(b["key"])["news"])
+        self.assertFalse(self.store.stop_news("x" * 22))
+
+    def test_purge_without_news_consent(self):
+        a = self.join("a@example.com", ip="ia")
+        b = self.join("b@example.com", ip="ib", news=True)
+        c = self.join("c@example.com", ip="ic")
+        self.assertEqual(self.store.purge_without_news_consent("2000-01-01", dry_run=False), 0)
+        self.assertEqual(self.store.purge_without_news_consent("2999-01-01"), 2)      # dry run
+        self.assertEqual(self.store.total(), 3)
+        self.assertEqual(self.store.purge_without_news_consent("2999-01-01", dry_run=False), 2)
+        self.assertEqual(self.store.total(), 1)
+        self.assertIsNone(self.store.me(a["key"]))
+        self.assertIsNone(self.store.me(c["key"]))
+        self.assertIsNotNone(self.store.me(b["key"]))
+
+
 class Operations(Base):
+    def test_secure_delete_is_on(self):
+        conn = self.store.connect()
+        self.assertEqual(conn.execute("PRAGMA secure_delete").fetchone()[0], 1)
+        conn.close()
+
     def test_backup_is_consistent_and_rotates(self):
         self.join("a@example.com")
         dest = os.path.join(self.dir, "backups")
@@ -243,13 +320,16 @@ class Operations(Base):
         a = self.join("=cmd@example.com", ip="ia")
         self.join("b@example.com", invite=a["inviteCode"], ip="ib")
         time.sleep(0.01)
-        target, count = self.store.export(os.path.join(self.dir, "exports"))
+        target, count, _ = self.store.export(os.path.join(self.dir, "exports"))
         self.assertEqual(count, 2)
         with open(target, encoding="utf-8") as fh:
             rows = list(csv.reader(fh))
-        self.assertEqual(rows[0], ["email", "address", "joined", "confirmed", "invites", "position"])
+        self.assertEqual(rows[0], ["email", "address", "joined", "confirmed", "news_consent", "invites", "position"])
         self.assertEqual(rows[1][0], "'=cmd@example.com")   # no formula injection
-        self.assertEqual((rows[1][4], rows[1][5]), ("1", "1"))
+        self.assertEqual((rows[1][4], rows[1][5], rows[1][6]), ("", "1", "1"))
+        for _ in range(6):
+            self.store.export(os.path.join(self.dir, "exports"), keep=5)
+        self.assertEqual(len(os.listdir(os.path.join(self.dir, "exports"))), 5)
         if os.name == "posix":
             self.assertEqual(os.stat(target).st_mode & 0o777, 0o600)
 
