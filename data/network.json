@@ -3,18 +3,18 @@
     "name": "SWARM",
     "domain": "swarm.green",
     "updated": "2026-10-02",
-    "note": "Single source of truth for every number shown on the site. Values come from the SWARM mainnet relaunch manifest (rendered 2026-10-02T15:42:42Z). Edit here, then mirror the same values in the static HTML fallbacks (see README.md)."
+    "note": "Single source of truth for every number shown on the site. Values come from the SWARM mainnet launch manifest (rendered 2026-10-02T15:42:42Z). Edit here, then mirror the same values in the static HTML fallbacks (see README.md)."
   },
   "status": {
     "phase": "mainnet",
     "short": "Mainnet · live",
     "ribbon": "SWARM mainnet is live · public mining opens 1 November 2026.",
-    "detail": "SWARM mainnet was restarted on 2 October 2026 at 15:42 UTC from a new genesis block that holds no coins. There was no sale, no presale and no token offering; every SWM is mined. Until 31 October 2026, 15:42 UTC only the project's own machines mine; for the next 24 hours the people on the waiting list can mine too, and from 1 November 2026, 15:42 UTC mining is open to everyone.",
+    "detail": "SWARM mainnet has been live since 2 October 2026, 15:42 UTC. The genesis block holds no spendable coins; every SWM that exists has been mined. Until 31 October 2026, 15:42 UTC only the project's own machines mine; for the next 24 hours the people on the waiting list can mine too, and from 1 November 2026, 15:42 UTC mining is open to everyone.",
     "launchedUtc": "2026-10-02T15:42:00Z",
     "launchedLabel": "2 October 2026, 15:42 UTC"
   },
   "closedStart": {
-    "note": "The first 30 days of the restarted chain: 29 days in which only the project mines (figures from 29 days at the 75-second target: 33,408 blocks x 6.25 SWM = 208,800 SWM, 0.9943% of 20,999,987.3152), then 24 hours of early access for the waiting list (owner decision 2026-10-03). untilUtc is the public opening and drives the countdown.",
+    "note": "The first 30 days of the chain: 29 days in which only the project mines (figures from 29 days at the 75-second target: 33,408 blocks x 6.25 SWM = 208,800 SWM, 0.9943% of 20,999,987.3152), then 24 hours of early access for the waiting list (owner decision 2026-10-03). untilUtc is the public opening and drives the countdown.",
     "untilUtc": "2026-11-01T15:42:00Z",
     "untilLabel": "1 November 2026, 15:42 UTC",
     "projectOnlyUntilUtc": "2026-10-31T15:42:00Z",
@@ -24,7 +24,7 @@
     "coins": "about 208,800 SWM",
     "split": "80% to the project's mining wallet, 20% to the three funds",
     "capShare": "about 0.99%",
-    "summary": "Until 31 October 2026, 15:42 UTC only the project's own machines can mine: in those 29 days about 33,408 blocks are produced, about 208,800 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.99% of the cap. From then until 1 November 2026, 15:42 UTC the people on the waiting list can mine too; from that moment mining is open to everyone and the node software will be published on this site.",
+    "summary": "Until 31 October 2026, 15:42 UTC only the project's own machines can mine: in those 29 days about 33,408 blocks are produced, about 208,800 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.99% of the cap. From then until 1 November 2026, 15:42 UTC the people on the waiting list can mine too; from that moment mining is open to everyone and the node software will be published on this site. Why: the infrastructure around the coin, liquidity pools included, needs coins before public mining begins; the aim is an orderly, predictable start.",
     "opened": false,
     "openedNote": "Stays false until public mining has actually opened. Set it to true only together with available node rows (product \"node\") in data/downloads.json and a page at downloadPath: /waitlist then shows the download instead of the sign-up form, and tools/build_pages.py refuses to build the open state without such a row.",
     "downloadPath": "/ecosystem/node"
@@ -50,7 +50,7 @@
     "lightWalletChainLabel": "swarm-mainnet"
   },
   "genesis": {
-    "note": "Read from the SWARM mainnet relaunch manifest of 2 October 2026 (manifest.json sha256 40794956b04e958cdfef2a18fdda628355287767c3f8dc6eb20c1e7ecb387325). The baseline-miner payout address is operational, not consensus, and is deliberately not listed.",
+    "note": "Read from the SWARM mainnet launch manifest of 2 October 2026 (manifest.json sha256 40794956b04e958cdfef2a18fdda628355287767c3f8dc6eb20c1e7ecb387325). The baseline-miner payout address is operational, not consensus, and is deliberately not listed.",
     "network": "SwarmMainnet",
     "hash": "01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2",
     "headerTimeUtc": "2026-10-02T15:41:37Z",
@@ -312,7 +312,7 @@
     "explorerTestnet": "https://testnet.explore.swarm.green/"
   },
   "endpoints": {
-    "note": "The public addresses of the live mainnet (restarted 2 October 2026).",
+    "note": "The public addresses of the live mainnet (live since 2 October 2026).",
     "lightWallet": "lwd-main.swarm.green:443",
     "lightWalletLabel": "Light-wallet server (TLS)",
     "explorerMainnet": "https://mainnet.explore.swarm.green",
@@ -355,19 +355,19 @@
         "state": "live",
         "when": "21 September 2026",
         "name": "Public testnet",
-        "detail": "The first public SWARM chain, mined in the open. It is still running, still published, and its coins have no value."
+        "detail": "The public SWARM test network, mined in the open. It is still running, still published, and its coins have no value."
       },
       {
         "state": "live",
         "when": "2 October 2026",
-        "name": "SWARM mainnet, restarted",
-        "detail": "Restarted at 15:42 UTC from a new genesis block that holds no coins. No sale, no presale. Closed start: until 31 October 2026, 15:42 UTC only the project's own machines mine, about 33,408 blocks and about 208,800 SWM (80% to the project's mining wallet, 20% to the three funds); the people on the waiting list follow 24 hours before public mining opens on 1 November 2026, 15:42 UTC. The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain."
+        "name": "SWARM mainnet",
+        "detail": "Live since 15:42 UTC. The genesis block holds no spendable coins; every SWM that exists has been mined. Closed start: until 31 October 2026, 15:42 UTC only the project's own machines mine, about 33,408 blocks and about 208,800 SWM (80% to the project's mining wallet, 20% to the three funds); the people on the waiting list follow 24 hours before public mining opens on 1 November 2026, 15:42 UTC."
       },
       {
         "state": "live",
         "when": "26 September 2026",
         "name": "Mainnet block explorer",
-        "detail": "explore.swarm.green (also mainnet.explore.swarm.green), showing SwarmMainnet; since 2 October 2026 the restarted chain."
+        "detail": "explore.swarm.green (also mainnet.explore.swarm.green), showing SwarmMainnet."
       },
       {
         "state": "live",
@@ -385,19 +385,19 @@
         "state": "live",
         "when": "30 September 2026",
         "name": "SWARM Browser for Windows, pre-release",
-        "detail": "Build 153.0.8010.52-4 (three builds on the first day): a Windows browser built on Chromium 153 from the ungoogled-chromium code base, with Google’s services removed, privacy defaults switched on and the SWARM wallet built in; a SWARM welcome page, SWARM Start on every new tab, the SWARM Navigator side panel, SWARM’s own icons and colours, DuckDuckGo as the default search. Unsigned; no automatic updates yet. Its built-in wallet was made for the first chain and cannot connect to the restarted network until the next build; the browser itself works."
+        "detail": "Build 153.0.8010.52-4 (three builds on the first day): a Windows browser built on Chromium 153 from the ungoogled-chromium code base, with Google’s services removed, privacy defaults switched on and the SWARM wallet built in; a SWARM welcome page, SWARM Start on every new tab, the SWARM Navigator side panel, SWARM’s own icons and colours, DuckDuckGo as the default search. Unsigned; no automatic updates yet. Its built-in wallet no longer connects to the network until the next build; the browser itself works."
       },
       {
         "state": "in-development",
         "when": null,
-        "name": "SWARM Wallet for the restarted network",
-        "detail": "Every published SWARM Wallet build (desktop 0.1.0-mainnet.9 for Windows, Linux and macOS; Android 0.2.0-mainnet.4) was made for the first chain and cannot connect to the restarted network. A new version is being published."
+        "name": "SWARM Wallet for Android",
+        "detail": "SWARM Wallet 0.1.0-mainnet.10 is the current version for Windows, macOS and Linux. Earlier versions (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to the network; the Android version that does is being prepared."
       },
       {
         "state": "in-development",
         "when": null,
         "name": "Mobile wallets in the app stores",
-        "detail": "The Android wallet is a direct APK you install yourself; the published APK (0.2.0-mainnet.4) was made for the first chain and cannot connect to the restarted network. The Google Play listing and the iPhone build are being prepared."
+        "detail": "The Android wallet is a direct APK you install yourself; the published APK (0.2.0-mainnet.4) no longer connects to the network. The Google Play listing and the iPhone build are being prepared."
       },
       {
         "state": "in-development",
@@ -438,8 +438,8 @@
       {
         "state": "planned",
         "when": null,
-        "name": "Exchange and SDK integrations",
-        "detail": "Making SWM reachable from software the project does not write. Nothing is agreed, nothing is announced, and no listing is promised."
+        "name": "Integrations in other software",
+        "detail": "Making SWM reachable from software the project does not write. Nothing is agreed and nothing is announced."
       },
       {
         "state": "planned",

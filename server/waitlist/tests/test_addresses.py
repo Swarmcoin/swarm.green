@@ -3,9 +3,9 @@ import unittest
 
 from waitlist import addresses as A
 
-# The three published fund addresses and the fourth s3 address of the relaunch
+# The three published fund addresses and the fourth s3 address of the launch
 # manifest (D:/privacy/network/swarm-mainnet-r2/manifest.json), the unspendable
-# test address, and a public receive address from a relaunch miner kit.
+# test address, and a public receive address from a miner kit.
 S3 = ["s3fLmEHc1xqs8KAe7QS7oupkhuGDjidV4eq", "s3RiGvK5JzS8eh6ywN3K22f2LzDAhicgFuq",
       "s3g3pzQVhvVX17bzrrEN3vmcXZWSpj7KFVp", "s3R1bWZPrRCtKL122ZN6uySu1ewk2ku849C"]
 S1 = "s1bbQ5zUoR3ttqKiNDVXGhy3NgoQWpWC7GL"

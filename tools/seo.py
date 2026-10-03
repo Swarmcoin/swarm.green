@@ -83,13 +83,12 @@ POW = CHAIN['proofOfWork']
 MATURITY = CHAIN['coinbaseMaturityBlocks']
 LAUNCHED = STATUS['launchedLabel']
 LAUNCH_DAY = LAUNCHED.split(',')[0]
-# The restart of 2 October 2026: a 30-day closed start (29 days in which only
-# the project mines, then 24 hours for the waiting list), and one sentence of
-# history about the first chain.
+# The 30-day closed start: 29 days in which only the project mines, then 24
+# hours for the waiting list. (The history sentence in data/network.json is
+# data only; owner 2026-10-03: it is not rendered.)
 CLOSED = NETWORK['closedStart']
 OPENS = CLOSED['untilLabel']
 PROJECT_ONLY = CLOSED['projectOnlyUntilLabel']
-HISTORY = NETWORK['history']['sentence']
 SPLIT = ' · '.join(f'{s["percent"]} {s["name"]}' for s in SHARES)
 PROJECT_SHARE = number(100 * sum(s['share'] for s in SHARES if s['key'] != 'miner'))
 MINER_SHARE = next(s['percent'] for s in SHARES if s['key'] == 'miner')
@@ -99,8 +98,7 @@ MINER_SHARE = next(s['percent'] for s in SHARES if s['key'] == 'miner')
 # a search engine and an assistant read the same definition everywhere.
 DEFINITION = (f'SWARM (ticker SWM) is a privacy coin: a cryptocurrency with its own proof-of-work blockchain, '
               f'on which payments can be shielded so that sender, receiver and amount stay encrypted on-chain. '
-              f'Its supply is capped at {MAX_SUPPLY} SWM and there was no sale. Its mainnet was restarted from a new '
-              f'genesis block on {LAUNCH_DAY}; until {PROJECT_ONLY} only the project’s own machines mine, for the '
+              f'Its supply is capped at {MAX_SUPPLY} SWM. Its mainnet has been live since {LAUNCH_DAY}; until {PROJECT_ONLY} only the project’s own machines mine, for the '
               f'next 24 hours the people on its waiting list can mine too, and from {OPENS} mining is open to '
               f'everyone.')
 
@@ -151,7 +149,7 @@ for _app in APPS.values():
     if _app['held']:
         _app['platforms'] = platforms(*_app['products'], held=True)
 
-HELD_NOTE = 'a new version for the restarted network is being published'
+HELD_NOTE = 'a new version is being published'
 
 
 def app_line(path):
@@ -171,8 +169,8 @@ PAGES = {
     '/': {
         'name': 'SWARM',
         'title': 'SWARM (SWM) — Privacy coin: private, proof-of-work money run by its community',
-        'desc': 'SWARM (SWM) is a privacy coin: proof-of-work money with shielded payments that keep sender, receiver and amount encrypted. 21 million cap, no sale. Public mining opens 1 November 2026.'},
-    '/what-is-swarm': {'name': 'What is SWARM?', 'desc': 'SWARM (SWM) in plain facts: a proof-of-work privacy coin with shielded payments, a 21 million cap and no sale. Mainnet restarted 2 October 2026; public mining opens 1 November 2026.'},
+        'desc': 'SWARM (SWM) is a privacy coin: proof-of-work money with shielded payments that keep sender, receiver and amount encrypted. 21 million cap. Public mining opens 1 November 2026.'},
+    '/what-is-swarm': {'name': 'What is SWARM?', 'desc': 'SWARM (SWM) in plain facts: a proof-of-work privacy coin with shielded payments, and a 21 million cap. Mainnet live since 2 October 2026; public mining opens 1 November 2026.'},
     '/network': {'name': 'Network & supply', 'title': 'SWM supply, halving schedule and network rules — SWARM',
                  'desc': 'Every SWARM (SWM) parameter: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a 20,999,987.3152 SWM cap, the 30-day closed start, the 80/8/4/8 split.'},
     '/verify': {'name': 'Verify', 'title': 'Verify the SWARM mainnet: genesis hash, endpoints, addresses — SWARM',
@@ -351,16 +349,14 @@ FACTS = [
     ('Name', 'SWARM'),
     ('Ticker', 'SWM'),
     ('What it is', 'A privacy coin: a cryptocurrency with its own proof-of-work blockchain and shielded payments.'),
-    ('Status', f'Mainnet live; restarted from a new genesis block on {LAUNCHED}.'),
+    ('Status', f'Mainnet live since {LAUNCHED}.'),
     ('Genesis block hash', f'<code>{GENESIS["hash"]}</code>'),
     ('Consensus', f'Proof of work, {POW}.'),
     ('Target block time', f'{BLOCK_TIME} seconds'),
     ('Block reward', f'{REWARD} SWM, halving every {HALVING} blocks (about {CHAIN["halvingApproxYears"]} years).'),
     ('Maximum supply', f'{MAX_SUPPLY} SWM'),
-    ('Genesis and sale', 'The genesis block holds no spendable coins, and there was no sale, no presale '
-                         'and no token offering. Every SWM is mined.'),
+    ('Genesis', 'The genesis block holds no spendable coins; every SWM that exists has been mined.'),
     ('Closed start', CLOSED['summary']),
-    ('First chain', HISTORY),
     ('Block reward split', f'{SPLIT}. Fixed in the genesis rules for the whole emission schedule.'),
     ('Privacy', 'Shielded payments keep sender, receiver and amount encrypted on-chain, using zero-knowledge '
                 'proofs. Transparent payments exist too.'),
@@ -385,8 +381,8 @@ SECTIONS = [
     ('How SWM is issued', [
         f'SWM is issued only by mining. A block is found about every {BLOCK_TIME} seconds and pays {REWARD} SWM; '
         f'the reward halves every {HALVING} blocks, about every {CHAIN["halvingApproxYears"]} years, so the supply '
-        f'approaches {MAX_SUPPLY} SWM and never exceeds it. The genesis block holds no spendable coins and there was '
-        'no sale. The first 30 days are a closed start. ' + CLOSED['summary'],
+        f'approaches {MAX_SUPPLY} SWM and never exceeds it. The genesis block holds no spendable coins. '
+        'The first 30 days are a closed start. ' + CLOSED['summary'],
         f'Every block reward is split the same way for the whole schedule: {MINER_SHARE} to the miner who found '
         f'the block and {PROJECT_SHARE}% to three published project addresses ('
         + listing(f'{s["percent"]} {s["name"]}' for s in SHARES if s['key'] != 'miner') +
@@ -416,15 +412,14 @@ QUESTIONS = [
      ['Yes. SWARM is a cryptocurrency whose payments can be shielded: sender, receiver and amount stay encrypted '
       'on-chain, using zero-knowledge proofs. It runs on its own proof-of-work blockchain, and its ticker is SWM.']),
     ('When did SWARM launch?',
-     [f'SWARM mainnet was restarted on {LAUNCHED} from a new genesis block that holds no spendable coins. '
-      + HISTORY + ' ' + CLOSED['summary']]),
+     [f'SWARM mainnet has been live since {LAUNCHED}. Its genesis block holds no spendable coins. '
+      + CLOSED['summary']]),
     ('How many SWM will there be?',
      [f'At most {MAX_SUPPLY} SWM. Each block pays {REWARD} SWM, and the reward halves every {HALVING} blocks, '
       f'about every {CHAIN["halvingApproxYears"]} years.']),
-    ('Was there a premine, a sale or an airdrop?',
-     ['There was no sale, no presale and no token offering, and the genesis block holds no spendable coins; every '
-      'SWM in existence was mined. There is a closed start. ' + CLOSED['summary'] + ' '
-      'Anything claiming to be a SWARM sale, presale or airdrop is not the project.']),
+    ('Was there a premine?',
+     ['No. The genesis block holds no spendable coins; every SWM that exists has been mined. There is a closed '
+      'start. ' + CLOSED['summary']]),
     ('What does a shielded payment hide?',
      ['The sender, the receiver and the amount. The chain records that a valid payment happened, not who paid '
       'whom or how much.']),
@@ -432,7 +427,7 @@ QUESTIONS = [
      ['No. Privacy is a choice you make per payment: shielded payments are encrypted on-chain, transparent '
       'payments are public, and the wallet tells you which kind you are about to make.']),
     ('How do I get SWM?',
-     [f'SWM is issued only by mining; until {PROJECT_ONLY} only the project’s own machines mine, and public mining opens on {OPENS}. You can receive it from someone who already has it. The project does not sell SWM, does not set a price and does not run an exchange. '
+     [f'SWM is created only by mining; you can receive it from someone who already has it. Until {PROJECT_ONLY} only the project’s own machines mine, and public mining opens on {OPENS}. '
       'SWM has no guaranteed value and can lose value, including all of it.']),
     ('Where do block rewards go?',
      [f'{SPLIT}. The split is fixed in the genesis rules for the whole emission schedule and is visible in every '
@@ -557,12 +552,12 @@ def llms_txt():
              'quoted with a link to the page it comes from.', '',
              f'- Ticker: SWM. Own blockchain, proof of work ({POW}), target block time {BLOCK_TIME} seconds.',
              f'- Supply: at most {MAX_SUPPLY} SWM; {REWARD} SWM per block, halving every {HALVING} blocks (about {CHAIN["halvingApproxYears"]} years).',
-             '- The genesis block holds no coins; no sale, no presale, no token offering: every SWM is mined.',
+             '- The genesis block holds no spendable coins; every SWM that exists has been mined.',
              '- Closed start. ' + CLOSED['summary'],
              f'- Block reward split, fixed for the whole schedule: {SPLIT}.',
              '- Privacy: shielded payments keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs; transparent payments exist too.',
-             f'- Mainnet restarted from a new genesis block on {LAUNCHED}. ' + HISTORY,
-             '- The project does not sell SWM, does not set a price and does not run an exchange.', '',
+             f'- Mainnet live since {LAUNCHED}.',
+             '',
              '## Start here', '']
     lines += [f'- [{title}]({SITE}{url}): {note}' for title, url, note in page_links()]
     lines += ['', '## Apps', '',

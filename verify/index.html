@@ -138,9 +138,8 @@
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">The launch</p>
-        <h2>A new genesis block, and a closed start.</h2>
-        <p>SWARM mainnet was restarted on <strong>2 October 2026, 15:42 UTC</strong> from a new genesis block. The genesis block holds no spendable coins, and there was no sale. The first 30 days are a closed start. Until 31 October 2026, 15:42 UTC only the project's own machines can mine: in those 29 days about 33,408 blocks are produced, about 208,800 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.99% of the cap. From then until 1 November 2026, 15:42 UTC the people on the waiting list can mine too; from that moment mining is open to everyone and the node software will be published on this site.</p>
-        <p class="mt-s">The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain. Addresses and recovery phrases stay valid and start at zero.</p>
+        <h2>The genesis block, and a closed start.</h2>
+        <p>SWARM mainnet has been live since <strong>2 October 2026, 15:42 UTC</strong>. The genesis block holds no spendable coins; every SWM that exists has been mined. The first 30 days are a closed start. Until 31 October 2026, 15:42 UTC only the project's own machines can mine: in those 29 days about 33,408 blocks are produced, about 208,800 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.99% of the cap. From then until 1 November 2026, 15:42 UTC the people on the waiting list can mine too; from that moment mining is open to everyone and the node software will be published on this site. Why: the infrastructure around the coin, liquidity pools included, needs coins before public mining begins; the aim is an orderly, predictable start.</p>
       </div>
 
       <div class="tablewrap" data-reveal>
@@ -148,13 +147,13 @@
           <caption>The SWARM mainnet launch, as published in the launch manifest.</caption>
           <tbody>
           <tr><th scope="row">Network</th><td><span class="mono">SwarmMainnet</span></td></tr>
-          <tr><th scope="row">Restarted</th><td><span class="mono">2 October 2026, 15:42 UTC</span></td></tr>
+          <tr><th scope="row">Live since</th><td><span class="mono">2 October 2026, 15:42 UTC</span></td></tr>
           <tr><th scope="row">Genesis block hash</th><td><span class="copyrow"><code class="mono">01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2</code><button class="btn btn--ghost btn--sm" type="button" data-copy="01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2">Copy<span class="vh"> the genesis block hash</span></button></span></td></tr>
           <tr><th scope="row">Genesis header time</th><td><span class="mono">2026-10-02T15:41:37Z</span></td></tr>
           <tr><th scope="row">Block 1</th><td><span class="mono">2026-10-02 15:43 UTC</span></td></tr>
           <tr><th scope="row">SHA-256 of genesis.hex</th><td><span class="copyrow"><code class="mono">137e2e962c749e8bad49ad7cff72eb1e35feaf91dc717c36313d660d08d87f8f</code><button class="btn btn--ghost btn--sm" type="button" data-copy="137e2e962c749e8bad49ad7cff72eb1e35feaf91dc717c36313d660d08d87f8f">Copy<span class="vh"> the SHA-256 of genesis.hex</span></button></span></td></tr>
           <tr><th scope="row">Spendable outputs in the genesis block</th><td>0</td></tr>
-          <tr><th scope="row">Closed start</th><td>Until 31 October 2026, 15:42 UTC only the project's own machines can mine: in those 29 days about 33,408 blocks are produced, about 208,800 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.99% of the cap. From then until 1 November 2026, 15:42 UTC the people on the waiting list can mine too; from that moment mining is open to everyone and the node software will be published on this site.</td></tr>
+          <tr><th scope="row">Closed start</th><td>Until 31 October 2026, 15:42 UTC only the project's own machines can mine: in those 29 days about 33,408 blocks are produced, about 208,800 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.99% of the cap. From then until 1 November 2026, 15:42 UTC the people on the waiting list can mine too; from that moment mining is open to everyone and the node software will be published on this site. Why: the infrastructure around the coin, liquidity pools included, needs coins before public mining begins; the aim is an orderly, predictable start.</td></tr>
           <tr><th scope="row">Proof of work</th><td>Equihash 200,9</td></tr>
           <tr><th scope="row">Ticker</th><td>SWM</td></tr>
           <tr><th scope="row">Target block time</th><td>75 seconds</td></tr>
@@ -172,7 +171,7 @@
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
           <h3>From the source</h3>
-          <p>Every published release is listed with its SHA-256 in the release repository. The manifest of the restarted chain and the node software are published when public mining opens on 1 November 2026.</p>
+          <p>Every published release is listed with its SHA-256 in the release repository. The launch manifest and the node software are published when mining opens: from 31 October 2026, 15:42&nbsp;UTC for the waiting list, from 1 November 2026, 15:42&nbsp;UTC for everyone.</p>
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="https://github.com/louisinthesubway/swarm-releases" target="_blank" rel="noopener noreferrer">Release repository<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 4 12"/></svg><span class="vh">(opens in a new tab)</span></a></p>
         </article>
       </div>
@@ -197,7 +196,7 @@
         </table>
       </div>
 
-      <p class="note mt-m" data-reveal>These are the public addresses of the restarted network. The wallet builds published before 2 October 2026 were made for the first chain and cannot connect to it; the new version is being published in the <a href="/ecosystem/wallet">Ecosystem</a>. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
+      <p class="note mt-m" data-reveal>These are the public addresses of the live network. Earlier wallet builds (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to it; the current version is in the <a href="/ecosystem/wallet">Ecosystem</a>. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
     </div>
   </section>
 
@@ -337,7 +336,7 @@
     </div>
 
     <div class="footer__bottom">
-      <p><strong>Open-source software, provided as is.</strong> Nothing on this site is an offer, a solicitation or financial advice. SWM has no guaranteed value and can lose value, including all of it. There is no sale and no token offering.</p>
+      <p><strong>Open-source software, provided as is.</strong> Nothing on this site is an offer, a solicitation or financial advice. SWM has no guaranteed value and can lose value, including all of it.</p>
       <div class="row">
         <p>© 2026 SWARM contributors. Open source.</p>
         <p>swarm.green</p>

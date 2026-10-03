@@ -3,8 +3,7 @@
 The website of **SWARM (ticker SWM)**, a privacy coin: a cryptocurrency with its
 own proof-of-work blockchain, on which payments can be shielded so that sender,
 receiver and amount stay encrypted on-chain. Its supply is capped at
-20,999,987.3152 SWM and there was no sale. Its mainnet was restarted from a new
-genesis block on 2 October 2026; until 31 October 2026, 15:42 UTC only the
+20,999,987.3152 SWM. Its mainnet has been live since 2 October 2026; until 31 October 2026, 15:42 UTC only the
 project's own machines mine, for the next 24 hours the people on the waiting
 list can mine too (together the 30-day closed start), and from 1 November 2026,
 15:42 UTC mining is open to everyone. SWARM is built on open-source foundations with
@@ -12,15 +11,15 @@ consensus rules and cryptography left unmodified; the components and what each
 is based on are listed in the release repository README
 (github.com/louisinthesubway/swarm-releases).
 
-**SWARM mainnet was restarted on 2026-10-02 at 15:42 UTC**, genesis
-`01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2`. The first
-chain (26 September to 2 October 2026) was replaced; its coins are not valid on
-the new chain. Every page says so, and the numbers on them come from
-`data/network.json` (`status`, `closedStart`, `history`, `genesis`), which is
-copied from the relaunch manifest. The countdown to public mining (home hero and
+**SWARM mainnet has been live since 2026-10-02 at 15:42 UTC**, genesis
+`01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2`. Owner rule
+2026-10-03: the site names that date as the start of mainnet and tells no
+earlier history (the `history` block in `data/network.json` is data only and is
+never rendered). The numbers come from `data/network.json` (`status`,
+`closedStart`, `genesis`), which is copied from the launch manifest. The countdown to public mining (home hero and
 `/network`) is `js/site.js` section 5c and `css/site.css` section 22. Wallet
-builds made for the first chain stay in `data/downloads.json` with
-`"paused": "restart-2026-10-02"` and render as "being published" until new rows
+builds that no longer connect stay in `data/downloads.json` with
+`"paused": "superseded-2026-10-02"` and render as "being published" until new rows
 replace them. Two guards keep that honest:
 
 - `tools/build_pages.py` refuses to build while `data/network.json` does not

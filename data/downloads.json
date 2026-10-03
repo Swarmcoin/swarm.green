@@ -6,9 +6,9 @@
     ],
     "unavailableNote": "Rows whose url starts with one of unavailableHosts were published on a host that no longer answers (the Swarm-Official organisation is suspended). The pages render them as being re-published instead of a dead button, and tools/check_downloads.mjs lists them as paused. Repoint url and checksums to louisinthesubway/swarm-releases as each file is uploaded again; the SHA-256 stays the same.",
     "pauseReasons": {
-      "restart-2026-10-02": "was built for the first SWARM chain and cannot connect to the mainnet restarted on 2 October 2026."
+      "superseded-2026-10-02": "no longer connects to the network; install the current version."
     },
-    "pauseNote": "An entry with \"paused\": \"<key of pauseReasons>\" (or a plain reason) is published but must not be offered: the pages draw \"New version for the restarted network is being published\" instead of its buttons and checksum, and tools/check_downloads.mjs lists it as paused. A platform that also has an available entry without the flag shows that entry and hides the paused one, so adding the new rows is enough; delete the old rows (or the flag) when they go.",
+    "pauseNote": "An entry with \"paused\": \"<key of pauseReasons>\" (or a plain reason) is published but must not be offered: the pages draw \"A new version is being published\" instead of its buttons and checksum, and tools/check_downloads.mjs lists it as paused. A platform that also has an available entry without the flag shows that entry and hides the paused one, so adding the new rows is enough; delete the old rows (or the flag) when they go.",
     "note": "Download metadata for the Ecosystem block on the home page, the /ecosystem hub and the app pages. Mainnet builds are the downloads; testnet builds are kept under \"channel\": \"testnet\" and rendered in their own labelled section. After updating entries, run python tools/build_ecosystem.py and verify with --check. Every available entry must have a working URL, version, SHA-256 and byte size.",
     "windowsNotice": "Unsigned build — Windows SmartScreen will warn. Check the SHA-256.",
     "mobileNotice": "Mobile apps are wallets only — phones do not mine.",
@@ -19,8 +19,8 @@
     "unsignedNotice": "Unsigned build — your system will warn. Check the SHA-256.",
     "macosNotice": "SWARM Wallet for macOS is signed and notarized. It is one app for Apple silicon and Intel.",
     "walletUpdate": {
-      "title": "SWARM mainnet was restarted on 2 October 2026",
-      "text": "SWARM Wallet 0.1.0-mainnet.10 for Windows, macOS (Apple silicon and Intel) and Linux is the version for the restarted network; Android follows. Earlier builds (desktop 0.1.0-mainnet.9, Android 0.2.0-mainnet.4) were made for the first chain and cannot connect. Install the new version over the old one: your addresses and recovery phrase stay the same, the wallet keeps a backup copy of its file and starts again from the new chain, where balances begin at zero because the coins of the first chain do not exist on it.",
+      "title": "SWARM Wallet 0.1.0-mainnet.10",
+      "text": "SWARM Wallet 0.1.0-mainnet.10 is the current version for Windows, macOS and Linux. Earlier versions (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to the network: install the current version over the old one. Your addresses and recovery phrase stay the same.",
       "url": "",
       "label": "Read the release notes"
     },
@@ -139,7 +139,7 @@
       "sizeShort": "167 MB",
       "sizeBytes": 175096029,
       "notes": "",
-      "paused": "restart-2026-10-02"
+      "paused": "superseded-2026-10-02"
     },
     {
       "product": "wallet",
@@ -155,7 +155,7 @@
       "sizeBytes": 222385720,
       "notes": "",
       "label": "Portable zip",
-      "paused": "restart-2026-10-02"
+      "paused": "superseded-2026-10-02"
     },
     {
       "product": "wallet",
@@ -184,7 +184,7 @@
       "sizeShort": "162 MB",
       "sizeBytes": 169846036,
       "notes": "",
-      "paused": "restart-2026-10-02"
+      "paused": "superseded-2026-10-02"
     },
     {
       "product": "wallet",
@@ -215,7 +215,7 @@
       "sizeBytes": 209684790,
       "notes": "",
       "label": "Portable AppImage",
-      "paused": "restart-2026-10-02"
+      "paused": "superseded-2026-10-02"
     },
     {
       "product": "wallet",
@@ -244,7 +244,7 @@
       "sizeShort": "193 MB",
       "sizeBytes": 202409161,
       "notes": "Not signed with an Apple Developer ID and not notarized. Open the disk image, drag SWARM Wallet to Applications and open it once; then allow it under System Settings → Privacy & Security → Open Anyway.",
-      "paused": "restart-2026-10-02"
+      "paused": "superseded-2026-10-02"
     },
     {
       "product": "wallet",
@@ -273,7 +273,7 @@
       "sizeShort": "188 MB",
       "sizeBytes": 197310692,
       "notes": "The same app in a ZIP. Not signed with an Apple Developer ID and not notarized: allow it once under System Settings → Privacy & Security → Open Anyway.",
-      "paused": "restart-2026-10-02"
+      "paused": "superseded-2026-10-02"
     },
     {
       "product": "wallet",
@@ -302,7 +302,7 @@
       "sizeShort": "201 MB",
       "sizeBytes": 210377093,
       "notes": "Not signed with an Apple Developer ID and not notarized. Open the disk image, drag SWARM Wallet to Applications and open it once; then allow it under System Settings → Privacy & Security → Open Anyway.",
-      "paused": "restart-2026-10-02"
+      "paused": "superseded-2026-10-02"
     },
     {
       "product": "wallet",
@@ -331,7 +331,7 @@
       "sizeShort": "196 MB",
       "sizeBytes": 205150110,
       "notes": "The same app in a ZIP. Not signed with an Apple Developer ID and not notarized: allow it once under System Settings → Privacy & Security → Open Anyway.",
-      "paused": "restart-2026-10-02"
+      "paused": "superseded-2026-10-02"
     },
     {
       "product": "mobile-android",
@@ -346,7 +346,7 @@
       "sizeShort": "227 MB",
       "sizeBytes": 237648880,
       "notes": "Sideload — the Play listing is still pending.",
-      "paused": "restart-2026-10-02"
+      "paused": "superseded-2026-10-02"
     },
     {
       "product": "mobile-android",

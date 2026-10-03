@@ -18,9 +18,9 @@ GENESIS = NETWORK["genesis"]
 ENDPOINTS = NETWORK["endpoints"]
 ADDRESS_FORMATS = NETWORK["addressFormats"]["formats"]
 STATUS = NETWORK["status"]
-# The restart of 2 October 2026: the closed start and one sentence of history.
+# The closed start. (data/network.json also keeps a history sentence; owner
+# 2026-10-03: it is data only and is not rendered anywhere.)
 CLOSED = NETWORK["closedStart"]
-HISTORY = NETWORK["history"]["sentence"]
 # Launch-day site: every page states that mainnet is live, so it must never be
 # built (and therefore never deployed) with the testnet genesis in the data
 # file. Local previews before launch set SWARM_ALLOW_PRELAUNCH_BUILD=1.
@@ -68,10 +68,10 @@ PHASES = """      <ol class="phases" data-reveal>
           <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-coin"/></svg></span></span>
           <div class="phase__card">
             <h3>SWARM mainnet</h3>
-            <p>Public testnet <b>21 September 2026</b>; mainnet restarted from a new genesis block on <b>2 October 2026</b>. The coin, the chain and the apps to run them. The genesis block holds no coins; after a 30-day closed start, public mining opens on <b>1 November 2026, 15:42&nbsp;UTC</b>.</p>
+            <p>Public testnet <b>21 September 2026</b>; mainnet live since <b>2 October 2026</b>. The coin, the chain and the apps to run them. The genesis block holds no coins; after a 30-day closed start, public mining opens on <b>1 November 2026, 15:42&nbsp;UTC</b>.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
-              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet (the version for the restarted network is being published)</span></li>
+              <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet (the current version is published for Windows, macOS and Linux; Android follows)</span></li>
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>check the genesis hash and every block for yourself &mdash; the node verifies, it never trusts</span></li>
             </ul>
           </div>
@@ -325,7 +325,7 @@ FOOTER = f"""</main>
     </div>
 
     <div class="footer__bottom">
-      <p><strong>Open-source software, provided as is.</strong> Nothing on this site is an offer, a solicitation or financial advice. SWM has no guaranteed value and can lose value, including all of it. There is no sale and no token offering.</p>
+      <p><strong>Open-source software, provided as is.</strong> Nothing on this site is an offer, a solicitation or financial advice. SWM has no guaranteed value and can lose value, including all of it.</p>
       <div class="row">
         <p>© 2026 SWARM contributors. Open source.</p>
         <p>swarm.green</p>
@@ -389,7 +389,7 @@ params = [
     ("Privacy", "Optional. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs."),
     ("Code", "Proven open-source code, with consensus rules and cryptography left unmodified. Read it, build it, check it."),
     ("Ticker", "SWM"),
-    ("Status", "Mainnet, live. Restarted from a new genesis block on " + esc(STATUS["launchedLabel"]) + ". " + esc(HISTORY)),
+    ("Status", "Mainnet, live since " + esc(STATUS["launchedLabel"]) + "."),
 ]
 param_rows = "\n".join(
     f'          <tr><th scope="row">{k}</th><td>{v}</td></tr>' for k, v in params)
@@ -440,7 +440,7 @@ genesis_rows = "\n".join(
         ("Genesis block hash", esc(GENESIS["hash"]), "addr"),
         ("Genesis header time", esc(GENESIS["headerTimeUtc"]), "mono"),
         ("Spendable outputs in the genesis block", esc(GENESIS["spendableOutputs"]), ""),
-        ("Restarted", esc(STATUS["launchedLabel"]), "mono"),
+        ("Live since", esc(STATUS["launchedLabel"]), "mono"),
     ])
 
 # The public addresses of the live network that the published apps use. Since
@@ -652,7 +652,7 @@ launch_rows = "\n".join(
     f'          <tr><th scope="row">{k}</th><td>{v}</td></tr>'
     for k, v in [
         ("Network", f'<span class="mono">{esc(GENESIS["network"])}</span>'),
-        ("Restarted", f'<span class="mono">{esc(STATUS["launchedLabel"])}</span>'),
+        ("Live since", f'<span class="mono">{esc(STATUS["launchedLabel"])}</span>'),
         ("Genesis block hash", copyline(GENESIS["hash"], "the genesis block hash")),
         ("Genesis header time", f'<span class="mono">{esc(GENESIS["headerTimeUtc"])}</span>'),
         ("Block 1", f'<span class="mono">{esc(GENESIS["block1Utc"])}</span>'),
@@ -686,9 +686,8 @@ verify = head(
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">The launch</p>
-        <h2>A new genesis block, and a closed start.</h2>
-        <p>SWARM mainnet was restarted on <strong>{esc(STATUS["launchedLabel"])}</strong> from a new genesis block. The genesis block holds no spendable coins, and there was no sale. The first 30 days are a closed start. {esc(CLOSED["summary"])}</p>
-        <p class="mt-s">{esc(HISTORY)}</p>
+        <h2>The genesis block, and a closed start.</h2>
+        <p>SWARM mainnet has been live since <strong>{esc(STATUS["launchedLabel"])}</strong>. The genesis block holds no spendable coins; every SWM that exists has been mined. The first 30 days are a closed start. {esc(CLOSED["summary"])}</p>
       </div>
 
       <div class="tablewrap" data-reveal>
@@ -710,7 +709,7 @@ verify = head(
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
           <h3>From the source</h3>
-          <p>Every published release is listed with its SHA-256 in the release repository. The manifest of the restarted chain and the node software are published when public mining opens on 1 November 2026.</p>
+          <p>Every published release is listed with its SHA-256 in the release repository. The launch manifest and the node software are published when mining opens: from 31 October 2026, 15:42&nbsp;UTC for the waiting list, from 1 November 2026, 15:42&nbsp;UTC for everyone.</p>
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">Release repository{EXT}</a></p>
         </article>
       </div>
@@ -733,7 +732,7 @@ verify = head(
         </table>
       </div>
 
-      <p class="note mt-m" data-reveal>These are the public addresses of the restarted network. The wallet builds published before {esc(STATUS["launchedLabel"].split(",")[0])} were made for the first chain and cannot connect to it; the new version is being published in the <a href="/ecosystem/wallet">Ecosystem</a>. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
+      <p class="note mt-m" data-reveal>These are the public addresses of the live network. Earlier wallet builds (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to it; the current version is in the <a href="/ecosystem/wallet">Ecosystem</a>. <code>explore.swarm.green</code> and <code>mainnet.explore.swarm.green</code> are the same mainnet explorer; the testnet explorer is <code>testnet.explore.swarm.green</code>.</p>
     </div>
   </section>
 
@@ -841,7 +840,7 @@ join = head(
           <div class="step__n" aria-hidden="true">1</div>
           <p class="step__app">SWARM Wallet</p>
           <h3>Get a wallet</h3>
-          <p>A desktop wallet that holds your coins and sends payments — transparent or shielded, your choice on every payment. The version for the network restarted on 2 October 2026 is being published.</p>
+          <p>A desktop wallet that holds your coins and sends payments — transparent or shielded, your choice on every payment. The current version, 0.1.0-mainnet.10, is published for Windows, macOS and Linux.</p>
           <p class="mt-s">On first run it will show you a recovery phrase. Write it down on paper and keep it offline. It is the only way to restore your wallet.</p>
           <a class="btn btn--primary" href="/ecosystem/wallet">Choose your wallet</a>
         </article>
@@ -1080,7 +1079,7 @@ roadmap = head(
         <h2>What will never change.</h2>
       </div>
       <div class="prose" data-reveal>
-        <p>No sale, presale or token offering: every SWM is mined. No coins in the genesis block and no hidden treasury: the 80 / 8 / 4 / 8 split is fixed in the rules and visible in every block. No promise of a price, ever. No product that takes custody of your coins behind a decentralisation claim. Nothing that runs on your machine without you pressing the button. And if this site and the code ever disagree, the code is right and the site gets fixed.</p>
+        <p>No coins in the genesis block: every SWM that exists has been mined. No hidden treasury: the 80 / 8 / 4 / 8 split is fixed in the rules and visible in every block. No promise of a price, ever. No product that takes custody of your coins behind a decentralisation claim. Nothing that runs on your machine without you pressing the button. And if this site and the code ever disagree, the code is right and the site gets fixed.</p>
       </div>
       <div class="cta-row mt-l" data-reveal>
         <a class="btn btn--primary" href="/join">Get SWARM</a>
@@ -1247,8 +1246,7 @@ EARLY = CLOSED["projectOnlyUntilLabel"]
 OPENS = CLOSED["untilLabel"]
 WL_IS = (f"A place on the list gives early access: people on the list get the node download from {EARLY}, "
          f"in leaderboard order during that day, 24 hours before everyone else; mining opens to everyone on {OPENS}.")
-WL_IS_NOT = ("It is not a promise of coins, earnings or a price, and nothing is sold: "
-             "the list is free.")
+WL_IS_NOT = "It is not a promise of coins, earnings or a price, and the list is free."
 WL_RULE = ("The leaderboard counts the people who join with your invite link, each of them once, and "
            "only them: the people they invite count for them, never for you. A higher place gets the "
            "node download earlier in that day; no coins are promised.")
@@ -1440,8 +1438,8 @@ terms = head(
       <p>swarm.green is an information site about SWARM, an independent, community-run proof-of-work network. It describes software and the network. It does not host the network, run a service on your behalf, or hold anything belonging to you.</p>
 
       <h2>No offer, no advice</h2>
-      <p>Nothing on this site is an offer or a solicitation to buy or sell anything, and nothing on it is financial, investment, legal or tax advice. There is no sale and no token offering; every SWM in existence was mined.</p>
-      <p>SWM is a cryptocurrency. It has no guaranteed value, no issuer standing behind it and no price set by anyone. It can lose value, including all of it. Nobody is promising you earnings, returns or a price.</p>
+      <p>Nothing on this site is an offer or a solicitation to buy or sell anything, and nothing on it is financial, investment, legal or tax advice. The genesis block holds no spendable coins; every SWM that exists has been mined.</p>
+      <p>SWM is a cryptocurrency. It has no guaranteed value and no issuer standing behind it. It can lose value, including all of it. Nobody is promising you earnings, returns or a price.</p>
 
       <h2>Experimental software</h2>
       <p>The node, indexer and wallet are open source, under active development, and provided as-is and without warranty of any kind. Among other things:</p>

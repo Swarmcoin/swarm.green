@@ -29,7 +29,7 @@ const unavailable = (data.meta && data.meta.unavailableHosts) || [];
 const targets = [];
 const paused = [];
 // Rows flagged "paused" in the data (meta.pauseReasons) are published files the
-// pages deliberately do not offer, e.g. wallet builds made for the first chain.
+// pages deliberately do not offer, e.g. wallet builds that no longer connect to the network.
 const held = [];
 for (const e of data.entries || []) {
   if (e.status !== "available" || !e.url) continue;
