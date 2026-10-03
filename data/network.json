@@ -29,10 +29,6 @@
     "openedNote": "Stays false until public mining has actually opened. Set it to true only together with available node rows (product \"node\") in data/downloads.json and a page at downloadPath: /waitlist then shows the download instead of the sign-up form, and tools/build_pages.py refuses to build the open state without such a row.",
     "downloadPath": "/ecosystem/node"
   },
-  "history": {
-    "firstChainAbandonedAtHeight": 6793,
-    "sentence": "The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain. Addresses and recovery phrases stay valid and start at zero."
-  },
   "chain": {
     "blockTimeSeconds": 75,
     "initialBlockReward": 6.25,
