@@ -381,7 +381,7 @@
         "state": "live",
         "when": "30 September 2026",
         "name": "SWARM Browser for Windows, pre-release",
-        "detail": "Build 153.0.8010.52-4 (three builds on the first day): a Windows browser built on Chromium 153 from the ungoogled-chromium code base, with Google’s services removed, privacy defaults switched on and the SWARM wallet built in; a SWARM welcome page, SWARM Start on every new tab, the SWARM Navigator side panel, SWARM’s own icons and colours, DuckDuckGo as the default search. Unsigned; no automatic updates yet. Its built-in wallet no longer connects to the network until the next build; the browser itself works."
+        "detail": "Build 153.0.8010.52-5: a Windows browser built on Chromium 153 from the ungoogled-chromium code base, with Google’s services removed, privacy defaults switched on and the SWARM wallet built in; a SWARM welcome page, SWARM Start on every new tab, the SWARM Navigator side panel, SWARM’s own icons and colours, DuckDuckGo as the default search. Unsigned; no automatic updates yet. Its built-in wallet no longer connects to the network until the next build; the browser itself works."
       },
       {
         "state": "in-development",

@@ -414,7 +414,7 @@ def browser_sections():
     return f'''<section class="band band--dark2" aria-labelledby="browser-what">
   <div class="wrap">
     <div class="sec-head" data-reveal><p class="eyebrow">WHAT IT IS</p><h2 id="browser-what">A browser with the SWARM wallet built in.</h2>
-      <p>SWARM Browser is a web browser for Windows in SWARM’s colours. The wallet built into this build no longer connects to the network until the next build; the browser itself works.</p>
+      <p>SWARM Browser is a web browser for Windows in SWARM’s colours.</p>
       <p class="mt-s"><strong>New in build 153.0.8010.52-4:</strong> DuckDuckGo is the default search engine (change it in Settings); the search box on SWARM Start and the address bar use it. Since build -3: a SWARM welcome page on the first start; SWARM Start on every new tab, with a search box, the SWARM shortcuts and tiles that ask no server anything until you switch the network tile on; the SWARM Navigator, a side panel opened from the SWARM mark beside the address bar; and SWARM’s own icons, colours and names throughout the settings and the internal pages.</p></div>
     <div class="cards" data-reveal>{what}</div>
   </div>
