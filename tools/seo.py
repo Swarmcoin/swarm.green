@@ -175,6 +175,8 @@ PAGES = {
     '/verify': {'name': 'Verify', 'title': 'Verify the SWARM mainnet: genesis hash, endpoints, addresses — SWARM',
                 'desc': 'Check you are on the real SWARM chain: the genesis hash, the launch time, the public endpoints, the three published fund addresses and the address prefixes.'},
     '/join': {'name': 'Get SWARM', 'title': 'Get started with SWARM (SWM): choose a wallet — SWARM'},
+    '/waitlist': {'name': 'Waiting list', 'title': 'Waiting list for SWARM (SWM) public mining — SWARM',
+                  'desc': 'Join the waiting list for SWARM (SWM) public mining, which opens on 1 November 2026, 15:42 UTC: early access to the node download, in leaderboard order. No coins are promised.'},
     '/ecosystem': {'name': 'Ecosystem', 'title': 'Download the SWARM apps: every file with its checksum — SWARM'},
     '/ecosystem/wallet': {
         'name': 'SWARM Wallet',
@@ -538,6 +540,7 @@ def page_links():
         ('Network and supply', '/network', f'every consensus and monetary parameter, the era table and the {SPLIT.replace(" · ", " / ")} block reward split'),
         ('Verify the chain', '/verify', 'genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes'),
         ('Get started', '/join', 'choosing a wallet, step by step'),
+        ('Waiting list for public mining', '/waitlist', 'join the list for early access to the node download when public mining opens on 1 November 2026; one level of invites decides the order; no coins are promised'),
         ('Roadmap', '/roadmap', 'what is live, what is being built and what is only planned'),
         ('Frequently asked questions', '/#faq', 'launch, supply, mining, privacy, custody of the project share'),
     ]

@@ -21,7 +21,10 @@
     "coins": "about 216,000 SWM",
     "split": "80% to the project's mining wallet, 20% to the three funds",
     "capShare": "about 1.03%",
-    "summary": "Until 1 November 2026, 15:42 UTC only the project's own machines can mine. In that time about 34,560 blocks are produced, about 216,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 1.03% of the cap. From that moment mining is open to everyone and the node software will be published on this site."
+    "summary": "Until 1 November 2026, 15:42 UTC only the project's own machines can mine. In that time about 34,560 blocks are produced, about 216,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 1.03% of the cap. From that moment mining is open to everyone and the node software will be published on this site.",
+    "opened": false,
+    "openedNote": "Stays false until public mining has actually opened. Set it to true only together with available node rows (product \"node\") in data/downloads.json and a page at downloadPath: /waitlist then shows the download instead of the sign-up form, and tools/build_pages.py refuses to build the open state without such a row.",
+    "downloadPath": "/ecosystem/node"
   },
   "history": {
     "firstChainAbandonedAtHeight": 6793,

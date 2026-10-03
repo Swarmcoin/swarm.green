@@ -1,0 +1,7 @@
+tests
+__pycache__
+**/__pycache__
+*.pyc
+DEPLOY.md
+*.sqlite3*
+.env*

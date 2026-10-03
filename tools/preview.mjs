@@ -12,6 +12,14 @@
  *                             drop in production is dropped here as well)
  *
  * Usage:  node tools/preview.mjs [port]      (default 4173)
+ *
+ * Optional, off by default: --waitlist=http://127.0.0.1:8080 forwards
+ * /api/waitlist/* to a waiting-list service running locally (server/waitlist),
+ * the way the vercel.json rewrite forwards it to the server in production
+ * (/api/waitlist/X -> <upstream>/waitlist/api/X), with the browser's address
+ * in X-Forwarded-For. --waitlist-fake-ips gives every browser (by User-Agent)
+ * its own made-up public address instead, so invites between two local
+ * browsers can be tested; never use it for anything but a local test.
  */
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
@@ -19,7 +27,48 @@ import { extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(fileURLToPath(new URL("../", import.meta.url)));
-const PORT = Number(process.argv[2] || 4173);
+const ARGS = process.argv.slice(2);
+const PORT = Number(ARGS.find((a) => /^\d+$/.test(a)) || 4173);
+const WAITLIST = (ARGS.find((a) => a.startsWith("--waitlist=")) || "").slice("--waitlist=".length).replace(/\/+$/, "");
+const FAKE_IPS = ARGS.includes("--waitlist-fake-ips");
+
+function fakeIp(ua) {
+  let h = 2166136261;
+  for (const ch of ua || "") h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0;
+  return `45.${(h >>> 16) & 255}.${(h >>> 8) & 255}.${(h & 255) || 1}`;
+}
+
+async function proxyWaitlist(req, res, pathname, search) {
+  const chunks = [];
+  let size = 0;
+  for await (const chunk of req) {
+    size += chunk.length;
+    if (size > 65536) { res.writeHead(413).end(); return; }
+    chunks.push(chunk);
+  }
+  const headers = { "X-Forwarded-For": FAKE_IPS ? fakeIp(req.headers["user-agent"]) : req.socket.remoteAddress };
+  for (const name of ["content-type", "accept", "origin"]) {
+    if (req.headers[name]) headers[name] = req.headers[name];
+  }
+  try {
+    const upstream = await fetch(`${WAITLIST}/waitlist/api/${pathname.slice("/api/waitlist/".length)}${search}`, {
+      method: req.method,
+      headers,
+      body: ["GET", "HEAD"].includes(req.method) ? undefined : Buffer.concat(chunks),
+      signal: AbortSignal.timeout(12000)
+    });
+    const body = Buffer.from(await upstream.arrayBuffer());
+    res.writeHead(upstream.status, {
+      ...siteHeaders(pathname),
+      "Content-Type": upstream.headers.get("content-type") || "application/json",
+      "Cache-Control": upstream.headers.get("cache-control") || "no-store"
+    });
+    res.end(body);
+  } catch {
+    res.writeHead(502, { "Content-Type": "application/json", "Cache-Control": "no-store" });
+    res.end(JSON.stringify({ error: "The local waiting-list service is not reachable." }));
+  }
+}
 
 // The header rules from vercel.json. Every rule whose source matches the
 // request path applies, in order, as on Vercel; the sources used there are
@@ -86,6 +135,11 @@ const server = createServer(async (req, res) => {
     return;
   }
 
+  if (WAITLIST && pathname.startsWith("/api/waitlist/")) {
+    await proxyWaitlist(req, res, pathname, new URL(req.url, "http://localhost").search);
+    return;
+  }
+
   // trailingSlash: false
   if (pathname === "/data/swarm-map-live.json") {
     try {
@@ -140,4 +194,5 @@ const server = createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`swarm.green preview -> http://localhost:${PORT}`);
+  if (WAITLIST) console.log(`/api/waitlist/* -> ${WAITLIST}/waitlist/api/*${FAKE_IPS ? " (made-up client addresses)" : ""}`);
 });

@@ -209,11 +209,11 @@ def head(title, desc, path, og_title, og_desc):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=7">
+<link rel="stylesheet" href="/css/site.css?v=8">
 <script src="/js/boot.js?v=4"></script>
-<script src="/js/site.js?v=16" defer></script>
+<script src="/js/site.js?v=17" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>
-<script src="/js/analytics.js?v=1"></script>
+<script src="/js/analytics.js?v=2"></script>
 </head>
 <body>
 {SPRITE}
@@ -231,6 +231,7 @@ def head(title, desc, path, og_title, og_desc):
     </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="/#mainnet">Mainnet</a>
+      <a href="/waitlist">Waiting list</a>
       <a href="/#hive">The Hive</a>
       <a href="/#honey">Honey</a>
       <a href="/ecosystem">Ecosystem</a>
@@ -248,6 +249,7 @@ def head(title, desc, path, og_title, og_desc):
     <nav aria-label="Primary, compact">
       <ul>
         <li><a href="/#mainnet">Mainnet</a></li>
+        <li><a href="/waitlist">Waiting list</a></li>
         <li><a href="/#hive">The Hive</a></li>
         <li><a href="/#honey">Honey</a></li>
         <li><a href="/#swarm">The Swarm</a></li>
@@ -297,6 +299,7 @@ FOOTER = f"""</main>
         <ul>
           <li><a href="/what-is-swarm">What is SWARM?</a></li>
           <li><a href="/join">Get SWARM</a></li>
+          <li><a href="/waitlist">Waiting list</a></li>
           <li><a href="/ecosystem">Ecosystem</a></li>
           <li><a href="/#faq">FAQ</a></li>
           <li><a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">GitHub{EXT}</a></li>
@@ -1226,6 +1229,187 @@ brand = head(
 write("brand/index.html", brand)
 
 
+# --------------------------------------------------------------- /waitlist
+# The waiting list for public mining (owner, 2026-10-03). The list itself is a
+# small service on the project's own server (server/waitlist/), reached through
+# the same-origin rewrite /api/waitlist/* in vercel.json; js/site.js (section
+# 5d) runs the form, the counter, the leaderboard and "remove me". Without
+# JavaScript the page still explains the list and shows the countdown text; the
+# form needs JavaScript (the CSP's form-action 'none' blocks a plain submit).
+#
+# Two states, from data/network.json closedStart.opened:
+#   false  the sign-up form (and, once the countdown reaches zero, a note that
+#          public mining is opening, never that it is open);
+#   true   the node download link instead of the form. Allowed only when
+#          data/downloads.json has an available mainnet "node" row.
+# What a place on the list is, in one sentence, used on the page and in /terms.
+WL_IS = ("A place on the list gives early access: when public mining opens, people on the list get "
+         "the node download a short time before everyone else, in leaderboard order.")
+WL_IS_NOT = ("It is not a promise of coins, earnings or a price, and nothing is sold: "
+             "the list is free.")
+WL_RULE = ("The leaderboard counts the people who join with your invite link, each of them once, and "
+           "only them: the people they invite count for them, never for you. A higher place gets the "
+           "node download earlier; no coins are promised.")
+
+WL_OPEN = bool(CLOSED.get("opened"))
+if WL_OPEN:
+    _downloads = json.loads((ROOT / "data" / "downloads.json").read_text(encoding="utf-8"))["entries"]
+    if not any(e.get("product") == "node" and e.get("status") == "available" and e.get("channel") != "testnet"
+               for e in _downloads):
+        raise SystemExit("refusing to build: closedStart.opened is true but data/downloads.json has no "
+                         "available mainnet node row. Add the node download first, or keep opened false.")
+
+WL_COUNT = ('<p class="wl-count js-only" data-wl-count><span class="wl-count__n" data-wl-total>&mdash;</span> '
+            '<span data-wl-noun="computer|computers">computers</span> on the waiting list</p>')
+
+WL_FORM = f"""        <form class="wl-form" data-wl-form novalidate aria-labelledby="wl-form-title">
+          <h2 class="wl-card__title" id="wl-form-title">Join the waiting list</h2>
+          <p class="wl-card__lead">Two things: an email address, so we can reach you when it opens, and the SWARM address you would mine to.</p>
+          <div class="field">
+            <label for="wl-email">Email address</label>
+            <input id="wl-email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" maxlength="254" required aria-describedby="wl-email-err">
+            <p class="field__err" id="wl-email-err" data-wl-err="email" hidden></p>
+          </div>
+          <div class="field">
+            <label for="wl-address">Your SWARM address</label>
+            <input class="mono" id="wl-address" name="address" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="512" required aria-describedby="wl-address-hint wl-address-err">
+            <p class="field__hint" id="wl-address-hint">A mainnet address from SWARM Wallet: it starts with <span class="mono">swm1</span>, <span class="mono">s1</span> or <span class="mono">s3</span>. No wallet yet? <a href="/ecosystem/wallet">Get SWARM Wallet</a>.</p>
+            <p class="field__err" id="wl-address-err" data-wl-err="address" hidden></p>
+          </div>
+          <div class="field">
+            <label for="wl-invite">Invite code <span class="field__opt">(optional)</span></label>
+            <input class="mono" id="wl-invite" name="invite" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="10" aria-describedby="wl-invite-hint">
+            <p class="field__hint" id="wl-invite-hint">If someone sent you a link, their code is already filled in.</p>
+          </div>
+          <div class="field field--check">
+            <input id="wl-consent" name="consent" type="checkbox" required aria-describedby="wl-consent-err">
+            <label for="wl-consent">I agree that SWARM stores my email address and SWARM address for this waiting list, as the <a href="/privacy#waiting-list">privacy page</a> describes. I can remove myself at any time.</label>
+            <p class="field__err" id="wl-consent-err" data-wl-err="consent" hidden></p>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="wl-website">Leave this field empty</label>
+            <input id="wl-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="wl-actions">
+            <button class="btn btn--primary" type="submit" data-wl-submit>Join the waiting list</button>
+          </div>
+          <p class="wl-status" role="status" aria-live="polite" data-wl-status></p>
+        </form>"""
+
+WL_ME = f"""        <div class="wl-me" data-wl-me hidden>
+          <h2 class="wl-card__title" tabindex="-1" data-wl-me-title>You are on the list.</h2>
+          <dl class="wl-facts">
+            <div><dt>Your place</dt><dd class="mono"><span data-wl-position>&mdash;</span> <span class="wl-of">of <span data-wl-of>&mdash;</span></span></dd></div>
+            <div><dt>Invites counted</dt><dd class="mono" data-wl-invites>&mdash;</dd></div>
+          </dl>
+          <p class="wl-me__note" data-wl-confirm-note>We will ask you to confirm your email before opening.</p>
+          <p class="wl-me__label">Your invite link</p>
+          <span class="copyrow"><code class="mono" data-wl-link>&mdash;</code><button class="btn btn--ghost btn--sm" type="button" data-copy="" data-wl-copy>Copy<span class="vh"> your invite link</span></button></span>
+          <p class="wl-me__rule">{WL_RULE}</p>
+          <p class="wl-status" role="status" aria-live="polite" data-wl-me-status></p>
+          <div class="wl-remove">
+            <button class="btn btn--ghost btn--sm" type="button" data-wl-remove aria-expanded="false" aria-controls="wl-remove-confirm">Remove me from the list</button>
+            <div class="wl-remove__confirm" id="wl-remove-confirm" data-wl-remove-confirm hidden>
+              <p tabindex="-1" data-wl-remove-text>This deletes your email address, your SWARM address and your place, and cannot be undone.</p>
+              <div class="cta-row">
+                <button class="btn btn--primary btn--sm" type="button" data-wl-remove-yes>Yes, remove me</button>
+                <button class="btn btn--ghost btn--sm" type="button" data-wl-remove-no>Keep me on the list</button>
+              </div>
+            </div>
+          </div>
+        </div>"""
+
+WL_DOWNLOAD = f"""        <div class="wl-open">
+          <h2 class="wl-card__title">Public mining is open.</h2>
+          <p class="wl-card__lead">The node download is published. Check its SHA-256 before you install it.</p>
+          <p class="mt-m"><a class="btn btn--primary" href="{esc(CLOSED.get("downloadPath", "/ecosystem/node"))}">Get the node{ARROW}</a></p>
+        </div>"""
+
+waitlist = head(
+    "Waiting list for public mining — SWARM",
+    "Join the waiting list for SWARM public mining, which opens on 1 November 2026, 15:42 UTC. People on the list get the node download a short time before everyone else, in leaderboard order. No coins are promised.",
+    "/waitlist",
+    "SWARM — Waiting list for public mining",
+    "Public mining opens on 1 November 2026, 15:42 UTC. Join the list for early access to the node download.",
+) + page_head(
+    "Waiting list",
+    "Waiting list for public mining.",
+    ("Public mining is open. People on the waiting list were given the node download first."
+     if WL_OPEN else
+     f"SWARM is in its closed start: until {esc(CLOSED['untilLabel'])} only the project&rsquo;s own machines mine. "
+     "Put your name down now, and when public mining opens you get the node download a short time before everyone else."),
+    pill="Mainnet · live" if WL_OPEN else "Closed start",
+    extra=("" if WL_OPEN else COUNTDOWN + "\n      " + WL_COUNT),
+) + f"""
+  <section class="band band--cream" data-waitlist>
+    <div class="wrap">
+      <p class="note wl-due"><strong>Public mining is opening.</strong> The node download appears on this page as soon as it is published, for the people on the list first. Until then the list stays open.</p>
+      <div class="wl-grid">
+        <div class="card wl-card" data-reveal>
+          <p class="wl-notice" role="status" aria-live="polite" data-wl-notice hidden></p>
+{WL_DOWNLOAD if WL_OPEN else WL_FORM + chr(10) + WL_ME}
+          <p class="wl-nojs nojs-only">The sign-up form needs JavaScript. Switch it on for this page, or come back in a browser that runs it; nothing else on this site needs it.</p>
+        </div>
+
+        <div class="prose wl-about" data-reveal>
+          <h2>What a place on the list is</h2>
+          <p>{WL_IS}</p>
+          <p><strong>{WL_IS_NOT}</strong> Mining itself, once it is open, follows the same rules for everyone.</p>
+          <h2>How the order is decided</h2>
+          <p>{WL_RULE}</p>
+          <p>Ties go to whoever joined first. One entry per person: one email address and one SWARM address. Someone who joins from the same internet connection as the person who invited them does not count as an invite.</p>
+          <h2>Your email address</h2>
+          <p>We send nothing yet. We will ask you to confirm your email before opening, with one message that also holds a link to remove yourself. What is stored, where and for how long is on the <a href="/privacy#waiting-list">privacy page</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--dark2">
+    <div class="wrap wrap--narrow">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Leaderboard</p>
+        <h2>Who gets the download first.</h2>
+        <p>The top 50, by invites. Addresses are shortened to their first 8 and last 4 characters; email addresses are never shown.</p>
+      </div>
+      <div class="tablewrap wl-board" data-reveal>
+        <table>
+          <caption>Waiting list for public mining, top 50. <span class="js-only" data-wl-board-note></span></caption>
+          <thead>
+            <tr><th scope="col" class="num">Place</th><th scope="col">SWARM address</th><th scope="col" class="num">Invites</th></tr>
+          </thead>
+          <tbody data-wl-board>
+            <tr><td colspan="3" class="wl-board__empty"><span class="nojs-only">The leaderboard is shown when JavaScript is switched on.</span><span class="js-only">Loading the leaderboard&hellip;</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--cream">
+    <div class="wrap wrap--narrow">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Before you join</p>
+        <h2>Plain answers.</h2>
+      </div>
+      <div class="prose" data-reveal>
+        <h3>Do I need a SWARM address?</h3>
+        <p>Yes, a mainnet one: it is where you would mine to. <a href="/ecosystem/wallet">SWARM Wallet</a> gives you one when you create a wallet. A testnet address (it starts with <span class="mono">swarm1</span>) is not accepted.</p>
+        <h3>Joined on another device, or lost the page?</h3>
+        <p>Join again with the same email address and SWARM address: you get your place and your invite link back. The &ldquo;Remove me&rdquo; button works in the browser you joined with; from anywhere else, write to <a href="mailto:{EMAIL}">{EMAIL}</a> from the email address you joined with and we remove you.</p>
+        <h3>Is the closed start real?</h3>
+        <p>Yes. {esc(CLOSED["summary"])} The figures are on the <a href="/network">network page</a>, and you can check the chain itself on <a href="/verify">Verify</a>.</p>
+      </div>
+      <div class="cta-row mt-l" data-reveal>
+        <a class="btn btn--ghost" href="/ecosystem/wallet">Get SWARM Wallet</a>
+        <a class="btn btn--ghost" href="/privacy#waiting-list">What we store</a>
+      </div>
+    </div>
+  </section>
+""" + FOOTER
+write("waitlist/index.html", waitlist)
+
+
 # ------------------------------------------------------------------ /terms
 terms = head(
     "Terms — SWARM",
@@ -1257,6 +1441,9 @@ terms = head(
       </ul>
       <p>To the fullest extent allowed by law, the SWARM contributors are not liable for any loss or damage arising from the use of this site or the software it describes.</p>
 
+      <h2>The waiting list</h2>
+      <p>A place on the <a href="/waitlist">waiting list for public mining</a> gives early access to the node download and nothing else. It is not a promise of coins, earnings or a price, it is not a purchase, and it gives no claim against anyone. We may remove entries that break the list&rsquo;s rules, such as several entries for one person.</p>
+
       <h2>Your own responsibility</h2>
       <p>Running a node, mining, and holding or paying with SWM use your own computer, your own electricity, your own bandwidth and your own money. Whether that is lawful, taxable and sensible where you live is yours to work out.</p>
 
@@ -1274,26 +1461,33 @@ write("terms/index.html", terms)
 # ---------------------------------------------------------------- /privacy
 privacy = head(
     "Privacy — SWARM",
-    "swarm.green counts visits with Google Analytics, which sets two cookies. There are no forms and no accounts, and nothing else is collected.",
+    "swarm.green counts visits with Google Analytics, which sets two cookies. The waiting list for public mining stores the email and SWARM address you give it, on the project's own server. Nothing else is collected.",
     "/privacy",
     "SWARM — Privacy",
-    "Visits are counted with Google Analytics. No forms, no accounts, nothing else collected.",
+    "Visits are counted with Google Analytics. The waiting list stores what you type into it. Nothing else is collected.",
 ) + page_head(
     "Privacy",
-    "Visits are counted. Nothing else is collected.",
-    "What this site measures, which cookies it sets, and how to switch that off.",
+    "Visits are counted. The waiting list keeps what you give it.",
+    "What this site measures, which cookies it sets, what the waiting list stores, and how to switch all of it off.",
 ) + f"""
   <section class="band band--cream">
     <div class="wrap wrap--narrow prose" data-reveal>
       <h2>What this site collects</h2>
       <p>This site uses Google Analytics to count visits. When you open a page, your browser loads a script from Google and sends Google the address of that page, the page you came from, your browser, device type, screen size and language, and an approximate location (country and city) that Google works out from your IP address. We see the totals: how many people visited, which pages they opened and where they came from.</p>
-      <p>There is no contact form, no newsletter sign-up and no account to create — there is nowhere on this site to type your email address, because we did not build one.</p>
+      <p>There is no contact form, no newsletter and no account to create. The one place on this site where you can type your email address is the <a href="/waitlist">waiting list for public mining</a>, described below.</p>
 
       <h2>Cookies</h2>
       <p>Google Analytics sets two cookies on swarm.green, <span class="mono">_ga</span> and <span class="mono">_ga_3MDDZNCW6P</span>. They hold a random number that tells one browser from another, and they are kept for up to two years. The site sets no other cookie.</p>
 
       <h2>How to switch it off</h2>
       <p>The site works the same without Google Analytics. Any content blocker stops it. So does blocking <span class="mono">googletagmanager.com</span> and <span class="mono">google-analytics.com</span> in your browser, or Google&rsquo;s own <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">opt-out add-on</a>. You can delete the two cookies at any time in your browser&rsquo;s settings.</p>
+
+      <h2 id="waiting-list">The waiting list for public mining</h2>
+      <p>If you join the <a href="/waitlist">waiting list</a>, we store the email address and the SWARM address you type in, the time you joined and agreed to this page, the invite code you used (if any) and whose code it was, your own invite code, and a salted hash of your IP address. The hash is a one-way fingerprint made with a secret key that exists only on our server; we keep it so that one connection cannot fill the list or invite itself. The IP address itself is not stored.</p>
+      <p>We use these details for one thing: running the list. Your invite count and the time you joined decide the order in which the node download goes out when public mining opens, and your email address is how we will reach you then. The public leaderboard shows only the first 8 and last 4 characters of your SWARM address and your invite count, never your email address. You give these details by ticking the consent box; you can take that back at any time by removing yourself.</p>
+      <p>The list is kept on the project&rsquo;s own server, not at Google and not with a mailing service. Your request reaches that server through the site&rsquo;s hosting provider, as every request to this site does (see Server logs below). We do not sell, rent or share the list with anyone. Google Analytics counts a visit to the waiting-list page like a visit to any other page, without the invite code in the page address and without anything you type into the form.</p>
+      <p>To leave, press &ldquo;Remove me from the list&rdquo; on the waiting-list page in the browser you joined with, or write to <a href="mailto:{EMAIL}">{EMAIL}</a> from the email address you joined with. Removal deletes your entry at once: email address, SWARM address, invite code and IP hash. If someone joined with your invite and later removes themselves, your invite count keeps that one as a number and nothing else about them. Backups of the list are kept for 14 days, so a removed entry is gone from them after 14 days at the latest. We delete the whole list once public mining has opened and the early access is over; this page will say when.</p>
+      <p>At the moment we send no email at all. Before public mining opens we will ask you to confirm your email address with a single message, which also holds a link to remove yourself.</p>
 
       <h2>Pages that are not measured</h2>
       <p>The pages that open a SWARM Messenger link — <span class="mono">/call</span>, <span class="mono">/u</span>, <span class="mono">/g</span> and <span class="mono">/stickers</span> — do not load Google Analytics, and their Content-Security-Policy does not allow it. The part of such a link after <span class="mono">#</span> is a key or an invitation: it stays in your browser and is handed only to SWARM Messenger.</p>
@@ -1314,7 +1508,7 @@ privacy = head(
       <p>Separately, when you run node or wallet software on your own computer, that software talks to peers over the internet and your own network connection is visible to them in the usual way. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs — that is about what is written to the chain, and it is not a claim about your network connection or your computer.</p>
 
       <h2>Changes</h2>
-      <p>If any of this ever changes, this page changes with it. Last change: 30 September 2026, when Google Analytics was added. Before that day the site set no cookies and ran no analytics.</p>
+      <p>If any of this ever changes, this page changes with it. Last change: 3 October 2026, when the waiting list for public mining was added. Google Analytics was added on 30 September 2026; before that day the site set no cookies and ran no analytics.</p>
     </div>
   </section>
 """ + FOOTER
@@ -1332,7 +1526,7 @@ notfound = head(
 # A 404 page makes no calls to outside services (Bing's 404 guidance, read
 # 2026-09-30): the analytics tag stays off it; the page keeps its own CSS and JS.
 ).replace('<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>\n'
-          '<script src="/js/analytics.js?v=1"></script>\n', '') + """
+          '<script src="/js/analytics.js?v=2"></script>\n', '') + """
   <section class="band band--dark band--comb page-head">
     <div class="wrap wrap--narrow center">
       <p class="pill">Error 404</p>

@@ -2178,3 +2178,127 @@ tbody th { font-weight: 500; white-space: nowrap; }
 .js .countdown__left { display: inline-block; min-width: 27ch; text-align: left; }
 .js .countdown.is-due .countdown__left { min-width: 0; }
 .page-head .countdown { margin: 1.1rem 0 0; }
+
+/* --------------------------------------------------------------------------
+   23. Waiting list for public mining  (added 2026-10-03; /waitlist, home hero)
+   The form, the "you are on the list" panel, the counter and the leaderboard.
+   js/site.js (section 5d) drives them. Without JavaScript the form and the
+   live parts are hidden and the page explains the list in plain text. Fields
+   use 16px type so phones do not zoom in, and every size is reserved up
+   front so nothing moves when the numbers arrive.
+   -------------------------------------------------------------------------- */
+html:not(.js) .js-only,
+html:not(.js) .wl-form,
+html:not(.js) .wl-me { display: none !important; }
+.js .nojs-only { display: none !important; }
+.wl-card [hidden] { display: none !important; }
+
+.wl-count {
+  margin: .7rem 0 0;
+  font-family: var(--font-mono);
+  font-size: .86rem;
+  font-weight: 500;
+  color: var(--pollen);
+  font-variant-numeric: tabular-nums;
+}
+.wl-count__n { color: var(--comb); }
+
+.wl-due { display: none; margin-bottom: clamp(1.4rem, 3vw, 2rem); }
+.is-mining-due .wl-due { display: block; }
+
+.wl-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  gap: clamp(1.6rem, 4vw, 3.6rem);
+  align-items: start;
+}
+.wl-card:hover { transform: none; }
+.wl-card:hover::after { transform: none; opacity: var(--card-shadow-alpha); }
+.wl-card__title { font-size: clamp(1.35rem, 2.4vw, 1.7rem); }
+.wl-card__title:focus { outline: none; }
+.wl-card__title:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+.wl-card .wl-card__lead { margin-top: .6rem; color: var(--fg-dim); }
+.wl-card .wl-notice { margin-bottom: 1.2rem; padding: .85rem 1rem; border-radius: 12px; background: color-mix(in srgb, var(--ok) 12%, transparent); color: var(--fg); font-weight: 500; }
+.wl-notice:focus { outline: none; }
+
+.wl-form .field { display: grid; gap: .42rem; margin-top: 1.25rem; }
+.wl-form .wl-card__lead + .field { margin-top: 1.5rem; }
+.field label { font-weight: 600; font-size: .96rem; color: var(--fg); }
+.field__opt { font-weight: 400; color: var(--fg-dim); }
+.field input[type="text"],
+.field input[type="email"] {
+  width: 100%;
+  min-height: 52px;
+  padding: .78rem .95rem;
+  border: 1.5px solid color-mix(in srgb, var(--fg) 24%, transparent);
+  border-radius: 12px;
+  background: #FFFFFF;
+  color: var(--bark);
+  font: 400 1rem/1.4 var(--font-body);
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.field input.mono { font-family: var(--font-mono); font-size: 1rem; letter-spacing: 0; }
+.field input:hover { border-color: color-mix(in srgb, var(--fg) 40%, transparent); }
+.field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--honey) 45%, transparent); }
+.field input[aria-invalid="true"] { border-color: #B42318; }
+.wl-card .field__hint { font-size: .88rem; line-height: 1.5; color: var(--fg-dim); }
+.field__hint a, .field--check a { color: var(--accent); text-underline-offset: 3px; }
+.wl-card .field__err { font-size: .9rem; font-weight: 500; line-height: 1.45; color: #B42318; }
+.field--check { grid-template-columns: auto minmax(0, 1fr); column-gap: .75rem; align-items: start; }
+.field--check input { width: 22px; height: 22px; margin: .12rem 0 0; accent-color: var(--honey-ink); }
+.field--check label { font-weight: 400; font-size: .93rem; line-height: 1.55; color: var(--fg-dim); }
+.field--check .field__err { grid-column: 2; }
+.hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.wl-actions { margin-top: 1.6rem; }
+.wl-card .wl-status { margin-top: .9rem; min-height: 1.6em; font-size: .93rem; color: var(--fg-dim); }
+.wl-card .wl-status.is-error { color: #B42318; font-weight: 500; }
+
+.wl-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin: 1.3rem 0 0; }
+.wl-facts > div { padding: .9rem 1rem; border-radius: 12px; background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.wl-facts dt { font-size: .76rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.wl-facts dd { margin: .3rem 0 0; font-size: 1.5rem; color: var(--fg); }
+.wl-of { font-size: .9rem; color: var(--fg-dim); }
+.wl-card .wl-me__note, .wl-card .wl-me__rule { margin-top: 1.1rem; color: var(--fg-dim); font-size: .95rem; line-height: 1.6; }
+.wl-me__label { margin-top: 1.2rem; margin-bottom: .45rem; font-weight: 600; }
+.wl-me .copyrow > code { font-size: .86rem; }
+.wl-remove { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); }
+.wl-remove__confirm { margin-top: 1rem; }
+.wl-card .wl-remove__confirm p { color: var(--fg); margin-bottom: .9rem; }
+.wl-remove__confirm p:focus { outline: none; }
+.wl-card .wl-nojs { color: var(--fg-dim); }
+
+.wl-about h2:first-child { margin-top: 0; }
+
+.wl-board table { min-width: 0; }
+.wl-board td.mono { font-family: var(--font-mono); font-size: .9em; overflow-wrap: anywhere; }
+.wl-board th.num:first-child, .wl-board td.num:last-child { width: 1%; }
+.wl-board td.num:last-child, .wl-board thead th:last-child { text-align: right; }
+.wl-board__empty { color: var(--fg-dim); }
+
+/* Home hero: one compact link under the countdown, with the live counter. */
+.wl-cta { margin: .75rem 0 0; font-size: .92rem; }
+.wl-cta a {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .2rem .55rem;
+  align-items: baseline;
+  padding: .5rem 1rem;
+  border-radius: 999px;
+  color: var(--comb);
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--honey) 45%, transparent);
+  transition: box-shadow .2s var(--ease), background-color .2s var(--ease);
+}
+.wl-cta a:hover { box-shadow: inset 0 0 0 1.5px var(--honey); background: color-mix(in srgb, var(--honey) 10%, transparent); }
+.wl-cta__label { font-weight: 600; }
+.wl-cta__n { font-family: var(--font-mono); font-size: .84rem; color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 880px) {
+  .wl-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .wl-facts dd { font-size: 1.3rem; }
+  .wl-actions .btn { width: 100%; }
+  .wl-board th, .wl-board td { padding: .65rem .7rem; }
+}

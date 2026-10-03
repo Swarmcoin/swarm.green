@@ -187,6 +187,7 @@ Write to swarmofficial@atomicmail.io or follow @swarm_coin on X. Together with t
 - [Network and supply](https://swarm.green/network): every consensus and monetary parameter, the era table and the 80% Miner / 8% Core Development / 4% Grants & Ecosystem / 8% Community & Development Reserve block reward split
 - [Verify the chain](https://swarm.green/verify): genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes
 - [Get started](https://swarm.green/join): choosing a wallet, step by step
+- [Waiting list for public mining](https://swarm.green/waitlist): join the list for early access to the node download when public mining opens on 1 November 2026; one level of invites decides the order; no coins are promised
 - [Roadmap](https://swarm.green/roadmap): what is live, what is being built and what is only planned
 - [Frequently asked questions](https://swarm.green/#faq): launch, supply, mining, privacy, custody of the project share
 

@@ -3,7 +3,7 @@
    Vanilla JS, no dependencies, no inline handlers (strict CSP friendly).
    Sections: 1 nav · 2 reveal · 3 hero swarm canvas · 4 data-driven charts
              5 downloads · 5b live network figures · 5c public mining countdown
-             6 pointer tilt for the 3D hex cells
+             5d waiting list · 6 pointer tilt for the 3D hex cells
    ========================================================================== */
 (function () {
   "use strict";
@@ -894,6 +894,8 @@
         if (ms <= 0) {
           left.textContent = "is opening ·";
           box.classList.add("is-due");
+          // /waitlist shows its "Public mining is opening" note from here (css section 23)
+          document.documentElement.classList.add("is-mining-due");
           return;
         }
         var s = Math.floor(ms / 1000);
@@ -907,6 +909,337 @@
       }
       tick();
     });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* 5d. Waiting list for public mining                                  */
+  /* /waitlist and the counter on the home page. The service lives on    */
+  /* the project's own server; vercel.json rewrites /api/waitlist/* to it */
+  /* so the strict CSP (connect-src 'self') is untouched. Nothing here    */
+  /* goes to analytics. The private key that removes an entry is kept in  */
+  /* this browser's localStorage only, and travels in POST bodies only.   */
+  /* A number is never invented: the counter keeps its dash until the    */
+  /* service answers with a real one.                                    */
+  /* ------------------------------------------------------------------ */
+  var WL_API = "/api/waitlist/";
+  var WL_KEY = "swarm.waitlist";
+  var WL_INVITE = "swarm.waitlist.invite";
+
+  function wlRead(r) {
+    return r.json().catch(function () { return {}; }).then(function (body) {
+      if (!r.ok) {
+        var err = new Error(body && body.error ? body.error : "HTTP " + r.status);
+        err.status = r.status;
+        err.body = body || {};
+        throw err;
+      }
+      return body;
+    });
+  }
+  function wlGet(path, fresh) {
+    return fetch(WL_API + path, { credentials: "omit", cache: fresh ? "no-cache" : "default",
+      headers: { "Accept": "application/json" } }).then(wlRead);
+  }
+  function wlPost(path, body) {
+    return fetch(WL_API + path, { method: "POST", credentials: "omit", cache: "no-store",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(body) }).then(wlRead);
+  }
+  function wlStore(name, value) {
+    try {
+      if (value === undefined) {
+        var raw = window.localStorage.getItem(name);
+        return raw ? JSON.parse(raw) : null;
+      }
+      if (value === null) window.localStorage.removeItem(name);
+      else window.localStorage.setItem(name, JSON.stringify(value));
+    } catch (e) { /* private mode, blocked storage: the page still works */ }
+    return null;
+  }
+  function wlSession(name, value) {
+    try {
+      if (value === undefined) return window.sessionStorage.getItem(name);
+      window.sessionStorage.setItem(name, value);
+    } catch (e) { /* ignore */ }
+    return null;
+  }
+  function isCount(n) { return typeof n === "number" && isFinite(n) && n >= 0 && Math.floor(n) === n; }
+
+  function wlCount(fresh) {
+    var nodes = $$("[data-wl-total]");
+    if (!nodes.length) return;
+    wlGet("stats", fresh).then(function (s) {
+      if (!isCount(s.total)) return;
+      nodes.forEach(function (n) { n.textContent = nf.format(s.total); });
+      $$("[data-wl-noun]").forEach(function (n) {
+        var forms = n.getAttribute("data-wl-noun").split("|");
+        n.textContent = s.total === 1 ? forms[0] : forms[1];
+      });
+    }).catch(function () { /* keep the dash */ });
+  }
+
+  function wlBoard(fresh) {
+    var body = $("[data-wl-board]");
+    if (!body) return;
+    function only(text) {
+      var tr = el("tr");
+      var td = el("td", "wl-board__empty", text);
+      td.colSpan = 3;
+      tr.appendChild(td);
+      body.replaceChildren(tr);
+    }
+    wlGet("leaderboard", fresh).then(function (b) {
+      var rows = Array.isArray(b.entries) ? b.entries : [];
+      var note = $("[data-wl-board-note]");
+      if (note && isCount(b.total)) {
+        note.textContent = nf.format(b.total) + (b.total === 1 ? " entry" : " entries") + " in all"
+          + (b.inviteRule === "confirmed-only" ? "; only confirmed entries count as invites." : ".");
+      }
+      if (!rows.length) { only("Nobody yet. The first to join is first on the list."); return; }
+      var frag = document.createDocumentFragment();
+      rows.forEach(function (e) {
+        if (!isCount(e.rank) || !isCount(e.invites) || typeof e.label !== "string") return;
+        var tr = el("tr");
+        var th = el("th", "num", String(e.rank));
+        th.scope = "row";
+        tr.appendChild(th);
+        tr.appendChild(el("td", "mono", e.label));
+        tr.appendChild(el("td", "num", nf.format(e.invites)));
+        frag.appendChild(tr);
+      });
+      body.replaceChildren(frag);
+    }).catch(function () {
+      only("The leaderboard could not be loaded just now.");
+    });
+  }
+
+  function initWaitlist() {
+    wlCount(false);
+    var root = $("[data-waitlist]");
+    if (!root) return;
+    wlBoard(false);
+
+    var form = $("[data-wl-form]", root);
+    var me = $("[data-wl-me]", root);
+    var notice = $("[data-wl-notice]", root);
+    if (!form || !me) return; // the open state has no form
+    var status = $("[data-wl-status]", form);
+    var meStatus = $("[data-wl-me-status]", me);
+    var submit = $("[data-wl-submit]", form);
+    var removeBtn = $("[data-wl-remove]", me);
+    var removeBox = $("[data-wl-remove-confirm]", me);
+    var current = null; // { key } while an entry is shown
+
+    function say(node, text, isError) {
+      if (!node) return;
+      node.textContent = text || "";
+      node.classList.toggle("is-error", !!isError);
+    }
+    function sayNotice(text) {
+      notice.textContent = text;
+      notice.hidden = !text;
+    }
+    function fieldError(name, text) {
+      var input = form.elements[name];
+      var box = $('[data-wl-err="' + name + '"]', form);
+      if (!input || !box) return;
+      if (text) {
+        input.setAttribute("aria-invalid", "true");
+        box.textContent = text;
+        box.hidden = false;
+      } else {
+        input.removeAttribute("aria-invalid");
+        box.textContent = "";
+        box.hidden = true;
+      }
+    }
+    function clearErrors() { ["email", "address", "consent"].forEach(function (n) { fieldError(n, ""); }); }
+
+    // ?i=CODE prefills the invite field, then leaves the address bar (and so
+    // the referrer of the next page) without it. A reload keeps it for this tab.
+    var params = new URLSearchParams(window.location.search);
+    var code = (params.get("i") || wlSession(WL_INVITE) || "").toUpperCase().replace(/[^0-9A-Z]/g, "").slice(0, 10);
+    if (code) {
+      form.elements.invite.value = code;
+      wlSession(WL_INVITE, code);
+    }
+    if (params.has("i") && window.history.replaceState) {
+      params.delete("i");
+      var q = params.toString();
+      window.history.replaceState(null, "", window.location.pathname + (q ? "?" + q : "") + window.location.hash);
+    }
+
+    function inviteNote(state) {
+      return {
+        counted: "Your invite code was counted for the person who invited you.",
+        "after-confirmation": "Your invite counts for the person who invited you once you confirm your email.",
+        "not-counted": "The invite code was recognised, but it does not count: you joined from the same internet connection as the person who invited you.",
+        unknown: "That invite code is not on the list, so you joined without one."
+      }[state] || "";
+    }
+
+    function showMe(data, key, focus) {
+      current = key ? { key: key } : null;
+      $("[data-wl-position]", me).textContent = isCount(data.position) ? nf.format(data.position) : "—";
+      $("[data-wl-of]", me).textContent = isCount(data.total) ? nf.format(data.total) : "—";
+      $("[data-wl-invites]", me).textContent = isCount(data.invites) ? nf.format(data.invites) : "—";
+      var link = typeof data.inviteUrl === "string" ? data.inviteUrl : "";
+      $("[data-wl-link]", me).textContent = link || "—";
+      $("[data-wl-copy]", me).setAttribute("data-copy", link);
+      $("[data-wl-confirm-note]", me).textContent = data.confirmed
+        ? "Your email address is confirmed."
+        : data.mail === "on"
+          ? "We have sent you an email. Open the link in it to confirm your address; until then you do not count as anyone's invite."
+          : "We will ask you to confirm your email before opening.";
+      removeBtn.hidden = !current;
+      removeBox.hidden = true;
+      removeBtn.setAttribute("aria-expanded", "false");
+      form.hidden = true;
+      me.hidden = false;
+      if (focus) $("[data-wl-me-title]", me).focus();
+    }
+    function showForm() {
+      current = null;
+      me.hidden = true;
+      form.hidden = false;
+    }
+
+    function refreshMe(key, focus) {
+      return wlPost("me", { key: key }).then(function (data) {
+        showMe(data, key, focus);
+        return true;
+      }, function (err) {
+        if (err.status === 404) wlStore(WL_KEY, null);
+        return false;
+      });
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      clearErrors();
+      say(status, "");
+      var email = form.elements.email.value.trim();
+      var address = form.elements.address.value.trim();
+      var first = null;
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        fieldError("email", email ? "This does not look like an email address. Check it for typing errors." : "Enter your email address.");
+        first = first || "email";
+      }
+      if (!address) { fieldError("address", "Enter your SWARM address."); first = first || "address"; }
+      if (!form.elements.consent.checked) {
+        fieldError("consent", "Tick the box to agree that we store your email and SWARM address for the waiting list.");
+        first = first || "consent";
+      }
+      if (first) { form.elements[first].focus(); return; }
+
+      submit.disabled = true;
+      say(status, "Adding you to the list…");
+      wlPost("join", {
+        email: email,
+        address: address,
+        invite: form.elements.invite.value.trim() || undefined,
+        consent: true,
+        website: form.elements.website.value
+      }).then(function (res) {
+        submit.disabled = false;
+        say(status, "");
+        if (res.key) wlStore(WL_KEY, { key: res.key });
+        showMe(res, res.created ? res.key : null, true);
+        if (res.created) {
+          say(meStatus, inviteNote(res.invite));
+        } else {
+          // The key is only ever handed out once. If this browser holds the
+          // key of this very entry, "Remove me" works here too.
+          say(meStatus, "You were already on the list with these details. To remove yourself, use the browser you joined with, or write to us by email.");
+          var saved = wlStore(WL_KEY);
+          if (saved && typeof saved.key === "string") {
+            wlPost("me", { key: saved.key }).then(function (d) {
+              if (d.inviteCode !== res.inviteCode) return;
+              current = { key: saved.key };
+              removeBtn.hidden = false;
+              say(meStatus, "You were already on the list with these details.");
+            }, function () { /* not this entry */ });
+          }
+        }
+        wlCount(true);
+        wlBoard(true);
+      }, function (err) {
+        submit.disabled = false;
+        var fields = err.body && err.body.fields;
+        if (fields) {
+          var firstBad = null;
+          ["email", "address", "consent"].forEach(function (n) {
+            if (fields[n]) { fieldError(n, fields[n]); firstBad = firstBad || n; }
+          });
+          say(status, "");
+          if (firstBad) { form.elements[firstBad].focus(); return; }
+        }
+        say(status, err.status ? err.message : "The waiting list could not be reached just now. Please try again in a moment.", true);
+      });
+    });
+
+    removeBtn.addEventListener("click", function () {
+      var open = removeBox.hidden;
+      removeBox.hidden = !open;
+      removeBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) $("[data-wl-remove-text]", removeBox).focus();
+    });
+    $("[data-wl-remove-no]", removeBox).addEventListener("click", function () {
+      removeBox.hidden = true;
+      removeBtn.setAttribute("aria-expanded", "false");
+      removeBtn.focus();
+    });
+    $("[data-wl-remove-yes]", removeBox).addEventListener("click", function () {
+      if (!current) return;
+      var key = current.key;
+      say(meStatus, "Removing you…");
+      wlPost("delete", { key: key }).then(done, function (err) {
+        if (err.status === 404) return done();
+        say(meStatus, "That did not work just now. Please try again in a moment.", true);
+      });
+      function done() {
+        var saved = wlStore(WL_KEY);
+        if (saved && saved.key === key) wlStore(WL_KEY, null);
+        showForm();
+        form.reset();
+        sayNotice("You have been removed from the waiting list, with your email address and your SWARM address.");
+        notice.setAttribute("tabindex", "-1");
+        notice.focus();
+        wlCount(true);
+        wlBoard(true);
+      }
+    });
+
+    // Links from the confirmation email carry their secret after "#", which
+    // the browser never sends to a server or to analytics.
+    var hash = window.location.hash.slice(1);
+    var m = /^(confirm|remove)=([A-Za-z0-9_-]{16,64})$/.exec(hash);
+    if (m && window.history.replaceState) {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    if (m && m[1] === "confirm") {
+      wlPost("confirm", { token: m[2] }).then(function () {
+        sayNotice("Thank you: your email address is confirmed.");
+        var saved = wlStore(WL_KEY);
+        if (saved) refreshMe(saved.key, false);
+        wlBoard(true);
+      }, function (err) {
+        sayNotice(err.status ? err.message : "The confirmation could not be sent just now. Please open the link again later.");
+      });
+      return;
+    }
+    if (m && m[1] === "remove") {
+      refreshMe(m[2], false).then(function (found) {
+        if (!found) { sayNotice("This entry is not on the list any more."); return; }
+        removeBox.hidden = false;
+        removeBtn.setAttribute("aria-expanded", "true");
+        $("[data-wl-remove-text]", removeBox).focus();
+      });
+      return;
+    }
+
+    var saved = wlStore(WL_KEY);
+    if (saved && typeof saved.key === "string") refreshMe(saved.key, false);
   }
 
   /* ------------------------------------------------------------------ */
@@ -980,6 +1313,7 @@
     initDownloads();
     initNetStatus();
     initCountdown();
+    initWaitlist();
     initTilt();
   }
 
