@@ -4,7 +4,7 @@ The website of **SWARM (ticker SWM)**, a privacy coin: a cryptocurrency with its
 own proof-of-work blockchain, on which payments can be shielded so that sender,
 receiver and amount stay encrypted on-chain. Its supply is capped at
 20,999,987.3152 SWM and there was no sale. Its mainnet was restarted from a new
-genesis block on 2 October 2026; until 23 October 2026, 15:42 UTC only the
+genesis block on 2 October 2026; until 1 November 2026, 15:42 UTC only the
 project's own machines mine (the closed start), and from then on mining is open
 to everyone. SWARM is built on open-source foundations with
 consensus rules and cryptography left unmodified; the components and what each

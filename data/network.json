@@ -8,20 +8,20 @@
   "status": {
     "phase": "mainnet",
     "short": "Mainnet · live",
-    "ribbon": "SWARM mainnet is live · public mining opens 23 October 2026.",
-    "detail": "SWARM mainnet was restarted on 2 October 2026 at 15:42 UTC from a new genesis block that holds no coins. There was no sale, no presale and no token offering; every SWM is mined. Until 23 October 2026, 15:42 UTC only the project's own machines mine; from that moment mining is open to everyone.",
+    "ribbon": "SWARM mainnet is live · public mining opens 1 November 2026.",
+    "detail": "SWARM mainnet was restarted on 2 October 2026 at 15:42 UTC from a new genesis block that holds no coins. There was no sale, no presale and no token offering; every SWM is mined. Until 1 November 2026, 15:42 UTC only the project's own machines mine; from that moment mining is open to everyone.",
     "launchedUtc": "2026-10-02T15:42:00Z",
     "launchedLabel": "2 October 2026, 15:42 UTC"
   },
   "closedStart": {
-    "note": "The first three weeks of the restarted chain. Figures from 21 days at the 75-second target: 24,192 blocks x 6.25 SWM = 151,200 SWM.",
-    "untilUtc": "2026-10-23T15:42:00Z",
-    "untilLabel": "23 October 2026, 15:42 UTC",
-    "blocks": "about 24,000",
-    "coins": "about 151,000 SWM",
+    "note": "The first 30 days of the restarted chain. Figures from 30 days at the 75-second target: 34,560 blocks x 6.25 SWM = 216,000 SWM.",
+    "untilUtc": "2026-11-01T15:42:00Z",
+    "untilLabel": "1 November 2026, 15:42 UTC",
+    "blocks": "about 34,560",
+    "coins": "about 216,000 SWM",
     "split": "80% to the project's mining wallet, 20% to the three funds",
-    "capShare": "about 0.72%",
-    "summary": "Until 23 October 2026, 15:42 UTC only the project's own machines can mine. In that time about 24,000 blocks are produced, about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 0.72% of the cap. From that moment mining is open to everyone and the node software will be published on this site."
+    "capShare": "about 1.03%",
+    "summary": "Until 1 November 2026, 15:42 UTC only the project's own machines can mine. In that time about 34,560 blocks are produced, about 216,000 SWM (80% to the project's mining wallet, 20% to the three funds), about 1.03% of the cap. From that moment mining is open to everyone and the node software will be published on this site."
   },
   "history": {
     "firstChainAbandonedAtHeight": 6793,
@@ -355,7 +355,7 @@
         "state": "live",
         "when": "2 October 2026",
         "name": "SWARM mainnet, restarted",
-        "detail": "Restarted at 15:42 UTC from a new genesis block that holds no coins. No sale, no presale. Closed start until 23 October 2026, 15:42 UTC: only the project's own machines mine, about 24,000 blocks and about 151,000 SWM (80% to the project's mining wallet, 20% to the three funds). The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain."
+        "detail": "Restarted at 15:42 UTC from a new genesis block that holds no coins. No sale, no presale. Closed start until 1 November 2026, 15:42 UTC: only the project's own machines mine, about 34,560 blocks and about 216,000 SWM (80% to the project's mining wallet, 20% to the three funds). The first chain ran from 26 September to 2 October 2026 and was replaced; its coins are not valid on the new chain."
       },
       {
         "state": "live",

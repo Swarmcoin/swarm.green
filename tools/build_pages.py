@@ -68,7 +68,7 @@ PHASES = """      <ol class="phases" data-reveal>
           <span class="phase__rail"><span class="phase__node"><svg class="ico" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-coin"/></svg></span></span>
           <div class="phase__card">
             <h3>SWARM mainnet</h3>
-            <p>Public testnet <b>21 September 2026</b>; mainnet restarted from a new genesis block on <b>2 October 2026</b>. The coin, the chain and the apps to run them. The genesis block holds no coins; after a three-week closed start, public mining opens on <b>23 October 2026, 15:42&nbsp;UTC</b>.</p>
+            <p>Public testnet <b>21 September 2026</b>; mainnet restarted from a new genesis block on <b>2 October 2026</b>. The coin, the chain and the apps to run them. The genesis block holds no coins; after a 30-day closed start, public mining opens on <b>1 November 2026, 15:42&nbsp;UTC</b>.</p>
             <p class="phase__you">You can</p>
             <ul class="phase__list">
               <li><svg class="ico ico--tick" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>hold, send and receive SWM, shielded or transparent, in SWARM Wallet (the version for the restarted network is being published)</span></li>
@@ -220,7 +220,7 @@ def head(title, desc, path, og_title, og_desc):
 
 <a class="skip" href="#main">Skip to content</a>
 
-<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · public mining opens 23 October 2026.</p>
+<p class="ribbon"><span class="dot"></span>SWARM <b>mainnet is live</b> · public mining opens 1 November 2026.</p>
 
 <header class="nav">
   <div class="wrap nav__bar">
@@ -462,7 +462,7 @@ address_rows = "\n".join(
 
 network = head(
     "Network &amp; supply — SWARM",
-    "Every SWARM parameter in one place: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM, the three-week closed start, the four-way block reward split fixed for the whole emission schedule, and the genesis block it is all fixed in.",
+    "Every SWARM parameter in one place: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 SWM, the 30-day closed start, the four-way block reward split fixed for the whole emission schedule, and the genesis block it is all fixed in.",
     "/network",
     "SWARM — Network &amp; supply",
     "75-second blocks, 6.25 coins per block, halving every 1,680,000 blocks, a ceiling of 20,999,987.3152 coins and a genesis block that holds no coins.",
@@ -684,7 +684,7 @@ verify = head(
       <div class="sec-head" data-reveal>
         <p class="eyebrow">The launch</p>
         <h2>A new genesis block, and a closed start.</h2>
-        <p>SWARM mainnet was restarted on <strong>{esc(STATUS["launchedLabel"])}</strong> from a new genesis block. The genesis block holds no spendable coins, and there was no sale. The first three weeks are a closed start. {esc(CLOSED["summary"])}</p>
+        <p>SWARM mainnet was restarted on <strong>{esc(STATUS["launchedLabel"])}</strong> from a new genesis block. The genesis block holds no spendable coins, and there was no sale. The first 30 days are a closed start. {esc(CLOSED["summary"])}</p>
         <p class="mt-s">{esc(HISTORY)}</p>
       </div>
 
@@ -707,7 +707,7 @@ verify = head(
         <article class="card">
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
           <h3>From the source</h3>
-          <p>Every published release is listed with its SHA-256 in the release repository. The manifest of the restarted chain and the node software are published when public mining opens on 23 October 2026.</p>
+          <p>Every published release is listed with its SHA-256 in the release repository. The manifest of the restarted chain and the node software are published when public mining opens on 1 November 2026.</p>
           <p class="mt-m"><a class="btn btn--ghost btn--sm" href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">Release repository{EXT}</a></p>
         </article>
       </div>

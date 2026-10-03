@@ -1,59 +1,59 @@
 {
  "/": {
-  "sha256": "800e8066fd49f9d2afb9718d985a01707465b99e9a1f073071fbf0117784c0c1",
-  "lastmod": "2026-10-02"
+  "sha256": "9852bde4f79f2e1f5b98d1ec6bc5a018d7dbd8c76a341f0d2f54e5629b3ceddf",
+  "lastmod": "2026-10-03"
  },
  "/what-is-swarm": {
-  "sha256": "9b49a7d6a55a951d3118720e228939728b92ef92bff721d6420ea840286b3811",
-  "lastmod": "2026-10-02"
+  "sha256": "bff55487c57f9a7e89c8deb287bd9a96d2e963e1959bf66e4fce2ca0e8f4bc5d",
+  "lastmod": "2026-10-03"
  },
  "/network": {
-  "sha256": "81fc6f3b5b63058eb45b24da3b696a29d2c922e50855e9547d668e3c18f17e04",
-  "lastmod": "2026-10-02"
+  "sha256": "ab8df0f874022fc591ff5f90ab3baf3739e9c0d434df6e14a1be97d9721a1722",
+  "lastmod": "2026-10-03"
  },
  "/verify": {
-  "sha256": "d4cf7d20409da049e59de7c3fe514cdf6847ac6af24263a5a17004332fed170f",
-  "lastmod": "2026-10-02"
+  "sha256": "576f949f94609dc11199789b212e7bda2b82bbb5d92d8cd1aa9abce324a976a0",
+  "lastmod": "2026-10-03"
  },
  "/join": {
-  "sha256": "73364ae456400ddb06081f1540fe8129ee8ab907acd2b2a485baccc61e577bf6",
-  "lastmod": "2026-10-02"
+  "sha256": "5911e2527a4ba80221ce0f3fe2bd6c7a72e363964c125b2d88118f3d56739247",
+  "lastmod": "2026-10-03"
  },
  "/ecosystem": {
-  "sha256": "599bcfc358d5f580b6899b3eed1a9b2d77d9661804d61644a075ab04496c3c2e",
-  "lastmod": "2026-10-02"
+  "sha256": "cc9f399ceeecf15f9bbbe4291f8b7912702aaa876efd59aab041b9d062c78787",
+  "lastmod": "2026-10-03"
  },
  "/ecosystem/wallet": {
-  "sha256": "fe9aa889b83d2021575335026f780907cd9cbe0749bff30d24e8451a3fae606d",
-  "lastmod": "2026-10-02"
+  "sha256": "3ad13a1b9ccf19ec039e71ce811028e2da1aa2e40ff1696601c56e96e9b1f38a",
+  "lastmod": "2026-10-03"
  },
  "/ecosystem/messenger": {
-  "sha256": "dcbc4fe19386e60e8df922bc05f1956c81f41d479765ec164d4b5a059947493a",
-  "lastmod": "2026-10-02"
+  "sha256": "3ab9b64a852a99bf723953173c399651b135a6c233090c3fca115601be5570af",
+  "lastmod": "2026-10-03"
  },
  "/ecosystem/browser": {
-  "sha256": "7312c90a01f459a1d18740bac467a1a646a8d7650940d63c8a9ef1bfa2fb58e7",
-  "lastmod": "2026-10-02"
+  "sha256": "559c3841af5035ceb50f85403a2ce42e7ee5daf0961018f5636252f98172b7b6",
+  "lastmod": "2026-10-03"
  },
  "/roadmap": {
-  "sha256": "d4f910bc3ed169a3178c53f04e9136ce349c689e07e7765218b3f5ec0bf18de9",
-  "lastmod": "2026-10-02"
+  "sha256": "95f6afdee7c78796ef3910d506ddc518be420038f67a1310ff605d33626df757",
+  "lastmod": "2026-10-03"
  },
  "/support": {
-  "sha256": "31f5fc461f68ba5e742eb891d0e26b895410eb8939ea88a06481f4e9c91aec2a",
-  "lastmod": "2026-10-02"
+  "sha256": "df07be0c6ab35eeb3bcbb637c8da13525173ff2e30a84dea9d5e48fa0afd5849",
+  "lastmod": "2026-10-03"
  },
  "/brand": {
-  "sha256": "5e2f8e084eccb2f5c6f0f14f391f4b27ceca0ac64b0a1573fef2f47f56dd9073",
-  "lastmod": "2026-10-02"
+  "sha256": "3155b1069c18462c481f24474e7b290884bfa5d37b56cae1d79a93bd364deb76",
+  "lastmod": "2026-10-03"
  },
  "/terms": {
-  "sha256": "a153c4c632ee774bf3b5ee251cf87066d3a1ef2e32ebf1c6085e9c0d4956cdf1",
-  "lastmod": "2026-10-02"
+  "sha256": "be4a88e7dc8a8d9bd02954f92a9105606915d9e7b16783f999ee51f462ba56ec",
+  "lastmod": "2026-10-03"
  },
  "/privacy": {
-  "sha256": "8e3ad92ce71c4e72bfe249f4289262bfb70e90e7c57dd9d881427b0ec8456ca7",
-  "lastmod": "2026-10-02"
+  "sha256": "38f1b8e4c478b05b80ad6a80c91fc5d94bde11baa24a13c46144b32b5f79a973",
+  "lastmod": "2026-10-03"
  },
  "/wallet/notices": {
   "sha256": "0aca1172e45e251b902116407b8f9aade5212a829b5b7b317ba3176fe58dfe95",

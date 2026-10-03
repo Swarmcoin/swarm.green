@@ -83,7 +83,7 @@ POW = CHAIN['proofOfWork']
 MATURITY = CHAIN['coinbaseMaturityBlocks']
 LAUNCHED = STATUS['launchedLabel']
 LAUNCH_DAY = LAUNCHED.split(',')[0]
-# The restart of 2 October 2026: three weeks in which only the project mines,
+# The restart of 2 October 2026: 30 days in which only the project mines,
 # and one sentence of history about the first chain.
 CLOSED = NETWORK['closedStart']
 OPENS = CLOSED['untilLabel']
@@ -168,10 +168,10 @@ PAGES = {
     '/': {
         'name': 'SWARM',
         'title': 'SWARM (SWM) — Privacy coin: private, proof-of-work money run by its community',
-        'desc': 'SWARM (SWM) is a privacy coin: proof-of-work money with shielded payments that keep sender, receiver and amount encrypted. 21 million cap, no sale. Public mining opens 23 October 2026.'},
-    '/what-is-swarm': {'name': 'What is SWARM?', 'desc': 'SWARM (SWM) in plain facts: a proof-of-work privacy coin with shielded payments, a 21 million cap and no sale. Mainnet restarted 2 October 2026; public mining opens 23 October 2026.'},
+        'desc': 'SWARM (SWM) is a privacy coin: proof-of-work money with shielded payments that keep sender, receiver and amount encrypted. 21 million cap, no sale. Public mining opens 1 November 2026.'},
+    '/what-is-swarm': {'name': 'What is SWARM?', 'desc': 'SWARM (SWM) in plain facts: a proof-of-work privacy coin with shielded payments, a 21 million cap and no sale. Mainnet restarted 2 October 2026; public mining opens 1 November 2026.'},
     '/network': {'name': 'Network & supply', 'title': 'SWM supply, halving schedule and network rules — SWARM',
-                 'desc': 'Every SWARM (SWM) parameter: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a 20,999,987.3152 SWM cap, the three-week closed start, the 80/8/4/8 split.'},
+                 'desc': 'Every SWARM (SWM) parameter: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a 20,999,987.3152 SWM cap, the 30-day closed start, the 80/8/4/8 split.'},
     '/verify': {'name': 'Verify', 'title': 'Verify the SWARM mainnet: genesis hash, endpoints, addresses — SWARM',
                 'desc': 'Check you are on the real SWARM chain: the genesis hash, the launch time, the public endpoints, the three published fund addresses and the address prefixes.'},
     '/join': {'name': 'Get SWARM', 'title': 'Get started with SWARM (SWM): choose a wallet — SWARM'},
@@ -381,7 +381,7 @@ SECTIONS = [
         f'SWM is issued only by mining. A block is found about every {BLOCK_TIME} seconds and pays {REWARD} SWM; '
         f'the reward halves every {HALVING} blocks, about every {CHAIN["halvingApproxYears"]} years, so the supply '
         f'approaches {MAX_SUPPLY} SWM and never exceeds it. The genesis block holds no spendable coins and there was '
-        'no sale. The first three weeks are a closed start. ' + CLOSED['summary'],
+        'no sale. The first 30 days are a closed start. ' + CLOSED['summary'],
         f'Every block reward is split the same way for the whole schedule: {MINER_SHARE} to the miner who found '
         f'the block and {PROJECT_SHARE}% to three published project addresses ('
         + listing(f'{s["percent"]} {s["name"]}' for s in SHARES if s['key'] != 'miner') +

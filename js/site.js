@@ -875,7 +875,7 @@
 
   /* ------------------------------------------------------------------ */
   /* 5c. Public mining countdown                                         */
-  /* <p data-countdown="2026-10-23T15:42:00Z"> reads "Public mining opens */
+  /* <p data-countdown="2026-11-01T15:42:00Z"> reads "Public mining opens */
   /* on <date>" in the markup. This writes the time left into its         */
   /* [data-countdown-left] span once a second: "opens in DD days          */
   /* HH:MM:SS ·", and at zero "is opening ·" (never a claim that mining   */
