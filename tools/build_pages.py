@@ -56,6 +56,7 @@ GH = "https://github.com/louisinthesubway"
 GH_SOURCE = "https://github.com/louisinthesubway/swarm-releases"
 # Official channels, set by the owner on 2026-09-21. index.html and data/network.json carry the same values.
 X_URL = "https://x.com/swarm_coin"
+YOUTUBE_URL = "https://www.youtube.com/channel/UCDVDnqX_VfMPsd2pQPtFm2g"
 X_HANDLE = "@swarm_coin"
 EMAIL = "swarmofficial@atomicmail.io"
 
@@ -209,7 +210,7 @@ def head(title, desc, path, og_title, og_desc):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=8">
+<link rel="stylesheet" href="/css/site.css?v=9">
 <script src="/js/boot.js?v=4"></script>
 <script src="/js/site.js?v=17" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>
@@ -319,6 +320,7 @@ FOOTER = f"""</main>
         <h2 id="ft-contact">Contact</h2>
         <ul>
           <li><a href="{X_URL}" target="_blank" rel="noopener noreferrer">X (Twitter){EXT}</a></li>
+          <li><a href="{YOUTUBE_URL}" target="_blank" rel="noopener noreferrer">YouTube{EXT}</a></li>
           <li><a href="mailto:{EMAIL}">Email</a></li>
         </ul>
       </nav>
@@ -1505,7 +1507,8 @@ privacy = head(
       <p>The pages that open a SWARM Messenger link — <span class="mono">/call</span>, <span class="mono">/u</span>, <span class="mono">/g</span> and <span class="mono">/stickers</span> — do not load Google Analytics, and their Content-Security-Policy does not allow it. The part of such a link after <span class="mono">#</span> is a key or an invitation: it stays in your browser and is handed only to SWARM Messenger.</p>
 
       <h2>Third parties</h2>
-      <p>Two things are loaded from another origin, both from Google: the Google Analytics script described above, from <span class="mono">googletagmanager.com</span>, and the web fonts, served by Google Fonts from <span class="mono">fonts.googleapis.com</span> and <span class="mono">fonts.gstatic.com</span>. Requesting either sends your IP address and user agent to Google, as any request to any server does, and Google handles that data under its own <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>. No other third-party script, frame, pixel or embed is used anywhere on this site, and the site&rsquo;s Content-Security-Policy blocks them.</p>
+      <p>Two things are loaded from another origin, both from Google: the Google Analytics script described above, from <span class="mono">googletagmanager.com</span>, and the web fonts, served by Google Fonts from <span class="mono">fonts.googleapis.com</span> and <span class="mono">fonts.gstatic.com</span>. Requesting either sends your IP address and user agent to Google, as any request to any server does, and Google handles that data under its own <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>. Apart from the video described next, no other third-party script, frame, pixel or embed is used anywhere on this site, and the site&rsquo;s Content-Security-Policy blocks them.</p>
+      <p>The home page shows one video. It is hosted on YouTube, and nothing is loaded from YouTube until you press play: before that you see a picture served by this site. When you press play, the player is loaded from <span class="mono">youtube-nocookie.com</span>, a Google service, which then receives your IP address and user agent and may store data in your browser while the video plays.</p>
       <p>If you would rather not contact Google at all, the site is fully readable without the web fonts — it falls back to the fonts already on your computer.</p>
 
       <h2>Server logs</h2>
@@ -1520,7 +1523,7 @@ privacy = head(
       <p>Separately, when you run node or wallet software on your own computer, that software talks to peers over the internet and your own network connection is visible to them in the usual way. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs — that is about what is written to the chain, and it is not a claim about your network connection or your computer.</p>
 
       <h2>Changes</h2>
-      <p>If any of this ever changes, this page changes with it. Last change: 3 October 2026, when the waiting list for public mining was added. Google Analytics was added on 30 September 2026; before that day the site set no cookies and ran no analytics.</p>
+      <p>If any of this ever changes, this page changes with it. Last change: 3 October 2026, when the waiting list for public mining and the video on the home page were added. Google Analytics was added on 30 September 2026; before that day the site set no cookies and ran no analytics.</p>
     </div>
   </section>
 """ + FOOTER

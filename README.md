@@ -48,7 +48,8 @@ Visits are counted with Google Analytics 4 (measurement id `G-3MDDZNCW6P`, since
 `/stickers`) carry keys after `#` and never load it; `vercel.json` keeps the
 strict Content-Security-Policy on them. `/privacy` says what is collected.
 The one form is the waiting list for public mining (`/waitlist`, below); nothing else collects anything. The third-party origins are Google
-Fonts and Google Analytics, nothing else.
+Fonts and Google Analytics, and, only after a visitor presses play on the
+home page video (`js/video.js`), the YouTube player from youtube-nocookie.com.
 
 ## File tree
 
