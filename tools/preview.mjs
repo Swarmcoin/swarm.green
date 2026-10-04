@@ -22,6 +22,12 @@
  * browser (by User-Agent) its own made-up public address instead, so invites
  * between two local browsers can be tested; never use it for anything but a
  * local test.
+ *
+ * /data/swm-price.json (the header's SWM price, js/price.js) is fetched from
+ * https://fuel.army/api/swm-price like the vercel.json rewrite, passing its
+ * status and Content-Type through. --swm-price=<file> serves a local file
+ * instead, read again on every request (.json as JSON, anything else as
+ * HTML; a missing file answers 503), so every state can be tried locally.
  */
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
@@ -34,6 +40,7 @@ const ARGS = process.argv.slice(2);
 const PORT = Number(ARGS.find((a) => /^\d+$/.test(a)) || 4173);
 const WAITLIST = (ARGS.find((a) => a.startsWith("--waitlist=")) || "").slice("--waitlist=".length).replace(/\/+$/, "");
 const FAKE_IPS = ARGS.includes("--waitlist-fake-ips");
+const SWM_PRICE_FILE = (ARGS.find((a) => a.startsWith("--swm-price=")) || "").slice("--swm-price=".length);
 
 function fakeIp(ua) {
   let h = 2166136261;
@@ -140,6 +147,30 @@ const server = createServer(async (req, res) => {
       res.end(body);
     } catch {
       res.writeHead(502, { "Cache-Control": "no-store" }).end("Live map unavailable");
+    }
+    return;
+  }
+
+  if (pathname === "/data/swm-price.json") {
+    const headers = { ...siteHeaders(pathname), "Cache-Control": "no-store" };
+    try {
+      if (SWM_PRICE_FILE) {
+        const body = await readFile(SWM_PRICE_FILE).catch(() => null);
+        if (body === null) {
+          res.writeHead(503, { ...headers, "Content-Type": "application/json" }).end('{"error":"unavailable"}');
+        } else {
+          const json = extname(SWM_PRICE_FILE).toLowerCase() === ".json";
+          res.writeHead(200, { ...headers, "Content-Type": json ? TYPES[".json"] : TYPES[".html"] }).end(body);
+        }
+      } else {
+        // Same upstream as the vercel.json rewrite.
+        const upstream = await fetch("https://fuel.army/api/swm-price", { signal: AbortSignal.timeout(12000) });
+        const body = Buffer.from(await upstream.arrayBuffer());
+        res.writeHead(upstream.status, { ...headers, "Content-Type": upstream.headers.get("content-type") || "application/octet-stream" });
+        res.end(body);
+      }
+    } catch {
+      res.writeHead(502, { "Cache-Control": "no-store" }).end("SWM price unavailable");
     }
     return;
   }

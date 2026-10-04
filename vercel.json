@@ -18,6 +18,7 @@
   "rewrites": [
     { "source": "/data/swarm-map-live.json", "destination": "https://lwd-main.swarm.green/swarm-map-live.json" },
     { "source": "/data/status.json", "destination": "https://lwd-main.swarm.green/status.json" },
+    { "source": "/data/swm-price.json", "destination": "https://fuel.army/api/swm-price" },
     { "source": "/api/waitlist/:path*", "destination": "/api/waitlist/[...path]?path=:path*" }
   ],
   "headers": [
@@ -27,6 +28,10 @@
     },
     {
       "source": "/data/status.json",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    },
+    {
+      "source": "/data/swm-price.json",
       "headers": [{ "key": "Cache-Control", "value": "no-store" }]
     },
     {

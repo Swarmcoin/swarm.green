@@ -495,6 +495,74 @@ button { font: inherit; color: inherit; }
 }
 
 /* --------------------------------------------------------------------------
+   5b. SWM price in the header (js/price.js)
+   A small two-line reading between the brand and the links: "SWM $0.60" over
+   "on Base". The auto margin takes the free space, so the links keep their
+   place at the right edge and, on phones, the reading sits beside the menu
+   button. Hidden without JavaScript, because only the script can fill it.
+   -------------------------------------------------------------------------- */
+.nav__price {
+  flex: 0 0 auto;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: .14rem;
+  min-height: 44px;
+  margin-left: auto;
+  line-height: 1.1;
+  white-space: nowrap;
+  cursor: default;
+}
+html:not(.js) .nav__price { display: none; }
+.nav__price-line {
+  display: inline-flex;
+  align-items: center;
+  gap: .38rem;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+  color: var(--ink-dim);
+}
+.nav__price-val { color: var(--comb); }
+.nav__price-net {
+  font-size: .6rem;
+  font-weight: 500;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  opacity: .8;
+}
+.nav__price-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(154, 164, 178, .45);
+  transition: background .3s var(--ease), box-shadow .3s var(--ease);
+}
+.nav__price.is-live .nav__price-dot {
+  background: var(--leaf);
+  box-shadow: 0 0 0 3px rgba(63, 185, 80, .18);
+}
+.nav__price.is-stored .nav__price-dot {
+  background: var(--honey);
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, .18);
+}
+/* Between 861 and 1199 px the nine desktop links already fill the bar, so
+   the reading stays out there: the links never wrap or push the page
+   sideways. Phones and tablets (860 px and below) show it beside the menu
+   button, wider screens (1200 px and up) before the links. */
+@media (min-width: 861px) and (max-width: 1199px) {
+  .nav__price { display: none; }
+}
+@media (min-width: 1200px) {
+  .nav__price {
+    padding-right: clamp(.9rem, 1.6vw, 1.4rem);
+    border-right: 1px solid var(--rule-dark);
+  }
+}
+
+/* --------------------------------------------------------------------------
    6. Hero
    -------------------------------------------------------------------------- */
 .hero {

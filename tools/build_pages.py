@@ -211,9 +211,10 @@ def head(title, desc, path, og_title, og_desc):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=8">
+<link rel="stylesheet" href="/css/site.css?v=9">
 <script src="/js/boot.js?v=4"></script>
 <script src="/js/site.js?v=17" defer></script>
+<script src="/js/price.js?v=1" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>
 <script src="/js/analytics.js?v=2"></script>
 </head>
@@ -231,6 +232,11 @@ def head(title, desc, path, og_title, og_desc):
       <span>SWARM</span>
       <span class="vh">— home</span>
     </a>
+    <div class="nav__price" data-swm-price title="SWM price on Base: not available right now">
+      <span class="nav__price-line" aria-hidden="true"><span class="nav__price-dot"></span>SWM <span class="nav__price-val" data-swm-price-value>—</span></span>
+      <span class="nav__price-net" aria-hidden="true">on Base</span>
+      <span class="vh" data-swm-price-sr>SWM price on Base: not available right now.</span>
+    </div>
     <nav class="nav__links" aria-label="Primary">
       <a href="/#mainnet">Mainnet</a>
       <a href="/waitlist">Waiting list</a>

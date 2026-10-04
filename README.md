@@ -50,6 +50,18 @@ strict Content-Security-Policy on them. `/privacy` says what is collected.
 The one form is the waiting list for public mining (`/waitlist`, below); nothing else collects anything. The third-party origins are Google
 Fonts and Google Analytics, nothing else.
 
+The header carries a small SWM price reading ("SWM $0.60 · on Base", added
+2026-10-04): FUEL's price of the SWM token on Base in US dollars.
+`js/price.js` reads `/data/swm-price.json`, which a `vercel.json` rewrite serves
+from `https://fuel.army/api/swm-price` (same origin, so the CSP is unchanged and
+the browser talks only to swarm.green). A failed fetch, an answer that is not
+JSON, a `paused` price or one older than 30 minutes shows "—". It refreshes
+every 60 s while the tab is visible. Styles are `css/site.css` section 5b; the
+reading is hidden between 861 and 1199 px, where the desktop links fill the bar.
+Local preview: `node tools/preview.mjs` proxies the same upstream;
+`node tools/preview.mjs --swm-price=<file>` serves a local mock instead
+(`.json` as JSON, any other extension as HTML, a missing file as 503).
+
 ## File tree
 
 ```
