@@ -50,10 +50,10 @@ EXT = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" s
 ARROW = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" '
          'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
          '<path d="M3 8h10M9 4l4 4-4 4"/></svg>')
-GH = "https://github.com/louisinthesubway"
+GH = "https://github.com/Swarmcoin"
 # Nav and footer point at the release repository: its README lists every
 # component and what it is based on. Prose references keep GH.
-GH_SOURCE = "https://github.com/louisinthesubway/swarm-releases"
+GH_SOURCE = "https://github.com/Swarmcoin/swarm-releases"
 # Official channels, set by the owner on 2026-09-21. index.html and data/network.json carry the same values.
 X_URL = "https://x.com/swarm_coin"
 X_HANDLE = "@swarm_coin"
@@ -1458,7 +1458,7 @@ terms = head(
       <p>Running a node, mining, and holding or paying with SWM use your own computer, your own electricity, your own bandwidth and your own money. Whether that is lawful, taxable and sensible where you live is yours to work out.</p>
 
       <h2>Licences</h2>
-      <p>The software is open source; each repository carries its own licence. See <a href="https://github.com/louisinthesubway/swarm-releases" target="_blank" rel="noopener noreferrer">github.com/louisinthesubway/swarm-releases</a>.</p>
+      <p>The software is open source; each repository carries its own licence. See <a href="https://github.com/Swarmcoin/swarm-releases" target="_blank" rel="noopener noreferrer">github.com/Swarmcoin/swarm-releases</a>.</p>
 
       <h2>Changes</h2>
       <p>These terms may change as the project changes. The version on this page is the current one.</p>

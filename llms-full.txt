@@ -24,7 +24,7 @@ Source: https://swarm.green/what-is-swarm and the pages linked below. Published 
 | Mainnet addresses | `swm1…` shielded, `s1…` transparent, `s3…` transparent (script) |
 | Apps | [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS and Linux); [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux); [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). |
 | Block explorer | [mainnet.explore.swarm.green](https://mainnet.explore.swarm.green) |
-| Source code | Open source: [github.com/louisinthesubway/swarm-releases](https://github.com/louisinthesubway/swarm-releases) |
+| Source code | Open source: [github.com/Swarmcoin/swarm-releases](https://github.com/Swarmcoin/swarm-releases) |
 | Official channels | [swarm.green](https://swarm.green/), [@swarm_coin on X](https://x.com/swarm_coin), swarmofficial@atomicmail.io |
 
 ## How SWARM keeps a payment private
@@ -45,7 +45,7 @@ SWARM is secured by proof of work, Equihash 200,9, left unchanged from the open-
 
 ## What it is built on
 
-SWARM is built on proven, open-source code that has secured real money for years. The consensus rules and the cryptography are left unmodified; SWARM adds its own network, its economics and its apps. The code is public at [github.com/louisinthesubway/swarm-releases](https://github.com/louisinthesubway/swarm-releases): read it, build it, check it.
+SWARM is built on proven, open-source code that has secured real money for years. The consensus rules and the cryptography are left unmodified; SWARM adds its own network, its economics and its apps. The code is public at [github.com/Swarmcoin/swarm-releases](https://github.com/Swarmcoin/swarm-releases): read it, build it, check it.
 
 ## The software
 
@@ -142,7 +142,7 @@ A chain is identified by its genesis block. SWARM mainnet’s genesis hash is `0
 
 ### Which sources are official?
 
-This site, [@swarm_coin on X](https://x.com/swarm_coin), the email address swarmofficial@atomicmail.io and the code at [github.com/louisinthesubway/swarm-releases](https://github.com/louisinthesubway/swarm-releases). The project will never ask for your recovery words, private keys or a payment.
+This site, [@swarm_coin on X](https://x.com/swarm_coin), the email address swarmofficial@atomicmail.io and the code at [github.com/Swarmcoin/swarm-releases](https://github.com/Swarmcoin/swarm-releases). The project will never ask for your recovery words, private keys or a payment.
 
 ### Is SWARM live?
 
@@ -194,7 +194,7 @@ Write to swarmofficial@atomicmail.io or follow @swarm_coin on X. Together with t
 
 - Website: https://swarm.green
 - X: https://x.com/swarm_coin (@swarm_coin)
-- Source code and releases: https://github.com/louisinthesubway/swarm-releases
+- Source code and releases: https://github.com/Swarmcoin/swarm-releases
 - Email: swarmofficial@atomicmail.io
 
 The project will never ask for recovery words, private keys or a payment. Nothing here is an offer, a solicitation or financial advice. SWM has no guaranteed value and can lose value, including all of it.

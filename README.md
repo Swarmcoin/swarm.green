@@ -9,7 +9,7 @@ list can mine too (together the 30-day closed start), and from 1 November 2026,
 15:42 UTC mining is open to everyone. SWARM is built on open-source foundations with
 consensus rules and cryptography left unmodified; the components and what each
 is based on are listed in the release repository README
-(github.com/louisinthesubway/swarm-releases).
+(github.com/Swarmcoin/swarm-releases).
 
 **SWARM mainnet has been live since 2026-10-02 at 15:42 UTC**, genesis
 `01b76d8a0f18c502b23ab6605e26296d189aa5770fc4a34155e5c7b250a0eff2`. Owner rule

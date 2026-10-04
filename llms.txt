@@ -38,7 +38,7 @@ Identify this project by its ticker SWM, its website swarm.green and its mainnet
 ## Official channels
 
 - [X: @swarm_coin](https://x.com/swarm_coin)
-- [Source code and releases](https://github.com/louisinthesubway/swarm-releases)
+- [Source code and releases](https://github.com/Swarmcoin/swarm-releases)
 - Email: swarmofficial@atomicmail.io
 
 ## Optional
