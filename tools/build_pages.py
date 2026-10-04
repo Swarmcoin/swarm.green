@@ -51,9 +51,11 @@ ARROW = ('<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor"
          'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
          '<path d="M3 8h10M9 4l4 4-4 4"/></svg>')
 GH = "https://github.com/Swarmcoin"
-# Nav and footer point at the release repository: its README lists every
-# component and what it is based on. Prose references keep GH.
-GH_SOURCE = "https://github.com/Swarmcoin/swarm-releases"
+# Nav and footer point at the GitHub account (owner 2026-10-04: "add the GitHub
+# to the website"): every repository, and the front page that explains the project.
+GH_SOURCE = GH
+# The release repository keeps the release notes and checksum files.
+GH_RELEASES = "https://github.com/Swarmcoin/swarm-releases"
 # Official channels, set by the owner on 2026-09-21. index.html and data/network.json carry the same values.
 X_URL = "https://x.com/swarm_coin"
 X_HANDLE = "@swarm_coin"
@@ -571,7 +573,7 @@ network = head(
         <p class="eyebrow">Genesis rules</p>
         <h2>The three destinations, in full.</h2>
         <p>These are the addresses the allocations are paid to, and the genesis block they are fixed in. They are part of the network definition every node loads, so a node with different addresses rejects this chain&rsquo;s blocks and forks itself off. Compare the genesis hash below with what your node reports: if they match, you are on SWARM.</p>
-        <p class="mt-s">The keys behind the three addresses were generated offline and are held under the custody policy published with the launch manifest in the <a href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">release repository{EXT}</a>.</p>
+        <p class="mt-s">The keys behind the three addresses were generated offline and are held under the custody policy published with the launch manifest in the <a href="{GH_RELEASES}" target="_blank" rel="noopener noreferrer">release repository{EXT}</a>.</p>
         <p class="mt-s">{esc(GENESIS["addressType"])} {esc(GENESIS["custody"])}</p>
       </div>
 
@@ -710,7 +712,7 @@ verify = head(
           <div class="hexicon" aria-hidden="true"><svg class="ico" viewBox="0 0 32 32" focusable="false"><use href="#i-code"/></svg></div>
           <h3>From the source</h3>
           <p>Every published release is listed with its SHA-256 in the release repository. The launch manifest and the node software are published when mining opens: from 31 October 2026, 15:42&nbsp;UTC for the waiting list, from 1 November 2026, 15:42&nbsp;UTC for everyone.</p>
-          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">Release repository{EXT}</a></p>
+          <p class="mt-m"><a class="btn btn--ghost btn--sm" href="{GH_RELEASES}" target="_blank" rel="noopener noreferrer">Release repository{EXT}</a></p>
         </article>
       </div>
     </div>
@@ -985,7 +987,7 @@ roadmap = head(
       </div>
       <div class="cta-row" data-reveal>
         <a class="btn btn--primary" href="/verify">Verify the chain</a>
-        <a class="btn btn--ghost" href="{GH_SOURCE}" target="_blank" rel="noopener noreferrer">Release repository{EXT}</a>
+        <a class="btn btn--ghost" href="{GH_RELEASES}" target="_blank" rel="noopener noreferrer">Release repository{EXT}</a>
       </div>
     </div>
   </section>
