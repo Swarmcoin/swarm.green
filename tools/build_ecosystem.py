@@ -215,6 +215,18 @@ def home_row(key, slug, label, entries):
             + (f'<span class="dl-row__note">{esc(detail)}</span>' if detail else '') + '</li>')
 
 
+def web_row():
+    # The hosted web wallet (meta.walletWeb, added 2026-10-04): not a download, so it is
+    # one row of its own after the platform rows of the wallet card.
+    web = META.get('walletWeb')
+    if not web:
+        return ''
+    return (f'<li class="dl-row"><span class="dl-row__os">{esc(web["rowLabel"])}</span>'
+            f'<span class="dl-row__get"><a class="btn btn--primary btn--sm" href="{esc(web["url"])}">{esc(web["linkLabel"])}'
+            f'<span class="vh"> (SWARM Wallet Web, held for you by the SWARM server)</span><span aria-hidden="true"> →</span></a></span>'
+            f'<span class="dl-row__note">{esc(web["rowNote"])}</span></li>')
+
+
 def card(key, title, detail, glyph):
     name = NAMES[key]
     rows = ''
@@ -226,6 +238,8 @@ def card(key, title, detail, glyph):
         rows += home_row(key, slug, label, entries)
         if any(available(e) or on_hold(e) for e in entries):
             platforms.append(label)
+    if key == 'wallet':
+        rows += web_row()
     version = version_of(key)
     eyebrow = f'{name.upper()} · {esc(version)}' if version else name.upper()
     return f'''<article class="card ecosystem-card ecosystem-card--dl" id="get-{key}">
@@ -453,6 +467,15 @@ def product(key):
         body += (f'<section class="band band--cream" aria-labelledby="wallet-update-title"><div class="wrap">'
                  f'<h2 id="wallet-update-title">{esc(update["title"])}</h2><p>{esc(update["text"])}</p>'
                  f'{link}</div></section>')
+    if wallet and META.get('walletWeb'):
+        web = META['walletWeb']
+        body += (f'<section class="band band--cream" id="wallet-web" aria-labelledby="wallet-web-title"><div class="wrap">'
+                 f'<h2 id="wallet-web-title">{esc(web["title"])}</h2><p>{esc(web["text"])}</p>'
+                 f'<p class="mt-s"><a class="btn btn--primary btn--sm" href="{esc(web["url"])}">{esc(web["linkLabel"])}'
+                 f'<span class="vh"> (SWARM Wallet Web)</span><span aria-hidden="true"> →</span></a></p>'
+                 f'<p class="mt-s"><a class="textlink" href="{esc(web["privacyUrl"])}">Wallet privacy policy<span aria-hidden="true"> →</span></a> '
+                 f'<a class="textlink" href="{esc(web["termsUrl"])}">Wallet terms of use<span aria-hidden="true"> →</span></a></p>'
+                 f'</div></section>')
     groups = GROUPS[key]
     body += '<section class="band band--cream"><div class="wrap download-layout"><div class="download-main">'
     if len(groups) > 1:

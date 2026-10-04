@@ -24,6 +24,18 @@
       "url": "",
       "label": "Read the release notes"
     },
+    "walletWeb": {
+      "url": "https://wallet.swarm.green",
+      "host": "wallet.swarm.green",
+      "rowLabel": "Web (phones)",
+      "linkLabel": "Open wallet.swarm.green",
+      "rowNote": "Use it in your browser — no install. Sign in with your email; the SWARM server holds this wallet for you.",
+      "title": "SWARM Wallet Web: the wallet in your phone’s browser",
+      "text": "Use it in your browser — no install: wallet.swarm.green (sign in with your email; the SWARM server holds this wallet for you). It works on SWARM Mainnet. Because the SWARM server keeps this wallet, it can see your balances, your addresses and your payments. You can view your 24-word recovery phrase at any time and open the same wallet in the desktop wallet or the apps, where your keys stay on your device.",
+      "privacyUrl": "/wallet/privacy",
+      "termsUrl": "/wallet/terms",
+      "note": "Hosted web wallet, added 2026-10-04 (owner). Rendered as a row in the wallet card (home page and /ecosystem) and as a band on /ecosystem/wallet. Never call it private, anonymous or secure; it is held by the SWARM server."
+    },
     "messengerNotice": "Unsigned build (0.1.1) — Windows SmartScreen and macOS Gatekeeper will warn. Check the SHA-256. Sign in with a new or existing 24-word phrase; there is no phone number."
   },
   "products": [
