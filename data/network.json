@@ -390,6 +390,12 @@
         "detail": "Build 153.0.8010.52-6 carries wallet extension 0.2.1: the built-in wallet shows the SWM price in US dollars (an indicative price from the SWM/ETH pool on Base, read through the SWARM price service, switchable off in the wallet's settings) with a price page: chart, 24-hour change, pool figures and sources. The wallet host is unchanged."
       },
       {
+        "state": "live",
+        "when": "5 October 2026",
+        "name": "SWARM Messenger 0.1.5: the SWM price in the Wallet tab",
+        "detail": "The Wallet tab shows the SWM price in US dollars (an indicative price from the SWM/ETH pool on Base, read through the SWARM price service, switchable off in the tab), the value of the balance, a USD line under the amount when sending, and a price page with chart, 24-hour change, pool figures and sources."
+      },
+      {
         "state": "in-development",
         "when": null,
         "name": "SWARM Wallet for Android",
