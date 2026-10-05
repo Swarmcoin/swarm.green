@@ -396,10 +396,16 @@
         "detail": "The Wallet tab shows the SWM price in US dollars (an indicative price from the SWM/ETH pool on Base, read through the SWARM price service, switchable off in the tab), the value of the balance, a USD line under the amount when sending, and a price page with chart, 24-hour change, pool figures and sources."
       },
       {
+        "state": "live",
+        "when": "5 October 2026",
+        "name": "SWARM Wallet 0.1.0-mainnet.11: the SWM price",
+        "detail": "The desktop wallet for Windows, macOS (Apple silicon and Intel) and Linux shows the SWM price in US dollars on the Overview (an indicative price from the SWM/ETH pool on Base, read through the SWARM price service, switchable off in Settings), the value of the balance, a USD line under the Send amount, and a Price page with chart, 24-hour change, pool figures and sources. Unsigned builds, as before."
+      },
+      {
         "state": "in-development",
         "when": null,
         "name": "SWARM Wallet for Android",
-        "detail": "SWARM Wallet 0.1.0-mainnet.10 is the current version for Windows, macOS and Linux. Earlier versions (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to the network; the Android version that does is being prepared."
+        "detail": "SWARM Wallet 0.1.0-mainnet.11 is the current version for Windows, macOS and Linux. Earlier versions (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to the network; the Android version that does is being prepared."
       },
       {
         "state": "in-development",
