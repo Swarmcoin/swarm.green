@@ -384,6 +384,12 @@
         "detail": "Build 153.0.8010.52-5: a Windows browser built on Chromium 153 from the ungoogled-chromium code base, with Google’s services removed, privacy defaults switched on and the SWARM wallet built in; a SWARM welcome page, SWARM Start on every new tab, the SWARM Navigator side panel, SWARM’s own icons and colours, DuckDuckGo as the default search. Unsigned; no automatic updates yet. Its built-in wallet no longer connects to the network until the next build; the browser itself works."
       },
       {
+        "state": "live",
+        "when": "5 October 2026",
+        "name": "SWARM Browser build 8: the SWM price in the built-in wallet",
+        "detail": "Build 153.0.8010.52-6 carries wallet extension 0.2.1: the built-in wallet shows the SWM price in US dollars (an indicative price from the SWM/ETH pool on Base, read through the SWARM price service, switchable off in the wallet's settings) with a price page: chart, 24-hour change, pool figures and sources. The wallet host is unchanged."
+      },
+      {
         "state": "in-development",
         "when": null,
         "name": "SWARM Wallet for Android",

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-10-02",
+    "updated": "2026-10-05",
     "unavailableHosts": [
       "https://github.com/Swarm-Official/"
     ],
@@ -646,13 +646,13 @@
       "platform": "Windows",
       "status": "available",
       "variant": "Installer",
-      "version": "153.0.8010.52-5",
-      "url": "https://lwd-main.swarm.green/downloads/swarm-browser-153.0.8010.52-5/SWARM-Browser-153.0.8010.52-5-win-x64.exe",
-      "sha256": "4036b3d43b72ea4e258f7733afde35fd89ec73ca331fec8f34155519ccae3b8d",
-      "checksums": "https://lwd-main.swarm.green/downloads/swarm-browser-153.0.8010.52-5/SHA256SUMS.txt",
+      "version": "153.0.8010.52-6",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-browser-153.0.8010.52-6/SWARM-Browser-153.0.8010.52-6-win-x64.exe",
+      "sha256": "7375b9e7230e4135dc28542c875299677848bfd2b43dd16890166fe34bf8721b",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-browser-153.0.8010.52-6/SHA256SUMS.txt",
       "role": "primary",
       "sizeShort": "204 MB",
-      "sizeBytes": 213656064,
+      "sizeBytes": 213667840,
       "notes": "Pre-release. Unsigned build: Windows SmartScreen will warn (More info, then Run anyway). Check the SHA-256 first."
     },
     {
@@ -660,13 +660,13 @@
       "platform": "Windows",
       "status": "available",
       "variant": "Portable zip",
-      "version": "153.0.8010.52-5",
-      "url": "https://lwd-main.swarm.green/downloads/swarm-browser-153.0.8010.52-5/SWARM-Browser-153.0.8010.52-5-win-x64.zip",
-      "sha256": "a44f80e1890593d026ab0b09fa9a9bc5416adeedaec9b205058ce5d3ee75c474",
-      "checksums": "https://lwd-main.swarm.green/downloads/swarm-browser-153.0.8010.52-5/SHA256SUMS.txt",
+      "version": "153.0.8010.52-6",
+      "url": "https://lwd-main.swarm.green/downloads/swarm-browser-153.0.8010.52-6/SWARM-Browser-153.0.8010.52-6-win-x64.zip",
+      "sha256": "635b3af9f1e9bce583b4791e2ce246a8cd96dfefb1517e2149002b9802f41e92",
+      "checksums": "https://lwd-main.swarm.green/downloads/swarm-browser-153.0.8010.52-6/SHA256SUMS.txt",
       "role": "alt",
       "sizeShort": "288 MB",
-      "sizeBytes": 302030458,
+      "sizeBytes": 302048800,
       "notes": "Pre-release. Unpack and start chrome.exe; the wallet host is inside the folder.",
       "label": "Portable zip"
     }
