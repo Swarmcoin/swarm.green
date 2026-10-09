@@ -178,7 +178,7 @@ SWARM Market, an online marketplace where you pay merchants in SWM; a privacy br
 
 ### How do I reach the project?
 
-Write to swarmofficial@atomicmail.io or follow @swarm_coin on X. Together with this site and our GitHub, those are the only official channels. Anything else claiming to be SWARM is not us. We will never ask for your recovery words, private keys or a payment — not by email, not on X, not anywhere.
+Write to swarmofficial@atomicmail.io or follow @swarm_coin on X. Together with this site, our GitHub and the community channels on this page, those are the only official channels. Anything else claiming to be SWARM is not us. We will never ask for your recovery words, private keys or a payment — not by email, not on X, not anywhere.
 
 ## Pages
 
