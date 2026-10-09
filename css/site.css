@@ -2512,7 +2512,8 @@ html:not(.js) .golive__head { display: none; }
 }
 @media (max-width: 600px) {
   .golive__units > div { padding: .85rem .8rem; }
-  .golive__pill { white-space: normal; font-size: .6rem; }
+  .golive__pill { display: inline-block; white-space: normal; font-size: .6rem; line-height: 1.7; }
+  .golive__pill::before { display: inline-block; vertical-align: middle; margin-right: .5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .golive__frame::before, .golive__pill::before { animation: none; }

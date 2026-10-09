@@ -1,6 +1,6 @@
 {
  "/": {
-  "sha256": "31ec350408f72a2d8cfbd1dc60dc77482875f1dcbf93a62361db604c3122d403",
+  "sha256": "51c79caa28cb0e432a7937504ef17b85b793c1e6532749b8d35b78dca9dec22f",
   "lastmod": "2026-10-09"
  },
  "/what-is-swarm": {
@@ -8,19 +8,19 @@
   "lastmod": "2026-10-04"
  },
  "/network": {
-  "sha256": "0f29a36ce5e9d09a071ddec9609a20af6f4ff80715bdc65fedbb95aefad888c7",
+  "sha256": "deb0b25c3b1815c04da35400c744e9cdc62715338571ad3b151cde4f134a3b72",
   "lastmod": "2026-10-09"
  },
  "/verify": {
-  "sha256": "79c86efabf48775cff04003cb4c0c5665893e94e6e8af5c1e0294360285381a8",
+  "sha256": "6f76f405f4e12d081bafd5700a5af7cbde70994131c25498eff88a8add84c583",
   "lastmod": "2026-10-09"
  },
  "/join": {
-  "sha256": "b54a15837f0524154ab90bf3d9d70ff3df6d8adbece37cf9dd728621252cf840",
+  "sha256": "9e15f4d662aff745acb38f8c58a0d100867afe28e2260c51f024f580bea71982",
   "lastmod": "2026-10-09"
  },
  "/waitlist": {
-  "sha256": "71e7bac14cc23c65085b8793b4f2c5a0772977ad6746ef6af7765c7e6e47bd3c",
+  "sha256": "6edd071b16afb7d07732c731cd6db50174769cac011363ecc764b2c6c35409a1",
   "lastmod": "2026-10-09"
  },
  "/ecosystem": {
@@ -40,7 +40,7 @@
   "lastmod": "2026-10-09"
  },
  "/roadmap": {
-  "sha256": "276c88771c760259c82f7a6cb6b90d4b076bf62740de506b8c5452808768ce15",
+  "sha256": "1121e95214561c59f5c40c7c6de7bf93e6692d6fcac97d5d20035e986e59f4c1",
   "lastmod": "2026-10-09"
  },
  "/support": {
@@ -48,15 +48,15 @@
   "lastmod": "2026-10-04"
  },
  "/brand": {
-  "sha256": "a5649129ee5ab9262f2c3e6bc561d1e5a94995aa74be75227c2bf15192c7d929",
+  "sha256": "e9411c783e40131577284e22804b8a8b909df7fb173218a3f16686f28a580e99",
   "lastmod": "2026-10-09"
  },
  "/terms": {
-  "sha256": "05b6dfe1ca0242122367f8e979aed08a15c8b18e1d20646ddee095bc26a2bf3f",
+  "sha256": "057debea36860430c6556da947efe9dade121777bbae3c9e007725545b042bc6",
   "lastmod": "2026-10-09"
  },
  "/privacy": {
-  "sha256": "530fb0092fb57e59a571b6ccd412c9d7a04f7a10fd2a58724f15442920352506",
+  "sha256": "bb9c024a6891365275daabe90478216fe08f10ac496fe59c1e65ae1970206a21",
   "lastmod": "2026-10-09"
  },
  "/wallet/notices": {
