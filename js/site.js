@@ -912,6 +912,43 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* 5e. Go-live countdown panel (home page, section "The Swarm")        */
+  /* <div data-golive="2026-11-01T15:42:00Z"> shows "NN days until the    */
+  /* nodes go live" in large type and a strip of days, hours, minutes and */
+  /* seconds, written once a second. Under a day it counts hours, then    */
+  /* minutes; at zero it reads "The nodes are going live" (never a claim  */
+  /* that mining is open). Same end as the hero countdown (5c).           */
+  /* ------------------------------------------------------------------ */
+  function initGoLive() {
+    $$("[data-golive]").forEach(function (box) {
+      var end = Date.parse(box.getAttribute("data-golive"));
+      var n = $("[data-golive-n]", box), label = $("[data-golive-label]", box);
+      var D = $("[data-golive-d]", box), H = $("[data-golive-h]", box);
+      var M = $("[data-golive-m]", box), S = $("[data-golive-s]", box);
+      if (!n || !label || !isFinite(end)) return;
+      function tick() {
+        var ms = end - Date.now();
+        if (ms <= 0) {
+          label.textContent = "The nodes are going live";
+          box.classList.add("is-due");
+          if (D) { D.textContent = "0"; H.textContent = "00"; M.textContent = "00"; S.textContent = "00"; }
+          return;
+        }
+        var s = Math.floor(ms / 1000);
+        var d = Math.floor(s / 86400); s -= d * 86400;
+        var h = Math.floor(s / 3600); s -= h * 3600;
+        var m = Math.floor(s / 60); s -= m * 60;
+        if (d >= 1) { n.textContent = String(d); label.textContent = (d === 1 ? "day" : "days") + " until the nodes go live"; }
+        else if (h >= 1) { n.textContent = String(h); label.textContent = (h === 1 ? "hour" : "hours") + " until the nodes go live"; }
+        else { n.textContent = String(m); label.textContent = (m === 1 ? "minute" : "minutes") + " until the nodes go live"; }
+        if (D) { D.textContent = String(d); H.textContent = pad2(h); M.textContent = pad2(m); S.textContent = pad2(s); }
+        window.setTimeout(tick, 1000 - (ms % 1000) + 20);
+      }
+      tick();
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
   /* 5d. Waiting list for public mining                                  */
   /* /waitlist and the counter on the home page. The service lives on    */
   /* the project's own server; vercel.json rewrites /api/waitlist/* to it */
@@ -1336,6 +1373,7 @@
     initDownloads();
     initNetStatus();
     initCountdown();
+    initGoLive();
     initWaitlist();
     initTilt();
   }

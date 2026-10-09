@@ -1502,6 +1502,8 @@ tbody th { font-weight: 500; white-space: nowrap; }
    heat reads; everything around it uses the site's existing band, section and
    card rules.
    -------------------------------------------------------------------------- */
+/* Not on any page since 2026-10-09: the home page shows the go-live countdown
+   (section 24) where the map was. Kept so the map can return. */
 .swarmmap { margin-top: clamp(1.75rem, 4vw, 2.5rem); }
 
 .swarmmap__frame {
@@ -2372,4 +2374,146 @@ html:not(.js) .wl-me { display: none !important; }
   .wl-facts dd { font-size: 1.3rem; }
   .wl-actions .btn { width: 100%; }
   .wl-board th, .wl-board td { padding: .65rem .7rem; }
+}
+
+/* --------------------------------------------------------------------------
+   24. Go-live countdown  (added 2026-10-09; home page, section "The Swarm")
+   One framed panel in place of the node map: a large number of days until
+   the nodes go live, and a strip of days, hours, minutes and seconds.
+   js/site.js (section 5e) writes the figures once a second; without
+   JavaScript the panel reads "The nodes go live on <date>" and the strip is
+   hidden. Every figure sits in a reserved width, so nothing moves while it
+   ticks. The frame reuses the map frame's look (border, glow line, strip).
+   -------------------------------------------------------------------------- */
+.golive { margin-top: clamp(1.75rem, 4vw, 2.5rem); }
+.golive__frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(245, 166, 35, .25);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(60% 70% at 50% 0%, rgba(245, 166, 35, .14), transparent 70%),
+    #0A0908;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+  text-align: center;
+}
+.golive__frame::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent, var(--honey), transparent);
+  background-size: 200% 100%;
+  animation: swarmFlow 3s linear infinite;
+}
+.golive__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin: clamp(1.6rem, 4vw, 2.6rem) auto 0;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 201, 77, .4);
+  background: rgba(14, 17, 22, .85);
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--comb);
+  white-space: nowrap;
+}
+.golive__pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--comb);
+  box-shadow: 0 0 8px var(--comb);
+  animation: swarmPip 1.8s ease-in-out infinite;
+}
+.golive__pill time { color: inherit; }
+.golive__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  margin: clamp(.6rem, 2vw, 1.2rem) auto 0;
+  padding: 0 var(--pad-x) clamp(1.8rem, 4vw, 2.8rem);
+}
+.golive__n {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(5.5rem, 18vw, 11rem);
+  line-height: .95;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--comb);
+  text-shadow: 0 0 40px rgba(255, 201, 77, .35), 0 0 90px rgba(245, 166, 35, .2);
+}
+.golive__label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.6vw, 1.9rem);
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+.golive.is-due .golive__n { display: none; }
+.golive.is-due .golive__label { color: var(--comb); }
+.golive__nojs {
+  margin: 1rem auto 0;
+  padding: 0 var(--pad-x) clamp(1.8rem, 4vw, 2.8rem);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2.6vw, 1.9rem);
+  color: var(--ink);
+}
+.golive__nojs time { color: var(--comb); white-space: nowrap; }
+.js .golive__nojs { display: none; }
+html:not(.js) .golive__head { display: none; }
+.golive__units {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgba(230, 237, 243, .07);
+  background: #100E0C;
+  text-align: left;
+}
+.golive__units > div {
+  min-width: 0;
+  padding: 1.1rem 1.4rem;
+  border-right: 1px solid rgba(230, 237, 243, .06);
+}
+.golive__units > div:last-child { border-right: 0; }
+.golive__v {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--comb);
+}
+.golive__u {
+  display: block;
+  margin-top: .25rem;
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.golive__foot {
+  margin-top: 1rem;
+  max-width: 68ch;
+  font-size: .9rem;
+  line-height: 1.6;
+  color: var(--fg-dim);
+}
+@media (max-width: 600px) {
+  .golive__units > div { padding: .85rem .8rem; }
+  .golive__pill { white-space: normal; font-size: .6rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .golive__frame::before, .golive__pill::before { animation: none; }
 }
