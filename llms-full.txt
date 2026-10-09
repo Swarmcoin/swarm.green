@@ -22,7 +22,7 @@ Source: https://swarm.green/what-is-swarm and the pages linked below. Published 
 | Block reward split | 80% Miner · 8% Core Development · 4% Grants & Ecosystem · 8% Community & Development Reserve. Fixed in the genesis rules for the whole emission schedule. |
 | Privacy | Shielded payments keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs. Transparent payments exist too. |
 | Mainnet addresses | `swm1…` shielded, `s1…` transparent, `s3…` transparent (script) |
-| Apps | [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS and Linux); [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux); [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). |
+| Apps | [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS and Linux; also as a hosted web wallet at wallet.swarm.green, held by the SWARM server); [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux); [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). |
 | Block explorer | [mainnet.explore.swarm.green](https://mainnet.explore.swarm.green) |
 | Source code | Open source: [github.com/Swarmcoin/swarm-releases](https://github.com/Swarmcoin/swarm-releases) |
 | Official channels | [swarm.green](https://swarm.green/), [@swarm_coin on X](https://x.com/swarm_coin), swarmofficial@atomicmail.io |
@@ -49,7 +49,7 @@ SWARM is built on proven, open-source code that has secured real money for years
 
 ## The software
 
-Everything you need is published with its SHA-256 checksum in the [Ecosystem](https://swarm.green/ecosystem): [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS and Linux), [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux) and [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). The mainnet block explorer is at [mainnet.explore.swarm.green](https://mainnet.explore.swarm.green). The [roadmap](https://swarm.green/roadmap) separates what is live from what is only planned.
+Everything you need is published with its SHA-256 checksum in the [Ecosystem](https://swarm.green/ecosystem): [SWARM Wallet](https://swarm.green/ecosystem/wallet) (Windows, macOS and Linux; also as a hosted web wallet at wallet.swarm.green, held by the SWARM server), [SWARM Messenger](https://swarm.green/ecosystem/messenger) (Windows, macOS and Linux) and [SWARM Browser](https://swarm.green/ecosystem/browser) (Windows). The mainnet block explorer is at [mainnet.explore.swarm.green](https://mainnet.explore.swarm.green). The [roadmap](https://swarm.green/roadmap) separates what is live from what is only planned.
 
 ## Emission schedule
 
@@ -93,7 +93,7 @@ Custody of the three project addresses: Pay-to-script-hash, 2-of-3 multisig (s3�
 
 ## Apps
 
-- SWARM Wallet holds, sends and receives SWM, shielded or transparent. Published for Windows, macOS and Linux. Download page: https://swarm.green/ecosystem/wallet
+- SWARM Wallet holds, sends and receives SWM, shielded or transparent. Published for Windows, macOS and Linux; also as a hosted web wallet at wallet.swarm.green, held by the SWARM server. Download page: https://swarm.green/ecosystem/wallet
 - SWARM Messenger is end-to-end encrypted messaging between SWARM wallets, with payments inside the chat. Published for Windows, macOS and Linux. Download page: https://swarm.green/ecosystem/messenger
 - SWARM Browser is a web browser with the SWARM wallet built in. Published for Windows. Download page: https://swarm.green/ecosystem/browser
 - Every file and its SHA-256 checksum: https://swarm.green/ecosystem

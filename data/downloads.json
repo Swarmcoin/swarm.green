@@ -19,8 +19,8 @@
     "unsignedNotice": "Unsigned build — your system will warn. Check the SHA-256.",
     "macosNotice": "SWARM Wallet for macOS is signed and notarized. It is one app for Apple silicon and Intel.",
     "walletUpdate": {
-      "title": "SWARM Wallet 0.1.0-mainnet.10",
-      "text": "SWARM Wallet 0.1.0-mainnet.10 is the current version for Windows, macOS and Linux. Earlier versions (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to the network: install the current version over the old one. Your addresses and recovery phrase stay the same.",
+      "title": "SWARM Wallet 0.1.0-mainnet.11",
+      "text": "SWARM Wallet 0.1.0-mainnet.11 is the current version for Windows, macOS and Linux. Earlier versions (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to the network: install the current version over the old one. Your addresses and recovery phrase stay the same.",
       "url": "",
       "label": "Read the release notes"
     },

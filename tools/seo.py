@@ -151,6 +151,14 @@ for _app in APPS.values():
 
 HELD_NOTE = 'a new version is being published'
 
+# The hosted web wallet (data/downloads.json meta.walletWeb) is named beside the
+# wallet's platforms. Its data note forbids calling it private, anonymous or
+# secure: it is held by the SWARM server, and the clause says so.
+WALLET_WEB = DOWNLOADS['meta'].get('walletWeb')
+if WALLET_WEB:
+    APPS['/ecosystem/wallet']['web'] = (f'also as a hosted web wallet at {WALLET_WEB["host"]}, '
+                                        'held by the SWARM server')
+
 
 def app_line(path):
     app = APPS[path]
@@ -338,6 +346,7 @@ def app_list():
     for path, app in APPS.items():
         if app['platforms']:
             note = '; ' + HELD_NOTE if app['held'] else ''
+            note += '; ' + app['web'] if app.get('web') else ''
             out.append(f'{link(path, app["name"])} ({listing(app["platforms"])}{note})')
     return out
 
@@ -563,7 +572,7 @@ def llms_txt():
     lines += ['', '## Apps', '',
               f'- [Ecosystem]({SITE}/ecosystem): every download with its SHA-256 checksum']
     lines += [f'- [{app["name"]}]({SITE}{path}): {app["name"]} {app["what"]}. {listing(app["platforms"])}'
-              + ('; ' + HELD_NOTE if app['held'] else '') + '.'
+              + ('; ' + HELD_NOTE if app['held'] else '') + ('; ' + app['web'] if app.get('web') else '') + '.'
               for path, app in APPS.items() if app['platforms']]
     lines += ['', '## Live data', '',
               f'- [Network status (JSON)]({SITE}/data/status.json): block height, difficulty and mean block time, refreshed every 30 seconds by the SWARM mainnet server',
@@ -615,7 +624,8 @@ def llms_full(home):
             for f in NETWORK['addressFormats']['formats']]
     out += ['', '## Apps', '']
     out += [f'- {app["name"]} {app["what"]}. ' + (f'For {listing(app["platforms"])}; {HELD_NOTE}.' if app['held']
-            else f'Published for {listing(app["platforms"])}.') + f' Download page: {SITE}{path}'
+            else f'Published for {listing(app["platforms"])}'
+            + ('; ' + app['web'] if app.get('web') else '') + '.') + f' Download page: {SITE}{path}'
             for path, app in APPS.items() if app['platforms']]
     out += [f'- Every file and its SHA-256 checksum: {SITE}/ecosystem', '',
             '## Questions and answers', '']

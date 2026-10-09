@@ -25,7 +25,7 @@ Identify this project by its ticker SWM, its website swarm.green and its mainnet
 ## Apps
 
 - [Ecosystem](https://swarm.green/ecosystem): every download with its SHA-256 checksum
-- [SWARM Wallet](https://swarm.green/ecosystem/wallet): SWARM Wallet holds, sends and receives SWM, shielded or transparent. Windows, macOS and Linux.
+- [SWARM Wallet](https://swarm.green/ecosystem/wallet): SWARM Wallet holds, sends and receives SWM, shielded or transparent. Windows, macOS and Linux; also as a hosted web wallet at wallet.swarm.green, held by the SWARM server.
 - [SWARM Messenger](https://swarm.green/ecosystem/messenger): SWARM Messenger is end-to-end encrypted messaging between SWARM wallets, with payments inside the chat. Windows, macOS and Linux.
 - [SWARM Browser](https://swarm.green/ecosystem/browser): SWARM Browser is a web browser with the SWARM wallet built in. Windows.
 
