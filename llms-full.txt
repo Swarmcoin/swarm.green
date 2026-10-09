@@ -176,6 +176,10 @@ Privacy is a choice you make per payment. Shielded transactions keep sender, rec
 
 SWARM Market, an online marketplace where you pay merchants in SWM; a privacy browser with the wallet built in; and private, end-to-end encrypted messaging with payments inside the conversation. In that order, each when it is finished and reviewed. A first pre-release of SWARM Browser for Windows is already in the Ecosystem. The roadmap has the detail.
 
+### Is there an SWM token on Base, BNB Smart Chain or Solana?
+
+Yes. On Base and on BNB Smart Chain, SWM is the token at this one address: 0xf904C14d21bEF5b8a5345a666C77C9cc2A24043B On Solana it is this mint: 9Fyen71zwaRs3QfUCsyUooTAkHfNqzUE17xbXwZL6qiH Each token’s supply follows the SWARM chain through an oracle. Those are the only official addresses; anything else called SWARM or SWM on those networks is not us. The token page has the details, the how to get SWM page the pools.
+
 ### How do I reach the project?
 
 Write to swarmofficial@atomicmail.io or follow @swarm_coin on X. Together with this site and our GitHub, those are the only official channels. Anything else claiming to be SWARM is not us. We will never ask for your recovery words, private keys or a payment — not by email, not on X, not anywhere.
@@ -186,6 +190,8 @@ Write to swarmofficial@atomicmail.io or follow @swarm_coin on X. Together with t
 - [Network and supply](https://swarm.green/network): every consensus and monetary parameter, the era table and the 80% Miner / 8% Core Development / 4% Grants & Ecosystem / 8% Community & Development Reserve block reward split
 - [Verify the chain](https://swarm.green/verify): genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes
 - [Get started](https://swarm.green/join): choosing a wallet, step by step
+- [SWM token addresses](https://swarm.green/token): the only official SWM token addresses on Base, BNB Smart Chain and Solana, how their supply follows SWARM mainnet, and the bridge, which is not live
+- [How to get SWM](https://swarm.green/get-swm): public mining on SWARM mainnet from 1 November 2026, 15:42 UTC, and the SWM token pools on Base, BNB Smart Chain and Solana
 - [Waiting list for public mining](https://swarm.green/waitlist): join the list to get the node download from 31 October 2026, 15:42 UTC, 24 hours before public mining opens on 1 November 2026; one level of invites decides the order; no coins are promised
 - [Roadmap](https://swarm.green/roadmap): what is live, what is being built and what is only planned
 - [Frequently asked questions](https://swarm.green/#faq): launch, supply, mining, privacy, custody of the project share

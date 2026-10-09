@@ -31,6 +31,17 @@ if GENESIS.get("network") != "SwarmMainnet" and not os.environ.get("SWARM_ALLOW_
                      "(README: launch checklist). For a local preview only: SWARM_ALLOW_PRELAUNCH_BUILD=1."
                      % GENESIS.get("network"))
 
+# The SWM token on Base, BNB Smart Chain and Solana: the only official
+# addresses, their pools and the bridge state, read by /token and /get-swm.
+TOKEN = json.loads((ROOT / "data" / "token.json").read_text(encoding="utf-8"))
+# One source of truth: the home FAQ ("Is there an SWM token ...") is written by
+# hand in index.html, so refuse to build while it lacks any official address.
+_HOME = (ROOT / "index.html").read_text(encoding="utf-8")
+_MISSING = sorted({t["address"] for t in TOKEN["tokens"] if t["address"] not in _HOME})
+if _MISSING:
+    raise SystemExit("refusing to build: index.html (home FAQ) does not carry the token address(es) "
+                     + ", ".join(_MISSING) + " from data/token.json")
+
 
 def esc(value):
     return html.escape(str(value), quote=False)
@@ -902,6 +913,7 @@ join = head(
         <a class="btn btn--primary" href="/network">See the supply schedule</a>
         <a class="btn btn--ghost" href="/roadmap">What comes next</a>
       </div>
+      <p class="note mt-l" data-reveal>Looking for the token on Base, BNB Smart Chain or Solana, or for the pools and the opening date? See <a href="/get-swm">how to get SWM</a>.</p>
     </div>
   </section>
 """ + FOOTER
@@ -1426,6 +1438,267 @@ waitlist = head(
   </section>
 """ + FOOTER
 write("waitlist/index.html", waitlist)
+
+
+# ------------------------------------------------------------------ /token
+# The SWM token on other networks, rendered from data/token.json (addresses,
+# pools, supply wording, bridge state). The words mine / mining / miner never
+# appear on this page; /get-swm carries mining and the ASIC sentence.
+def ext_link(href, label):
+    """A link that leaves the site, inside running text or a table cell: the
+    /what-is-swarm form, without the {EXT} arrow (an svg is display:block on this
+    site and would break the line). {EXT} stays on buttons, nav and footer."""
+    return (f'<a href="{href}" target="_blank" rel="noopener noreferrer">{label}'
+            '<span class="vh"> (opens in a new tab)</span></a>')
+
+
+def wrapcode(value):
+    """A long value that must wrap on phones: the /verify copyrow markup
+    (.copyrow > code breaks anywhere), without the Copy button."""
+    return f'<span class="copyrow"><code class="mono">{esc(value)}</code></span>'
+
+
+def token_network(t):
+    return esc(t["network"]) + (f' (chain id {t["chainId"]})' if t.get("chainId") else "")
+
+
+NOT_ADVICE = "Nothing on this page is an offer, a solicitation or financial advice."
+
+token_rows = "\n".join(
+    f'          <tr><th scope="row">{token_network(t)}</th>'
+    f'<td>{esc(t["standard"])}, {t["decimals"]} decimals</td>'
+    f'<td><code>{esc(t["address"])}</code></td>'
+    f'<td>{ext_link(t["explorer"], esc(t["explorerName"]))}'
+    + (f' · <a href="{t["metadata"]}">metadata</a>' if t.get("metadata") else "")
+    + '</td></tr>'
+    for t in TOKEN["tokens"])
+
+SUPPLY = TOKEN["supply"]
+BRIDGE = TOKEN["bridge"]
+
+token_page = head(
+    "SWM token — SWARM",
+    "The only official addresses of the SWM token on Base, BNB Smart Chain and Solana.",
+    "/token",
+    "SWARM — SWM on Base, BNB Smart Chain and Solana",
+    "The only official SWM token addresses on Base, BNB Smart Chain and Solana.",
+) + page_head(
+    "Token",
+    "SWM on Base, BNB Smart Chain and Solana",
+    "SWARM (SWM) is a coin on its own proof-of-work blockchain. For people who keep their assets on Base, BNB Smart Chain or Solana, SWM also exists there as a token under the same name and ticker. This page holds the only official addresses. Anything else called SWARM or SWM on those networks is not us.",
+    pill="Mainnet · live",
+) + f"""
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Check the address, not the name</p>
+        <h2>The official addresses.</h2>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>SWM token addresses by network.</caption>
+          <thead>
+            <tr><th scope="col">Network</th><th scope="col">Standard</th><th scope="col">Address</th><th scope="col">Where to check</th></tr>
+          </thead>
+          <tbody>
+{token_rows}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note mt-m" data-reveal>The address on Base and on BNB Smart Chain is the same by design; make sure your wallet is on the network you mean. The source code of the Base and BNB Smart Chain contract is published on Basescan and BscScan, so anyone can read what it does.</p>
+    </div>
+  </section>
+
+  <section class="band band--dark2">
+    <div class="wrap wrap--narrow prose">
+      <h2>How the supply works</h2>
+      <p>{esc(SUPPLY["oracle"])}</p>
+      <p>{esc(SUPPLY["cap"])}</p>
+      <p>{esc(SUPPLY["circulatingDefinition"])}</p>
+      <!-- {esc(SUPPLY["circulatingNote"])} -->
+      <p>A machine-readable supply file for aggregators is planned next to the network status; until it exists the explorer figures are the reference.</p>
+    </div>
+  </section>
+
+  <section class="band band--cream">
+    <div class="wrap wrap--narrow">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Before you trust an address</p>
+        <h2>Five checks.</h2>
+      </div>
+      <div class="note" data-reveal>
+        <ul class="note__list">
+          <li>Only the addresses on this page are SWARM&rsquo;s. Anything else using the name is not us, whatever the logo or the description says.</li>
+          <li>We never message you first. We never ask for recovery words, private keys or a payment, on any channel.</li>
+          <li>Check the address character by character; a token can copy a name and a logo, not an address.</li>
+          <li>On Base and BNB Smart Chain the address is identical; a token at any other address on those networks is not SWM.</li>
+          <li>Nobody promises you a price. SWM has no promised value and can lose value, including all of it.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--dark2" id="bridge">
+    <div class="wrap wrap--narrow">
+      <div class="prose">
+        <h2>Moving between SWARM mainnet and these networks</h2>
+        <p>{esc(BRIDGE["text"])}</p>
+        <!-- G3: link the reserves route here when it answers -->
+      </div>
+      <div class="cta-row mt-l" data-reveal>
+        <a class="btn btn--primary" href="/get-swm">How to get SWM</a>
+        <a class="btn btn--ghost" href="/verify">Verify the chain</a>
+      </div>
+      <p class="note mt-l">{NOT_ADVICE}</p>
+    </div>
+  </section>
+""" + FOOTER
+write("token/index.html", token_page)
+
+
+# ---------------------------------------------------------------- /get-swm
+# Two ways to SWM: mining on SWARM mainnet once public mining opens, and the
+# token pools from data/token.json. The page mentions mining, so it carries the
+# ASIC sentence and "No coins are promised." (owner rule).
+def pool_venue(p):
+    return esc(p["venue"]) + (f', {esc(p["fee"])} fee' if p.get("fee") else "")
+
+
+pool_rows = "\n".join(
+    f'          <tr><th scope="row">{esc(t["network"])}</th>'
+    f'<td>{pool_venue(t["pool"])}</td>'
+    f'<td>{esc(t["pool"]["pair"])}</td>'
+    f'<td><code>{esc(t["pool"]["id"])}</code></td>'
+    f'<td>{ext_link(t["pool"]["chart"], "DexScreener")}</td></tr>'
+    for t in TOKEN["tokens"])
+
+# "On Base and on BNB Smart Chain: <addr> On Solana, the mint: <addr>"
+# Networks that share an address are named together. The wrapped <code> sits
+# on its own line on phones, so no punctuation follows it (a comma after the
+# address would start the next line).
+_by_address = {}
+for _t in TOKEN["tokens"]:
+    _by_address.setdefault(_t["address"], []).append(_t)
+TOKEN_ADDRESSES = " ".join(
+    "On " + " and on ".join(esc(t["network"]) for t in group)
+    + (f', the {esc(group[0]["addressKind"])}' if group[0].get("addressKind") else "")
+    + ": " + wrapcode(address)
+    for address, group in _by_address.items())
+
+_fees = [(esc(t["network"]), esc(t["pool"]["feeCoin"])) for t in TOKEN["tokens"]]
+FEE_SENTENCE = (f"Swaps on {_fees[0][0]} cost {_fees[0][1]}, "
+                + ", ".join(f"on {n} {c}" for n, c in _fees[1:]) + ".")
+
+GET_STEPS = [
+    ("Add SWM by its address.",
+     "Paste the address from the token page into your wallet or the swap screen. Never pick a token from a search by name; copies with the same name and logo exist or will."),
+    ("Check the network.",
+     "Base and BNB Smart Chain share the address; Solana has its own mint. The network your wallet is on decides which pool you reach."),
+    ("Set a slippage limit and read the amount you receive before you confirm.",
+     "The pools are small, so a large swap moves the rate against you. A limit of a few percent protects you from a bad fill; if the swap fails, try a smaller amount rather than a wider limit."),
+    ("Keep the network&rsquo;s own coin for fees.", FEE_SENTENCE),
+]
+get_steps = "\n".join(
+    f'''        <article class="card step">
+          <div class="step__n" aria-hidden="true">{n}</div>
+          <h3>{h}</h3>
+          <p>{p}</p>
+        </article>'''
+    for n, (h, p) in enumerate(GET_STEPS, 1))
+
+get_swm = head(
+    "Get SWM — SWARM",
+    "How to get SWM: mine it once public mining opens, or swap for the SWM token on Base, BNB Smart Chain or Solana.",
+    "/get-swm",
+    "SWARM — How to get SWM",
+    "Mine it once public mining opens, or swap for the SWM token in the pools on Base, BNB Smart Chain or Solana.",
+) + page_head(
+    "Get SWM",
+    "How to get SWM",
+    f"Two ways. Mine it on SWARM mainnet once public mining opens on {esc(CLOSED['untilLabel'])}. Or swap for the SWM token on Base, BNB Smart Chain or Solana in the pools below. There was no sale and there is no VC round. Nobody promises you a price.",
+    pill="Mainnet · live",
+) + f"""
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Mine it</p>
+        <h2>Public mining opens {esc(CLOSED["untilLabel"])}.</h2>
+        <p>From that moment anyone can run SWARM Node and mine; the software is published on this site at that time, with its checksums. People on the waiting list get the download 24 hours ahead, from {esc(CLOSED["projectOnlyUntilLabel"])}.</p>
+        <p class="mt-s">Every block pays 6.25 SWM: 80% to the miner who found it, 20% block by block to the three published project addresses (8% Core Development, 4% Grants &amp; Ecosystem, 8% Community &amp; Development Reserve). The proof of work is {esc(NETWORK["chain"]["proofOfWork"])}. Specialised hardware for it exists and nothing in the rules keeps larger miners out.</p>
+        <p class="mt-s"><strong>Please keep ASICs and rented hash power off the network.</strong> No coins are promised. What you find depends on your hardware and on the whole network&rsquo;s difficulty, and mining costs electricity.</p>
+      </div>
+      <div class="cta-row mt-l" data-reveal>
+        <a class="btn btn--primary" href="/waitlist">Join the waiting list</a>
+        <a class="btn btn--ghost" href="/network">Network rules</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--dark2">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Swap for the token</p>
+        <h2>The SWM token trades in three pools.</h2>
+        <p>On Base, BNB Smart Chain and Solana, SWM exists as a token whose supply follows the SWARM chain (see the <a href="/token">token page</a>). It trades in one pool per network, each opened by the project. The pools are small.</p>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>SWM pools by network.</caption>
+          <thead>
+            <tr><th scope="col">Network</th><th scope="col">Venue</th><th scope="col">Pair</th><th scope="col">Pool</th><th scope="col">Chart</th></tr>
+          </thead>
+          <tbody>
+{pool_rows}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note mt-m" data-reveal>Token addresses, with every detail on the <a href="/token">token page</a>. {TOKEN_ADDRESSES}</p>
+
+      <div class="steps mt-l" data-reveal>
+{get_steps}
+      </div>
+
+      <p class="note mt-l" data-reveal>Anyone can create a token called SWARM. Only the addresses on the token page are ours. We never message you first and never ask for recovery words, private keys or a payment. Nobody promises you a price; SWM has no promised value and can lose value, including all of it.</p>
+
+      <!-- PROPOSED: owner item 324, wording not yet approved; remove before deploy if the owner has not approved it -->
+      <p class="mt-m" data-reveal>{esc(TOKEN["marketMaker"]["text"])}</p>
+      <!-- /item 324 -->
+    </div>
+  </section>
+
+  <section class="band band--cream">
+    <div class="wrap wrap--narrow">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Redeem</p>
+        <h2>Moving the token to SWARM mainnet.</h2>
+      </div>
+      <div class="prose" data-reveal>
+        <p>A bridge between the token networks and SWARM mainnet is built and under review; it is not live. When it opens, this section will say how a token is redeemed for coins on SWARM mainnet and link the public reserves route. Until then the project redeems nothing.</p>
+        <p><a class="textlink" href="/token#bridge">More on the token page →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--dark2">
+    <div class="wrap wrap--narrow">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Receive it</p>
+        <h2>Someone can send you SWM.</h2>
+        <p>Anyone who holds SWM on SWARM mainnet can send it to your SWARM Wallet, shielded or transparent. Install the wallet, open a shielded address and share it.</p>
+      </div>
+      <div class="cta-row mt-l" data-reveal>
+        <a class="btn btn--primary" href="/ecosystem/wallet">Choose your wallet</a>
+        <a class="btn btn--ghost" href="/join">Step-by-step guide</a>
+      </div>
+      <p class="note mt-l">{NOT_ADVICE}</p>
+    </div>
+  </section>
+""" + FOOTER
+write("get-swm/index.html", get_swm)
 
 
 # ------------------------------------------------------------------ /terms

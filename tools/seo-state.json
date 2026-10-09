@@ -1,7 +1,7 @@
 {
  "/": {
-  "sha256": "51c79caa28cb0e432a7937504ef17b85b793c1e6532749b8d35b78dca9dec22f",
-  "lastmod": "2026-10-09"
+  "sha256": "4d4fda1e9d76b88275951a8b226544c84ca8fb77db77e19e59e3bf62e08ad633",
+  "lastmod": "2026-10-10"
  },
  "/what-is-swarm": {
   "sha256": "e4a2d0cb727c6318d81fc9facec17f10e5e714c692844eeef91a7825d16e2a09",
@@ -16,8 +16,16 @@
   "lastmod": "2026-10-09"
  },
  "/join": {
-  "sha256": "9e15f4d662aff745acb38f8c58a0d100867afe28e2260c51f024f580bea71982",
+  "sha256": "8f2b9a2fdc8da961761dbe943d753d07355a7d35277719b938e9734b7b4aa222",
   "lastmod": "2026-10-09"
+ },
+ "/token": {
+  "sha256": "4b93a4a75624ee938b8133c807ac3fbf9d55d39f15c1e6a8dee4012f030d8831",
+  "lastmod": "2026-10-09"
+ },
+ "/get-swm": {
+  "sha256": "98578d29f2c4bfd4efb41cfa8f36ebaa19b8b3e1e143151c8a8d3b3b7d7bf973",
+  "lastmod": "2026-10-10"
  },
  "/waitlist": {
   "sha256": "6edd071b16afb7d07732c731cd6db50174769cac011363ecc764b2c6c35409a1",
