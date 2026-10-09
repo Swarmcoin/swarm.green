@@ -1701,6 +1701,87 @@ get_swm = head(
 write("get-swm/index.html", get_swm)
 
 
+# ---------------------------------------------------------------- /history
+# Owner item 308: the coin as it is today, in facts, and what came before under
+# the same name, in the founder's own words from data/history.json. While that
+# file has no paragraphs the page carries a marked placeholder and must not be
+# deployed (the warning below says so on every build).
+HISTORY = json.loads((ROOT / "data" / "history.json").read_text(encoding="utf-8"))
+
+history_rows = "\n".join(
+    f'          <tr><th scope="row">{k}</th><td>{v}</td></tr>'
+    for k, v in [
+        ("Mainnet live since", esc(STATUS["launchedLabel"])),
+        ("Genesis block hash", wrapcode(GENESIS["hash"])),
+        ("Maximum supply", f'{seo.number(NETWORK["chain"]["maxSupply"])} SWM'),
+        ("Closed start", esc(CLOSED["summary"])),
+        ("Public mining opens", esc(CLOSED["untilLabel"])),
+        ("Block reward split", "80% Miner · 8% Core Development · 4% Grants &amp; Ecosystem · 8% Community &amp; Development Reserve"),
+        ("Apps", "; ".join(seo.app_list()) + "."),
+    ])
+
+if HISTORY["paragraphs"]:
+    history_before = "\n".join(f"      <p>{esc(p)}</p>" for p in HISTORY["paragraphs"])
+else:
+    history_before = (
+        "      <!-- OWNER-308-START: placeholder, never deploy -->\n"
+        '      <p class="note"><strong>Text pending (owner item 308).</strong> This part is published only in the '
+        "founder&rsquo;s own words. It states what happened to the earlier product that carried the SWARM name, "
+        "and when the coin described on this site took the name over.</p>\n"
+        "      <!-- OWNER-308-END -->")
+    print("WARNING: /history carries the item-308 placeholder; do not deploy history/")
+
+history = head(
+    "The history of the name SWARM — SWARM",
+    "SWARM (SWM) today in facts, and what came before under the same name, in the founder's own words.",
+    "/history",
+    "SWARM — The history of the name",
+    "SWARM (SWM) today in facts, and what came before under the same name.",
+) + page_head(
+    "History",
+    "The history of the name SWARM",
+    f"SWARM (ticker SWM) as it exists today is the proof-of-work privacy coin whose mainnet has been live since {esc(STATUS['launchedLabel'])}. This page separates the two: the coin as it is today, and what came before under the same name. The second part is written by the project&rsquo;s founder, in the founder&rsquo;s own words.",
+) + f"""
+  <section class="band band--cream">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Today</p>
+        <h2>SWARM today, in facts.</h2>
+      </div>
+
+      <div class="tablewrap" data-reveal>
+        <table>
+          <caption>SWARM mainnet in facts.</caption>
+          <tbody>
+{history_rows}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note mt-m" data-reveal>Mining: <strong>Please keep ASICs and rented hash power off the network.</strong> No coins are promised.</p>
+    </div>
+  </section>
+
+  <section class="band band--dark2" id="before">
+    <div class="wrap wrap--narrow prose">
+      <h2>What came before</h2>
+{history_before}
+    </div>
+  </section>
+
+  <section class="band band--cream">
+    <div class="wrap wrap--narrow">
+      <div class="prose">
+        <h2>How to check any claim</h2>
+        <p>A chain is identified by its genesis block. SWARM mainnet&rsquo;s genesis hash: {wrapcode(GENESIS["hash"])} Blocks and transactions are in the mainnet block explorer at {ext_link(ENDPOINTS["explorerMainnet"], "mainnet.explore.swarm.green")}. The official channels are this site, {ext_link(X_URL, esc(X_HANDLE) + " on X")}, <a href="mailto:{EMAIL}">{EMAIL}</a> and the code at {ext_link(GH, GH.split("//", 1)[-1])}. Anything else claiming to be SWARM is not us. We never ask for recovery words, private keys or a payment.</p>
+      </div>
+      <p class="note mt-l">{NOT_ADVICE}</p>
+    </div>
+  </section>
+""" + FOOTER
+write("history/index.html", history)
+
+
 # ------------------------------------------------------------------ /terms
 terms = head(
     "Terms — SWARM",

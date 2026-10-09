@@ -1,0 +1,1 @@
+{"meta": {"note": "The /history page: the founder's own paragraphs about the earlier product under the same name (owner item 308). While `paragraphs` is empty the page renders a marked placeholder and tools/build_pages.py prints a warning; the page is never deployed with the placeholder in."}, "paragraphs": []}

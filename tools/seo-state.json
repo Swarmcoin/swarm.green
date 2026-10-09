@@ -51,6 +51,10 @@
   "sha256": "1121e95214561c59f5c40c7c6de7bf93e6692d6fcac97d5d20035e986e59f4c1",
   "lastmod": "2026-10-09"
  },
+ "/history": {
+  "sha256": "6df6dfa18488879d78e591fb3de75fbe857651108bdf6a348b22b2e82f9e6fbf",
+  "lastmod": "2026-10-10"
+ },
  "/support": {
   "sha256": "bc4b24ce6d65ba15cd46097eada0a9b934d97b8b57acb5244a481d9bfdbee34a",
   "lastmod": "2026-10-04"

@@ -195,6 +195,8 @@ PAGES = {
         'title': 'SWARM Browser: a web browser with the SWM wallet built in'},
     '/roadmap': {'name': 'Roadmap', 'title': 'SWARM (SWM) roadmap: what is live and what comes next — SWARM',
                  'desc': 'SWARM (SWM) roadmap: what is live today, what is being built and what is only planned, from the mainnet and the apps to SWARM Market.'},
+    '/history': {'name': 'History', 'title': 'The history of the name SWARM — SWARM',
+                 'desc': 'SWARM (SWM) today in facts, and what came before under the same name, in the founder’s own words.'},
     '/support': {'name': 'Support', 'title': 'SWARM support: help with the wallet and downloads'},
     '/brand': {'name': 'Brand'},
     '/terms': {'name': 'Terms', 'desc': 'Terms for swarm.green, an information site about open-source software and the SWARM network. Nothing here is an offer, a solicitation or financial advice.'},
