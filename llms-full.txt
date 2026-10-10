@@ -154,7 +154,7 @@ Whatever people agree it is worth. SWARM does not promise a price. Like any cryp
 
 ### Can I mine SWARM?
 
-Not yet. SWARM is in a closed start: until 31 October 2026, 15:42 UTC only the project’s own machines mine, and for the 24 hours after that the people on the waiting list can mine too. From 1 November 2026, 15:42 UTC mining is open to everyone, and the node software will be published on this site. The proof of work is Equihash 200,9. There is no promise that home computers stay competitive forever. As the network grows and difficulty rises, professional and specialised miners can join — and nothing in the rules keeps anyone out, at either end. Equihash hardware already exists, so that moment can come early. It is a consequence of keeping the rules open, and we say so rather than pretend otherwise.
+Not yet. SWARM is in a closed start: until 31 October 2026, 15:42 UTC only the project’s own machines mine, and for the 24 hours after that the people on the waiting list can mine too. From 1 November 2026, 15:42 UTC mining is open to everyone, and the node software will be published on this site. The proof of work is Equihash 200,9. There is no promise that home computers stay competitive forever. As the network grows and difficulty rises, professional and specialised miners can join — and nothing in the rules keeps anyone out, at either end. Equihash hardware already exists, so that moment can come early. It is a consequence of keeping the rules open, and we say so rather than pretend otherwise. Please keep ASICs and rented hash power off the network. No coins are promised.
 
 ### Is there a premine or a head start?
 
