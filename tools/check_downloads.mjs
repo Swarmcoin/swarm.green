@@ -37,8 +37,12 @@ for (const e of data.entries || []) {
   const what = e.variant ? `${e.platform} · ${e.variant}` : e.platform;
   if (unavailable.some((h) => e.url.startsWith(h))) { paused.push(`${name} — ${what}`); continue; }
   if (e.paused) { held.push(`${name} — ${what} ${e.version || ""}`.trim()); continue; }
-  targets.push({ label: `${name} — ${what}`, url: e.url, kind: "download" });
-  if (e.checksums) targets.push({ label: `${name} — ${what} SHA256SUMS`, url: e.checksums, kind: "checksums" });
+  // PROPOSED 2026-10-10 (Marketing Desk default, owner item pending): rows of the
+  // testnet channel are optional — reported, never a reason not to deploy the
+  // mainnet site ("mainnet before testnet"). Remove `optional` to make them hard again.
+  const optional = e.channel === "testnet";
+  targets.push({ label: `${name} — ${what}`, url: e.url, kind: "download", optional });
+  if (e.checksums) targets.push({ label: `${name} — ${what} SHA256SUMS`, url: e.checksums, kind: "checksums", optional });
 }
 if (data.meta && data.meta.releasesUrl) {
   targets.push({ label: "release repository", url: data.meta.releasesUrl, kind: "page" });
@@ -62,8 +66,9 @@ for (const t of targets) {
     status = 0;
   }
   const good = status >= 200 && status < 400;
-  if (!good) bad++;
-  console.log(`${good ? "ok  " : "FAIL"} ${String(status).padEnd(4)} ${t.label}${size}\n       ${t.url}`);
+  if (!good && !t.optional) bad++;
+  const mark = good ? "ok  " : t.optional ? "warn" : "FAIL";
+  console.log(`${mark} ${String(status).padEnd(4)} ${t.label}${t.optional && !good ? " (testnet row, optional)" : ""}${size}\n       ${t.url}`);
 }
 
 if (paused.length) {
