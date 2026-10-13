@@ -1,0 +1,27 @@
+/* Shared visual treatment for functional product/information pages. */
+body.rd-legacy {
+  --honey: #FF8A1F; --amber-deep: #FFB020; --comb: #FF8A1F;
+  --cream: #F5EFE4; --hive-black: #0A0908; --bark: #100E0C;
+  --wax: #19140F; --ink: #F5EFE4; --ink-dim: #A89F92;
+  --leaf: #FFB020; --rule-dark: rgba(243,240,229,.13);
+  --font-display: "Sora", "Segoe UI", sans-serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+  --wrap: 1240px; --radius: 12px;
+  --card-shadow-alpha: .13;
+}
+.rd-legacy .page-head { padding-top: 72px; padding-bottom: 64px; background: #0A0908; }
+.rd-legacy .page-head h1 { max-width: 1000px; letter-spacing: -.055em; font-weight: 600; font-size: clamp(2.5rem,6vw,5rem); }
+.rd-legacy .page-head__lead { max-width: 740px; }
+.rd-legacy .band--comb::before { opacity: .12; }
+.rd-legacy .band { border-bottom: 1px solid var(--rule-dark); }
+.rd-legacy .band--cream { --bg: #F5EFE4; --fg: #24170B; --fg-dim: #6B645A; --surface: #FFFBF3; --accent: #8A4109; }
+.rd-legacy .btn { border-radius: 7px; box-shadow: none; font-size: .9rem; }
+.rd-legacy .hex-icon { box-shadow: none; }
+.rd-legacy .rd-header a, .rd-legacy .rd-footer a { text-decoration: none; }
+.rd-legacy .rd-header .rd-brand { gap: 10px; }
+.rd-legacy .rd-navlinks .rd-button-primary { color: #0A0908; }
+.rd-legacy .rd-footer h2, .rd-legacy .rd-footer h3 { font: inherit; }
+.rd-legacy .rd-footer ul { padding: 0; }
+@media (max-width: 680px) {
+  .rd-legacy .page-head { padding-top: 44px; padding-bottom: 42px; }
+}

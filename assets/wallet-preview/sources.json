@@ -1,0 +1,55 @@
+{
+  "description": "Actual SWARM Wallet application UI compiled with its existing development review harness. No UI components redrawn or modified. Screenshot data is synthetic and nonfunctional.",
+  "source_repository": "https://github.com/Swarmcoin/privacy-wallet",
+  "source_commit": "a3f2d1e49ba6573919becd93627600564d74663b",
+  "build_identity": "SWARM Wallet 0.1.0-mainnet.11",
+  "build_method": "Existing tools/build-harness.js using application webpack, src/devHarness/index.tsx and HarnessRoot.tsx. Private pre-loader changes display fixtures and buildProfile profile only; native, IPC, filesystem and shell remain stubbed.",
+  "capture_date": "2026-10-13",
+  "viewport": {
+    "width": 1350,
+    "height": 880,
+    "deviceScaleFactor": 1
+  },
+  "fixture_time": "2026-10-05T18:53:00Z",
+  "fixture_changes": [
+    "Select existing swarm-mainnet build identity; keep all real UI component code unchanged.",
+    "Replace mock fixture wallet chain with swarmMainnetChainName and server label lwd-main.swarm.green; no network request is made.",
+    "Unified demo address: swm bech32m encoding of 96 zero words with correct string checksum; NOT a valid Unified Address container, no key or account.",
+    "Transparent demo address: s1 plus 32 capital Q characters, prefix-shaped only, not a generated payment address or account.",
+    "Existing mockAppState.ts balances, transfers and historical mockSwmPrice fresh data retained. Date frozen only for stable rendering."
+  ],
+  "behavior": {
+    "overview": "Actual OverviewScreen with historical price fixture.",
+    "send": "Actual SendScreen empty draft; no native fee or proposal response is invented, no confirmation performed.",
+    "receive": "Actual ReceiveScreen simultaneously shows unified/shielded and transparent fixture cards. No invented mode toggle.",
+    "activity": "Actual ActivityScreen with first shielded received fixture row selected."
+  },
+  "isolation": "Fresh browser context. Requests outside localhost harness blocked. No owner wallet, application user data, keychain, native module or transaction accessed.",
+  "verification": {
+    "page_errors": [],
+    "nonlocal_requests": [],
+    "screens_visually_reviewed": true
+  },
+  "files": [
+    {
+      "file": "activity.png",
+      "sha256": "c3293988f1e22634363d16ef9116aa82c8ee33ec223e0973b4b1e33082cd31ab",
+      "bytes": 125142
+    },
+    {
+      "file": "overview.png",
+      "sha256": "d7a42fd32929d7da390d4f2b0c54f8215e6157d184d18449fe57b75a5dd04cd6",
+      "bytes": 201699
+    },
+    {
+      "file": "receive.png",
+      "sha256": "60badba890cac189d18e592a679667ac0cb7800e6e075c028e9ed868943bed61",
+      "bytes": 202728
+    },
+    {
+      "file": "send.png",
+      "sha256": "dd1350b25e7eada25f16085dab09013963a9c7d16f0e50ea24f726f8250d257d",
+      "bytes": 149113
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+/* Mobile UX layer: load after page styles. Original SWARM identity retained. */
+@media(max-width:980px){
+ body.redesign .rd-navlinks{top:100%;max-height:calc(100dvh - 180px);overflow-y:auto;overscroll-behavior:contain;padding-block:14px}
+ body.redesign .rd-menu-toggle{min-width:64px;min-height:44px;font-size:14px}
+ body.redesign .rd-navlinks>a{min-height:44px;display:flex;align-items:center;font-size:14px;padding-block:11px}
+ body.redesign .rd-navlinks .rd-button{justify-content:center;min-height:46px}
+ body.redesign .rd-status-inner{font-size:10px;line-height:1.55;gap:10px}
+ body.redesign .rd-status-dim,body.redesign .rd-price-status{font-size:10px}
+ body.redesign .rd-button,body.redesign .rd-motion,body.redesign .download-tabs button,body.redesign .download-os button,body.redesign .download-arch select{min-height:44px}
+ body.redesign .rd-button{font-size:13px}
+ body.redesign .rd-motion{z-index:3;font-size:12px!important;min-width:128px;padding:10px 13px;background:#100e0ce8;border-color:#ffb02055}
+ body.redesign .rd-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;pointer-events:auto}
+ body.redesign .rd-art{isolation:isolate}
+ body.redesign .rd-hero-lead,body.redesign .rd-section-head>p,body.redesign .rd-centered>p:last-child,body.redesign .rd-step p,body.redesign .rd-wallet-copy>p,body.redesign .rd-companions p,body.redesign .rd-stake-copy>p:not(.rd-eyebrow),body.redesign .rd-principle-intro,body.redesign .rd-principle-list p,body.redesign .rd-roadmap-item>p:not(.rd-eyebrow),body.redesign .rd-faq-intro>p:last-child,body.redesign .rd-faq details p,body.redesign .rd-closing p{font-size:14px;line-height:1.8}
+ body.redesign .rd-fineprint,body.redesign .rd-section-foot,body.redesign .rd-stake-small,body.redesign .rd-roadmap-bottom>span{font-size:13px!important;line-height:1.8}
+ body.redesign .rd-faq summary{font-size:15px;min-height:44px;align-items:center}
+ body.redesign .rd-eyebrow,body.redesign .rd-tag,body.redesign .rd-pill{font-size:10px}
+ body.redesign .rd-textlink,body.redesign .rd-step-link{min-height:44px;display:inline-flex;align-items:center;font-size:13px}
+ body.redesign .rd-fact span{font-size:11px;line-height:1.65}
+ body.redesign .rd-footer-col{font-size:13px;gap:2px}
+ body.redesign .rd-footer-col a{min-height:44px;display:flex;align-items:center}
+ body.redesign .rd-footer-brand>p,body.redesign .rd-footer-bottom{font-size:12px;line-height:1.8}
+ body.redesign .rd-footer-legal a{display:inline-flex;align-items:center;min-height:44px}
+ body.redesign .dv-lead,body.redesign .download-about>p,body.redesign .dv-help-card p,body.redesign .roadmap-stage-card>p,body.redesign .roadmap-evidence p,body.redesign .roadmap-evidence li,body.redesign .ob-lead,body.redesign .ob-card p,body.redesign .ob-step p,body.redesign .ob-section>p,body.redesign .ob-backup p,body.redesign .ob-bottom p{font-size:14px;line-height:1.8}
+ body.redesign .download-notice,body.redesign .download-secondary p,body.redesign .download-unavailable p,body.redesign .dv-bottom,body.redesign .roadmap-policy,body.redesign .ob-note,body.redesign .ob-disclosure p,body.redesign .ob-addresses p{font-size:13px;line-height:1.8}
+ body.redesign .download-tabs button{font-size:13px;padding:14px 10px;gap:9px}
+ body.redesign .download-os button{font-size:14px}
+ body.redesign .download-control-label{font-size:11px;flex-wrap:wrap;gap:5px}
+ body.redesign .download-control-label small{font-size:11px}
+ body.redesign .download-arch{font-size:13px;flex-wrap:wrap;gap:8px}
+ body.redesign .download-arch select{font-size:16px}
+ body.redesign .download-secondary summary,body.redesign .roadmap-evidence summary,body.redesign .ob-addresses summary{font-size:13px;min-height:48px;gap:18px}
+ body.redesign .download-secondary code{font-size:11px;line-height:1.8}
+ body.redesign .download-alt{min-height:44px;display:flex;align-items:center;font-size:13px}
+ body.redesign .dv-textlink,body.redesign .ob-link{display:inline-flex;align-items:center;min-height:44px;font-size:14px}
+ body.redesign .dv-policy-links{font-size:12px;gap:20px;flex-wrap:wrap}
+ body.redesign .dv-policy-links a{min-height:44px;display:flex;align-items:center}
+ body.redesign .ob-venue .rd-button{font-size:13px}
+ body.redesign .ob-venue p{font-size:12px}
+ body.redesign .ob-pair{font-size:13px}
+ body.redesign .roadmap-jump{min-height:92px}
+ body.redesign .roadmap-jump strong{font-size:12px;line-height:1.5}
+ body.redesign .roadmap-highlights span{font-size:12px;line-height:1.6}
+ body.redesign .roadmap-date small{font-size:11px;line-height:1.7}
+ body.redesign .roadmap-date p{font-size:12px;line-height:1.7}
+ body.redesign .roadmap-state,body.redesign .roadmap-period{font-size:10px;line-height:1.7}
+ body.redesign .roadmap-actions{gap:12px 22px}
+ body.redesign .roadmap-actions .rd-button{font-size:13px;min-height:46px}
+}
+@media(max-width:760px){
+ body.redesign .rd-wrap{width:calc(100% - 36px)}
+ body.redesign .rd-status-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 12px;padding-block:3px;min-height:0}
+ body.redesign .rd-network-state{flex-wrap:wrap;gap:4px 7px;line-height:1.65}
+ body.redesign .rd-network-state .rd-status-dim{white-space:normal}
+ body.redesign .rd-price{justify-self:end;min-height:44px;display:flex;justify-content:center;flex-direction:column}
+ body.redesign .rd-opening{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:4px 10px;flex-wrap:wrap;min-height:44px;border-top:1px solid #ffb02013;margin:0;font-size:10px}
+ body.redesign .rd-opening span{margin:0;white-space:nowrap;font-size:10px}
+ body.redesign .rd-nav{min-height:64px}
+ body.redesign .rd-navlinks{padding-inline:18px}
+ body.redesign .rd-brand{font-size:18px}
+ body.redesign .rd-hero-grid{display:flex;flex-direction:column;min-height:0;gap:0;align-items:stretch}
+ body.redesign .rd-art{order:0;position:relative;width:100%;height:auto;min-height:0;aspect-ratio:1.28;max-height:330px;margin:7px 0 5px;overflow:visible}
+ body.redesign .rd-canvas{position:absolute;inset:0;width:100%;height:100%}
+ body.redesign .rd-art-coordinate{top:5px;right:0;font-size:8px;letter-spacing:.09em}
+ body.redesign .rd-art-label{bottom:47px;left:0;font-size:9px;line-height:1.5}
+ body.redesign .rd-motion{bottom:0;right:0}
+ body.redesign .rd-art-fallback{width:62%;height:75%}
+ body.redesign .rd-hero-copy{padding:26px 0 8px}
+ body.redesign .rd-hero h1{font-size:clamp(46px,12.5vw,70px);line-height:1.02;margin:18px 0 17px}
+ body.redesign .rd-hero-subtitle{font-size:18px}
+ body.redesign .rd-hero-lead{font-size:15px;line-height:1.75;max-width:560px}
+ body.redesign .rd-actions{gap:10px;margin-top:22px}
+ body.redesign .rd-hero-note{font-size:12px;line-height:1.7;min-height:44px;margin-top:13px;flex-wrap:wrap}
+ body.redesign .rd-pill{max-width:100%;white-space:normal;line-height:1.65;font-size:10px}
+ body.redesign .rd-section{padding:47px 0}
+ body.redesign .rd-section-head{margin-bottom:25px}
+ body.redesign .rd-wallet-preview{margin:0;min-width:0}
+ body.redesign .rd-wallet-preview img{height:auto;max-width:100%}
+ body.redesign .rd-wallet-preview figcaption{font-size:12px;line-height:1.7;padding-inline:5px}
+ body.redesign .rd-companions>a{padding:23px;gap:14px}
+ body.redesign .rd-companions p{font-size:14px}
+ body.redesign .rd-companions .rd-tag{font-size:10px;line-height:1.7}
+ body.redesign .rd-trade-card .rd-eyebrow{font-size:10px;line-height:1.7}
+ body.redesign .rd-trade-meta{font-size:13px}
+ body.redesign .rd-roadmap-item .rd-eyebrow{font-size:10px;line-height:1.7}
+ body.redesign .rd-roadmap-item{padding-bottom:29px}
+ body.redesign .rd-roadmap-item .rd-textlink{font-size:13px;margin-top:8px}
+ body.redesign .rd-faq{padding-top:0}
+ body.redesign .rd-faq-grid{padding-top:40px}
+ body.redesign .dv-hero,body.redesign .ob-hero{padding:31px 0 24px}
+ body.redesign .dv-crumb,body.redesign .ob-crumb{margin-bottom:21px;font-size:13px}
+ body.redesign .dv-hero h1,body.redesign .ob-hero h1{font-size:clamp(34px,9.5vw,46px);line-height:1.13}
+ body.redesign .download-about{padding:23px}
+ body.redesign .download-install{padding:23px}
+ body.redesign .download-about .dv-textlink{margin-top:7px}
+ body.redesign .download-tabs button{font-size:12px;gap:7px;padding:13px 5px}
+ body.redesign .download-primary .rd-button{font-size:14px;min-height:50px}
+ body.redesign .download-version{font-size:11px;line-height:1.85}
+ body.redesign .dv-help-card{padding:24px}
+ body.redesign .dv-help-card .dv-textlink{margin-top:0}
+ body.redesign .roadmap-stage-card{padding:23px 20px}
+ body.redesign .roadmap-stage-card h2{font-size:24px;line-height:1.25}
+ body.redesign .roadmap-stage-card>p{margin-bottom:14px}
+ body.redesign .roadmap-evidence{margin-top:17px}
+ body.redesign .roadmap-dates{grid-template-columns:1fr;gap:12px}
+ body.redesign .roadmap-date{padding:17px}
+ body.redesign .roadmap-policy{margin-left:0;padding-top:10px}
+ body.redesign .ob-card,body.redesign .ob-backup{padding:24px}
+ body.redesign .ob-steps{gap:29px}
+ body.redesign .ob-hex{font-size:15px}
+ body.redesign .ob-step .ob-link{font-size:14px;margin-top:8px}
+ body.redesign .ob-step h3{font-size:18px}
+}
+@media(max-width:430px){
+ body.redesign .rd-wrap{width:calc(100% - 32px)}
+ body.redesign .rd-art{aspect-ratio:1.32;max-height:280px}
+ body.redesign .rd-art-coordinate{font-size:8px;max-width:180px;line-height:1.5;text-align:right}
+ body.redesign .rd-art-label{font-size:8px}
+ body.redesign .rd-steps{grid-template-columns:1fr;gap:27px}
+ body.redesign .rd-step{display:grid;grid-template-columns:78px 1fr;gap:0 17px;text-align:left;align-items:start}
+ body.redesign .rd-step-hex{grid-column:1;grid-row:1/4;width:78px;height:89px;margin:0}
+ body.redesign .rd-step-hex>svg{width:25px;height:25px}
+ body.redesign .rd-step-num{font-size:11px;bottom:12px}
+ body.redesign .rd-step h3{font-size:18px;margin-bottom:9px}
+ body.redesign .rd-step p{font-size:14px;grid-column:2}
+ body.redesign .rd-step-link{grid-column:2;margin-top:7px;font-size:13px}
+ body.redesign .rd-stake{padding:25px}
+ body.redesign .rd-footer-top{gap:24px 18px}
+ body.redesign .download-install,body.redesign .download-about{padding:21px 18px}
+ body.redesign .download-tabs{gap:0;padding:5px}
+ body.redesign .download-tabs button{font-size:11px;gap:5px;padding-inline:3px}
+ body.redesign .download-tabs button svg{width:16px;height:16px;flex:none}
+ body.redesign .download-control-label{align-items:flex-start;flex-direction:column;gap:5px}
+ body.redesign .download-arch{align-items:stretch;flex-direction:column}
+ body.redesign .download-arch select{width:100%;min-height:46px}
+ body.redesign .roadmap-stage{grid-template-columns:33px minmax(0,1fr);gap:9px}
+ body.redesign .roadmap-stage>.roadmap-hex{width:33px;height:39px;font-size:12px}
+ body.redesign .roadmap-trail::before{left:16px}
+ body.redesign .roadmap-stage-card{padding:21px 17px}
+ body.redesign .roadmap-stage-card h2{font-size:22px}
+ body.redesign .roadmap-jump strong{font-size:11px;max-width:80px}
+ body.redesign .roadmap-date strong{font-size:23px}
+ body.redesign .roadmap-date{padding:16px 13px}
+ body.redesign .roadmap-actions .rd-button{width:100%;justify-content:center;gap:8px;padding-inline:12px}
+ body.redesign .ob-step{padding-left:63px}
+ body.redesign .ob-hex{width:45px;height:51px}
+ body.redesign .ob-backup{padding:23px}
+}
+@media(max-width:760px) and (orientation:landscape){
+ body.redesign .rd-art{max-height:270px;aspect-ratio:1.9}
+ body.redesign .rd-navlinks{max-height:calc(100dvh - 180px)}
+}
+@media(prefers-reduced-motion:reduce){body.redesign .rd-canvas{scroll-behavior:auto}}
+
+@media(max-width:980px){body.redesign .rd-art-controls{position:absolute;bottom:0;right:0;left:auto;z-index:3;display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}body.redesign .rd-art-controls .rd-motion,body.redesign .rd-art-controls .rd-stir{position:static;min-height:44px;min-width:112px;font-size:12px!important;padding:10px 12px;background:#100e0ce8;border:1px solid #ffb02055;border-radius:8px;color:#F5EFE4;touch-action:manipulation;cursor:pointer}body.redesign .rd-art-controls .rd-stir{color:#FFB020}}
+@media(max-width:430px){body.redesign .rd-art-controls{gap:7px;width:100%;justify-content:flex-end}body.redesign .rd-art-controls .rd-motion,body.redesign .rd-art-controls .rd-stir{font-size:11px!important;min-width:110px;padding-inline:10px}body.redesign .rd-art-label{bottom:52px}}

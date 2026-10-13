@@ -1,3 +1,81 @@
+## Current local review — 13 October 2026, V10
+
+Preview: http://localhost:4181/?review=final-v10
+
+V10 adds full-header particle gathering, an actual3D flight circle with fast wings, a small bee pointer, independently randomized venue candles and helical pixel FUEL with a clickable wordmark/arrow. The automatic wallet film now uses actual same-build Overview, Send, Receive and Activity captures with a persistent app shell. These are isolated development-harness screenshots with synthetic nonpayment fixture data and historical prices; no owner wallet is connected. See assets/wallet-preview/sources.json for commit/build and hashes.
+
+The accepted mining/emission model, SWARM branding, waitlist backend/client contracts, routes and previous records remain intact. The unchanged V4 character reference is accompanied by a separate editable Blender flight clip; web pixel treatment/eye extraction are runtime effects. Native cursor fallback, global pause, reduced motion and visibility handling remain available. This is a local review, not a publication. Details of V9 and earlier revisions below are historical.
+
+---
+
+## Current local review — 13 October 2026, V9
+
+Preview: http://localhost:4181/?review=final-v9 · Trading: /trade · Character: /brand/mascot · Style sheet: /brand/mascot/style-sheet
+
+The current revision preserves SWARM's original warm palette, Sora privacy headline and existing routes. It adds rolling one-second Three.js candle charts, the pixel-treated V4 mascot's assembly/flight/eye-to-logo sequence, selected-section ambient swarms, passive automatic product films, a zero-origin emission explorer, pixel FUEL and its verified brand lettering. Public implementation and validation details are in specs/WEBSITE-V6-TASKS.md and specs/WEBSITE-REDESIGN-2026-10.md in the parent repository; earlier notes below are historical.
+
+The waitlist keeps the original backend/API/client/storage contracts and previous registrations there; local QA uses fixtures. Nothing has been published. Existing /history editorial placeholders still need owner review before publication. Browser/Messenger frames do not announce released phone/macOS products. Trading charts are illustrative; DEXTools remains a search destination until the exact listing is verified. Emission is an exact protocol model, not a live supply measurement.
+
+Run tools/open-preview.ps1 for this source. Checks: python tools/check_redesign.py; python tools/redesign_shell.py --check; python tools/build_ecosystem.py --check; python tools/seo.py --check. Pinned local Three.js licenses/provenance and FUEL font OFL/provenance are included. The only CSP change for this revision allows same-origin font files on editorial pages; specialized Messenger link-page policy remains unchanged.
+
+---
+
+## Local redesign review — 13 October 2026, v3
+
+Preview: http://localhost:4181/ · Trading: /trade · Mascot review: /brand/mascot
+
+This version retains the SWARM warm-black, orange and honey identity and original privacy message. It adds the Blender-derived interactive particle bee/chart/pixel-logo loop, device mockups, international communities and a dedicated trading page. DEXTools is a search link; its exact SWM listing is unverified. Browser/Messenger device compositions are labeled concepts and do not change release availability.
+
+Run the existing `tools/open-preview.ps1` launcher for the local preview. The source check is `python tools/check_redesign.py`; generators remain canonical for download/network metadata. Earlier review archives are preserved separately. This local review has not been published; inherited /history editorial placeholders still require an owner review before publication.
+
+## SWARM brand revision v2 — October 2026
+
+The owner's original privacy-focused draft and SWARM design guide govern this
+version. Colors are warm black `#0A0908`, orange `#FF8A1F`, honey `#FFB020`, cream
+`#F5EFE4`; fonts are Sora, Manrope and JetBrains Mono. The headline remains
+“Privacy by default.” The bee and hexagon motif extends through the hero,
+onboarding and roadmap. This is a local review version.
+
+Official venue assets and the authentic development-wallet screenshot have
+provenance in `assets/asset-sources.json`. The wallet image must retain its demo
+caption. Venue SVG geometry is preserved; CSS applies a consistent honey tone.
+The refined mark can be compared and downloaded at `/brand/logo-v2`.
+
+`js/price.js` reads the existing same-origin price relay every 30 seconds while
+visible, with explicit freshness and unavailable states. `js/status-v2.js` reads
+the public-opening date from `data/network.json`; elapsed time cannot declare a
+launch. The five editorial pages are homepage, downloads, roadmap, Get SWM and
+Join. Their original content is maintained directly.
+
+The homepage, `/downloads`, `/roadmap`, `/get-swm` and `/join` are editorial layouts.
+Shared navigation lives in `js/redesign.js`; palette and visual components live
+in `css/redesign.css`, with the final mobile layer in `css/mobile-v2.css`.
+
+`js/swarm-experience.js` runs the interactive swarm, bee, illuminated mark and
+dissolution cycle. It dynamically imports pinned local Three.js r180, with a
+2D animated fallback. Exact mark geometry comes from `assets/logo-v2.svg`.
+The sequence varies per cycle; pointer movement and click/tap/Stir send forces
+through the particles. Pause, reduced motion, touch scrolling, offscreen
+suspension and graphics-context recovery are supported. Mobile particle and
+pixel-ratio budgets are lower, with adaptive quality after sustained slow frames.
+Third-party provenance and MIT license are in `js/vendor/three.provenance.json`
+and `js/vendor/three.LICENSE`; there are no runtime CDN imports.
+`tools/redesign_shell.py` carries that navigation and a restrained matching theme
+into existing product and information pages. Messenger deep-link and hosted-wallet
+legal pages retain their specialized layouts.
+
+Downloads still use `data/downloads.json`. The hub reads this metadata and excludes
+paused, unavailable-host and testnet entries from its mainnet downloads. GitHub is
+for source and release records; installers stay on the existing download host.
+
+After metadata or legacy-page edits, run `python tools/build_pages.py`,
+`python tools/build_ecosystem.py`, `python tools/redesign_shell.py`, then
+`python tools/seo.py`. The generators preserve the five editorial layouts.
+Check with `python tools/build_ecosystem.py --check`,
+`python tools/redesign_shell.py --check`, and `python tools/seo.py --check`.
+Preview with `node tools/preview.mjs 4181`, or use `tools/open-preview.ps1`.
+No production deployment is implied.
+
 # swarm.green
 
 The website of **SWARM (ticker SWM)**, a privacy coin: a cryptocurrency with its

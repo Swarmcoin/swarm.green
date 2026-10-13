@@ -1,0 +1,7 @@
+.bee-pointer{position:fixed;left:0;top:0;width:1px;height:1px;z-index:1000;pointer-events:none!important;contain:layout style;will-change:transform}
+.bee-pointer[hidden]{display:none!important}
+.bee-pointer canvas{position:absolute;left:-27px;top:-53px;width:72px;height:72px;pointer-events:none!important;filter:drop-shadow(0 2px 5px #0008)}
+.bee-pointer:after{content:"";position:absolute;left:-1px;top:-1px;width:3px;height:3px;background:#ffb020;border-radius:50%;box-shadow:0 0 5px #ff8a1f99}
+.bee-pointer-link canvas{filter:drop-shadow(0 0 5px #ff8a1f88)}
+@media(hover:hover) and (pointer:fine){html.bee-pointer-ready,html.bee-pointer-ready body,html.bee-pointer-ready body *{cursor:none!important}html.bee-pointer-ready input,html.bee-pointer-ready textarea,html.bee-pointer-ready [contenteditable=true]{cursor:text!important}html.bee-pointer-ready select{cursor:auto!important}}
+@media(prefers-reduced-motion:reduce),(hover:none),(pointer:coarse){.bee-pointer{display:none!important}}

@@ -53,15 +53,15 @@ Everything you need is published with its SHA-256 checksum in the [Ecosystem](ht
 
 ## Emission schedule
 
-An era is the stretch between two halvings. Later eras continue the same halving.
+An era is the stretch between two halvings. Later eras continue the same halving. Issuance follows block height; calendar estimates use the target block time and are not live circulating supply. The interactive model is at https://swarm.green/#emission; the readable schedule and full rules are at https://swarm.green/network.
 
 | Era | Block heights | Block reward (SWM) | Issued in era (SWM) | Cumulative supply (SWM) |
 | --- | --- | --- | --- | --- |
 | 0 | 1 – 1,679,998 | 6.25 | 10,499,987.5 | 10,499,987.5 |
 | 1 | 1,679,999 – 3,359,998 | 3.125 | 5,250,000 | 15,749,987.5 |
 | 2 | 3,359,999 – 5,039,998 | 1.5625 | 2,625,000 | 18,374,987.5 |
-| 3 | 5,039,999 – 6,719,998 | 0.7812 | 1,312,500 | 19,687,487.5 |
-| 4 | 6,719,999 – 8,399,998 | 0.3906 | 656,250 | 20,343,737.5 |
+| 3 | 5,039,999 – 6,719,998 | 0.78125 | 1,312,500 | 19,687,487.5 |
+| 4 | 6,719,999 – 8,399,998 | 0.390625 | 656,250 | 20,343,737.5 |
 
 Mining rewards mature after 100 blocks before they can be spent.
 
@@ -144,49 +144,50 @@ A chain is identified by its genesis block. SWARM mainnet’s genesis hash is `0
 
 This site, [@swarm_coin on X](https://x.com/swarm_coin), the email address swarmofficial@atomicmail.io and the code at [github.com/Swarmcoin/swarm-releases](https://github.com/Swarmcoin/swarm-releases). The project will never ask for your recovery words, private keys or a payment.
 
-### Is SWARM live?
+### What is SWARM, and what is SWM?
 
-Yes. SWARM mainnet has been live since 2 October 2026. Earlier wallet versions (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to the network; the current version is in the Ecosystem. The genesis hash and the three destination addresses are on the network page, so you can check that the chain you join is the one that was announced. The genesis block holds no spendable coins; every SWM that exists has been mined.
+SWARM is a proof-of-work network and an open-source software project. SWM is its native currency. The chain targets a block every 75 seconds, begins with a 6.25 SWM block reward, and halves that reward every 1,680,000 blocks. Its nominal cap is 21 million; integer rounding gives an emission ceiling of 20,999,987.3152 SWM. Read the network rules.
 
-### What is SWM worth?
+### How private are SWARM payments?
 
-Whatever people agree it is worth. SWARM does not promise a price. Like any cryptocurrency, SWM can lose value, including all of it. Nothing on this site is financial advice.
+Shielded native payments encrypt sender, receiver and amount on-chain using zero-knowledge proofs. Transparent payments do not. Shielding does not hide everything about your device or network connection. SWM trading on Base, BNB Smart Chain and Solana takes place on public chains and does not provide native shielded-payment privacy.
 
-### Can I mine SWARM?
+### How does the closed start work?
 
-Not yet. SWARM is in a closed start: until 31 October 2026, 15:42 UTC only the project’s own machines mine, and for the 24 hours after that the people on the waiting list can mine too. From 1 November 2026, 15:42 UTC mining is open to everyone, and the node software will be published on this site. The proof of work is Equihash 200,9. There is no promise that home computers stay competitive forever. As the network grows and difficulty rises, professional and specialised miners can join — and nothing in the rules keeps anyone out, at either end. Equihash hardware already exists, so that moment can come early. It is a consequence of keeping the rules open, and we say so rather than pretend otherwise.
+SWARM mainnet began on 2 October 2026. Its genesis header time is 15:41:37 UTC; the genesis contains no spendable coins. For the first 29 days, only project machines mine. Waiting-list access is scheduled for 31 October 2026 at 15:42 UTC, followed by public mining on 1 November 2026 at 15:42 UTC. The project receives the mining rewards during its exclusive period, in addition to the published fund allocations. Inspect the genesis and launch details.
 
-### Is there a premine or a head start?
+### Where do the block rewards go?
 
-The genesis block contains no spendable coins. But the start is not open to everyone. The start is closed for 30 days. Until 31 October 2026, 15:42 UTC only the project’s own machines can mine: in those 29 days about 33,408 blocks are produced, about 208,800 SWM (80% to the project’s mining wallet, 20% to the three funds), about 0.99% of the cap. From then until 1 November 2026, 15:42 UTC the people on the waiting list can mine too; from that moment mining is open to everyone and the node software will be published on this site. Why: an orderly start. Liquidity pools and the infrastructure around the coin need coins before trading and public mining begin, and the project has a responsibility to the people who back it. The coins mined in the closed start are what the project uses for that. The aim is a market that starts stable and predictable rather than chaotic; it is an aim, not a promise about the price. Every coin, those included, has to be mined, and transparent mining rewards mature after 100 blocks before they can be spent.
+80% goes to the miner, 8% to Core Development, 4% to Grants & Ecosystem, and 8% to the Community & Development Reserve. The funds are project-controlled destinations published with the launch manifest. The schedule halves the amounts together; late-era rounding retires the small streams first. See the full emission schedule and allocation rules.
 
-### How did SWARM mainnet start?
+### Which SWM token addresses are official?
 
-SWARM mainnet has been live since 2 October 2026: its genesis block has the header time 15:41:37 UTC, and block 1 followed at 15:43 UTC. The genesis block contains no spendable coins, so nobody started with a balance. The first 30 days are a closed start: 29 days in which only the project mines, then 24 hours in which the people on the waiting list can mine too; from 1 November 2026, 15:42 UTC mining is open to everyone. The genesis hash and the three destination addresses are published on the verify page, so anyone can check that the chain they are syncing is the one that was announced. The 20% of each block reward that goes to the three project destinations is not a premine and not hidden: it is paid block by block, in public, for the whole life of the chain, and the percentages cannot be changed.
+On Base and BNB Smart Chain, the official address is 0xf904C14d21bEF5b8a5345a666C77C9cc2A24043B. On Solana, the official mint is 9Fyen71zwaRs3QfUCsyUooTAkHfNqzUE17xbXwZL6qiH. Reported token supply is updated by an oracle; see the token details for limitations. These tokens are distinct from native SWM. Check the contracts, supply explanation and bridge status.
 
-### Who controls the three project destinations?
+### Can I move SWM between these networks?
 
-The project does, under the custody policy published with the launch manifest: keys generated offline, held on separate devices under a threshold policy, with the spending and recovery procedure rehearsed before the addresses were fixed into the rules. It is custody of the project’s share, not a governance vote: nothing can change the percentages.
+The native bridge is built and under review, but it is not live. The project currently provides no token redemption into native SWM. Do not send assets across networks as though an address or ticker makes them interchangeable. Refer to the token page for current bridge information.
 
-### How private is it?
+### Is staking on FUEL part of SWARM mining?
 
-Privacy is a choice you make per payment. Shielded transactions keep sender, receiver and amount encrypted on-chain, using zero-knowledge proofs. Transparent transactions do not, and the wallet tells you which kind you are about to make. Shielding protects what is written to the chain. It does not protect everything about how you use the network — for example, your own network connection is a separate matter.
+No. SWARM uses proof of work. FUEL is an external service offering its own staking experience; it is not SWARM’s consensus mechanism. Read FUEL’s current supported assets, terms and risks before participating. There is no guaranteed return.
 
-### What is coming after the coin?
+### Where can I find official releases and support?
 
-SWARM Market, an online marketplace where you pay merchants in SWM; a privacy browser with the wallet built in; and private, end-to-end encrypted messaging with payments inside the conversation. In that order, each when it is finished and reviewed. A first pre-release of SWARM Browser for Windows is already in the Ecosystem. The roadmap has the detail.
-
-### How do I reach the project?
-
-Write to swarmofficial@atomicmail.io or follow @swarm_coin on X. Together with this site and our GitHub, those are the only official channels. Anything else claiming to be SWARM is not us. We will never ask for your recovery words, private keys or a payment — not by email, not on X, not anywhere.
+Start at Downloads for release files and checksums, or inspect the source at github.com/Swarmcoin. Contact swarmofficial@atomicmail.io or follow @swarm_coin. We will never ask for your recovery words or private keys.
 
 ## Pages
 
 - [What is SWARM (SWM)?](https://swarm.green/what-is-swarm): the facts on one page: definition, key figures, privacy, issuance, official sources
 - [Network and supply](https://swarm.green/network): every consensus and monetary parameter, the era table and the 80% Miner / 8% Core Development / 4% Grants & Ecosystem / 8% Community & Development Reserve block reward split
+- [Interactive emission model](https://swarm.green/#emission): the block-height emission and halving model; calendar estimates use the target block time and are not a live supply reading; full rules and era tables are on /network
 - [Verify the chain](https://swarm.green/verify): genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes
 - [Get started](https://swarm.green/join): choosing a wallet, step by step
-- [Waiting list for public mining](https://swarm.green/waitlist): join the list to get the node download from 31 October 2026, 15:42 UTC, 24 hours before public mining opens on 1 November 2026; one level of invites decides the order; no coins are promised
+- [SWM token addresses](https://swarm.green/token): official SWM addresses on Base, BNB Smart Chain and Solana, reported oracle supply and its limitations, and the bridge, which is not live
+- [Trading pools and charts](https://swarm.green/trade): official Uniswap, PancakeSwap and Raydium pools and analytics links; these public-network swaps are distinct from native shielded payments
+- [How to get SWM](https://swarm.green/get-swm): public mining on SWARM mainnet from 1 November 2026, 15:42 UTC, and the SWM token pools on Base, BNB Smart Chain and Solana
+- [Waiting list for public mining](https://swarm.green/waitlist): early access scheduled for 31 October 2026, 15:42 UTC, 24 hours before public mining on 1 November 2026, 15:42 UTC; one level of invites decides the order; no coins are promised
+- [Downloads](https://swarm.green/downloads): current Wallet, Messenger and Browser releases by platform, installation notes and checksums
 - [Roadmap](https://swarm.green/roadmap): what is live, what is being built and what is only planned
 - [Frequently asked questions](https://swarm.green/#faq): launch, supply, mining, privacy, custody of the project share
 
@@ -195,6 +196,9 @@ Write to swarmofficial@atomicmail.io or follow @swarm_coin on X. Together with t
 - Website: https://swarm.green
 - X: https://x.com/swarm_coin (@swarm_coin)
 - Source code and releases: https://github.com/Swarmcoin/swarm-releases
+- GitHub organization: https://github.com/Swarmcoin
+- International Telegram: https://t.me/swarm_coin
+- German Telegram: https://t.me/swarm_coin_german
 - Email: swarmofficial@atomicmail.io
 
 The project will never ask for recovery words, private keys or a payment. Nothing here is an offer, a solicitation or financial advice. SWM has no guaranteed value and can lose value, including all of it.

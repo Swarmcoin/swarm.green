@@ -1,0 +1,26 @@
+{
+  "created": "2026-10-13",
+  "browser": {
+    "asset": "browser-start.png",
+    "captureDate": "2026-10-05",
+    "sha256": "a7963178acf11dea19c8721ff68f5c974bb96a9119eeb214779779b35b88aa95",
+    "source": "Actual SWARM Browser start screen captured in project QA",
+    "transformation": "None. Original PNG bytes copied unchanged; HTML device screen uses object-fit clipping.",
+    "privacyReview": "Inspected before use; no personal accounts, contacts, emails, secrets or recovery information. Public historical price is visible and captioned as historical.",
+    "availability": "Browser Windows release only; MacBook frame is a visualization."
+  },
+  "messenger": {
+    "source": "Original HTML/CSS illustrative chat composition",
+    "privacyReview": "Maya and the conversation are invented demo content, not actual customer data.",
+    "availability": "Messenger is desktop only. iPhone concept does not imply a phone release."
+  },
+  "devices": {
+    "rendering": "Original native CSS hardware frames, not Apple photography; approximate front-facing device visualization.",
+    "iphoneModel": "iPhone 18 Pro",
+    "verifiedOn": "2026-10-13",
+    "officialSource": "https://www.apple.com/newsroom/2026/09/apple-debuts-iphone-18-pro-and-iphone-18-pro-max/",
+    "announced": "2026-09-09",
+    "available": "2026-09-18",
+    "macbook": "MacBook Pro style display/lid/base composition"
+  }
+}

@@ -1,0 +1,78 @@
+/* Warm, decorative motion only. Copy, links, status and factual data stay independent. */
+body.redesign{isolation:isolate}
+.mv-swarm-field{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none!important;opacity:.8;contain:strict}
+body.redesign .rd-footer{background:linear-gradient(180deg,#0a090868,#0a0908a8)}
+.mv-motion-tools{display:flex;justify-content:flex-end;position:relative;z-index:2;padding-block:3px;min-height:50px}
+.mv-motion-toggle{min-height:44px;padding:10px 14px;border:1px solid #ffb02030;background:#100e0bd9;color:#bdb2a2;border-radius:8px;font:500 11px/1.4 'JetBrains Mono',monospace;cursor:pointer;touch-action:manipulation}
+.mv-motion-toggle:hover{border-color:#ffb02080;color:#f5efe4}.mv-motion-toggle:focus-visible{outline:2px solid #ffb020;outline-offset:4px}.mv-motion-toggle:disabled{opacity:.75;cursor:default}
+body.redesign .rd-button{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;background-position:0 0}
+body.redesign .rd-button:hover,body.redesign .rd-button:focus-visible{transform:translateY(-2px);box-shadow:0 7px 26px #ff8a1f20}
+body.redesign .rd-button-primary:hover,body.redesign .rd-button-primary:focus-visible{background-image:linear-gradient(110deg,transparent 20%,#fff6 48%,transparent 72%);background-size:240% 100%;animation:mv-button-sweep .7s ease both}
+.rd-step-hex,.ob-hex,.rd-roadmap-marker,.roadmap-hex{position:relative}
+body.redesign .mv-hex-current{position:absolute!important;inset:-3%!important;width:106%!important;height:106%!important;pointer-events:none;overflow:visible;fill:none;color:#ffb020}
+.mv-hex-current path{fill:none;stroke:currentColor;stroke-width:1.6;stroke-dasharray:24 266;stroke-linecap:round;opacity:.85;animation:mv-hex-flow 7s linear infinite;animation-delay:var(--mv-delay,0s);animation-play-state:paused;filter:drop-shadow(0 0 3px #ff8a1f)}
+.mv-inview .mv-hex-current path{animation-play-state:running}
+.rd-steps,.ob-steps{isolation:isolate}
+.rd-step,.ob-step{transition:filter .25s ease}.rd-step:hover,.ob-step:hover{filter:drop-shadow(0 0 10px #ff8a1f12)}
+body.redesign img[src$="/venues/uniswap.svg"],body.redesign img[src$="/venues/raydium.svg"]{filter:brightness(0) saturate(100%) invert(74%) sepia(91%) saturate(845%) hue-rotate(344deg) brightness(101%) contrast(101%)}
+/* Keep PancakeSwap's original light/dark face and eyes, unlike a flat silhouette filter. */
+body.redesign img[src$="/venues/pancakeswap.svg"]{filter:grayscale(.55) sepia(.8) saturate(2.1) hue-rotate(351deg) brightness(1.02) contrast(1.08)}
+.mv-chart{margin:17px 0 20px;width:100%;pointer-events:none;overflow:hidden}
+.mv-chart svg{display:block;width:100%;height:52px;overflow:hidden}
+.mv-chart-grid{fill:none;stroke:#ffb02012;stroke-width:1}.mv-chart-line{fill:none;stroke:#ffad5770;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;animation:mv-chart-wave 9s ease-in-out infinite alternate;animation-play-state:paused}
+.mv-chart-trace{stroke:#ffc86c;stroke-width:2;stroke-dasharray:25 390;animation:mv-chart-flow 8s linear infinite,mv-chart-wave 9s ease-in-out infinite alternate;animation-play-state:paused;filter:drop-shadow(0 0 3px #ff8a1f66)}
+.mv-inview .mv-chart-line{animation-play-state:running}
+.mv-chart figcaption{color:#9b9285;font:10px/1.5 'JetBrains Mono',monospace;margin-top:5px}
+.rd-fuel-art{isolation:isolate;overflow:hidden}
+.rd-fuel-art::before,.rd-fuel-art::after{display:none}
+.rd-fuel-art.mv-inview::before,.rd-fuel-art.mv-inview::after{animation-play-state:running}
+body.redesign .rd-fuel-word{color:#ff8a1f;text-shadow:none;position:relative;z-index:1}
+.mv-fuel-embers{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.mv-fuel-embers i{position:absolute;left:var(--x);bottom:8%;width:3px;height:3px;background:#ffb020;opacity:0;animation:mv-ember-rise var(--s) linear infinite;animation-delay:var(--d);animation-play-state:paused}
+.mv-inview .mv-fuel-embers i{animation-play-state:running}
+html[data-swarm-motion=paused] body.redesign *,html[data-swarm-motion=paused] body.redesign *::before,html[data-swarm-motion=paused] body.redesign *::after,html.mv-page-hidden body.redesign *,html.mv-page-hidden body.redesign *::before,html.mv-page-hidden body.redesign *::after{animation-play-state:paused!important}
+@keyframes mv-button-sweep{from{background-position:110% 0}to{background-position:-110% 0}}
+@keyframes mv-hex-flow{to{stroke-dashoffset:-290}}
+@keyframes mv-chart-flow{to{stroke-dashoffset:-415}}
+@keyframes mv-chart-wave{0%{transform:translateY(2px)}45%{transform:translateY(-2px)}100%{transform:translateY(1px)}}
+@keyframes mv-fire-breathe{from{transform:scale(.93,.94) rotate(-3deg);opacity:.65}to{transform:scale(1.06,1.1) rotate(3deg);opacity:.9}}
+@keyframes mv-ember-rise{0%{transform:translate(0,0);opacity:0}20%{opacity:.65}80%{opacity:.25}100%{transform:translate(16px,-160px);opacity:0}}
+@media(max-width:760px){.mv-motion-tools{min-height:48px;padding-block:2px}.mv-motion-toggle{font-size:10px;padding-inline:10px}.mv-swarm-field{opacity:.55}.mv-chart{margin:13px 0 16px}.mv-chart svg{height:44px}.mv-chart figcaption{font-size:10px}.mv-fuel-embers i:nth-child(even){display:none}body.redesign .rd-fuel-art{display:flex;min-height:180px;margin-top:12px}body.redesign .rd-fuel-orbit{width:166px;height:174px}body.redesign .rd-fuel-word{font-size:52px}body.redesign .rd-fuel-label{bottom:2px}}
+@media(prefers-reduced-motion:reduce){.mv-swarm-field{display:none!important}body.redesign *,body.redesign *::before,body.redesign *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.mv-fuel-embers{display:none}.mv-hex-current path{stroke-dasharray:none;opacity:.25}body.redesign .rd-button:hover,body.redesign .rd-button:focus-visible{transform:none}.mv-chart-trace{display:none}}
+/* V6: the flame is drawn with Three.js particles; CSS is a quiet no-WebGL fallback. */
+.mv-fire-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none!important;z-index:1}
+body.redesign .rd-fuel-art{min-height:290px}
+body.redesign .rd-fuel-word{z-index:2;color:#ff8a1f;text-shadow:none}
+.mv-fire-ready .mv-fuel-embers,.mv-fire-ready::before,.mv-fire-ready::after{display:none}
+.mv-fire-ready .rd-fuel-orbit{opacity:.5}
+body.redesign .rd-fuel-label{z-index:3;color:#d9b378}
+@media(max-width:760px){body.redesign .rd-fuel-art{min-height:220px}.mv-fire-canvas{opacity:.95}}
+@media(prefers-reduced-motion:reduce){.mv-fire-canvas{display:none!important}}
+/* V6 connected energy routes and illustrative candle activity. */
+.mv-connected{position:relative;isolation:isolate}
+body.redesign .mv-connected::before{display:none!important}
+.mv-connector{position:absolute;inset:0;pointer-events:none!important;overflow:visible;z-index:0;fill:none}
+.mv-connector-track{stroke:#ffb02029;stroke-width:1.3}
+.mv-connector-energy,.mv-road-draw{stroke:#ffb449;stroke-width:2;stroke-linecap:round;filter:drop-shadow(0 0 5px #ff8a1f66)}
+.mv-charge{fill:#ffe5a5;filter:drop-shadow(0 0 4px #ff8a1f)}
+.mv-connected>.rd-step,.mv-connected>.ob-step,.mv-connected>.rd-roadmap-item,.mv-connected>.roadmap-stage{position:relative;z-index:1}
+.mv-connected .rd-step-hex,.mv-connected .ob-hex,.mv-connected .rd-roadmap-marker,.mv-connected .roadmap-hex{transition:filter .4s,transform .4s;transform:perspective(400px) rotateX(var(--mv-rx,0deg)) rotateY(var(--mv-ry,0deg))}
+body.redesign .mv-node-charge,body.redesign .mv-node-seen{filter:drop-shadow(0 0 12px #ff9a354d)}
+body.redesign .rd-step:hover .rd-step-hex,body.redesign .rd-step:focus-visible .rd-step-hex,body.redesign .ob-step:focus-within .ob-hex{transform:perspective(400px) translateY(-5px) rotateX(var(--mv-rx,0deg)) rotateY(var(--mv-ry,0deg));filter:drop-shadow(0 0 15px #ffb02070)}
+.mv-connected .mv-hex-current path{stroke-width:2;stroke-dasharray:64 226;filter:drop-shadow(0 0 5px #ff8a1f)}
+body.redesign img[src$="/venues/uniswap.svg"],body.redesign img[src$="/venues/raydium.svg"]{filter:brightness(0) saturate(100%) invert(69%) sepia(81%) saturate(1911%) hue-rotate(349deg) brightness(94%) contrast(95%)}
+body.redesign img[src$="/venues/pancakeswap.svg"]{filter:grayscale(.25) sepia(.65) saturate(1.5) hue-rotate(350deg) brightness(.92) contrast(1.05)}
+.mv-candle-chart svg{height:84px;transition:filter .3s ease,transform .3s ease}
+.mv-candle line{stroke:#ffd078;stroke-width:1.2}.mv-candle rect{fill:#f9bb59;stroke:#ffcb76;stroke-width:.6}
+.mv-candle.mv-candle-down line{stroke:#dd8a49}.mv-candle.mv-candle-down rect{fill:#92501f;stroke:#e69852}
+.mv-candle-live rect{fill:#ffd88e;stroke:#ffe4af;stroke-width:1}.mv-candle-live.mv-candle-down rect{fill:#c07732;stroke:#ffae66}
+.mv-candle-price{stroke:#ffb02088;stroke-width:1;stroke-dasharray:3 3}.mv-candle-marker{fill:#ffe5ad}
+.mv-candle-chart{position:relative}.mv-candle-canvas{position:absolute;inset:0 0 auto;width:100%;height:84px;pointer-events:none!important}.mv-candle-gpu-ready>svg .mv-candle{visibility:hidden}.mv-candle-gpu-ready>svg .mv-candle-price,.mv-candle-gpu-ready>svg .mv-candle-marker{visibility:hidden}
+.mv-inview .mv-candle{animation:mv-candle-enter .65s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--bar-delay);transform-box:fill-box;transform-origin:center bottom}
+.rd-trade-card,.tv-pool{transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease}
+.rd-trade-card:hover,.rd-trade-card:focus-within,.tv-pool:hover,.tv-pool:focus-within{border-color:#ffb02078!important;box-shadow:0 12px 35px #ff8a1f0c;transform:translateY(-3px)}
+.rd-trade-card:hover .mv-candle-chart svg,.rd-trade-card:focus-within .mv-candle-chart svg,.tv-pool:hover .mv-candle-chart svg,.tv-pool:focus-within .mv-candle-chart svg{filter:drop-shadow(0 0 4px #ff8a1f28);transform:scaleY(1.035)}
+@keyframes mv-candle-enter{from{opacity:.2;transform:scaleY(.12)}to{opacity:1;transform:scaleY(1)}}
+html[data-swarm-motion=paused] .mv-candle{animation:none!important}
+@media(max-width:760px){.mv-candle-chart svg,.mv-candle-canvas{height:76px}.mv-connector-track{stroke-width:1}.mv-connector-energy,.mv-road-draw{stroke-width:1.6}}
+@media(prefers-reduced-motion:reduce){.mv-charge{display:none}.mv-connected .rd-step-hex,.mv-connected .ob-hex,.mv-connected .rd-roadmap-marker,.mv-connected .roadmap-hex{transform:none!important}.rd-trade-card:hover,.rd-trade-card:focus-within,.tv-pool:hover,.tv-pool:focus-within{transform:none!important}.mv-candle-chart svg{transform:none!important}.mv-candle{opacity:1;transform:none!important}}

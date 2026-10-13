@@ -5,34 +5,86 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.swarm.green" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.swarm.green"
+        }
+      ],
       "destination": "https://swarm.green/:path*",
       "permanent": true
     },
-    { "source": "/sitemap", "destination": "/sitemap.xml", "permanent": true },
-    { "source": "/sitemap_index.xml", "destination": "/sitemap.xml", "permanent": true },
-    { "source": "/Sitemap.xml", "destination": "/sitemap.xml", "permanent": true },
-    { "source": "/ecosystem/node", "destination": "/ecosystem", "permanent": true },
-    { "source": "/mining", "destination": "/waitlist", "permanent": false }
+    {
+      "source": "/sitemap",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap_index.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/Sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/ecosystem/node",
+      "destination": "/ecosystem",
+      "permanent": true
+    },
+    {
+      "source": "/mining",
+      "destination": "/waitlist",
+      "permanent": false
+    }
   ],
   "rewrites": [
-    { "source": "/data/swarm-map-live.json", "destination": "https://lwd-main.swarm.green/swarm-map-live.json" },
-    { "source": "/data/status.json", "destination": "https://lwd-main.swarm.green/status.json" },
-    { "source": "/data/swm-price.json", "destination": "https://fuel.army/api/swm-price" },
-    { "source": "/api/waitlist/:path*", "destination": "/api/waitlist/[...path]?path=:path*" }
+    {
+      "source": "/data/swarm-map-live.json",
+      "destination": "https://lwd-main.swarm.green/swarm-map-live.json"
+    },
+    {
+      "source": "/data/status.json",
+      "destination": "https://lwd-main.swarm.green/status.json"
+    },
+    {
+      "source": "/data/swm-price.json",
+      "destination": "https://fuel.army/api/swm-price"
+    },
+    {
+      "source": "/api/waitlist/:path*",
+      "destination": "/api/waitlist/[...path]?path=:path*"
+    }
   ],
   "headers": [
     {
       "source": "/data/swarm-map-live.json",
-      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     },
     {
       "source": "/data/status.json",
-      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     },
     {
       "source": "/data/swm-price.json",
-      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     },
     {
       "source": "/(call|u|g|stickers)",
@@ -48,43 +100,90 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' https://*.googletagmanager.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; manifest-src 'self'; media-src 'none'; worker-src 'none'; frame-src 'none'; upgrade-insecure-requests"
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; script-src 'self' https://*.googletagmanager.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; manifest-src 'self'; media-src 'none'; worker-src 'none'; frame-src 'none'; upgrade-insecure-requests"
         }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000" },
-        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
-        { "key": "X-Robots-Tag", "value": "index, follow" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "index, follow"
+        }
       ]
     },
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
     },
     {
       "source": "/css/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, stale-while-revalidate=86400"
+        }
+      ]
     },
     {
       "source": "/js/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, stale-while-revalidate=86400"
+        }
+      ]
     },
     {
       "source": "/data/network.json",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=3600" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=3600"
+        }
+      ]
     },
     {
       "source": "/token/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, stale-while-revalidate=86400"
+        }
       ]
     }
   ]

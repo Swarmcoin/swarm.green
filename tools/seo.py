@@ -25,6 +25,7 @@ buy. A page that carries <meta name="robots" content="noindex"> is left alone
 and stays out of the sitemap (the Messenger link pages, the 404 page).
 """
 import datetime
+from decimal import Decimal
 import hashlib
 import html
 import json
@@ -50,6 +51,12 @@ EXPLORER_HOST = EXPLORER.split('//', 1)[-1].rstrip('/')
 # The release repository: its README lists every component. Same value as
 # GH_SOURCE in build_pages.py.
 SOURCE = DOWNLOADS['meta']['releasesUrl']
+GITHUB = 'https://github.com/Swarmcoin'
+TELEGRAM = 'https://t.me/swarm_coin'
+TELEGRAM_GERMAN = 'https://t.me/swarm_coin_german'
+
+# Keep unfinished source-only history out of all public discovery.
+UNPUBLISHED = {'/history'}
 
 STATE = ROOT / 'tools/seo-state.json'
 START = '<!-- seo:start -->'
@@ -63,9 +70,9 @@ esc = lambda value: html.escape(str(value), quote=True)
 
 
 def number(value):
-    """20999987.3152 -> '20,999,987.3152'; 1680000 -> '1,680,000'; 6.25 -> '6.25'."""
-    text = f'{value:,.4f}'.rstrip('0').rstrip('.')
-    return text
+    """Keep source precision: later-era rewards must not round to four decimals."""
+    text = format(Decimal(str(value)), ',f')
+    return text.rstrip('0').rstrip('.') if '.' in text else text
 
 
 def listing(items):
@@ -168,17 +175,25 @@ def app_line(path):
 PAGES = {
     '/': {
         'name': 'SWARM',
-        'title': 'SWARM (SWM) — Privacy coin: private, proof-of-work money run by its community',
-        'desc': 'SWARM (SWM) is a privacy coin: proof-of-work money with shielded payments that keep sender, receiver and amount encrypted. 21 million cap. Public mining opens 1 November 2026.'},
+        'title': 'SWARM (SWM) — Privacy by default. Together we are strong.',
+        'desc': 'SWARM is private, proof-of-work money run by its community. Shielded payments, no account, open-source apps. Mainnet is live; public mining is scheduled for 1 November 2026.'},
     '/what-is-swarm': {'name': 'What is SWARM?', 'desc': 'SWARM (SWM) in plain facts: a proof-of-work privacy coin with shielded payments, and a 21 million cap. Mainnet live since 2 October 2026; public mining opens 1 November 2026.'},
     '/network': {'name': 'Network & supply', 'title': 'SWM supply, halving schedule and network rules — SWARM',
-                 'desc': 'Every SWARM (SWM) parameter: 75-second blocks, 6.25 SWM per block, halving every 1,680,000 blocks, a 20,999,987.3152 SWM cap, the 30-day closed start, the 80/8/4/8 split.'},
+                 'desc': f'SWARM emission and network rules: {BLOCK_TIME}-second target blocks, {REWARD} SWM initial reward, halvings every {HALVING} blocks, a {MAX_SUPPLY} SWM ceiling and the 80/8/4/8 allocation.'},
     '/verify': {'name': 'Verify', 'title': 'Verify the SWARM mainnet: genesis hash, endpoints, addresses — SWARM',
                 'desc': 'Check you are on the real SWARM chain: the genesis hash, the launch time, the public endpoints, the three published fund addresses and the address prefixes.'},
     '/join': {'name': 'Get SWARM', 'title': 'Get started with SWARM (SWM): choose a wallet — SWARM'},
+    '/token': {'name': 'Token', 'title': 'SWM token addresses on Base, BNB Smart Chain and Solana — SWARM',
+               'desc': 'Official SWM token addresses on Base, BNB Smart Chain and Solana, reported supply and its limitations, bridge status, and checks before you trust an address.'},
+    '/get-swm': {'name': 'Get SWM', 'title': 'How to get SWM: public mining and the token pools — SWARM',
+                 'desc': 'Two ways to get SWM: public mining on SWARM mainnet from 1 November 2026, 15:42 UTC, or a swap for the SWM token in the pools on Base, BNB Smart Chain and Solana. No coins are promised.'},
+    '/trade': {'name': 'Trading', 'title': 'Trade SWM — official pools and market charts | SWARM',
+               'desc': 'Find the official SWM trading pools on Uniswap, PancakeSwap and Raydium, with GeckoTerminal, DEX Screener and DEXTools links.'},
     '/waitlist': {'name': 'Waiting list', 'title': 'Waiting list for SWARM (SWM) public mining — SWARM',
-                  'desc': 'Join the waiting list for SWARM (SWM) public mining: the node download from 31 October 2026, 15:42 UTC, 24 hours before mining opens to everyone, in leaderboard order. No coins are promised.'},
+                  'desc': f'SWARM mining waiting list: early access is scheduled for {PROJECT_ONLY}, {CLOSED["earlyAccessHours"]} hours before the public opening on {OPENS}. No coins are promised.'},
     '/ecosystem': {'name': 'Ecosystem', 'title': 'Download the SWARM apps: every file with its checksum — SWARM'},
+    '/downloads': {'name': 'Downloads', 'title': 'SWARM downloads — Wallet, Messenger and Browser',
+                   'desc': 'Find SWARM apps for your device. Choose a product and platform, read installation notes and verify the published checksums.'},
     '/ecosystem/wallet': {
         'name': 'SWARM Wallet',
         'title': f'SWARM Wallet: SWM wallet for {listing(APPS["/ecosystem/wallet"]["platforms"])}',
@@ -191,13 +206,15 @@ PAGES = {
         'title': 'SWARM Browser: a web browser with the SWM wallet built in'},
     '/roadmap': {'name': 'Roadmap', 'title': 'SWARM (SWM) roadmap: what is live and what comes next — SWARM',
                  'desc': 'SWARM (SWM) roadmap: what is live today, what is being built and what is only planned, from the mainnet and the apps to SWARM Market.'},
+    '/history': {'name': 'History', 'title': 'The history of the name SWARM — SWARM',
+                 'desc': 'SWARM (SWM) today in facts, and what came before under the same name, in the founder’s own words.'},
     '/support': {'name': 'Support', 'title': 'SWARM support: help with the wallet and downloads'},
     '/brand': {'name': 'Brand'},
     '/terms': {'name': 'Terms', 'desc': 'Terms for swarm.green, an information site about open-source software and the SWARM network. Nothing here is an offer, a solicitation or financial advice.'},
     '/privacy': {'name': 'Privacy'},
 }
 
-NOINDEX = re.compile(r'<meta name="robots" content="[^"]*noindex')
+NOINDEX = re.compile(r'''<meta\b(?=[^>]*\bname=["']robots["'])(?=[^>]*\bcontent=["'][^"']*noindex)''', re.I)
 SKIP_DIRS = {'tools', 'assets', 'css', 'js', 'data', 'node_modules', '_review'}
 
 
@@ -224,7 +241,7 @@ COIN_ID = SITE + '/#swm'
 # Wikidata's item for "cryptocurrency"; schema.org has no type of its own for one.
 CRYPTOCURRENCY = 'https://www.wikidata.org/wiki/Q13479982'
 
-FAQ_RE = re.compile(r'<details>\s*<summary>(.*?)<span class="ind"[^>]*></span></summary>\s*'
+FAQ_RE = re.compile(r'<details>\s*<summary>(.*?)(?:<span class="ind"[^>]*></span>)?</summary>\s*'
                     r'<div class="answer">(.*?)</div>\s*</details>', re.S)
 
 
@@ -240,10 +257,37 @@ def questions(text):
     return [(plain(q), plain(a)) for q, a in FAQ_RE.findall(text)]
 
 
+ATTR_RE = re.compile(r'''([^\s=/>]+)\s*=\s*(["'])(.*?)\2''', re.S)
+
+
+def tag_attributes(tag):
+    return {name.lower(): html.unescape(value) for name, _, value in ATTR_RE.findall(tag)}
+
+
+def meta_content(text, key):
+    for tag in re.findall(r'<meta\b[^>]*>', text, re.I):
+        attrs = tag_attributes(tag)
+        if attrs.get('name', attrs.get('property')) == key:
+            return attrs.get('content', '')
+    return ''
+
+
+def update_tag(text, tag_name, match_key, match_value, key, value):
+    """Set a quoted HTML attribute without depending on serializer ordering."""
+    def replace_tag(match):
+        tag = match[0]
+        if tag_attributes(tag).get(match_key) != match_value:
+            return tag
+        attribute = re.compile(r'''(\b''' + re.escape(key) + r'''\s*=\s*)(["'])(.*?)\2''', re.S | re.I)
+        if attribute.search(tag):
+            return attribute.sub(lambda m: m[1] + m[2] + esc(value) + m[2], tag, count=1)
+        return re.sub(r'\s*/?>$', lambda m: f' {key}="{esc(value)}"' + m[0], tag)
+    return re.sub(r'<' + tag_name + r'\b[^>]*>', replace_tag, text, flags=re.I)
+
+
 def meta_of(text):
     title = re.search(r'<title>(.*?)</title>', text, re.S)
-    desc = re.search(r'<meta name="description" content="([^"]*)"', text)
-    return html.unescape(title[1]) if title else '', html.unescape(desc[1]) if desc else ''
+    return html.unescape(title[1]) if title else '', meta_content(text, 'description')
 
 
 def crumb_name(url, title):
@@ -257,14 +301,14 @@ def graph(url, text):
     here = SITE + url
     full = url in ('/', '/what-is-swarm')
     org = {'@type': 'Organization', '@id': ORG_ID, 'name': 'SWARM', 'url': SITE + '/',
-           'logo': SITE + '/assets/logo-mark.svg'}
+           'logo': SITE + '/assets/logo-v2.svg'}
     site = {'@type': 'WebSite', '@id': WEBSITE_ID, 'url': SITE + '/', 'name': 'SWARM',
             'publisher': {'@id': ORG_ID}}
     coin = {'@type': 'Thing', '@id': COIN_ID, 'name': 'SWARM (SWM)'}
     if full:
         org.update({'alternateName': ['SWARM (SWM)', 'SWARM Network'],
                     'description': 'The open-source project behind SWARM (SWM), a proof-of-work privacy coin.',
-                    'email': EMAIL, 'sameAs': [X_URL, SOURCE]})
+                    'email': EMAIL, 'sameAs': [X_URL, GITHUB, SOURCE, TELEGRAM, TELEGRAM_GERMAN]})
         site.update({'alternateName': 'swarm.green', 'description': DEFINITION, 'inLanguage': 'en'})
         coin.update({'alternateName': ['SWM', 'SWARM coin'], 'additionalType': CRYPTOCURRENCY,
                      'description': DEFINITION, 'url': SITE + '/what-is-swarm'})
@@ -313,7 +357,16 @@ def decorate(path, text):
     if 'title' in over:
         text = re.sub(r'<title>.*?</title>', lambda m: '<title>' + esc(over['title']) + '</title>', text, 1, re.S)
     if 'desc' in over:
-        text = re.sub(r'(<meta name="description" content=")[^"]*', lambda m: m[1] + esc(over['desc']), text, 1)
+        text = update_tag(text, 'meta', 'name', 'description', 'content', over['desc'])
+    # Social previews, canonical links and JSON-LD describe the same visible page.
+    # Update existing tags only; generators retain ownership of their head layout.
+    title, desc = meta_of(text)
+    for key, value in [('og:title', title), ('twitter:title', title),
+                       ('og:description', desc), ('twitter:description', desc),
+                       ('og:url', SITE + url)]:
+        for attribute in ['name', 'property']:
+            text = update_tag(text, 'meta', attribute, key, 'content', value)
+    text = update_tag(text, 'link', 'rel', 'canonical', 'href', SITE + url)
     data = json.dumps(graph(url, text), ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c')
     block = f'{START}\n<script type="application/ld+json">{data}</script>\n{END}'
     # Always the last thing in <head>, whatever a generator appended after an
@@ -537,9 +590,14 @@ def page_links():
     return [
         ('What is SWARM (SWM)?', '/what-is-swarm', 'the facts on one page: definition, key figures, privacy, issuance, official sources'),
         ('Network and supply', '/network', f'every consensus and monetary parameter, the era table and the {SPLIT.replace(" · ", " / ")} block reward split'),
+        ('Interactive emission model', '/#emission', 'the block-height emission and halving model; calendar estimates use the target block time and are not a live supply reading; full rules and era tables are on /network'),
         ('Verify the chain', '/verify', 'genesis hash, launch time, public endpoints, the three published fund addresses, address prefixes'),
         ('Get started', '/join', 'choosing a wallet, step by step'),
-        ('Waiting list for public mining', '/waitlist', 'join the list to get the node download from 31 October 2026, 15:42 UTC, 24 hours before public mining opens on 1 November 2026; one level of invites decides the order; no coins are promised'),
+        ('SWM token addresses', '/token', 'official SWM addresses on Base, BNB Smart Chain and Solana, reported oracle supply and its limitations, and the bridge, which is not live'),
+        ('Trading pools and charts', '/trade', 'official Uniswap, PancakeSwap and Raydium pools and analytics links; these public-network swaps are distinct from native shielded payments'),
+        ('How to get SWM', '/get-swm', 'public mining on SWARM mainnet from 1 November 2026, 15:42 UTC, and the SWM token pools on Base, BNB Smart Chain and Solana'),
+        ('Waiting list for public mining', '/waitlist', f'early access scheduled for {PROJECT_ONLY}, {CLOSED["earlyAccessHours"]} hours before public mining on {OPENS}; one level of invites decides the order; no coins are promised'),
+        ('Downloads', '/downloads', 'current Wallet, Messenger and Browser releases by platform, installation notes and checksums'),
         ('Roadmap', '/roadmap', 'what is live, what is being built and what is only planned'),
         ('Frequently asked questions', '/#faq', 'launch, supply, mining, privacy, custody of the project share'),
     ]
@@ -552,6 +610,7 @@ def llms_txt():
              'quoted with a link to the page it comes from.', '',
              f'- Ticker: SWM. Own blockchain, proof of work ({POW}), target block time {BLOCK_TIME} seconds.',
              f'- Supply: at most {MAX_SUPPLY} SWM; {REWARD} SWM per block, halving every {HALVING} blocks (about {CHAIN["halvingApproxYears"]} years).',
+             f'- Emission is determined by block height, not calendar dates. The published first halving starts at height {number(NETWORK["eras"][1]["fromHeight"])}; the interactive chart is a model, not live circulating supply.',
              '- The genesis block holds no spendable coins; every SWM that exists has been mined.',
              '- Closed start. ' + CLOSED['summary'],
              f'- Block reward split, fixed for the whole schedule: {SPLIT}.',
@@ -572,6 +631,9 @@ def llms_txt():
               '', '## Official channels', '',
               f'- [X: {X_HANDLE}]({X_URL})',
               f'- [Source code and releases]({SOURCE})',
+              f'- [GitHub organization]({GITHUB})',
+              f'- [International Telegram]({TELEGRAM})',
+              f'- [German Telegram]({TELEGRAM_GERMAN})',
               f'- Email: {EMAIL}',
               '', '## Optional', '',
               f'- [Everything above in one file]({SITE}/llms-full.txt): the facts, the schedule and the questions and answers as plain Markdown',
@@ -592,7 +654,9 @@ def llms_full(home):
         out += ['', '## ' + heading, ''] + [markdown(p) + '\n' for p in paragraphs]
         out[-1] = out[-1].rstrip('\n')
     out += ['', '## Emission schedule', '',
-            'An era is the stretch between two halvings. Later eras continue the same halving.', '',
+            'An era is the stretch between two halvings. Later eras continue the same halving. '
+            'Issuance follows block height; calendar estimates use the target block time and are not live circulating supply. '
+            f'The interactive model is at {SITE}/#emission; the readable schedule and full rules are at {SITE}/network.', '',
             '| Era | Block heights | Block reward (SWM) | Issued in era (SWM) | Cumulative supply (SWM) |',
             '| --- | --- | --- | --- | --- |']
     out += [f'| {e["era"]} | {number(e["fromHeight"])} – {number(e["toHeight"])} | {number(e["reward"])} | '
@@ -628,6 +692,8 @@ def llms_full(home):
     out += [f'- [{title}]({SITE}{url}): {note}' for title, url, note in page_links()]
     out += ['', '## Official channels', '',
             f'- Website: {SITE}', f'- X: {X_URL} ({X_HANDLE})', f'- Source code and releases: {SOURCE}',
+            f'- GitHub organization: {GITHUB}', f'- International Telegram: {TELEGRAM}',
+            f'- German Telegram: {TELEGRAM_GERMAN}',
             f'- Email: {EMAIL}', '',
             'The project will never ask for recovery words, private keys or a payment. Nothing here is an offer, '
             'a solicitation or financial advice. SWM has no guaranteed value and can lose value, including all of it.', '']
@@ -683,7 +749,7 @@ def indexable():
         if rel.split('/')[0] in SKIP_DIRS or rel.startswith('.'):
             continue
         text = file.read_text(encoding='utf-8')
-        if not NOINDEX.search(text):
+        if not NOINDEX.search(text) and url_of(rel) not in UNPUBLISHED:
             found[url_of(rel)] = text
     found['/what-is-swarm'] = what_page()
     ordered = {url: found.pop(url) for url in PAGES if url in found}

@@ -3,3 +3,8 @@ _review
 README.md
 .env*
 server
+
+# Founder history remains unpublished until supplied and reviewed.
+history
+data/history.json
+components

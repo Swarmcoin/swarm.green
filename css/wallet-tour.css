@@ -1,0 +1,11 @@
+/* Unmodified app captures share one fixed frame; no website UI is drawn over them. */
+.wt{min-width:0;width:100%;margin:0;color:#f5efe4;font-family:Manrope,Arial,sans-serif}
+.wt-shell{overflow:hidden;border:1px solid #ffb02036;border-radius:12px;background:#100e0b;box-shadow:0 22px 65px #0005,0 0 50px #ff8a1f07;pointer-events:none;user-select:none}
+.wt-stage{position:relative;width:100%;aspect-ratio:1350/880;overflow:hidden;background:#100e0b}
+body.redesign .wt .wt-frame{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none;margin:0;padding:0;border:0;border-radius:0;object-fit:contain;opacity:0;transition:opacity .4s ease;pointer-events:none}
+body.redesign .wt .wt-frame.is-active{opacity:1}
+.wt figcaption{font-size:11px!important;line-height:1.75!important;margin-top:13px;color:#bbaa90}
+.wt-caption-detail{display:block;color:#948570;font-size:10px;letter-spacing:.025em}
+.wt[data-wt-playing=false] .wt-frame,html[data-swarm-motion=paused] .wt-frame{transition:none!important}
+@media(max-width:480px){.wt-shell{border-radius:7px}.wt figcaption{font-size:12px!important}.wt-caption-detail{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.wt .wt-frame{transition:none!important}}

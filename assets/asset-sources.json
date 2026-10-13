@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/venues/uniswap.svg",
+      "name": "Uniswap",
+      "source": "https://github.com/Uniswap/brand-assets/blob/1d829912a8b1c154b700984f88baa83142ee1a1b/Uniswap%20Brand%20Assets/Uniswap_icon_white.svg",
+      "retrievedOn": "2026-10-13",
+      "originalSHA256": "18ffd691a7dc988e0282d8b177524edf4d2b6a5eaf175a1c428e0fd9c9b613b2",
+      "assetSHA256": "18ffd691a7dc988e0282d8b177524edf4d2b6a5eaf175a1c428e0fd9c9b613b2",
+      "transformation": "None; exact original official SVG bytes.",
+      "svgViewBox": "0 0 400 434",
+      "geometryVerified": true
+    },
+    {
+      "path": "assets/venues/pancakeswap.svg",
+      "name": "PancakeSwap",
+      "source": "https://github.com/pancakeswap/pancake-toolkit/blob/c10725f19f76c3d06af7bfe11c89d076a2bfcaa1/packages/pancake-uikit/src/components/Svg/Icons/Logo.tsx",
+      "retrievedOn": "2026-10-13",
+      "originalSHA256": "20723baecc618839c56362835ff46c82d661ea5834f08de879ce04d22eda589d",
+      "assetSHA256": "1359468beca6992737f4c448d488548b73148d81a8e9eb33576a53a6b60b81ab",
+      "transformation": "Extracted official Svg component into standalone SVG, removed React props and normalized fillRule/clipRule attribute names. All paths, viewBox and colors unchanged.",
+      "svgViewBox": "0 0 198 199",
+      "geometryVerified": true
+    },
+    {
+      "path": "assets/venues/raydium.svg",
+      "name": "Raydium",
+      "source": "https://github.com/raydium-io/raydium-frontend/blob/db05e4b621a45681831fa36f68d0b49ccb8893f9/public/logo/logo-only-icon.svg",
+      "retrievedOn": "2026-10-13",
+      "originalSHA256": "545697d3919b47403acd6b623bfeb1be65fcf466c200c9a4d1d93de4b51a6733",
+      "assetSHA256": "545697d3919b47403acd6b623bfeb1be65fcf466c200c9a4d1d93de4b51a6733",
+      "transformation": "None; exact original official SVG bytes.",
+      "svgViewBox": "0 0 40 40",
+      "geometryVerified": true
+    },
+    {
+      "path": "assets/wallet-screenshot.png",
+      "name": "SWARM Wallet development preview",
+      "source": "SWARM Wallet development harness, price-display review, 2026-10-05",
+      "fixtureSource": "https://github.com/Swarmcoin/privacy-wallet/blob/a3f2d1e49ba6573919becd93627600564d74663b/src/devHarness/mockAppState.ts",
+      "assetSHA256": "cca7387f86812c5f3c53ed9fae5f97b06cad2abfb9535a95f62beebb1cec5f38",
+      "transformation": "Unmodified screenshot of actual application development UI. No generated or redrawn UI.",
+      "captionRequired": "SWARM Wallet development preview · demo balances and transactions",
+      "privacyReview": "Inspected visually. Wallet label, balances, transfers and shortened addresses match explicitly invented development fixtures; no recovery phrase, private key, email or real user account data.",
+      "versionNote": "Historical development screenshot from 5 October 2026; not proof of current release version, live balance or live price."
+    }
+  ],
+  "presentation": "Official exchange SVG paths are unchanged. The V2 website applies a CSS honey-color filter and hexagon framing as requested; these marks remain third-party identities, not SWARM products."
+}

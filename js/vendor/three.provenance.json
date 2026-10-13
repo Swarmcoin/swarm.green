@@ -1,0 +1,42 @@
+{
+  "name": "three",
+  "version": "0.180.0",
+  "license": "MIT",
+  "source": "https://github.com/mrdoob/three.js/tree/r180",
+  "npm": "https://registry.npmjs.org/three/-/three-0.180.0.tgz",
+  "npmIntegrity": "sha512-o+qycAMZrh+TsE01GqWUxUIKR1AL0S8pq7zDkYOQw8GqfX8b8VoCKYUoHbhiX5j+7hr8XsuHDVU6+gkQJQKg9w==",
+  "integrityVerified": true,
+  "runtimeExternalRequests": false,
+  "files": {
+    "three.module.min.js": {
+      "bytes": 338908,
+      "sha256": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6"
+    },
+    "three.core.min.js": {
+      "bytes": 381124,
+      "sha256": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+    },
+    "three.LICENSE": {
+      "bytes": 1081,
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    }
+  },
+  "gltf_addons": [
+    {
+      "file": "GLTFLoader.js",
+      "upstream": "https://raw.githubusercontent.com/mrdoob/three.js/r180/examples/jsm/loaders/GLTFLoader.js",
+      "upstream_sha256": "67ac5551fdafa6e349bd80c8f8e5e39c136d6b2fb1ad647db9abb21dc86f9e4a",
+      "local_sha256": "30531ae54b775554ef082d5e7621db4b04511c05b95b7aa5c539db5cbb7698ad",
+      "changes": "Import specifiers rewritten to same-directory local Three.js r180 modules only.",
+      "license": "MIT; see three.LICENSE"
+    },
+    {
+      "file": "BufferGeometryUtils.js",
+      "upstream": "https://raw.githubusercontent.com/mrdoob/three.js/r180/examples/jsm/utils/BufferGeometryUtils.js",
+      "upstream_sha256": "fda7e946b8e0b5ab39b779206589e7a1079a22eb24efb89d7223e03fdfb1f751",
+      "local_sha256": "018b6ec0dcbbaea7d68b02d8d1162ab37783b9dbd4cc85fdbc35506690a993ea",
+      "changes": "Import specifiers rewritten to same-directory local Three.js r180 modules only.",
+      "license": "MIT; see three.LICENSE"
+    }
+  ]
+}

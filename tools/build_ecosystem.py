@@ -25,6 +25,7 @@ import re
 import sys
 
 import seo
+import redesign_shell
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = json.loads((ROOT / 'data/downloads.json').read_text(encoding='utf-8'))
@@ -649,6 +650,12 @@ def hub():
 
 def outputs():
     index = (ROOT / 'index.html').read_text(encoding='utf-8')
+    if 'class="redesign' in index:
+        # Homepage product storytelling is editorial; downloads remain data driven.
+        yield 'ecosystem/index.html', hub()
+        for key in ['wallet', 'messenger', 'browser']:
+            yield f'ecosystem/{key}/index.html', product(key)
+        return
     if index.count(MARK_START) != 1 or index.count(MARK_END) != 1:
         sys.exit('index.html must carry exactly one ' + MARK_START + ' and one ' + MARK_END)
     head, rest = index.split(MARK_START, 1)
@@ -663,6 +670,8 @@ if __name__ == '__main__':
     stale = []
     for path, content in outputs():
         content = seo.decorate(path, content)  # search title, description, structured data
+        if path not in redesign_shell.EDITORIAL:
+            content = redesign_shell.decorate(content)
         target = ROOT / path
         if '--check' in sys.argv:
             if not target.exists() or target.read_text(encoding='utf-8') != content:

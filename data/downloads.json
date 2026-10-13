@@ -17,10 +17,10 @@
     "releasesUrl": "https://github.com/Swarmcoin/swarm-releases",
     "releasesLabel": "All mainnet downloads and checksums: github.com/Swarmcoin/swarm-releases",
     "unsignedNotice": "Unsigned build — your system will warn. Check the SHA-256.",
-    "macosNotice": "SWARM Wallet for macOS is signed and notarized. It is one app for Apple silicon and Intel.",
+    "macosNotice": "Current SWARM Wallet builds for macOS are unsigned and not notarized. Choose the build for your Mac: Apple silicon or Intel. Read the installation notes and verify the SHA-256.",
     "walletUpdate": {
-      "title": "SWARM Wallet 0.1.0-mainnet.10",
-      "text": "SWARM Wallet 0.1.0-mainnet.10 is the current version for Windows, macOS and Linux. Earlier versions (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to the network: install the current version over the old one. Your addresses and recovery phrase stay the same.",
+      "title": "SWARM Wallet 0.1.0-mainnet.11",
+      "text": "SWARM Wallet 0.1.0-mainnet.11 is the current version for Windows, macOS and Linux. Earlier versions (desktop 0.1.0-mainnet.9 and older, Android 0.2.0-mainnet.4) no longer connect to the network: install the current version over the old one. Your addresses and recovery phrase stay the same.",
       "url": "",
       "label": "Read the release notes"
     },
@@ -36,7 +36,7 @@
       "termsUrl": "/wallet/terms",
       "note": "Hosted web wallet, added 2026-10-04 (owner). Rendered as a row in the wallet card (home page and /ecosystem) and as a band on /ecosystem/wallet. Never call it private, anonymous or secure; it is held by the SWARM server."
     },
-    "messengerNotice": "Unsigned build (0.1.1) — Windows SmartScreen and macOS Gatekeeper will warn. Check the SHA-256. Sign in with a new or existing 24-word phrase; there is no phone number."
+    "messengerNotice": "Unsigned build — Windows SmartScreen and macOS Gatekeeper will warn. Check the SHA-256. Sign in with a new or existing 24-word phrase; there is no phone number."
   },
   "products": [
     {

@@ -26,7 +26,7 @@
   "use strict";
 
   var URL_PRICE = "/data/swm-price.json";
-  var REFRESH_MS = 60 * 1000;
+  var REFRESH_MS = 30 * 1000;
   var MAX_AGE_S = 30 * 60;
   var TIMEOUT_MS = 8000;
   var DASH = "—";
@@ -79,8 +79,12 @@
       var root = roots[i];
       var v = root.querySelector("[data-swm-price-value]");
       var sr = root.querySelector("[data-swm-price-sr]");
+      var freshness = root.querySelector("[data-swm-price-status]");
       if (v && v.textContent !== value) v.textContent = value;
       if (sr && sr.textContent !== spoken) sr.textContent = spoken;
+      if (freshness) freshness.textContent = ok
+        ? (reading.source === "live" && ageNow() < 120 ? "Live" : "Last quote") + " · " + ago(ageNow())
+        : "Price unavailable";
       root.title = title;
       root.classList.toggle("is-live", !!ok && reading.source === "live");
       root.classList.toggle("is-stored", !!ok && reading.source !== "live");

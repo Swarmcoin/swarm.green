@@ -1,0 +1,31 @@
+{
+  "verified": "2026-10-13",
+  "assets": [
+    {
+      "file": "dexscreener.png",
+      "source": "https://dexscreener.com/favicon.png",
+      "sha256": "ee1f25fbadd1f2e17b78206f45335f357c81b79eaf41f4421769a4f2b6508942",
+      "transformation": "Source bytes unchanged; display-only warm CSS tint preserves shape."
+    },
+    {
+      "file": "dextools.png",
+      "source": "https://raw.githubusercontent.com/dextools-io/assets/66f548eb02cf44d67e7f5870aa027cf922366ac0/blockchains/ethereum/assets/0x26CE25148832C04f3d7F26F32478a9fe55197166/logo.png",
+      "sha256": "4907151e9c843ab724394ad5226f762ceaf3f26ead1c3fcc2d032cced20a6b50",
+      "transformation": "Source bytes unchanged; display-only warm CSS tint preserves shape."
+    },
+    {
+      "file": "geckoterminal.svg",
+      "source": "https://s.geckoterminal.com/_next/static/media/logo_symbol.4c86b28d.svg",
+      "sha256": "498a70ffe8a954d0b0762973ba2f825ea2da4aa8681b8943430853aa12c4c32a",
+      "transformation": "Source bytes unchanged; display-only warm CSS tint preserves shape."
+    }
+  ],
+  "listingVerification": {
+    "base": "Exact canonical32-byte SWM/ETH pool verified on primary GeckoTerminal and DEXScreener pages. No live figures are copied into trade page.",
+    "dextools": "Pool listing not confirmed; page provides search entry and canonical token address.",
+    "dextoolsRoutingEvidence": [
+      "https://www.dextools.io/app/main-5ZQL6VOD.js",
+      "https://www.dextools.io/app/chunk-WIE6PRGH.js"
+    ]
+  }
+}
