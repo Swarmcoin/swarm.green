@@ -1,7 +1,7 @@
 /* ==========================================================================
-   SWARM â€” SWM price in the header.
+   SWARM — SWM price in the header.
 
-   Fills the small "SWM $0.60 Â· on Base" reading that sits in the header of
+   Fills the small "SWM $0.60 · on Base" reading that sits in the header of
    every page (markup: .nav__price in index.html, tools/build_pages.py,
    support/index.html and the four Messenger link pages).
 
@@ -16,7 +16,7 @@
 
    Anything else (a network error, a 503, HTML instead of JSON, a paused
    price, a price older than 30 minutes, a value that is not a positive
-   number) shows a quiet "â€”" and never an error. The reading refreshes every
+   number) shows a quiet "—" and never an error. The reading refreshes every
    30 seconds, and only while the tab is visible.
 
    No inline styles: states are classes (.is-live, .is-stored), the rest is
@@ -29,7 +29,7 @@
   var REFRESH_MS = 30 * 1000;
   var MAX_AGE_S = 30 * 60;
   var TIMEOUT_MS = 8000;
-  var DASH = "â€”";
+  var DASH = "—";
 
   var roots = document.querySelectorAll("[data-swm-price]");
   if (!roots.length || typeof window.fetch !== "function") return;
@@ -81,7 +81,7 @@ function money(value, locale = 'en-US') {
     var ok = reading && ageNow() <= MAX_AGE_S;
     var value = ok ? "$" + reading.text : DASH;
     var title = ok
-      ? "SWM in US dollars on Base, from FUEL Â· updated " + ago(ageNow())
+      ? "SWM in US dollars on Base, from FUEL · updated " + ago(ageNow())
       : "SWM price on Base: not available right now";
     var spoken = ok
       ? "SWM price: " + reading.text + " US dollars on Base, updated " + ago(ageNow()) + "."
@@ -94,7 +94,7 @@ function money(value, locale = 'en-US') {
       if (v && v.textContent !== value) v.textContent = value;
       if (sr && sr.textContent !== spoken) sr.textContent = spoken;
       if (freshness) freshness.textContent = ok
-        ? (reading.source === "live" && ageNow() < 120 ? "Live" : "Last quote") + " Â· " + ago(ageNow())
+        ? (reading.source === "live" && ageNow() < 120 ? "Live" : "Last quote") + " · " + ago(ageNow())
         : "Price unavailable";
       root.title = title;
       root.classList.toggle("is-live", !!ok && reading.source === "live");
