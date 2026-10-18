@@ -1,7 +1,7 @@
 /* ==========================================================================
-   SWARM — SWM price in the header.
+   SWARM â€” SWM price in the header.
 
-   Fills the small "SWM $0.60 · on Base" reading that sits in the header of
+   Fills the small "SWM $0.60 Â· on Base" reading that sits in the header of
    every page (markup: .nav__price in index.html, tools/build_pages.py,
    support/index.html and the four Messenger link pages).
 
@@ -16,8 +16,8 @@
 
    Anything else (a network error, a 503, HTML instead of JSON, a paused
    price, a price older than 30 minutes, a value that is not a positive
-   number) shows a quiet "—" and never an error. The reading refreshes every
-   60 seconds, and only while the tab is visible.
+   number) shows a quiet "â€”" and never an error. The reading refreshes every
+   30 seconds, and only while the tab is visible.
 
    No inline styles: states are classes (.is-live, .is-stored), the rest is
    in css/site.css section 5b.
@@ -29,7 +29,7 @@
   var REFRESH_MS = 30 * 1000;
   var MAX_AGE_S = 30 * 60;
   var TIMEOUT_MS = 8000;
-  var DASH = "—";
+  var DASH = "â€”";
 
   var roots = document.querySelectorAll("[data-swm-price]");
   if (!roots.length || typeof window.fetch !== "function") return;
@@ -48,13 +48,24 @@
     return m === 1 ? "1 min ago" : m + " min ago";
   }
 
-  function money(n) {
-    if (n >= 1000) return n.toLocaleString("en-US", { maximumFractionDigits: 0 });
-    if (n >= 0.1) return n.toFixed(2);
-    /* Small prices keep three significant figures: 0.0123, not 0.01. */
-    var s = n.toPrecision(3);
-    return s.indexOf("e") === -1 ? s : n.toFixed(8).replace(/0+$/, "");
-  }
+  var DECIMAL = /^\d{1,20}(\.\d{1,18})?$/;
+function money(value, locale = 'en-US') {
+  value = String(value);
+  if (typeof value !== 'string' || !DECIMAL.test(value) || Number(value) <= 0) return null;
+  const [whole, fraction = ''] = value.split('.');
+  const units = BigInt(whole + fraction), scale = fraction.length;
+  let places = units >= 10n ** BigInt(scale) ? 2 : scale - units.toString().length + 4;
+  const rounded = (digits) => scale <= digits ? units * 10n ** BigInt(digits - scale)
+    : (units + 10n ** BigInt(scale - digits) / 2n) / 10n ** BigInt(scale - digits);
+  let result = rounded(places);
+  if (places > 2 && result.toString().length > 4) result = rounded(--places);
+  if (result >= 10n ** BigInt(places)) { places = 2; result = rounded(places); }
+  const text = result.toString().padStart(places + 1, '0');
+  const integer = places ? text.slice(0, -places) : text;
+  const decimal = new Intl.NumberFormat(locale).formatToParts(1.1).find(part => part.type === 'decimal')?.value ?? '.';
+  return BigInt(integer).toLocaleString(locale) + (places ? decimal + text.slice(-places) : '');
+}
+
 
   function nowS() {
     return (window.performance && performance.now ? performance.now() : Date.now()) / 1000;
@@ -70,7 +81,7 @@
     var ok = reading && ageNow() <= MAX_AGE_S;
     var value = ok ? "$" + reading.text : DASH;
     var title = ok
-      ? "SWM in US dollars on Base, from FUEL · updated " + ago(ageNow())
+      ? "SWM in US dollars on Base, from FUEL Â· updated " + ago(ageNow())
       : "SWM price on Base: not available right now";
     var spoken = ok
       ? "SWM price: " + reading.text + " US dollars on Base, updated " + ago(ageNow()) + "."
@@ -83,7 +94,7 @@
       if (v && v.textContent !== value) v.textContent = value;
       if (sr && sr.textContent !== spoken) sr.textContent = spoken;
       if (freshness) freshness.textContent = ok
-        ? (reading.source === "live" && ageNow() < 120 ? "Live" : "Last quote") + " · " + ago(ageNow())
+        ? (reading.source === "live" && ageNow() < 120 ? "Live" : "Last quote") + " Â· " + ago(ageNow())
         : "Price unavailable";
       root.title = title;
       root.classList.toggle("is-live", !!ok && reading.source === "live");
@@ -96,7 +107,9 @@
     var d;
     try { d = JSON.parse(body); } catch (e) { return null; }
     if (!d || typeof d !== "object" || d.paused) return null;
-    var n = typeof d.swmUsd === "number" ? d.swmUsd : parseFloat(String(d.swmUsd));
+    var price = String(d.swmUsd);
+    if (!DECIMAL.test(price)) return null;
+    var n = Number(price);
     if (!isFinite(n) || n <= 0 || n > 1e9) return null;
     var age = Number(d.ageSeconds);
     if (!isFinite(age) || age < 0) {
@@ -107,7 +120,7 @@
       age = Math.max(0, (Date.now() - t) / 1000);
     }
     if (age > MAX_AGE_S) return null;
-    return { text: money(n), source: d.source === "live" ? "live" : "stored", age: age, at: nowS() };
+    return { text: money(price), source: d.source === "live" ? "live" : "stored", age: age, at: nowS() };
   }
 
   function load() {
