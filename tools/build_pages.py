@@ -226,7 +226,7 @@ def head(title, desc, path, og_title, og_desc):
 <link rel="stylesheet" href="/css/site.css?v=11">
 <script src="/js/boot.js?v=4"></script>
 <script src="/js/site.js?v=18" defer></script>
-<script src="/js/price.js?v=2" defer></script>
+<script src="/js/price.js?v=3" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MDDZNCW6P"></script>
 <script src="/js/analytics.js?v=2"></script>
 </head>
